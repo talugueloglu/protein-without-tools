@@ -35,6 +35,7 @@ stage1_image = (
         "transformers>=4.45.0",
         "accelerate>=0.34.0",
         "fair-esm==2.0.0",
+        "boltz>=2.0.0",
         "numpy>=1.26.0",
         "scipy>=1.12.0",
         "biopython>=1.84",

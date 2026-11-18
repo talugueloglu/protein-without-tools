@@ -162,7 +162,20 @@ def summarize_forward(
     for g in grades:
         m = meta_by_id[g.target_id]
         by_split[m["temporal_split"]].append(g)
+        if "stratum" in m:
+            by_split[m["stratum"]].append(g)
         by_split[f"{m['temporal_split']}__{m['size_bin']}"].append(g)
+        # Stratify by PDB vs AFDB similarity regimes!
+        pdb_sid = float(m.get("pdb_precutoff_seqid_max", 0.0))
+        af_sid = float(m.get("afdb_max_seqid", 0.0))
+        af_prob = float(m.get("afdb_foldseek_prob", 0.0))
+        if m["temporal_split"] == "post_cutoff":
+            if pdb_sid < 30.0 and af_sid < 30.0:
+                by_split["novel_to_BOTH_pdb_and_afdb"].append(g)
+            elif pdb_sid < 30.0 and af_sid >= 30.0:
+                by_split["pdb_novel_but_in_afdb"].append(g)
+            if af_prob < 0.50:
+                by_split["foldseek_afdb_struct_novel"].append(g)
         if m["pdb_id"] == "6MRR":
             by_split["anchor_6MRR"].append(g)
         if m["pdb_id"] == "37NT":
@@ -208,6 +221,15 @@ def summarize_inverse(
     for g in grades:
         m = meta_by_id[g.target_id]
         by_split[m["temporal_split"]].append(g)
+        if "stratum" in m:
+            by_split[m["stratum"]].append(g)
+        pdb_sid = float(m.get("pdb_precutoff_seqid_max", 0.0))
+        af_sid = float(m.get("afdb_max_seqid", 0.0))
+        if m["temporal_split"] == "post_cutoff":
+            if pdb_sid < 30.0 and af_sid < 30.0:
+                by_split["novel_to_BOTH_pdb_and_afdb"].append(g)
+            elif pdb_sid < 30.0 and af_sid >= 30.0:
+                by_split["pdb_novel_but_in_afdb"].append(g)
         if m["pdb_id"] == "37NT":
             by_split["anchor_37NT_domains"].append(g)
 

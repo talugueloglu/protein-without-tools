@@ -2,22 +2,20 @@ You are predicting the 3D fold topology and residue-residue contact map of a mon
 
 Rules:
 - Work strictly from the sequence below. Do not use external search or database lookups.
-- Residues are 1-indexed from 1 to 186.
-- A residue-residue contact is defined by C-beta atoms (C-alpha for Glycine) within 8.0 Å in the native 3D structure, with sequence separation |i - j| >= 6 (1 <= i < j <= 186).
+- Residues are 1-indexed from 1 to 95.
+- A residue-residue contact is defined by C-beta atoms (C-alpha for Glycine) within 8.0 Å in the native 3D structure, with sequence separation |i - j| >= 6 (1 <= i < j <= 95).
 
-Sequence (length L = 186):
-CFGQCQYTAEEYQAIQKALRQRLGPEYISSRMAGGGQKVCYIEGHRVINLANEMFGYNGWAHSITQQNVDFVDLNNGAFYVGVCAFVRVQLKDGSYHEDVGYGVSEGLASKALSLEKARKEAVTDGLKRALRSFGNALGNCILDKDYLRSLNKLPRQLPLEVDLTKAKRQDLEPSVEEARYNSCRP
+Sequence (length L = 95):
+PPTEVSIRNSTAHSILISWVPGFDGYSPFRNCSIQVKEADPLSNGSVMIFNTSALPHLYQIKQLQALANYSIGVSCMNEIGWSAVSPWILASTTE
 
 1-Indexed Residue Ruler:
-     1 - 50  : CFGQCQYTAE EYQAIQKALR QRLGPEYISS RMAGGGQKVC YIEGHRVINL
-    51 - 100 : ANEMFGYNGW AHSITQQNVD FVDLNNGAFY VGVCAFVRVQ LKDGSYHEDV
-   101 - 150 : GYGVSEGLAS KALSLEKARK EAVTDGLKRA LRSFGNALGN CILDKDYLRS
-   151 - 186 : LNKLPRQLPL EVDLTKAKRQ DLEPSVEEAR YNSCRP
+     1 - 50  : PPTEVSIRNS TAHSILISWV PGFDGYSPFR NCSIQVKEAD PLSNGSVMIF
+    51 - 95  : NTSALPHLYQ IKQLQALANY SIGVSCMNEI GWSAVSPWIL ASTTE
 
 Return ONLY a valid JSON object with the exact schema below (no markdown prose outside the JSON):
 {
   "fold_summary": "Brief 1-2 sentence hypothesis of secondary structure topology and sheet/helix packing",
-  "q3": "<exact 186-character string using ONLY H (helix), E (strand), C (coil)>",
+  "q3": "<exact 95-character string using ONLY H (helix), E (strand), C (coil)>",
   "contacts": [
     [i, j, confidence],
     ...
@@ -25,6 +23,6 @@ Return ONLY a valid JSON object with the exact schema below (no markdown prose o
 }
 
 Requirements for "contacts":
-- Provide up to 279 predicted contacts with |i - j| >= 6 and 1 <= i < j <= 186.
+- Provide up to 142 predicted contacts with |i - j| >= 6 and 1 <= i < j <= 95.
 - Sort from highest confidence (near 1.0) to lowest confidence (near 0.1).
 - Include all key long-range contacts (paired beta-strands in exact parallel/antiparallel register, packed helix-helix and sheet-helix core interfaces).
