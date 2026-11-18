@@ -1,0 +1,28 @@
+You are predicting the 3D fold topology and residue-residue contact map of a monomeric protein from its primary amino acid sequence alone.
+
+Rules:
+- Work strictly from the sequence below. Do not use external search or database lookups.
+- Residues are 1-indexed from 1 to 76.
+- A residue-residue contact is defined by C-beta atoms (C-alpha for Glycine) within 8.0 Å in the native 3D structure, with sequence separation |i - j| >= 6 (1 <= i < j <= 76).
+
+Sequence (length L = 76):
+MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG
+
+1-Indexed Residue Ruler:
+     1 - 50  : MQIFVKTLTG KTITLEVEPS DTIENVKAKI QDKEGIPPDQ QRLIFAGKQL
+    51 - 76  : EDGRTLSDYN IQKESTLHLV LRLRGG
+
+Return ONLY a valid JSON object with the exact schema below (no markdown prose outside the JSON):
+{
+  "fold_summary": "Brief 1-2 sentence hypothesis of secondary structure topology and sheet/helix packing",
+  "q3": "<exact 76-character string using ONLY H (helix), E (strand), C (coil)>",
+  "contacts": [
+    [i, j, confidence],
+    ...
+  ]
+}
+
+Requirements for "contacts":
+- Provide up to 114 predicted contacts with |i - j| >= 6 and 1 <= i < j <= 76.
+- Sort from highest confidence (near 1.0) to lowest confidence (near 0.1).
+- Include all key long-range contacts (paired beta-strands in exact parallel/antiparallel register, packed helix-helix and sheet-helix core interfaces).

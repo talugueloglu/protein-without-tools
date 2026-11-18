@@ -1,0 +1,16 @@
+# Virtual environments & caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Secrets (NEVER commit)
+.env
+.env.local
+
+# Large raw PDB downloads / temporary caches (metadata & curated splits are tracked)
+data/raw_pdb_cache/
+outputs/api_cache/
+outputs/results/reconstructed_pdbs/
+outputs/figures/stage1_interactive_3d.html
