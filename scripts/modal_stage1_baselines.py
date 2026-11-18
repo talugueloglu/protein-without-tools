@@ -208,6 +208,108 @@ def run_specialist_stage1_gpu(targets_payload: List[Dict[str, Any]]) -> Dict[str
 @app.function(
     image=stage1_image,
     gpu="L40S",
+    timeout=2400,
+    volumes={"/cache": weights_vol},
+)
+def run_boltz2_af3_gpu(targets_payload: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Run Boltz-2 (open-weights AF3 diffusion architecture, single-sequence mode) on all Stage 1 targets."""
+    import os
+    import subprocess
+    import tempfile
+    import numpy as np
+    from Bio.PDB import MMCIFParser, PDBIO, PDBParser
+
+    os.environ["BOLTZ_CACHE"] = "/cache/boltz"
+    Path("/cache/boltz").mkdir(parents=True, exist_ok=True)
+
+    out_rows: List[Dict[str, Any]] = []
+    with tempfile.TemporaryDirectory() as tmpd:
+        in_dir = Path(tmpd) / "inputs"
+        out_dir = Path(tmpd) / "boltz_out"
+        in_dir.mkdir()
+        out_dir.mkdir()
+
+        for item in targets_payload:
+            tid = item["target_id"]
+            seq = item["sequence"]
+            # Boltz single-sequence YAML (empty MSA = pure pLM/diffusion prior without server dependency)
+            yaml_txt = (
+                "version: 1\n"
+                "sequences:\n"
+                "  - protein:\n"
+                "      id: A\n"
+                f"      sequence: {seq}\n"
+                "      msa: empty\n"
+            )
+            (in_dir / f"{tid}.yaml").write_text(yaml_txt, encoding="utf-8")
+
+        subprocess.run(
+            [
+                "boltz",
+                "predict",
+                str(in_dir),
+                "--out_dir",
+                str(out_dir),
+                "--cache",
+                "/cache/boltz",
+                "--recycling_steps",
+                "3",
+                "--diffusion_samples",
+                "1",
+                "--output_format",
+                "pdb",
+            ],
+            check=True,
+        )
+
+        pdb_parser = PDBParser(QUIET=True)
+        cif_parser = MMCIFParser(QUIET=True)
+        for item in targets_payload:
+            tid = item["target_id"]
+            matches = list(out_dir.rglob(f"{tid}_model_0.pdb")) + list(out_dir.rglob(f"{tid}_model_0.cif"))
+            if not matches:
+                continue
+            pred_file = matches[0]
+            if pred_file.suffix == ".cif":
+                st = cif_parser.get_structure(tid, str(pred_file))
+                io_obj = PDBIO()
+                io_obj.set_structure(st)
+                tmp_pdb = Path(tmpd) / f"{tid}_conv.pdb"
+                io_obj.save(str(tmp_pdb))
+                pdb_text = tmp_pdb.read_text(encoding="utf-8")
+            else:
+                st = pdb_parser.get_structure(tid, str(pred_file))
+                pdb_text = pred_file.read_text(encoding="utf-8")
+
+            cas, plddts = [], []
+            for model in st:
+                for chain in model:
+                    for res in chain:
+                        if "CA" in res:
+                            ca_atom = res["CA"]
+                            cas.append([float(x) for x in ca_atom.get_coord()])
+                            plddts.append(float(ca_atom.get_bfactor()))
+                break
+            mean_plddt = float(np.mean(plddts)) if plddts else 0.0
+            if mean_plddt <= 1.05:
+                mean_plddt *= 100.0
+            out_rows.append(
+                {
+                    "target_id": tid,
+                    "length": len(cas),
+                    "boltz_ca": cas,
+                    "boltz_plddt": round(mean_plddt, 2),
+                    "boltz_pdb": pdb_text,
+                }
+            )
+
+    weights_vol.commit()
+    return out_rows
+
+
+@app.function(
+    image=stage1_image,
+    gpu="L40S",
     timeout=1800,
     volumes={"/cache": weights_vol},
 )
@@ -344,6 +446,46 @@ def main(mode: str = "baselines", data_dir: str = "data/stage1_benchmark", pred_
             "\n".join(json.dumps(x) for x in mpnn_out) + "\n", encoding="utf-8"
         )
         print("Saved ESMFold, ESM-2, and ProteinMPNN specialist outputs to outputs/predictions/.")
+
+    if mode in ("boltz-af3", "all"):
+        print(f"Dispatching {len(payload)} Stage 1 targets to Modal L40S Boltz-2 (AF3-architecture) predictor...")
+        boltz_rows = run_boltz2_af3_gpu.remote(payload)
+        af3_dir = ddir / "af3_boltz_structures"
+        af3_dir.mkdir(parents=True, exist_ok=True)
+        boltz_out = []
+        for row in boltz_rows:
+            tid = row["target_id"]
+            pred_ca = np.array(row["boltz_ca"], dtype=np.float64)
+            if pred_ca.shape[0] != gt_ca_map[tid].shape[0]:
+                continue
+            (af3_dir / f"{tid}.pdb").write_text(row["boltz_pdb"], encoding="utf-8")
+            sup = evaluate_3d_superposition(pred_ca, gt_ca_map[tid])
+            d_ca = np.linalg.norm(pred_ca[:, None, :] - pred_ca[None, :, :], axis=-1)
+            L = pred_ca.shape[0]
+            pairs24 = [(i, j, d_ca[i, j]) for i in range(L) for j in range(i + 24, L)]
+            pairs24.sort(key=lambda t: t[2])
+            top_l = pairs24[:L]
+            p_l_24 = (
+                float(np.mean([1.0 if gt_cb_dist_map[tid][i, j] < 8.0 else 0.0 for (i, j, _) in top_l]))
+                if top_l
+                else 0.0
+            )
+            boltz_out.append(
+                {
+                    "target_id": tid,
+                    "task": "stage1a_forward_folding",
+                    "length": L,
+                    "precomputed_tm_score": round(sup.tm_score, 4),
+                    "precomputed_rmsd_ca": round(sup.rmsd_global, 3),
+                    "precomputed_lddt_ca": round(sup.lddt_ca, 4),
+                    "p_at_l_sep24": round(p_l_24, 4),
+                    "boltz_plddt": row["boltz_plddt"],
+                }
+            )
+        (pdir / "specialist_boltz2_af3_stage1a.jsonl").write_text(
+            "\n".join(json.dumps(x) for x in boltz_out) + "\n", encoding="utf-8"
+        )
+        print(f"Saved {len(boltz_out)} Boltz-2 (AF3) structures -> {af3_dir} & predictions/.")
 
     if mode in ("refold-stage1b", "all"):
         # Refold any LLM `*_stage1b.jsonl` file that doesn't yet have `sc_tm_score`
