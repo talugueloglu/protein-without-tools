@@ -1,0 +1,18 @@
+You are performing a quantitative in-silico Alanine Scan (`X -> A`) on an anonymized single-domain protein of length L = 43 residues.
+
+Sequence (1-indexed, length 43):
+RKWEEIAERLREEFNINPEEAREAVEKAGGNEEEARRIVKKRL
+
+Task:
+Predict the biophysical effect of mutating EACH of the 38 non-Alanine positions (starting with 1R->A, 2K->A, 3W->A, 4E->A, 5E->A, 6I->A, ... across all 38 assayed positions) to Alanine (`A`).
+
+For every assayed 1-indexed position `pos` (with wild-type residue `wt`), output two numbers:
+  1. `ddg`: Predicted folding stability change ΔΔG_fold = ΔG(Ala) - ΔG(WT) in kcal/mol (positive = destabilizing to the 3D fold, e.g. +2.5 for a buried core hydrophobic cavity; ~0.0 for a solvent-exposed neutral site; negative = stabilizing).
+  2. `func_loss`: Predicted overall loss of biological activity / fitness in [0.0, 1.0] (0.0 = wild-type/neutral, 1.0 = severe loss of folding stability, catalysis, or binding).
+
+Assayed 1-indexed positions (38 total):
+[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25, 26, 27, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43]
+
+Return ONLY a single compact JSON object with exact schema:
+{"scan": [[pos, "WT", ddg, func_loss], ...]}
+Include all 38 listed positions in ascending order with no markdown commentary outside JSON.

@@ -100,7 +100,7 @@ def main() -> None:
     ax2.set_title("C. Pure 3D Structural Similarity: PDB TM vs. AFDB TM", fontweight="bold", loc="left")
     ax2.legend(frameon=True, facecolor="#f8fafc", edgecolor="#e2e8f0", fontsize=7.6, loc="lower right")
 
-    fig.suptitle("Stage 1 True 3D Structural Similarity Audit (Foldseek TM-align Mode, N = 81)", fontsize=13, fontweight="bold", y=1.02)
+    fig.suptitle(f"Stage 1 True 3D Structural Similarity Audit (Foldseek TM-align Mode, N = {len(targets)})", fontsize=13, fontweight="bold", y=1.02)
     fig.tight_layout()
     fig.savefig(out_art, bbox_inches="tight", dpi=180)
     fig.savefig(out_repo, bbox_inches="tight", dpi=180)

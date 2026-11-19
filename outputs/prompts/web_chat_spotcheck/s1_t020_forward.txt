@@ -2,23 +2,22 @@ You are predicting the 3D fold topology and residue-residue contact map of a mon
 
 Rules:
 - Work strictly from the sequence below. Do not use external search or database lookups.
-- Residues are 1-indexed from 1 to 207.
-- A residue-residue contact is defined by C-beta atoms (C-alpha for Glycine) within 8.0 Å in the native 3D structure, with sequence separation |i - j| >= 6 (1 <= i < j <= 207).
+- Residues are 1-indexed from 1 to 169.
+- A residue-residue contact is defined by C-beta atoms (C-alpha for Glycine) within 8.0 Å in the native 3D structure, with sequence separation |i - j| >= 6 (1 <= i < j <= 169).
 
-Sequence (length L = 207):
-MRLWGHFHARSREEARRAVRLAKLAGFDGILVHGSTPEVVAEATRVIKEETDLPVIAEISGGVEKAREARAKTDADEVVAETNSLEEALQLVREGAVDAVDLHNALKRYSLEEVVEMVRAIKAAGGRVFLEVDTGPGGATLEEVLEAIRASGGAIEGVHTHDATPEVIAALREAGVKEIFVSLPETEEEARRLGELARSAWSHPQFE
+Sequence (length L = 169):
+TEEEVKEALKEAEKDPARAEELVDQLVELHQQAHVDYVVSLFDDPEVQEEIRRNSEIDVERAITRITISDEIYAKLPPELQERLDLLKEAGETLGRSPDPRARELFVEVESQAVVDALKRWPISEREKNIAIAYLVKKAVEEGKEDLLPIYAAKDERLQVAVKTIKSML
 
 1-Indexed Residue Ruler:
-     1 - 50  : MRLWGHFHAR SREEARRAVR LAKLAGFDGI LVHGSTPEVV AEATRVIKEE
-    51 - 100 : TDLPVIAEIS GGVEKAREAR AKTDADEVVA ETNSLEEALQ LVREGAVDAV
-   101 - 150 : DLHNALKRYS LEEVVEMVRA IKAAGGRVFL EVDTGPGGAT LEEVLEAIRA
-   151 - 200 : SGGAIEGVHT HDATPEVIAA LREAGVKEIF VSLPETEEEA RRLGELARSA
-   201 - 207 : WSHPQFE
+     1 - 50  : TEEEVKEALK EAEKDPARAE ELVDQLVELH QQAHVDYVVS LFDDPEVQEE
+    51 - 100 : IRRNSEIDVE RAITRITISD EIYAKLPPEL QERLDLLKEA GETLGRSPDP
+   101 - 150 : RARELFVEVE SQAVVDALKR WPISEREKNI AIAYLVKKAV EEGKEDLLPI
+   151 - 169 : YAAKDERLQV AVKTIKSML
 
 Return ONLY a valid JSON object with the exact schema below (no markdown prose outside the JSON):
 {
   "fold_summary": "Brief 1-2 sentence hypothesis of secondary structure topology and sheet/helix packing",
-  "q3": "<exact 207-character string using ONLY H (helix), E (strand), C (coil)>",
+  "q3": "<exact 169-character string using ONLY H (helix), E (strand), C (coil)>",
   "contacts": [
     [i, j, confidence],
     ...
@@ -26,6 +25,6 @@ Return ONLY a valid JSON object with the exact schema below (no markdown prose o
 }
 
 Requirements for "contacts":
-- Provide up to 310 predicted contacts with |i - j| >= 6 and 1 <= i < j <= 207.
+- Provide up to 254 predicted contacts with |i - j| >= 6 and 1 <= i < j <= 169.
 - Sort from highest confidence (near 1.0) to lowest confidence (near 0.1).
 - Include all key long-range contacts (paired beta-strands in exact parallel/antiparallel register, packed helix-helix and sheet-helix core interfaces).
