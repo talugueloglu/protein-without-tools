@@ -1,0 +1,16 @@
+You are competing in a CAFA-style blind protein function prediction benchmark.
+
+Anonymized Query Protein Sequence (length 486):
+MLPFTPQVVKRLLALKKGNEDNSVEGKWSEKAVKNLVKKIKKNSQLEELERAISTQNCQTRCVTVPRSKPAPAGEHLRKGLPHVIYCRLWRWPDLQSQNELKPLDHCEYAFHLRKEEICINPYHYKKIELSILVPKSLPTPPDSIVDYPLDNHTHQIPNNTDYNAAIIRSASLSPPQYMELGGAGPVSVSSSASSTPATAAGGGGGPSSSSSSSSSAASAYQQQQQQLSFGQNMDSQSSVLSVGSSIPNTGTPPPGYMSEDGDPIDPNDNMNMSRLTPPADAAPVMYHEPAFWCSISYYELNTRVGETFHASQPSITVDGFTDPSNSERFCLGLLSNVNRNEVVEQTRRHIGKGVRLYYIGGEVFAECLSDSSIFVQSPNCNQRYGWHPATVCKIPPGCNLKIFNNQEFAALLSQSVSQGFEAVYQLTRMCTIRMSFVKGWGAEYRRQTVTSTPCWIELHLNGPLQWLDRVLTQMGSPRLPCSSMS
+
+Task:
+Predict the experimental Gene Ontology (`GO`) functional annotations of this protein across all three aspects:
+  - `MF` (Molecular Function, e.g. catalytic activity, specific ligand/ion/nucleic-acid binding)
+  - `BP` (Biological Process, e.g. metabolic pathway, signaling, transport, DNA repair)
+  - `CC` (Cellular Component, e.g. plasma membrane, mitochondrion, cytosol, nucleus)
+
+Output up to 25 specific, informative `GO:XXXXXXX` terms total (avoiding trivial root terms), each with a calibrated confidence score in (0.0, 1.0].
+
+Return ONLY a single compact JSON object with exact schema:
+{"predictions": [["GO:0004672", 0.92, "protein kinase activity"], ...]}
+Include no text outside the JSON object.

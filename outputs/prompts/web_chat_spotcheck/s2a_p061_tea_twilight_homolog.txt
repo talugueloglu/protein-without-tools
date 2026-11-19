@@ -1,0 +1,14 @@
+You are evaluating protein remote homology and 3D fold superfamily membership from primary sequence alone.
+
+Protein A (length 217):
+MQVSQYLYQNAQSIWGDCISHPFVQGIGRGTLERDKFRFYIIQDYLYLLEYAKVFALGVVKACDEAVMREFSNAIQDILNNEMSIHNHYIRELQITQKELQNACPTLANKSYTSYMLAEGFKGSIKEVAAAVLSCGWSYLVIAQNLSQIPNALEHAFYGHWIKGYSSKEFQACVNWNINLLDSLTLASSKQEIEKLKEIFITTSEYEYLFWDMAYQS
+
+Protein B (length 199):
+ALTFAKRLKADTTAVHDSVDNLVMSVQPFVSKENYIKFLKLQSVFHKAVDHIYKDAELNKAIPELEYMARYDAVTQDLKDLGEEPYKFDKELPYEAGNKAIGWLYCAEGSNLGAAFLFKHAQKLDYNGEHGARHLAPHPDGRGKHWRAFVEHLNALNLTPEAEAEAIQGAREAFAFYKVVLRETFGLAADAEAPEGMMP
+
+Task:
+Determine whether Protein A and Protein B belong to the SAME evolutionary superfamily (sharing a homologous core 3D fold topology in SCOPe/ECOD, even if sequence identity is in the <15% twilight zone), or whether they adopt DIFFERENT, non-homologous 3D folds.
+
+Return ONLY a single compact JSON object with exact schema:
+{"same_superfamily": true_or_false, "probability": 0.0_to_1.0, "predicted_fold_class": "brief fold guess"}
+where `probability` is your calibrated confidence in [0.0, 1.0] that A and B share the same evolutionary superfamily.

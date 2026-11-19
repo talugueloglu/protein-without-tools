@@ -1,0 +1,210 @@
+{
+  "stage2a_remote_homology": {
+    "Foldseek_3Di_Structure": {
+      "n_pairs": 120,
+      "overall_auroc": 0.8111,
+      "overall_auprc": 1.0,
+      "fpr10_threshold": 0.0345,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.9167,
+          "recall_at_fpr10": 0.8333
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 1.0,
+          "recall_at_fpr10": 1.0
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.5167,
+          "recall_at_fpr10": 0.0333
+        }
+      }
+    },
+    "BLOSUM62_SmithWaterman": {
+      "n_pairs": 120,
+      "overall_auroc": 0.7543,
+      "overall_auprc": 0.922,
+      "fpr10_threshold": 0.169,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 1.0,
+          "recall_at_fpr10": 1.0
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.6972,
+          "recall_at_fpr10": 0.3
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.5656,
+          "recall_at_fpr10": 0.2333
+        }
+      }
+    },
+    "Baseline_AAComposition_Cosine": {
+      "n_pairs": 120,
+      "overall_auroc": 0.6337,
+      "overall_auprc": 0.8462,
+      "fpr10_threshold": 0.9616,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.7033,
+          "recall_at_fpr10": 0.4333
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.6011,
+          "recall_at_fpr10": 0.2667
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.5967,
+          "recall_at_fpr10": 0.2333
+        }
+      }
+    },
+    "Null_Random": {
+      "n_pairs": 120,
+      "overall_auroc": 0.443,
+      "overall_auprc": 0.7233,
+      "fpr10_threshold": 0.9538,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.4011,
+          "recall_at_fpr10": 0.0333
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.4478,
+          "recall_at_fpr10": 0.0333
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.48,
+          "recall_at_fpr10": 0.0667
+        }
+      }
+    }
+  },
+  "stage2b_cafa_function": {
+    "Oracle_GroundTruth": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 1.0,
+        "wfmax": 1.0,
+        "best_threshold": 0.02,
+        "coverage": 1.0
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 1.0,
+        "wfmax": 1.0,
+        "best_threshold": 0.02,
+        "coverage": 1.0
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 1.0,
+        "wfmax": 1.0,
+        "best_threshold": 0.02,
+        "coverage": 1.0
+      },
+      "macro_fmax": 1.0,
+      "macro_wfmax": 1.0
+    },
+    "CAFA_NaivePrior": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 0.2549,
+        "wfmax": 0.127,
+        "best_threshold": 0.14,
+        "coverage": 1.0
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 0.2448,
+        "wfmax": 0.1131,
+        "best_threshold": 0.28,
+        "coverage": 1.0
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 0.4675,
+        "wfmax": 0.3191,
+        "best_threshold": 0.3,
+        "coverage": 1.0
+      },
+      "macro_fmax": 0.3224,
+      "macro_wfmax": 0.1864
+    },
+    "CAFA_SequenceHomology_SW": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 0.4186,
+        "wfmax": 0.3571,
+        "best_threshold": 0.24,
+        "coverage": 0.5
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 0.1819,
+        "wfmax": 0.122,
+        "best_threshold": 0.02,
+        "coverage": 0.3889
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 0.3674,
+        "wfmax": 0.2731,
+        "best_threshold": 0.16,
+        "coverage": 0.5714
+      },
+      "macro_fmax": 0.3226,
+      "macro_wfmax": 0.2507
+    },
+    "Baseline_3mer_kNN": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 0.3162,
+        "wfmax": 0.2993,
+        "best_threshold": 0.16,
+        "coverage": 1.0
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 0.1497,
+        "wfmax": 0.0723,
+        "best_threshold": 0.1,
+        "coverage": 1.0
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 0.4676,
+        "wfmax": 0.3503,
+        "best_threshold": 0.24,
+        "coverage": 1.0
+      },
+      "macro_fmax": 0.3112,
+      "macro_wfmax": 0.2406
+    }
+  }
+}
