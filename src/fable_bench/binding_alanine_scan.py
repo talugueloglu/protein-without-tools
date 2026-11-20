@@ -1,14 +1,13 @@
-"""Binding Alanine Scan (`Chain A + Partner B -> Per-Residue X->Ala Binding Importance`).
+"""Test 6: Interface Binding Alanine Scan Ranking (`Chain A + Partner B -> Rank X->Ala Binding Hotspots`).
 
-Evaluates whether frontier LLMs (`claude-fable-5-2`, `opus-5-5`, `gpt-5.2`, `gemini-3.1-pro`)
-can predict how important each individual amino acid `i` on a protein is for **binding** to its
-partner (`ΔΔG_bind` / binding loss upon `WT_i -> Ala`) directly from the two anonymized sequences.
+Evaluates whether frontier LLMs (`claude-fable-5-2`, `opus-5-5`, `gpt-6.2`, `gemini-3.1-pro`)
+can **rank** a balanced `15–20` residue candidate panel of `X -> Ala` mutations on Protein A from
+**#1 (most critical binding hotspot — largest loss of binding affinity to Partner B)** down to
+**#K (most neutral non-interface site)** directly from the two anonymized sequences.
 
-Includes:
-  - Classic Bogan & Thorn (1998) `Trp/Tyr/Arg` 1D hotspot propensity baseline (`Baseline_BoganThorn_1D`),
-    demonstrating why `spearman_rho_aa_demeaned` + `binding_hotspot_auroc` cleanly separate true
-    sequence-to-interface understanding from 1D amino-acid lookup tables.
-  - Zero-leakage complex prompts & fault-tolerant JSON parsers.
+Includes matched **same-amino-acid neutral decoys** (e.g., interface `Tyr` vs. non-interface `Tyr`),
+so static 1D lookup tables (`Bogan & Thorn` `Trp/Tyr/Arg`) score **exact `0.000`** on
+`spearman_rho_aa_demeaned` and **exact `0.500`** (coin-flip) on `same_aa_win_rate`!
 """
 
 from __future__ import annotations
@@ -21,11 +20,16 @@ from typing import Any, Dict, List, Optional, Sequence
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
 
-from fable_bench.alanine_scan import binary_auroc
+from fable_bench.alanine_scan import (
+    binary_auroc,
+    compute_aa_demeaned_spearman,
+    compute_ndcg_at_k,
+    compute_same_aa_win_rate,
+    compute_topk_hotspot_precision,
+    parse_ranking_items_to_scores,
+)
 from fable_bench.pdb_utils import CANONICAL_AA_SET
 
-# Bogan & Thorn (1998) empirical interface binding hotspot propensity (`X -> Ala` mean ΔΔG_bind kcal/mol):
-# Trp, Tyr, and Arg are famously enriched at protein-protein binding hotspots!
 BOGAN_THORN_BINDING_HOTSPOT_SCALE: Dict[str, float] = {
     "W": 2.40,
     "Y": 2.10,
@@ -52,19 +56,18 @@ BOGAN_THORN_BINDING_HOTSPOT_SCALE: Dict[str, float] = {
 
 @dataclass
 class BindingAlanineTarget:
-    """Single protein-protein interaction target with wet-lab `X -> Ala` binding measurements on `scanned_sequence`."""
+    """Single protein–protein complex with a balanced candidate panel of `X -> Ala` binding mutations to rank."""
 
     target_id: str
-    category: str  # "skempi_biophysical_ddg" | "oncology_alphaseq_kd" | "ppi_binding_dms" | "post_may2026_mavedb_binding"
-    assay_type: str  # "spr_itc_ddg_kcal" | "alphaseq_delta_log10kd" | "binding_dms_loss"
+    category: str
+    assay_type: str
     scanned_sequence: str
     partner_sequence: str
     positions_1idx: List[int]
     wt_aas: List[str]
-    # Experimental binding loss upon `WT_i -> Ala` (oriented so HIGHER = MORE IMPORTANT FOR BINDING!)
     exp_binding_loss: List[float]
-    # Optional 3D crystal interface contact flags (`1` = Cβ < 8.0 A to partner in complex PDB, `0` = non-interface)
     is_interface_flags: Optional[List[int]] = None
+    panel_roles: Optional[List[str]] = None
 
 
 @dataclass
@@ -86,6 +89,9 @@ class BindingAlanineGrade:
     coverage: float
     spearman_rho: float
     pearson_r: float
+    ndcg_at_5: float
+    top_k_precision: float
+    same_aa_win_rate: float
     spearman_rho_aa_demeaned: float
     binding_hotspot_auroc: float
     interface_3d_auroc: Optional[float] = None
@@ -95,7 +101,7 @@ class BindingAlanineGrade:
 
 
 def build_binding_alanine_prompt(target: BindingAlanineTarget) -> str:
-    """Build a zero-leakage two-chain `X -> Ala` binding-importance prompt."""
+    """Build a zero-leakage two-chain `X -> Ala` binding-importance ranking prompt."""
     sa = target.scanned_sequence.strip().upper()
     sb = target.partner_sequence.strip().upper()
     for s in (sa, sb):
@@ -103,32 +109,33 @@ def build_binding_alanine_prompt(target: BindingAlanineTarget) -> str:
             raise ValueError(f"Non-canonical residue in {target.target_id}")
 
     n_mut = len(target.positions_1idx)
-    preview = ", ".join(f"{p}{sa[p - 1]}->A" for p in target.positions_1idx[:6])
+    mut_tokens = [f"{p}{sa[p - 1]}->A" for p in target.positions_1idx]
 
     prompt = (
-        f"You are performing a quantitative in-silico Binding Alanine Scan (`X -> A`) on a protein–protein complex.\n\n"
-        f"Scanned Protein A (1-indexed, length {len(sa)} AA — mutations are applied to THIS chain):\n"
+        f"You are performing an in-silico Interface Binding Alanine Scan Ranking (`X -> A`) on a protein–protein complex.\n\n"
+        f"Scanned Protein A (1-indexed, length {len(sa)} AA — candidate Alanine mutations are on THIS chain):\n"
         f"{sa}\n\n"
         f"Binding Partner Protein B (length {len(sb)} AA — wild-type binding partner):\n"
         f"{sb}\n\n"
+        f"Candidate Alanine Mutations on Protein A ({n_mut} total, listed in ascending sequence order):\n"
+        f"{json.dumps(mut_tokens)}\n\n"
         f"Task:\n"
-        f"Predict how important each of the {n_mut} listed non-Alanine residues on Protein A "
-        f"(starting with {preview}, ...) is for binding to Partner Protein B when mutated individually to Alanine (`A`).\n\n"
-        f"For every assayed 1-indexed position `pos` on Protein A (with wild-type amino acid `wt`), predict:\n"
-        f"  - `ddg_bind`: Predicted loss of binding affinity ΔΔG_bind = ΔG_bind(Ala) - ΔG_bind(WT) in kcal/mol "
-        f"(positive = weakens/disrupts binding, e.g. +2.5 to +4.5 for critical interface binding hotspot residues; "
-        f"~0.0 for non-interface surface residues that do not affect binding; negative = tighter binding).\n\n"
-        f"Assayed 1-indexed positions on Protein A ({n_mut} total):\n"
-        f"{json.dumps(target.positions_1idx)}\n\n"
+        f"Rank ALL {n_mut} candidate `X -> A` mutations on Protein A from **#1 (MOST critical binding hotspot — "
+        f"largest loss of binding affinity to Partner Protein B when mutated to Alanine)** down to "
+        f"**#{n_mut} (LEAST important for binding — neutral non-interface surface site or affinity-enhancing)**.\n"
+        f"Note: the panel mixes true binding hotspots with non-interface decoys of the same amino-acid types, "
+        f"so rank by whether each residue actually mediates binding to Partner B.\n\n"
         f"Return ONLY a single compact JSON object with exact schema:\n"
-        f'{{"binding_scan": [[pos, "WT", ddg_bind], ...]}}\n'
-        f"Include all {n_mut} positions in ascending order with no commentary outside JSON."
+        f'{{"ranking": ["{mut_tokens[0]}", "{mut_tokens[1]}", ...]}}\n'
+        f"ordered strictly from #1 (most critical for binding) to #{n_mut} (least important for binding), "
+        f"containing all {n_mut} mutations with no commentary outside JSON."
     )
     assert target.target_id not in prompt
     return prompt
 
 
 def parse_binding_alanine_response(raw_text: str, target: BindingAlanineTarget) -> BindingAlanineParsed:
+    """Parse EITHER ranked list `{"ranking": ["102Y->A", ...]}` OR continuous `{"binding_scan": [[pos, "WT", score], ...]}`."""
     n = len(target.positions_1idx)
     preds = np.zeros(n, dtype=np.float64)
     pos_map = {p: idx for idx, p in enumerate(target.positions_1idx)}
@@ -145,12 +152,29 @@ def parse_binding_alanine_response(raw_text: str, target: BindingAlanineTarget) 
         if i0 != -1 and i1 > i0:
             cleaned = cleaned[i0 : i1 + 1]
 
+    obj: Any = None
+    try:
+        obj = json.loads(cleaned)
+    except Exception:
+        obj = None
+
+    # 1. Primary path: Ranked list `{"ranking": [...]}`
+    if isinstance(obj, dict) and any(k in obj for k in ("ranking", "ranked_mutations", "ranked_positions", "order")):
+        r_list = obj.get("ranking") or obj.get("ranked_mutations") or obj.get("ranked_positions") or obj.get("order") or []
+        sc, n_m, wt_r = parse_ranking_items_to_scores(r_list, target.positions_1idx, target.wt_aas)
+        return BindingAlanineParsed(
+            pred_binding_loss=sc,
+            n_matched=n_m,
+            wt_match_rate=round(wt_r, 4),
+            parse_ok=(n_m >= max(4, int(0.5 * n))),
+        )
+
+    # 2. Secondary path: Continuous specialist / legacy tuples `{"binding_scan": [[pos, "WT", score], ...]}`
     matched = 0
     wt_ok = 0
     seen: set[int] = set()
 
-    try:
-        obj = json.loads(cleaned)
+    if isinstance(obj, dict):
         rows = obj.get("binding_scan") or obj.get("scan") or obj.get("predictions") or []
         for item in rows:
             if isinstance(item, (list, tuple)) and len(item) >= 3:
@@ -170,7 +194,15 @@ def parse_binding_alanine_response(raw_text: str, target: BindingAlanineTarget) 
                 matched += 1
                 if wt == target.wt_aas[idx]:
                     wt_ok += 1
-    except Exception:
+    elif isinstance(obj, list) and obj and isinstance(obj[0], (str, int)):
+        sc, n_m, wt_r = parse_ranking_items_to_scores(obj, target.positions_1idx, target.wt_aas)
+        return BindingAlanineParsed(sc, n_m, round(wt_r, 4), n_m >= max(4, int(0.5 * n)))
+    else:
+        tok_matches = re.findall(r"\b(\d+[A-Z]\s*(?:->|→)\s*A)\b", raw_text.upper())
+        if len(tok_matches) >= max(4, int(0.5 * n)):
+            sc, n_m, wt_r = parse_ranking_items_to_scores(tok_matches, target.positions_1idx, target.wt_aas)
+            return BindingAlanineParsed(sc, n_m, round(wt_r, 4), n_m >= max(4, int(0.5 * n)))
+
         for m in re.finditer(r"\[\s*(\d+)\s*,\s*\"?([A-Za-z])\"?\s*,\s*([-+]?\d*\.?\d+)", raw_text):
             p = int(m.group(1))
             wt = m.group(2).upper()
@@ -206,19 +238,6 @@ def _safe_pearson(x: np.ndarray, y: np.ndarray) -> float:
     return 0.0 if np.isnan(r) else round(r, 4)
 
 
-def demean_by_wt_aa(values: Sequence[float], wt_aas: Sequence[str]) -> np.ndarray:
-    arr = np.asarray(values, dtype=np.float64).copy()
-    sums: Dict[str, float] = {}
-    cnts: Dict[str, int] = {}
-    for v, aa in zip(arr, wt_aas):
-        sums[aa] = sums.get(aa, 0.0) + float(v)
-        cnts[aa] = cnts.get(aa, 0) + 1
-    means = {aa: sums[aa] / cnts[aa] for aa in sums}
-    for i, aa in enumerate(wt_aas):
-        arr[i] -= means[aa]
-    return arr
-
-
 def grade_binding_alanine_target(
     target: BindingAlanineTarget,
     parsed: BindingAlanineParsed,
@@ -230,23 +249,18 @@ def grade_binding_alanine_target(
 
     rho = _safe_spearman(y_pred, y_true) if parsed.parse_ok else 0.0
     pr = _safe_pearson(y_pred, y_true) if parsed.parse_ok else 0.0
+    ndcg5 = compute_ndcg_at_k(y_true, y_pred, k=5) if parsed.parse_ok else 0.0
+    topk_prec = compute_topk_hotspot_precision(y_true, y_pred) if parsed.parse_ok else 0.0
+    same_aa_win = compute_same_aa_win_rate(target.wt_aas, y_true, y_pred) if parsed.parse_ok else 0.5
+    rho_dm = compute_aa_demeaned_spearman(target.wt_aas, y_true, y_pred) if parsed.parse_ok else 0.0
 
-    # AA-demeaned context correlation: isolates interface vs non-interface instances of the SAME amino acid!
-    if parsed.parse_ok:
-        y_true_dm = demean_by_wt_aa(y_true, target.wt_aas)
-        y_pred_dm = demean_by_wt_aa(y_pred, target.wt_aas)
-        rho_dm = _safe_spearman(y_pred_dm, y_true_dm)
-    else:
-        rho_dm = 0.0
-
-    # Top-20% (or >= 1.0 kcal/mol for SPR/ITC) Binding Hotspot AUROC
     if target.assay_type == "spr_itc_ddg_kcal":
         hs_labels = [1 if v >= 1.0 else 0 for v in y_true]
         if sum(hs_labels) == 0 or sum(hs_labels) == n:
-            thresh = float(np.quantile(y_true, 0.78))
+            thresh = float(np.quantile(y_true, 0.72))
             hs_labels = [1 if v >= thresh else 0 for v in y_true]
     else:
-        thresh = float(np.quantile(y_true, 0.80))
+        thresh = float(np.quantile(y_true, 0.72))
         hs_labels = [1 if v >= thresh else 0 for v in y_true]
 
     hs_auc = (binary_auroc(hs_labels, y_pred) or 0.5) if parsed.parse_ok else 0.5
@@ -266,6 +280,9 @@ def grade_binding_alanine_target(
         coverage=round(cov, 4),
         spearman_rho=rho,
         pearson_r=pr,
+        ndcg_at_5=ndcg5,
+        top_k_precision=topk_prec,
+        same_aa_win_rate=same_aa_win,
         spearman_rho_aa_demeaned=rho_dm,
         binding_hotspot_auroc=round(float(hs_auc), 4),
         interface_3d_auroc=(round(float(iface_auc), 4) if iface_auc is not None else None),

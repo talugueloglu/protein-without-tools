@@ -1,0 +1,15 @@
+You are performing an in-silico Alanine Scan Ranking (`X -> A`) on an anonymized protein of length L = 320 residues.
+
+Sequence (1-indexed, length 320):
+MDSSAAPTNASNCTDALAYSSCSPAPSPGSWVNLSHLDGNLSDPCGPNRTDLGGRDSLCPPTGSPSMITAITIMALYSIVCVVGLFGNFLVMYVIVRYTKMKTATNIYIFNLALADALATSTLPFQSVNYLMGTWPFGTILCKIVISIDYYNMFTSIFTLCTMSVDRYIAVCHPVKALDFRTPRNAKIINVCNWILSSAIGLPVMFMATTKYRQGSIDCTLTFSHPTWYWENLLKICVFIFAFIMPVLIITVCYGLMILRLKSVRMLSGSKEKDRNLRRITRMVLVVVAVFIVCWTPIHIYVIIKALVTIPETTFQTVSW
+
+Candidate Alanine Mutations (18 total, listed in ascending sequence order):
+["9N->A", "24P->A", "58L->A", "82V->A", "94V->A", "109I->A", "111N->A", "157I->A", "166D->A", "179D->A", "184R->A", "194W->A", "198S->A", "204V->A", "230W->A", "269G->A", "297P->A", "319S->A"]
+
+Task:
+Rank ALL 18 candidate `X -> A` mutations from **#1 (MOST disruptive / critical hotspot — largest loss of 3D folding stability or biological activity when mutated to Alanine)** down to **#18 (LEAST disruptive — most neutral, surface-tolerated, or stabilizing)**.
+Note: the panel contains both buried/critical residues and neutral decoys of the same amino-acid types, so rank by 3D structural context rather than amino-acid identity alone.
+
+Return ONLY a single compact JSON object with exact schema:
+{"ranking": ["9N->A", "24P->A", ...]}
+ordered strictly from #1 (most disruptive) to #18 (most neutral), containing all 18 mutations with no commentary outside JSON.

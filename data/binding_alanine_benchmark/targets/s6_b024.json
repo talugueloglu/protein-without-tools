@@ -57,5 +57,57 @@
     0,
     1,
     1
+  ],
+  "panel_roles": [
+    "same_aa_decoy",
+    "moderate",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy"
+  ],
+  "full_positions_1idx": [
+    73,
+    74,
+    76,
+    78,
+    79,
+    81,
+    84,
+    85,
+    103,
+    190,
+    244
+  ],
+  "full_wt_aas": [
+    "Q",
+    "N",
+    "L",
+    "E",
+    "Y",
+    "P",
+    "E",
+    "K",
+    "M",
+    "V",
+    "M"
+  ],
+  "full_exp_binding_loss": [
+    0.515,
+    0.7955,
+    1.7215,
+    0.8347,
+    2.2348,
+    1.7215,
+    0.038,
+    2.1293,
+    2.5046,
+    0.038,
+    0.2765
   ]
 }

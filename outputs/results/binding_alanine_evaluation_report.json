@@ -1,7 +1,8 @@
 {
-  "benchmark": "Test 6: Interface Binding Alanine Scan (X -> Ala)",
+  "benchmark": "Test 6: Interface Binding Alanine Scan Ranking (X -> Ala)",
   "n_targets": 38,
-  "total_assayed_alanine_mutants": 2767,
+  "total_panel_candidates": 629,
+  "total_underlying_wetlab_alanine_mutants": 2767,
   "category_counts": {
     "skempi_biophysical_ddg": 26,
     "oncology_alphaseq_kd": 3,
@@ -12,92 +13,127 @@
   "models": {
     "Oracle_NoisyReplicate": {
       "n_targets": 38,
-      "mean_spearman_rho": 0.8365,
-      "mean_pearson_r": 0.9115,
-      "mean_spearman_rho_aa_demeaned": 0.8441,
-      "mean_binding_hotspot_auroc": 0.944,
-      "mean_interface_3d_auroc": 0.5738,
+      "mean_spearman_rho": 0.8879,
+      "mean_ndcg_at_5": 0.9575,
+      "mean_top_k_precision": 0.7917,
+      "mean_same_aa_win_rate": 0.9442,
+      "mean_spearman_rho_aa_demeaned": 0.8569,
+      "mean_binding_hotspot_auroc": 0.9677,
+      "mean_interface_3d_auroc": 0.5604,
       "by_category": {
         "skempi_biophysical_ddg": {
           "n": 26,
-          "mean_spearman_rho": 0.8653,
-          "mean_spearman_rho_aa_demeaned": 0.8691,
-          "mean_binding_hotspot_auroc": 0.9593
+          "mean_spearman_rho": 0.8889,
+          "mean_ndcg_at_5": 0.9558,
+          "mean_top_k_precision": 0.8032,
+          "mean_same_aa_win_rate": 0.9405,
+          "mean_spearman_rho_aa_demeaned": 0.8336,
+          "mean_binding_hotspot_auroc": 0.9765
         },
         "oncology_alphaseq_kd": {
           "n": 3,
-          "mean_spearman_rho": 0.8607,
-          "mean_spearman_rho_aa_demeaned": 0.8714,
-          "mean_binding_hotspot_auroc": 0.9231
+          "mean_spearman_rho": 0.9085,
+          "mean_ndcg_at_5": 0.9667,
+          "mean_top_k_precision": 0.8,
+          "mean_same_aa_win_rate": 0.9188,
+          "mean_spearman_rho_aa_demeaned": 0.8766,
+          "mean_binding_hotspot_auroc": 0.9436
         },
         "ppi_binding_dms": {
           "n": 5,
-          "mean_spearman_rho": 0.7514,
-          "mean_spearman_rho_aa_demeaned": 0.7766,
-          "mean_binding_hotspot_auroc": 0.9207
+          "mean_spearman_rho": 0.8419,
+          "mean_ndcg_at_5": 0.9443,
+          "mean_top_k_precision": 0.72,
+          "mean_same_aa_win_rate": 0.96,
+          "mean_spearman_rho_aa_demeaned": 0.9195,
+          "mean_binding_hotspot_auroc": 0.9446
         },
         "post_may2026_mavedb_binding": {
           "n": 4,
-          "mean_spearman_rho": 0.7374,
-          "mean_spearman_rho_aa_demeaned": 0.7456,
-          "mean_binding_hotspot_auroc": 0.8899
+          "mean_spearman_rho": 0.9231,
+          "mean_ndcg_at_5": 0.9783,
+          "mean_top_k_precision": 0.8,
+          "mean_same_aa_win_rate": 0.9677,
+          "mean_spearman_rho_aa_demeaned": 0.9153,
+          "mean_binding_hotspot_auroc": 0.9577
         }
       }
     },
     "Oracle_3D_Interface_Contacts": {
       "n_targets": 26,
-      "mean_spearman_rho": 0.2115,
-      "mean_pearson_r": 0.2222,
-      "mean_spearman_rho_aa_demeaned": 0.1369,
-      "mean_binding_hotspot_auroc": 0.6395,
+      "mean_spearman_rho": 0.2253,
+      "mean_ndcg_at_5": 0.5147,
+      "mean_top_k_precision": 0.4596,
+      "mean_same_aa_win_rate": 0.6131,
+      "mean_spearman_rho_aa_demeaned": 0.1153,
+      "mean_binding_hotspot_auroc": 0.6314,
       "mean_interface_3d_auroc": 1.0,
       "by_category": {
         "skempi_biophysical_ddg": {
           "n": 26,
-          "mean_spearman_rho": 0.2115,
-          "mean_spearman_rho_aa_demeaned": 0.1369,
-          "mean_binding_hotspot_auroc": 0.6395
+          "mean_spearman_rho": 0.2253,
+          "mean_ndcg_at_5": 0.5147,
+          "mean_top_k_precision": 0.4596,
+          "mean_same_aa_win_rate": 0.6131,
+          "mean_spearman_rho_aa_demeaned": 0.1153,
+          "mean_binding_hotspot_auroc": 0.6314
         }
       }
     },
     "Baseline_BoganThorn_1D": {
       "n_targets": 38,
-      "mean_spearman_rho": 0.2206,
-      "mean_pearson_r": 0.2334,
+      "mean_spearman_rho": 0.2108,
+      "mean_ndcg_at_5": 0.472,
+      "mean_top_k_precision": 0.3896,
+      "mean_same_aa_win_rate": 0.5,
       "mean_spearman_rho_aa_demeaned": 0.0,
-      "mean_binding_hotspot_auroc": 0.6177,
-      "mean_interface_3d_auroc": 0.4779,
+      "mean_binding_hotspot_auroc": 0.6097,
+      "mean_interface_3d_auroc": 0.4639,
       "by_category": {
         "skempi_biophysical_ddg": {
           "n": 26,
-          "mean_spearman_rho": 0.2708,
+          "mean_spearman_rho": 0.2667,
+          "mean_ndcg_at_5": 0.4837,
+          "mean_top_k_precision": 0.3952,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
-          "mean_binding_hotspot_auroc": 0.6249
+          "mean_binding_hotspot_auroc": 0.6168
         },
         "oncology_alphaseq_kd": {
           "n": 3,
-          "mean_spearman_rho": 0.3494,
+          "mean_spearman_rho": 0.2906,
+          "mean_ndcg_at_5": 0.5631,
+          "mean_top_k_precision": 0.4133,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
-          "mean_binding_hotspot_auroc": 0.7148
+          "mean_binding_hotspot_auroc": 0.7026
         },
         "ppi_binding_dms": {
           "n": 5,
-          "mean_spearman_rho": 0.0241,
+          "mean_spearman_rho": -0.0087,
+          "mean_ndcg_at_5": 0.395,
+          "mean_top_k_precision": 0.348,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
-          "mean_binding_hotspot_auroc": 0.5687
+          "mean_binding_hotspot_auroc": 0.5415
         },
         "post_may2026_mavedb_binding": {
           "n": 4,
-          "mean_spearman_rho": 0.0433,
+          "mean_spearman_rho": 0.0624,
+          "mean_ndcg_at_5": 0.4239,
+          "mean_top_k_precision": 0.3875,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
-          "mean_binding_hotspot_auroc": 0.5598
+          "mean_binding_hotspot_auroc": 0.5789
         }
       }
     },
     "Null_Uniform": {
       "n_targets": 38,
       "mean_spearman_rho": 0.0,
-      "mean_pearson_r": 0.0,
+      "mean_ndcg_at_5": 0.3327,
+      "mean_top_k_precision": 0.2874,
+      "mean_same_aa_win_rate": 0.5,
       "mean_spearman_rho_aa_demeaned": 0.0,
       "mean_binding_hotspot_auroc": 0.5,
       "mean_interface_3d_auroc": 0.5,
@@ -105,24 +141,36 @@
         "skempi_biophysical_ddg": {
           "n": 26,
           "mean_spearman_rho": 0.0,
+          "mean_ndcg_at_5": 0.324,
+          "mean_top_k_precision": 0.2918,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
           "mean_binding_hotspot_auroc": 0.5
         },
         "oncology_alphaseq_kd": {
           "n": 3,
           "mean_spearman_rho": 0.0,
+          "mean_ndcg_at_5": 0.3724,
+          "mean_top_k_precision": 0.2778,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
           "mean_binding_hotspot_auroc": 0.5
         },
         "ppi_binding_dms": {
           "n": 5,
           "mean_spearman_rho": 0.0,
+          "mean_ndcg_at_5": 0.3425,
+          "mean_top_k_precision": 0.2778,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
           "mean_binding_hotspot_auroc": 0.5
         },
         "post_may2026_mavedb_binding": {
           "n": 4,
           "mean_spearman_rho": 0.0,
+          "mean_ndcg_at_5": 0.3472,
+          "mean_top_k_precision": 0.2778,
+          "mean_same_aa_win_rate": 0.5,
           "mean_spearman_rho_aa_demeaned": 0.0,
           "mean_binding_hotspot_auroc": 0.5
         }

@@ -5,6 +5,107 @@
   "sequence": "MDSSAAPTNASNCTDALAYSSCSPAPSPGSWVNLSHLDGNLSDPCGPNRTDLGGRDSLCPPTGSPSMITAITIMALYSIVCVVGLFGNFLVMYVIVRYTKMKTATNIYIFNLALADALATSTLPFQSVNYLMGTWPFGTILCKIVISIDYYNMFTSIFTLCTMSVDRYIAVCHPVKALDFRTPRNAKIINVCNWILSSAIGLPVMFMATTKYRQGSIDCTLTFSHPTWYWENLLKICVFIFAFIMPVLIITVCYGLMILRLKSVRMLSGSKEKDRNLRRITRMVLVVVAVFIVCWTPIHIYVIIKALVTIPETTFQTVSW",
   "length": 320,
   "positions_1idx": [
+    9,
+    24,
+    58,
+    82,
+    94,
+    109,
+    111,
+    157,
+    166,
+    179,
+    184,
+    194,
+    198,
+    204,
+    230,
+    269,
+    297,
+    319
+  ],
+  "wt_aas": [
+    "N",
+    "P",
+    "L",
+    "V",
+    "V",
+    "I",
+    "N",
+    "I",
+    "D",
+    "D",
+    "R",
+    "W",
+    "S",
+    "V",
+    "W",
+    "G",
+    "P",
+    "S"
+  ],
+  "exp_destab_scores": [
+    -0.248,
+    -0.2067,
+    -0.0514,
+    -0.0078,
+    0.0737,
+    0.5841,
+    0.5628,
+    -0.3766,
+    0.571,
+    -0.292,
+    0.2568,
+    0.5451,
+    0.5042,
+    0.1755,
+    -0.0897,
+    0.0315,
+    0.5571,
+    -0.2046
+  ],
+  "exp_func_loss_scores": [
+    -0.0415,
+    -0.0792,
+    -0.0962,
+    -0.1407,
+    -0.0022,
+    -0.0073,
+    0.2008,
+    0.0046,
+    0.3172,
+    -0.0551,
+    0.0828,
+    0.1087,
+    -0.0691,
+    -0.0813,
+    -0.0671,
+    0.0291,
+    0.2665,
+    -0.0498
+  ],
+  "is_core_flags": null,
+  "panel_roles": [
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "moderate",
+    "hotspot",
+    "same_aa_decoy"
+  ],
+  "full_positions_1idx": [
     2,
     3,
     4,
@@ -303,7 +404,7 @@
     319,
     320
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "D",
     "S",
     "S",
@@ -602,7 +703,7 @@
     "S",
     "W"
   ],
-  "exp_destab_scores": [
+  "full_exp_destab_scores": [
     -0.0491,
     0.0249,
     -0.0768,
@@ -901,7 +1002,7 @@
     -0.2046,
     0.3293
   ],
-  "exp_func_loss_scores": [
+  "full_exp_func_loss_scores": [
     -0.0238,
     -0.0578,
     0.0174,
@@ -1199,6 +1300,5 @@
     -0.1344,
     -0.0498,
     0.0571
-  ],
-  "is_core_flags": null
+  ]
 }

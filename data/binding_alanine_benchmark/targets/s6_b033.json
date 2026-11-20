@@ -7,6 +7,87 @@
   "scanned_sequence": "IRVFLPNKQRTVVNVRNGMSLHDCLMKALKVRGLQPECCAVFRLLHEHKGKKARLDWNTDAASLIGEELQV",
   "partner_sequence": "MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQQLLESLGNGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECCAVYRIQDGEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSKFFEHHPIPQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGDGGSTTGLSATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGDFGLATVKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRLMAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH",
   "positions_1idx": [
+    3,
+    6,
+    19,
+    21,
+    26,
+    29,
+    31,
+    34,
+    36,
+    38,
+    41,
+    43,
+    45,
+    51,
+    55,
+    58,
+    65,
+    71
+  ],
+  "wt_aas": [
+    "V",
+    "P",
+    "M",
+    "L",
+    "M",
+    "L",
+    "V",
+    "L",
+    "P",
+    "C",
+    "V",
+    "R",
+    "L",
+    "K",
+    "L",
+    "N",
+    "I",
+    "V"
+  ],
+  "exp_binding_loss": [
+    1.1503,
+    1.0211,
+    0.3019,
+    0.9409,
+    -0.147,
+    0.9476,
+    -0.0009,
+    0.9186,
+    0.1869,
+    -0.0753,
+    0.4314,
+    0.5687,
+    -0.0228,
+    0.0804,
+    0.7698,
+    0.208,
+    -0.0993,
+    0.972
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot"
+  ],
+  "full_positions_1idx": [
     1,
     2,
     3,
@@ -72,7 +153,7 @@
     70,
     71
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "I",
     "R",
     "V",
@@ -138,7 +219,7 @@
     "Q",
     "V"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     0.9078,
     0.3914,
     1.1503,
@@ -203,6 +284,5 @@
     0.8631,
     0.5435,
     0.972
-  ],
-  "is_interface_flags": null
+  ]
 }

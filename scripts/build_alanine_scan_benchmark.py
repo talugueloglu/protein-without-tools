@@ -26,7 +26,11 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import pyarrow.parquet as pq
 
-from fable_bench.alanine_scan import AlanineScanTarget, build_alanine_scan_prompt
+from fable_bench.alanine_scan import (
+    AlanineScanTarget,
+    build_alanine_scan_prompt,
+    select_balanced_alanine_panel,
+)
 from fable_bench.pdb_utils import AA3_TO_1, CANONICAL_AA_SET, load_structure
 
 MUT_ALA_RE = re.compile(r"^([ACDEFGHIKLMNPQRSTVWY])(\d+)A$")
@@ -356,43 +360,77 @@ def main() -> None:
     manifest_targets = []
     prompt_lines = []
 
+    for old_sp in spot_dir.glob("s3a_*.txt"):
+        old_sp.unlink()
+
+    total_full_muts = 0
     for idx, rec in enumerate(combined, start=1):
         tid = f"s3a_t{idx:03d}"
         pdb_txt = rec.pop("pdb_text", None)
         if pdb_txt:
             (structs_dir / f"{tid}.pdb").write_text(pdb_txt, encoding="utf-8")
 
+        full_pos = rec["positions_1idx"]
+        full_wt = rec["wt_aas"]
+        full_destab = rec["exp_destab_scores"]
+        full_func = rec["exp_func_loss_scores"]
+        full_core = rec["is_core_flags"]
+        total_full_muts += len(full_pos)
+
+        sel_i, roles = select_balanced_alanine_panel(full_pos, full_wt, full_destab, target_panel_size=18)
+        pan_pos = [full_pos[k] for k in sel_i]
+        pan_wt = [full_wt[k] for k in sel_i]
+        pan_destab = [full_destab[k] for k in sel_i]
+        pan_func = ([full_func[k] for k in sel_i] if full_func is not None else None)
+        pan_core = ([full_core[k] for k in sel_i] if full_core is not None else None)
+
+        t_obj = AlanineScanTarget(
+            target_id=tid,
+            category=rec["category"],
+            assay_type=rec["assay_type"],
+            sequence=rec["sequence"],
+            length=rec["length"],
+            positions_1idx=pan_pos,
+            wt_aas=pan_wt,
+            exp_destab_scores=pan_destab,
+            exp_func_loss_scores=pan_func,
+            is_core_flags=pan_core,
+            panel_roles=roles,
+        )
         t_payload = {
             "target_id": tid,
             "category": rec["category"],
             "assay_type": rec["assay_type"],
             "sequence": rec["sequence"],
             "length": rec["length"],
-            "positions_1idx": rec["positions_1idx"],
-            "wt_aas": rec["wt_aas"],
-            "exp_destab_scores": rec["exp_destab_scores"],
-            "exp_func_loss_scores": rec["exp_func_loss_scores"],
-            "is_core_flags": rec["is_core_flags"],
+            "positions_1idx": pan_pos,
+            "wt_aas": pan_wt,
+            "exp_destab_scores": pan_destab,
+            "exp_func_loss_scores": pan_func,
+            "is_core_flags": pan_core,
+            "panel_roles": roles,
+            "full_positions_1idx": full_pos,
+            "full_wt_aas": full_wt,
+            "full_exp_destab_scores": full_destab,
+            "full_exp_func_loss_scores": full_func,
         }
         (targets_dir / f"{tid}.json").write_text(json.dumps(t_payload, indent=2), encoding="utf-8")
 
-        t_obj = AlanineScanTarget(**t_payload)
         prompt_str = build_alanine_scan_prompt(t_obj)
         prompt_lines.append(
             json.dumps(
                 {
                     "custom_id": f"{tid}_alanine",
                     "target_id": tid,
-                    "task": "stage3a_alanine_scan",
+                    "task": "test5_monomer_alanine_ranking",
                     "length": t_obj.length,
                     "n_mutations": len(t_obj.positions_1idx),
                     "prompt": prompt_str,
                 }
             )
         )
-        if idx <= 3 or rec["category"] in ("dual_stability_function", "post_cutoff_mavedb") and idx <= 45:
-            if len(list(spot_dir.glob("s3a_*.txt"))) < 6:
-                (spot_dir / f"{tid}_alanine.txt").write_text(prompt_str + "\n", encoding="utf-8")
+        if idx in (1, 26, 42, 48):
+            (spot_dir / f"{tid}_alanine.txt").write_text(prompt_str + "\n", encoding="utf-8")
 
         manifest_targets.append(
             {
@@ -403,18 +441,21 @@ def main() -> None:
                 "category": rec["category"],
                 "assay_type": rec["assay_type"],
                 "length": rec["length"],
-                "n_assayed_positions": len(rec["positions_1idx"]),
-                "has_3d_core_flags": rec["is_core_flags"] is not None,
-                "has_dual_func_assay": rec["exp_func_loss_scores"] is not None,
+                "n_assayed_positions": len(pan_pos),
+                "n_full_scan_positions": len(full_pos),
+                "has_3d_core_flags": pan_core is not None,
+                "has_dual_func_assay": pan_func is not None,
             }
         )
 
     cat_counts = dict(Counter(m["category"] for m in manifest_targets))
     total_muts = sum(m["n_assayed_positions"] for m in manifest_targets)
     manifest = {
-        "benchmark": "fable-protein-bench-stage3a-alanine-scan",
+        "benchmark": "fable-protein-bench-test5-monomer-alanine-ranking",
         "total_targets": len(manifest_targets),
+        "total_panel_candidates": total_muts,
         "total_alanine_mutations": total_muts,
+        "total_underlying_wetlab_alanine_mutants": total_full_muts,
         "category_counts": cat_counts,
         "targets": manifest_targets,
     }

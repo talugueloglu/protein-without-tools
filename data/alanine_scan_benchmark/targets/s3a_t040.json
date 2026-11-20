@@ -5,6 +5,107 @@
   "sequence": "MANSESSSSPVNEEENSQRISTLHHQTMPSDLTQDEFTQLSQSIAEFHTYQLGNGRCSSLLAQRIHAPPETVWSVVRRFDRPQIYKHFIKSCNVSEDFEMRVGCTRDVNVISGLPANTSRERLDLLDDDRRVTGFSITGGEHRLRNYKSVTTVHRFEKEEEEERIWTVVLESYVVDVPEGNSEEDTRLFADTVIRLNLQKLASITEAMNRNNNNNNSSQVR",
   "length": 221,
   "positions_1idx": [
+    37,
+    43,
+    48,
+    52,
+    66,
+    73,
+    79,
+    110,
+    114,
+    135,
+    139,
+    153,
+    156,
+    177,
+    194,
+    198,
+    201,
+    208
+  ],
+  "wt_aas": [
+    "F",
+    "S",
+    "H",
+    "L",
+    "H",
+    "W",
+    "F",
+    "V",
+    "L",
+    "F",
+    "G",
+    "V",
+    "F",
+    "V",
+    "I",
+    "L",
+    "L",
+    "M"
+  ],
+  "exp_destab_scores": [
+    -82.7322,
+    -115.5156,
+    5.3137,
+    -100.796,
+    -103.6161,
+    4.8523,
+    7.1521,
+    -62.5748,
+    -85.0928,
+    5.4664,
+    -91.0424,
+    -23.5006,
+    -76.6858,
+    -11.7913,
+    -42.2291,
+    5.034,
+    4.9147,
+    -80.019
+  ],
+  "exp_func_loss_scores": [
+    -8.0405,
+    -42.4318,
+    0.7187,
+    -37.8572,
+    -39.6717,
+    0.6365,
+    -1.8449,
+    -9.5158,
+    -10.3008,
+    4.408,
+    -21.167,
+    -5.3794,
+    -7.2621,
+    8.2261,
+    -7.0091,
+    -7.7083,
+    0.2957,
+    -7.3744
+  ],
+  "is_core_flags": null,
+  "panel_roles": [
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "moderate"
+  ],
+  "full_positions_1idx": [
     33,
     34,
     35,
@@ -176,7 +277,7 @@
     208,
     209
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "T",
     "Q",
     "D",
@@ -348,7 +449,7 @@
     "M",
     "N"
   ],
-  "exp_destab_scores": [
+  "full_exp_destab_scores": [
     -100.857,
     -99.0646,
     -94.4897,
@@ -520,7 +621,7 @@
     -80.019,
     -111.4052
   ],
-  "exp_func_loss_scores": [
+  "full_exp_func_loss_scores": [
     -21.348,
     -43.1211,
     -24.8216,
@@ -691,6 +792,5 @@
     -2.9352,
     -7.3744,
     -51.5944
-  ],
-  "is_core_flags": null
+  ]
 }

@@ -1,7 +1,9 @@
 {
-  "benchmark": "fable-protein-bench-stage3a-alanine-scan",
+  "benchmark": "fable-protein-bench-test5-monomer-alanine-ranking",
   "total_targets": 52,
-  "total_alanine_mutations": 5348,
+  "total_panel_candidates": 936,
+  "total_alanine_mutations": 936,
+  "total_underlying_wetlab_alanine_mutants": 5348,
   "category_counts": {
     "de_novo_ddg": 24,
     "natural_ddg": 14,
@@ -17,7 +19,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 43,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 43,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -29,7 +32,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 40,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 40,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -41,7 +45,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 38,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 38,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -53,7 +58,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 37,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 37,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -65,7 +71,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 49,
-      "n_assayed_positions": 42,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 42,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -77,7 +84,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 54,
-      "n_assayed_positions": 51,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 51,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -89,7 +97,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 42,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 42,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -101,7 +110,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 43,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 43,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -113,7 +123,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 37,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 37,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -125,7 +136,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 43,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 43,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -137,7 +149,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 39,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 39,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -149,7 +162,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 43,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 43,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -161,7 +175,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 43,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 43,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -173,7 +188,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 47,
-      "n_assayed_positions": 45,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 45,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -185,7 +201,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 49,
-      "n_assayed_positions": 48,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 48,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -197,7 +214,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 60,
-      "n_assayed_positions": 56,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 56,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -209,7 +227,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 51,
-      "n_assayed_positions": 50,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 50,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -221,7 +240,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 56,
-      "n_assayed_positions": 50,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 50,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -233,7 +253,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 51,
-      "n_assayed_positions": 47,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 47,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -245,7 +266,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 38,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 38,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -257,7 +279,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 40,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 40,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -269,7 +292,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 35,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 35,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -281,7 +305,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 39,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 39,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -293,7 +318,8 @@
       "category": "de_novo_ddg",
       "assay_type": "ddg_kcal",
       "length": 43,
-      "n_assayed_positions": 40,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 40,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -305,7 +331,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 59,
-      "n_assayed_positions": 50,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 50,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -317,7 +344,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 68,
-      "n_assayed_positions": 60,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 60,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -329,7 +357,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 68,
-      "n_assayed_positions": 65,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 65,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -341,7 +370,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 59,
-      "n_assayed_positions": 56,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 56,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -353,7 +383,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 44,
-      "n_assayed_positions": 36,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 36,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -365,7 +396,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 49,
-      "n_assayed_positions": 47,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 47,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -377,7 +409,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 62,
-      "n_assayed_positions": 57,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 57,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -389,7 +422,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 67,
-      "n_assayed_positions": 58,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 58,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -401,7 +435,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 52,
-      "n_assayed_positions": 50,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 50,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -413,7 +448,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 71,
-      "n_assayed_positions": 64,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 64,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -425,7 +461,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 72,
-      "n_assayed_positions": 63,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 63,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -437,7 +474,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 62,
-      "n_assayed_positions": 60,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 60,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -449,7 +487,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 56,
-      "n_assayed_positions": 52,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 52,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -461,7 +500,8 @@
       "category": "natural_ddg",
       "assay_type": "ddg_kcal",
       "length": 65,
-      "n_assayed_positions": 58,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 58,
       "has_3d_core_flags": true,
       "has_dual_func_assay": false
     },
@@ -473,7 +513,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 295,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 295,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -485,7 +526,8 @@
       "category": "dual_stability_function",
       "assay_type": "ddg_kcal",
       "length": 221,
-      "n_assayed_positions": 170,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 170,
       "has_3d_core_flags": false,
       "has_dual_func_assay": true
     },
@@ -497,7 +539,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 136,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 136,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -509,7 +552,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 290,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 290,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -521,7 +565,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 295,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 295,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -533,7 +578,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 217,
-      "n_assayed_positions": 204,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 204,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -545,7 +591,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 299,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 299,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -557,7 +604,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 296,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 296,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -569,7 +617,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 208,
-      "n_assayed_positions": 195,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 195,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -581,7 +630,8 @@
       "category": "dual_stability_function",
       "assay_type": "ddg_kcal",
       "length": 320,
-      "n_assayed_positions": 297,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 297,
       "has_3d_core_flags": false,
       "has_dual_func_assay": true
     },
@@ -593,7 +643,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 308,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 308,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -605,7 +656,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 300,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 300,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -617,7 +669,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 187,
-      "n_assayed_positions": 172,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 172,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     },
@@ -629,7 +682,8 @@
       "category": "post_cutoff_mavedb",
       "assay_type": "dms_activity",
       "length": 320,
-      "n_assayed_positions": 286,
+      "n_assayed_positions": 18,
+      "n_full_scan_positions": 286,
       "has_3d_core_flags": false,
       "has_dual_func_assay": false
     }

@@ -7,6 +7,87 @@
   "scanned_sequence": "MATGGRRGAAAAPLLVAVAALLLGAAGHLYPGEVCPGMDIRNNLTRLHELENCSVIEGHLQILLMFKTRPEDFRDLSFPKLIMITDYLLLFRVYGLESLKDLFPNLTVIRGSRLFFNYALVIFEMVHLKELGLYNLMNITRGSVRIEKNNELCYLATIDWSRILDSVEDNYIVLNKDDNEECGDICPGTAKGKTNCPATVINGQFVERCWTHSHCQKVCPTICKSHGCTAEGLCCHSECLGNCSQPDDPTKCVACRNFYLDGRCVETCPPPYYHFQDWRCVNFSFCQDLHHKCKNSRRQGCHQYVIHNNKCIPECPSGYTMNSSNLLCTPCLGPCPKVCHLLEGEKTIDSVTSAQELRGCTVINGSLIINIRGGNNLAAELEANLGLIEEISGYLKIRRSYALVSLSFFRKLRLIRGETLEIGNYSFYALDNQNLRQLWDWSKHNLTITQGKLFFHYNPKLCLSEIHKME",
   "partner_sequence": "ASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKTHTCPPCPAPELLGGPSVFLFPPKPKDTLMISRTPEVTCVVVDVSHEDPEVKFNWYVDGVEVHNAKTKPREEQYNSTYRVVSVLTVLHQDWLNGKEYKCKVSNKALPAPIEKTISKAKGQPREPQ",
   "positions_1idx": [
+    32,
+    70,
+    79,
+    84,
+    103,
+    182,
+    186,
+    201,
+    215,
+    222,
+    239,
+    243,
+    280,
+    320,
+    404,
+    415,
+    426,
+    455
+  ],
+  "wt_aas": [
+    "G",
+    "P",
+    "P",
+    "I",
+    "F",
+    "C",
+    "C",
+    "I",
+    "C",
+    "I",
+    "C",
+    "C",
+    "C",
+    "T",
+    "V",
+    "I",
+    "S",
+    "F"
+  ],
+  "exp_binding_loss": [
+    0.0124,
+    0.093,
+    0.1718,
+    1.2375,
+    1.3704,
+    -0.0308,
+    -0.0323,
+    -0.4089,
+    0.0188,
+    -0.2014,
+    1.1896,
+    1.2705,
+    1.2804,
+    0.0478,
+    -0.0909,
+    1.2434,
+    0.3201,
+    -0.5923
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "moderate",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "hotspot",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy"
+  ],
+  "full_positions_1idx": [
     28,
     29,
     30,
@@ -258,7 +339,7 @@
     468,
     470
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "H",
     "L",
     "Y",
@@ -510,7 +591,7 @@
     "K",
     "E"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     0.1175,
     -0.0201,
     -1.1464,
@@ -761,6 +842,5 @@
     0.3528,
     0.0332,
     -0.0685
-  ],
-  "is_interface_flags": null
+  ]
 }

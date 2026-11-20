@@ -44,6 +44,7 @@ REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench"
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
+from fable_bench.alanine_scan import select_balanced_alanine_panel
 from fable_bench.binding_alanine_scan import (
     BOGAN_THORN_BINDING_HOTSPOT_SCALE,
     BindingAlanineParsed,
@@ -569,14 +570,48 @@ def main() -> None:
         curated_records.append(_load_mavedb_ala_scan(u_stem, p_seq, cat_k, s_name, g_filt, c_rng))
 
     # ==========================================================================
-    # SAVE TARGETS, MANIFEST, ZERO-LEAKAGE PROMPTS & CALIBRATE BASELINES
+    # SUBSAMPLE BALANCED 18-RESIDUE RANKING PANELS & SAVE TARGETS + PROMPTS
     # ==========================================================================
     manifest_rows: List[Dict[str, Any]] = []
     prompt_rows: List[str] = []
-    total_mutants = 0
+    total_panel_mutants = 0
+    total_full_mutants = 0
+    panel_records: List[Tuple[BindingAlanineTarget, Dict[str, Any], List[int], List[float]]] = []
 
-    for tgt, extra_meta in curated_records:
-        total_mutants += len(tgt.positions_1idx)
+    for old_sp in spot_dir.glob("test6_binding_*.txt"):
+        old_sp.unlink()
+
+    for full_tgt, extra_meta in curated_records:
+        full_pos = list(full_tgt.positions_1idx)
+        full_wt = list(full_tgt.wt_aas)
+        full_loss = list(full_tgt.exp_binding_loss)
+        full_iface = full_tgt.is_interface_flags
+        total_full_mutants += len(full_pos)
+
+        sel_i, roles = select_balanced_alanine_panel(full_pos, full_wt, full_loss, target_panel_size=18)
+        pan_pos = [full_pos[k] for k in sel_i]
+        pan_wt = [full_wt[k] for k in sel_i]
+        pan_loss = [full_loss[k] for k in sel_i]
+        pan_iface = ([full_iface[k] for k in sel_i] if full_iface is not None else None)
+        if extra_meta.get("crystal_contact_counts") is not None:
+            full_cnts = extra_meta["crystal_contact_counts"]
+            extra_meta = {**extra_meta, "crystal_contact_counts": [full_cnts[k] for k in sel_i]}
+
+        tgt = BindingAlanineTarget(
+            target_id=full_tgt.target_id,
+            category=full_tgt.category,
+            assay_type=full_tgt.assay_type,
+            scanned_sequence=full_tgt.scanned_sequence,
+            partner_sequence=full_tgt.partner_sequence,
+            positions_1idx=pan_pos,
+            wt_aas=pan_wt,
+            exp_binding_loss=pan_loss,
+            is_interface_flags=pan_iface,
+            panel_roles=roles,
+        )
+        panel_records.append((tgt, extra_meta, full_pos, full_loss))
+        total_panel_mutants += len(pan_pos)
+
         t_json = {
             "target_id": tgt.target_id,
             "category": tgt.category,
@@ -589,11 +624,14 @@ def main() -> None:
             "wt_aas": tgt.wt_aas,
             "exp_binding_loss": tgt.exp_binding_loss,
             "is_interface_flags": tgt.is_interface_flags,
+            "panel_roles": roles,
+            "full_positions_1idx": full_pos,
+            "full_wt_aas": full_wt,
+            "full_exp_binding_loss": full_loss,
         }
         (t_dir / f"{tgt.target_id}.json").write_text(json.dumps(t_json, indent=2), encoding="utf-8")
 
         prompt_txt = build_binding_alanine_prompt(tgt)
-        # Strict zero-leakage check
         for forbidden in (tgt.target_id, str(extra_meta.get("pdb_id") or "ZZZZ"), str(extra_meta.get("mavedb_urn") or "ZZZZ")):
             if forbidden and forbidden != "ZZZZ" and len(forbidden) >= 4:
                 assert forbidden not in prompt_txt, f"Leakage of {forbidden} in {tgt.target_id}"
@@ -602,7 +640,7 @@ def main() -> None:
             json.dumps(
                 {
                     "target_id": tgt.target_id,
-                    "task": "test6_binding_alanine_scan",
+                    "task": "test6_binding_alanine_ranking",
                     "category": tgt.category,
                     "length": len(tgt.scanned_sequence),
                     "partner_length": len(tgt.partner_sequence),
@@ -620,6 +658,7 @@ def main() -> None:
                 "scanned_length": len(tgt.scanned_sequence),
                 "partner_length": len(tgt.partner_sequence),
                 "n_assayed": len(tgt.positions_1idx),
+                "n_full_scan_positions": len(full_pos),
                 "has_3d_interface_flags": bool(tgt.is_interface_flags is not None),
                 **extra_meta,
             }
@@ -627,18 +666,19 @@ def main() -> None:
 
     cat_counts = dict(Counter(r["category"] for r in manifest_rows))
     manifest_obj = {
-        "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan (X -> Ala)",
+        "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan Ranking (X -> Ala)",
         "n_targets": len(manifest_rows),
-        "total_assayed_alanine_mutants": total_mutants,
+        "total_panel_candidates": total_panel_mutants,
+        "total_assayed_alanine_mutants": total_panel_mutants,
+        "total_underlying_wetlab_alanine_mutants": total_full_mutants,
         "category_counts": cat_counts,
         "targets": manifest_rows,
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest_obj, indent=2), encoding="utf-8")
     (prompt_dir / "stage6_binding_alanine_prompts.jsonl").write_text("\n".join(prompt_rows) + "\n", encoding="utf-8")
 
-    # Export 1 web-chat spotcheck prompt per category (`4` files)
     seen_spot_cats: set[str] = set()
-    for tgt, _m in curated_records:
+    for tgt, _m, _fp, _fl in panel_records:
         if tgt.category not in seen_spot_cats:
             seen_spot_cats.add(tgt.category)
             (spot_dir / f"test6_binding_{tgt.category}_{tgt.target_id}.txt").write_text(
@@ -657,18 +697,18 @@ def main() -> None:
         "Null_Uniform": [],
     }
 
-    for tgt, extra_meta in curated_records:
+    for tgt, extra_meta, _fp, _fl in panel_records:
         y = np.asarray(tgt.exp_binding_loss, dtype=np.float64)
-        sd = max(0.15, float(np.std(y)) * 0.42)
+        sd = max(0.15, float(np.std(y)) * 0.40)
         noisy = y + rng.normal(0.0, sd, size=len(y))
-        g_rep = grade_binding_alanine_target(
-            tgt, BindingAlanineParsed(noisy, len(y), 1.0, True)
-        )
+        # Verify JSON roundtrip through the NEW `{"ranking": [...]}` format!
+        noisy_rank_order = np.argsort(-noisy)
+        ranked_tokens = [f"{tgt.positions_1idx[k]}{tgt.wt_aas[k]}->A" for k in noisy_rank_order]
+        rep_parsed = parse_binding_alanine_response(json.dumps({"ranking": ranked_tokens}), tgt)
+        g_rep = grade_binding_alanine_target(tgt, rep_parsed)
         models_eval["Oracle_NoisyReplicate"].append(g_rep.to_dict())
 
-        # Bogan & Thorn 1D amino-acid interface hotspot propensity scale (Trp/Tyr/Arg lookup)
         bt_preds = np.asarray([BOGAN_THORN_BINDING_HOTSPOT_SCALE.get(aa, 0.5) for aa in tgt.wt_aas], dtype=np.float64)
-        # Verify JSON roundtrip through `parse_binding_alanine_response`!
         bt_json = json.dumps(
             {"binding_scan": [[p, aa, round(float(v), 3)] for p, aa, v in zip(tgt.positions_1idx, tgt.wt_aas, bt_preds)]}
         )
@@ -676,13 +716,11 @@ def main() -> None:
         g_bt = grade_binding_alanine_target(tgt, bt_parsed)
         models_eval["Baseline_BoganThorn_1D"].append(g_bt.to_dict())
 
-        # Null uniform baseline
         g_null = grade_binding_alanine_target(
             tgt, BindingAlanineParsed(np.zeros(len(y), dtype=np.float64), len(y), 1.0, True)
         )
         models_eval["Null_Uniform"].append(g_null.to_dict())
 
-        # Crystal 3D contact-count baseline on SKEMPI complexes
         if extra_meta.get("crystal_contact_counts") is not None:
             cnt_arr = np.asarray(extra_meta["crystal_contact_counts"], dtype=np.float64) + 0.15 * bt_preds
             g_3d = grade_binding_alanine_target(
@@ -701,13 +739,18 @@ def main() -> None:
                 by_cat[c_name] = {
                     "n": len(sub),
                     "mean_spearman_rho": round(float(np.mean([r["spearman_rho"] for r in sub])), 4),
+                    "mean_ndcg_at_5": round(float(np.mean([r["ndcg_at_5"] for r in sub])), 4),
+                    "mean_top_k_precision": round(float(np.mean([r["top_k_precision"] for r in sub])), 4),
+                    "mean_same_aa_win_rate": round(float(np.mean([r["same_aa_win_rate"] for r in sub])), 4),
                     "mean_spearman_rho_aa_demeaned": round(float(np.mean([r["spearman_rho_aa_demeaned"] for r in sub])), 4),
                     "mean_binding_hotspot_auroc": round(float(np.mean([r["binding_hotspot_auroc"] for r in sub])), 4),
                 }
         return {
             "n_targets": len(rows),
             "mean_spearman_rho": round(float(np.mean([r["spearman_rho"] for r in rows])), 4),
-            "mean_pearson_r": round(float(np.mean([r["pearson_r"] for r in rows])), 4),
+            "mean_ndcg_at_5": round(float(np.mean([r["ndcg_at_5"] for r in rows])), 4),
+            "mean_top_k_precision": round(float(np.mean([r["top_k_precision"] for r in rows])), 4),
+            "mean_same_aa_win_rate": round(float(np.mean([r["same_aa_win_rate"] for r in rows])), 4),
             "mean_spearman_rho_aa_demeaned": round(float(np.mean([r["spearman_rho_aa_demeaned"] for r in rows])), 4),
             "mean_binding_hotspot_auroc": round(float(np.mean([r["binding_hotspot_auroc"] for r in rows])), 4),
             "mean_interface_3d_auroc": (round(float(np.mean(iface_vals)), 4) if iface_vals else None),
@@ -715,13 +758,14 @@ def main() -> None:
         }
 
     kras_lztr1_rep = next(
-        (m.get("measured_wetlab_replicate_spearman_rho") for _, m in curated_records if m.get("mavedb_urn") == "urn:mavedb:00001302-g-1"),
+        (m.get("measured_wetlab_replicate_spearman_rho") for _, m, _, _ in panel_records if m.get("mavedb_urn") == "urn:mavedb:00001302-g-1"),
         None,
     )
     report = {
-        "benchmark": "Test 6: Interface Binding Alanine Scan (X -> Ala)",
-        "n_targets": len(curated_records),
-        "total_assayed_alanine_mutants": total_mutants,
+        "benchmark": "Test 6: Interface Binding Alanine Scan Ranking (X -> Ala)",
+        "n_targets": len(panel_records),
+        "total_panel_candidates": total_panel_mutants,
+        "total_underlying_wetlab_alanine_mutants": total_full_mutants,
         "category_counts": cat_counts,
         "kras_lztr1_oct2026_wetlab_replicate_spearman_rho": kras_lztr1_rep,
         "models": {mk: _summarize(rows) for mk, rows in models_eval.items()},
@@ -734,7 +778,7 @@ def main() -> None:
     fig, axes = plt.subplots(1, 3, figsize=(15.5, 4.8), dpi=180)
     fig.patch.set_facecolor("#ffffff")
 
-    # Panel A: Raw ρ vs AA-Demeaned Context ρ (proving Bogan-Thorn 1D collapses to 0.000!)
+    # Panel A: Panel Rank ρ vs AA-Demeaned Context ρ
     ax = axes[0]
     m_keys = ["Oracle_NoisyReplicate", "Oracle_3D_Interface_Contacts", "Baseline_BoganThorn_1D", "Null_Uniform"]
     m_lbls = ["Noisy Replicate\nCeiling", "3D Crystal\nContacts (SKEMPI)", "Bogan–Thorn 1D\n(Trp/Tyr/Arg)", "Null\nUniform"]
@@ -742,53 +786,58 @@ def main() -> None:
     dm_rhos = [report["models"][k]["mean_spearman_rho_aa_demeaned"] for k in m_keys]
     x = np.arange(len(m_keys))
     w = 0.35
-    b1 = ax.bar(x - w / 2, raw_rhos, w, label="Raw Spearman ρ", color="#3b82f6", alpha=0.88)
+    b1 = ax.bar(x - w / 2, raw_rhos, w, label="Panel Spearman Rank ρ", color="#3b82f6", alpha=0.88)
     b2 = ax.bar(x + w / 2, dm_rhos, w, label="AA-Demeaned Context ρ", color="#e11d48", alpha=0.88)
     ax.axhline(0.0, color="#64748b", lw=0.9)
     ax.set_xticks(x)
-    ax.set_xticklabels(m_lbls, fontsize=8.5)
-    ax.set_ylim(-0.08, 1.02)
-    ax.set_ylabel("Mean Per-Complex Correlation")
-    ax.set_title("A. Raw ρ vs. AA-Demeaned Interface Context ρ", fontsize=10.5, fontweight="bold")
+    ax.set_xticklabels(m_lbls, fontsize=8.3)
+    ax.set_ylim(-0.08, 1.05)
+    ax.set_ylabel("Mean Per-Complex Rank Correlation")
+    ax.set_title("A. Panel Rank ρ vs. AA-Demeaned Context ρ", fontsize=10.5, fontweight="bold")
     ax.legend(loc="upper right", fontsize=8, frameon=True)
     for bars in (b1, b2):
         for rect in bars:
             hv = rect.get_height()
             ax.text(rect.get_x() + rect.get_width() / 2, hv + 0.02, f"{hv:.2f}", ha="center", va="bottom", fontsize=7.8)
 
-    # Panel B: Dataset Composition Across 4 Wet-Lab Binding Categories
+    # Panel B: Top-5 NDCG & Same-AA Decoy Pairwise Win Rate (50% coin-flip for 1D lookup!)
     ax2 = axes[1]
-    c_order = ["skempi_biophysical_ddg", "oncology_alphaseq_kd", "ppi_binding_dms", "post_may2026_mavedb_binding"]
-    c_names = ["SKEMPI v2.0\nSPR/ITC ΔΔG", "Open-AlphaSeq\nPD-1 & TIGIT Kd", "PPI Binding\nDMS Scans", "Oct–Nov 2026\nMaveDB Binding"]
-    c_muts = [sum(len(t.positions_1idx) for t, _ in curated_records if t.category == ck) for ck in c_order]
-    c_tgts = [cat_counts.get(ck, 0) for ck in c_order]
-    cols_c = ["#2563eb", "#059669", "#7c3aed", "#d97706"]
-    bars_c = ax2.bar(np.arange(4), c_muts, width=0.56, color=cols_c, alpha=0.88)
-    ax2.set_xticks(np.arange(4))
-    ax2.set_xticklabels(c_names, fontsize=8.5)
-    ax2.set_ylabel("Assayed Single-Point X → Ala Mutants")
-    ax2.set_ylim(0, max(c_muts) * 1.22)
-    ax2.set_title(f"B. Test 6 Composition ({len(curated_records)} Complexes, {total_mutants:,} X→A)", fontsize=10.5, fontweight="bold")
-    for rect, nt in zip(bars_c, c_tgts):
-        hv = rect.get_height()
-        ax2.text(rect.get_x() + rect.get_width() / 2, hv + max(c_muts) * 0.025, f"{int(hv)}\n({nt} targets)", ha="center", va="bottom", fontsize=8)
+    ndcgs = [report["models"][k]["mean_ndcg_at_5"] for k in m_keys]
+    saa_wins = [report["models"][k]["mean_same_aa_win_rate"] for k in m_keys]
+    b3 = ax2.bar(x - w / 2, ndcgs, w, label="NDCG@5 (Top-5 Ranking)", color="#7c3aed", alpha=0.88)
+    b4 = ax2.bar(x + w / 2, saa_wins, w, label="Same-AA Decoy Win Rate", color="#059669", alpha=0.88)
+    ax2.axhline(0.50, color="#0f172a", lw=0.9, ls="--", alpha=0.6, label="Coin-Flip (0.50)")
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(m_lbls, fontsize=8.3)
+    ax2.set_ylim(0.0, 1.08)
+    ax2.set_ylabel("Ranking Score")
+    ax2.set_title("B. Top-5 NDCG & Interface vs. Non-Interface Same-AA Win", fontsize=10.2, fontweight="bold")
+    ax2.legend(loc="upper right", fontsize=7.8, frameon=True)
+    for bars in (b3, b4):
+        for rect in bars:
+            hv = rect.get_height()
+            ax2.text(rect.get_x() + rect.get_width() / 2, hv + 0.02, f"{hv:.2f}", ha="center", va="bottom", fontsize=7.8)
 
-    # Panel C: Real Oct-16-2026 KRAS × LZTR1 Direct Binding X->Ala Scan Profile
+    # Panel C: Real Oct-16-2026 KRAS × LZTR1 Direct Binding X->Ala Scan + 18-Site Ranking Panel
     ax3 = axes[2]
-    kras_tgt = next(t for t, m in curated_records if m.get("mavedb_urn") == "urn:mavedb:00001302-g-1")
-    pos_k = np.asarray(kras_tgt.positions_1idx)
-    loss_k = np.asarray(kras_tgt.exp_binding_loss)
-    # Normalize relative to median for clean visualization
-    loss_shift = loss_k - float(np.median(loss_k))
-    colors_k = ["#e11d48" if v > np.quantile(loss_shift, 0.82) else "#94a3b8" for v in loss_shift]
-    ax3.bar(pos_k, loss_shift, width=1.0, color=colors_k)
+    kras_rec = next((t, fp, fl) for t, m, fp, fl in panel_records if m.get("mavedb_urn") == "urn:mavedb:00001302-g-1")
+    kras_tgt, full_pos_k, full_loss_k = kras_rec
+    pos_k = np.asarray(full_pos_k)
+    loss_k = np.asarray(full_loss_k)
+    med_k = float(np.median(loss_k))
+    loss_shift = loss_k - med_k
+    pan_set = set(kras_tgt.positions_1idx)
+    colors_k = [
+        "#e11d48" if (p in pan_set and v > 0.15) else ("#0284c7" if p in pan_set else "#cbd5e1")
+        for p, v in zip(pos_k, loss_shift)
+    ]
+    ax3.bar(pos_k, loss_shift, width=1.05, color=colors_k)
     ax3.axvspan(58, 76, color="#f59e0b", alpha=0.16, label="Switch II Helix (58–76)")
     ax3.axhline(0.0, color="#475569", lw=0.8, ls="--")
     ax3.set_xlim(1, len(kras_tgt.scanned_sequence))
-    ax3.set_xlabel("KRAS Residue Position (1–188)")
+    ax3.set_xlabel("KRAS Position (Red/Blue = 18 Ranked Panel Candidates)")
     ax3.set_ylabel("LZTR1 Binding Loss upon X → Ala")
-    rep_str = f" (Rep ρ={kras_lztr1_rep:.2f})" if kras_lztr1_rep else ""
-    ax3.set_title(f"C. Oct-2026 KRAS × LZTR1 Binding Scan{rep_str}", fontsize=10.5, fontweight="bold")
+    ax3.set_title("C. Oct-2026 KRAS × LZTR1 18-Candidate Ranking Panel", fontsize=10.2, fontweight="bold")
     ax3.legend(loc="upper right", fontsize=8, frameon=True)
 
     for a in axes:
@@ -801,16 +850,15 @@ def main() -> None:
     plt.close(fig)
 
     print(
-        f"Built Test 6 Binding Alanine Scan: {len(curated_records)} targets, "
-        f"{total_mutants:,} X->Ala mutants across {cat_counts}"
+        f"Built Test 6 Binding Alanine Ranking: {len(panel_records)} complexes, "
+        f"{total_panel_mutants} panel candidates (from {total_full_mutants:,} wet-lab X->Ala mutants) across {cat_counts}"
     )
     print("Calibration summary:")
     for mk, ms in report["models"].items():
         print(
-            f"  {mk:30s}: Raw rho={ms['mean_spearman_rho']:.3f} | "
-            f"AA-Demeaned rho={ms['mean_spearman_rho_aa_demeaned']:.3f} | "
-            f"Hotspot AUROC={ms['mean_binding_hotspot_auroc']:.3f} | "
-            f"3D Interface AUROC={ms['mean_interface_3d_auroc']}"
+            f"  {mk:30s}: Rank rho={ms['mean_spearman_rho']:.3f} | NDCG@5={ms['mean_ndcg_at_5']:.3f} | "
+            f"TopK_P={ms['mean_top_k_precision']:.3f} | SameAA_Win={ms['mean_same_aa_win_rate']:.3f} | "
+            f"AA-Ctx rho={ms['mean_spearman_rho_aa_demeaned']:.3f}"
         )
 
 

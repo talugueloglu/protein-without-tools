@@ -105,7 +105,9 @@ def summarize_model(model_name: str, grades: List[AlanineScanGrade]) -> Dict[str
             "n_targets": len(sub),
             "n_mutations_total": int(sum(g.n_assayed for g in sub)),
             "spearman_rho": round(float(np.mean([g.spearman_rho for g in sub])), 4),
-            "pearson_r": round(float(np.mean([g.pearson_r for g in sub])), 4),
+            "ndcg_at_5": round(float(np.mean([g.ndcg_at_5 for g in sub])), 4),
+            "top_k_precision": round(float(np.mean([g.top_k_precision for g in sub])), 4),
+            "same_aa_win_rate": round(float(np.mean([g.same_aa_win_rate for g in sub])), 4),
             "spearman_rho_aa_demeaned": round(float(np.mean([g.spearman_rho_aa_demeaned for g in sub])), 4),
             "hotspot_auroc_top20pct": round(float(np.mean([g.hotspot_auroc_top20pct for g in sub])), 4),
         }
@@ -134,49 +136,43 @@ def plot_alanine_overview(summaries: List[Dict[str, Any]], out_png: Path) -> Non
     labels = [s["model"].replace("Baseline_", "").replace("specialist_", "") for s in summaries]
     raw_rho = [s["overall"].get("spearman_rho", 0.0) for s in summaries]
     ctx_rho = [s["overall"].get("spearman_rho_aa_demeaned", 0.0) for s in summaries]
-    core_auc = [s["overall"].get("core_burial_auroc", 0.5) for s in summaries]
+    ndcg5 = [s["overall"].get("ndcg_at_5", 0.0) for s in summaries]
+    topk_p = [s["overall"].get("top_k_precision", 0.0) for s in summaries]
+    same_aa = [s["overall"].get("same_aa_win_rate", 0.5) for s in summaries]
 
     x = np.arange(len(labels))
     w = 0.36
-    axes[0].bar(x - w / 2, raw_rho, width=w, color="#0ea5e9", label="Raw Spearman ρ")
+    axes[0].bar(x - w / 2, raw_rho, width=w, color="#0ea5e9", label="Panel Spearman Rank ρ")
     axes[0].bar(x + w / 2, ctx_rho, width=w, color="#ec4899", label="AA-Demeaned Context ρ")
     axes[0].axhline(0.0, color="#64748b", linewidth=0.8)
     axes[0].set_xticks(x)
     axes[0].set_xticklabels(labels, rotation=18, ha="right", fontsize=8.5)
     axes[0].set_ylim(-0.1, 1.08)
-    axes[0].set_ylabel("Mean Spearman Correlation")
-    axes[0].set_title("A. Overall vs. Context-Only (AA-Demeaned) ρ", fontweight="bold", loc="left")
+    axes[0].set_ylabel("Mean Rank Correlation")
+    axes[0].set_title("A. Panel Rank ρ vs. AA-Demeaned Context ρ", fontweight="bold", loc="left")
     axes[0].legend(frameon=False, fontsize=8.5)
 
-    # Panel B: De Novo Zero-Homolog ΔΔG vs Natural Stability/DMS
-    denovo_ctx = [s["by_category"].get("de_novo_ddg", {}).get("spearman_rho_aa_demeaned", 0.0) for s in summaries]
-    nat_ctx = [
-        s["by_category"].get("natural_ddg", s["by_category"].get("dual_stability_function", {})).get("spearman_rho_aa_demeaned", 0.0)
-        for s in summaries
-    ]
-    axes[1].bar(x - w / 2, denovo_ctx, width=w, color="#8b5cf6", label="Synthetic De Novo (0 MSA)")
-    axes[1].bar(x + w / 2, nat_ctx, width=w, color="#10b981", label="Natural Domains")
-    axes[1].axhline(0.0, color="#64748b", linewidth=0.8)
+    axes[1].bar(x - w / 2, ndcg5, width=w, color="#8b5cf6", label="NDCG@5 (Top-5 Ranking)")
+    axes[1].bar(x + w / 2, topk_p, width=w, color="#10b981", label="Top-K Hotspot Precision")
     axes[1].set_xticks(x)
     axes[1].set_xticklabels(labels, rotation=18, ha="right", fontsize=8.5)
-    axes[1].set_ylim(-0.1, 1.08)
-    axes[1].set_ylabel("AA-Demeaned Spearman ρ")
-    axes[1].set_title("B. Zero-Homolog De Novo vs. Natural Domains", fontweight="bold", loc="left")
+    axes[1].set_ylim(0.0, 1.08)
+    axes[1].set_ylabel("Ranking Quality")
+    axes[1].set_title("B. Top-5 NDCG & Hotspot Precision (18-Site Panel)", fontweight="bold", loc="left")
     axes[1].legend(frameon=False, fontsize=8.5)
 
-    # Panel C: 3D Core Burial AUROC from 1D Alanine Scan
-    bars = axes[2].bar(x, core_auc, width=0.52, color="#f59e0b")
-    for b, v in zip(bars, core_auc):
+    bars = axes[2].bar(x, same_aa, width=0.52, color="#f59e0b")
+    for b, v in zip(bars, same_aa):
         axes[2].text(b.get_x() + b.get_width() / 2, v + 0.015, f"{v:.2f}", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
-    axes[2].axhline(0.50, color="#0f172a", linestyle="--", linewidth=1.0, alpha=0.55, label="Random Chance (0.50)")
+    axes[2].axhline(0.50, color="#0f172a", linestyle="--", linewidth=1.0, alpha=0.65, label="1D Lookup Coin-Flip (0.50)")
     axes[2].set_xticks(x)
     axes[2].set_xticklabels(labels, rotation=18, ha="right", fontsize=8.5)
     axes[2].set_ylim(0.35, 1.08)
-    axes[2].set_ylabel("3D Core Burial AUROC")
-    axes[2].set_title("C. 3D Core Recovery from 1D X→A Scan", fontweight="bold", loc="left")
+    axes[2].set_ylabel("Same-AA Pairwise Win Rate")
+    axes[2].set_title("C. Core vs. Surface Same-AA Decoy Win Rate", fontweight="bold", loc="left")
     axes[2].legend(frameon=False, fontsize=8.5)
 
-    fig.suptitle("Stage 3A — In-Silico Alanine Scan (`X → A`) Benchmark & Calibration", fontsize=13, fontweight="bold", y=1.02)
+    fig.suptitle("Test 5 — Monomer Alanine Scan Ranking (X → A, Balanced 18-Residue Panels)", fontsize=13, fontweight="bold", y=1.02)
     fig.tight_layout()
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_png, bbox_inches="tight", dpi=180)
@@ -221,19 +217,20 @@ def main() -> None:
     out_report.write_text(json.dumps({"stage3a_alanine_scan": summaries}, indent=2), encoding="utf-8")
     plot_alanine_overview(summaries, data_dir.parent.parent / "outputs/figures/stage3a_alanine_overview.png")
 
-    print("=" * 98)
-    print("STAGE 3A — IN-SILICO ALANINE SCAN (`X -> A`) SUMMARY")
-    print("=" * 98)
-    print(f"{'Model / Baseline':<26s} | {'Raw ρ':>7s} | {'AA-Ctx ρ':>8s} | {'Hotspot AUC':>11s} | {'3D Core AUC':>11s} | {'FuncOnly AUC':>12s}")
-    print("-" * 98)
+    print("=" * 105)
+    print("TEST 5 — MONOMER ALANINE SCAN RANKING (`X -> A`, BALANCED CANDIDATE PANELS) SUMMARY")
+    print("=" * 105)
+    print(f"{'Model / Baseline':<26s} | {'Rank ρ':>7s} | {'NDCG@5':>7s} | {'TopK P':>7s} | {'SameAA Win':>10s} | {'AA-Ctx ρ':>8s} | {'Core AUC':>8s}")
+    print("-" * 105)
     for s in summaries:
         ov = s["overall"]
         print(
             f"{s['model']:<26s} | {ov.get('spearman_rho', 0.0):7.3f} | "
+            f"{ov.get('ndcg_at_5', 0.0):7.3f} | "
+            f"{ov.get('top_k_precision', 0.0):7.3f} | "
+            f"{ov.get('same_aa_win_rate', 0.5):10.3f} | "
             f"{ov.get('spearman_rho_aa_demeaned', 0.0):8.3f} | "
-            f"{ov.get('hotspot_auroc_top20pct', 0.0):11.3f} | "
-            f"{ov.get('core_burial_auroc', 0.0):11.3f} | "
-            f"{ov.get('func_only_hotspot_auroc', 0.0):12.3f}"
+            f"{ov.get('core_burial_auroc', 0.0):8.3f}"
         )
 
 

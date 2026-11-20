@@ -7,6 +7,87 @@
   "scanned_sequence": "QVQLVESGGGVVQPGESLKISCAASGFTFSSYGMHWVRQAPGKGLEWVSAISGSGGSTFYADSVKGRFTISRDNAKNSLYLQMNSLRAEDTAVYYCARSTYYYDSSGYDYYFDPWGPGTLVTVSSGGGGSGGGGSGGGGSDVQMTQSPSSLSASAGDTVNITCQTSQHIRSSLAWYQQKSGQAPRLLIYGASSRATGIPDRFSGSGSGTDFTLTISSLQPEDFATYYCQHTYITPYTFGQGTKVEIK",
   "partner_sequence": "ATAGTIDTKRNISAEEGGSVILQCHFSSDTAEVTQVDWKQQDQLLAIYSVDLGWHVASVFSDRVVPGPSLGLTFQSLTMNDTGEYFCTYHTYPGGIYKGRIFLKVQESSDDRNGLAQ",
   "positions_1idx": [
+    36,
+    47,
+    51,
+    57,
+    59,
+    60,
+    66,
+    72,
+    74,
+    80,
+    85,
+    87,
+    100,
+    101,
+    102,
+    104,
+    110,
+    113
+  ],
+  "wt_aas": [
+    "W",
+    "W",
+    "I",
+    "S",
+    "F",
+    "Y",
+    "G",
+    "R",
+    "N",
+    "Y",
+    "S",
+    "R",
+    "T",
+    "Y",
+    "Y",
+    "D",
+    "Y",
+    "D"
+  ],
+  "exp_binding_loss": [
+    2.4483,
+    2.094,
+    0.7497,
+    -0.2808,
+    2.7286,
+    0.1052,
+    0.4753,
+    2.4073,
+    0.2235,
+    2.2644,
+    1.2668,
+    -0.4625,
+    0.8926,
+    -0.2134,
+    2.3311,
+    -0.2736,
+    0.0658,
+    0.0386
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "moderate",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "moderate"
+  ],
+  "full_positions_1idx": [
     32,
     33,
     34,
@@ -81,7 +162,7 @@
     112,
     113
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "Y",
     "G",
     "M",
@@ -156,7 +237,7 @@
     "F",
     "D"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     1.1235,
     1.9927,
     0.4265,
@@ -230,6 +311,5 @@
     0.5133,
     1.3505,
     0.0386
-  ],
-  "is_interface_flags": null
+  ]
 }

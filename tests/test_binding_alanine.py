@@ -1,4 +1,4 @@
-"""Unit & zero-leakage tests for Test 6: Interface Binding Alanine Scan (`X -> Ala`)."""
+"""Unit & zero-leakage tests for Test 6: Interface Binding Alanine Scan Ranking (`X -> Ala`)."""
 
 from __future__ import annotations
 
@@ -24,10 +24,8 @@ SAFETY_BLOCKLIST = re.compile(
 )
 
 
-def test_binding_alanine_prompt_parser_and_aa_demeaned_separation() -> None:
-    # Construct a synthetic complex where Trp/Tyr/Arg appear BOTH inside the binding interface
-    # (high binding loss) AND outside the binding interface (near-zero binding loss).
-    scanned_seq = "MWYRKLDEFGHISTVNPQMWYRKLDEFGHISTVNPQ"  # 36 AA: 1..18 = interface, 19..36 = non-interface
+def test_binding_alanine_ranking_prompt_parser_and_same_aa_separation() -> None:
+    scanned_seq = "MWYRKLDEFGHISTVNPQMWYRKLDEFGHISTVNPQ"
     partner_seq = "ACDEFGHIKLMNPQRSTVWYACDEFGHIKLMNPQRS"
     positions = [2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25]
     wt_aas = [scanned_seq[p - 1] for p in positions]
@@ -50,22 +48,29 @@ def test_binding_alanine_prompt_parser_and_aa_demeaned_separation() -> None:
     assert "s6_test999" not in prompt
     assert scanned_seq in prompt
     assert partner_seq in prompt
+    assert '"ranking"' in prompt
 
-    # 1. Static Bogan-Thorn 1D hotspot table scores identically on interface vs non-interface W/Y/R -> 0.000 demeaned!
+    # 1. Static Bogan-Thorn 1D hotspot table scores 0.500 coin-flip on same-AA pairs & 0.000 demeaned!
     bt_rows = [[p, aa, BOGAN_THORN_BINDING_HOTSPOT_SCALE[aa]] for p, aa in zip(positions, wt_aas)]
-    bt_parsed = parse_binding_alanine_response("```json\n" + json.dumps({"binding_scan": bt_rows}) + "\n```", target)
+    bt_parsed = parse_binding_alanine_response(json.dumps({"binding_scan": bt_rows}), target)
     assert bt_parsed.parse_ok
-    assert bt_parsed.wt_match_rate == 1.0
     g_bt = grade_binding_alanine_target(target, bt_parsed)
+    assert abs(g_bt.same_aa_win_rate - 0.5) < 1e-6
     assert abs(g_bt.spearman_rho_aa_demeaned) < 1e-6
     assert abs((g_bt.interface_3d_auroc or 0.5) - 0.5) < 1e-6
 
-    # 2. Interface-aware predictor separates interface W/Y/R from surface W/Y/R -> high demeaned rho & 3D AUROC!
-    true_rows = [[p, aa, round(v * 0.95, 3)] for p, aa, v in zip(positions, wt_aas, exp_loss)]
-    true_parsed = parse_binding_alanine_response(json.dumps({"binding_scan": true_rows}), target)
+    # 2. Ranked list output (`{"ranking": ["2W->A", "3Y->A", ...]}`) achieves near-1.0 across all ranking metrics!
+    desc_idx = np.argsort(-np.asarray(exp_loss))
+    ranked_tokens = [f"{positions[k]}{wt_aas[k]}->A" for k in desc_idx]
+    true_parsed = parse_binding_alanine_response("```json\n" + json.dumps({"ranking": ranked_tokens}) + "\n```", target)
+    assert true_parsed.parse_ok
+    assert true_parsed.wt_match_rate == 1.0
     g_true = grade_binding_alanine_target(target, true_parsed)
-    assert g_true.spearman_rho > 0.95
-    assert g_true.spearman_rho_aa_demeaned > 0.90
+    assert g_true.spearman_rho > 0.98
+    assert g_true.ndcg_at_5 > 0.99
+    assert g_true.top_k_precision > 0.99
+    assert g_true.same_aa_win_rate > 0.99
+    assert g_true.spearman_rho_aa_demeaned > 0.95
     assert g_true.binding_hotspot_auroc > 0.95
     assert (g_true.interface_3d_auroc or 0.0) > 0.95
 
@@ -73,8 +78,8 @@ def test_binding_alanine_prompt_parser_and_aa_demeaned_separation() -> None:
 def test_built_binding_alanine_manifest_and_zero_leakage() -> None:
     bdir = REPO / "data" / "binding_alanine_benchmark"
     manifest = json.loads((bdir / "manifest.json").read_text(encoding="utf-8"))
-    assert manifest["n_targets"] >= 35
-    assert manifest["total_assayed_alanine_mutants"] >= 2500
+    assert manifest["n_targets"] == 38
+    assert manifest["total_underlying_wetlab_alanine_mutants"] >= 2500
     for req_cat in ("skempi_biophysical_ddg", "oncology_alphaseq_kd", "ppi_binding_dms", "post_may2026_mavedb_binding"):
         assert manifest["category_counts"].get(req_cat, 0) >= 3
 
@@ -93,7 +98,8 @@ def test_built_binding_alanine_manifest_and_zero_leakage() -> None:
         positions = tobj["positions_1idx"]
         wt_aas = tobj["wt_aas"]
         losses = tobj["exp_binding_loss"]
-        assert len(positions) >= 8
+        assert 8 <= len(positions) <= 20
+        assert positions == sorted(positions)
         assert len(positions) == len(wt_aas) == len(losses)
         for p, wt in zip(positions, wt_aas):
             assert wt != "A"
@@ -101,6 +107,7 @@ def test_built_binding_alanine_manifest_and_zero_leakage() -> None:
 
         ptxt = prompt_by_id[tid]
         assert tid not in ptxt
+        assert '"ranking"' in ptxt
         if rec.get("pdb_id"):
             assert str(rec["pdb_id"]) not in ptxt
         if rec.get("mavedb_urn"):

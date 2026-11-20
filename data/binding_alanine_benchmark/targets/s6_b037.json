@@ -7,6 +7,87 @@
   "scanned_sequence": "MEHIQGAWKTISNGFGFKDAVFDGSSCISPTIVQQFGYQRRASDDGKLTDPSKTSNTIRVFLPNKQRTVVNVRNGMSLHDCLMKALKVRGLQPECCAVFRLLHEHKGKKARLDWNTDAASLIGEELQVDFLDHVPLTTHNFARKTFLKLAFCDICQKFLLNGFRCQTCGYKFHEHCSTKVPTMCVDWSNIRQLLLFPNSTIGDSGVPALPSLTMRRMRESVSRMPVSSQHRYSTPHAFTFNTSSPSSEGSLSQRQRSTSTPNVHMVSTTLPVDSRMIEDAIRSHSESASPSALSSSPNNLSPTGW",
   "partner_sequence": "MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEEVWNIKQMIKLTQEHIEALLDKFGGEHNPPSIYLEAYEEYTSKLDALQQREQQLLESLGNGTDFSVSSSASMDTVTSSSSSSLSVLPSSLSVFQNPTDVARSNPKSPQKPIVRVFLPNKQRTVVPARCGVTVRDSLKKALMMRGLIPECCAVYRIQDGEKKPIGWDTDISWLTGEELHVEVLENVPLTTHNFVRKTFFTLAFCDFCRKLLFQGFRCQTCGYKFHQRCSTEVPLMCVNYDQLDLLFVSKFFEHHPIPQEEASLAETALTSGSSPSAPASDSIGPQILTSPSPSKSIPIPQPFRPADEDHRNQFGQRDRSSSAPNVHINTIEPVNIDDLIRDQGFRGDGGSTTGLSATPPASLPGSLTNVKALQKSPGPQRERKSSSSSEDRNRMKTLGRRDSSDDWEIPDGQITVGQRIGSGSFGTVYKGKWHGDVAVKMLNVTAPTPQQLQAFKNEVGVLRKTRHVNILLFMGYSTKPQLAIVTQWCEGSSLYHHLHIIETKFEMIKLIDIARQTAQGMDYLHAKSIIHRDLKSNNIFLHEDLTVKIGDFGLATVKSRWSGSHQFEQLSGSILWMAPEVIRMQDKNPYSFQSDVYAFGIVLYELMTGQLPYSNINNRDQIIFMVGRGYLSPDLSKVRSNCPKAMKRLMAECLKKKRDERPLFPQILASIELLARSLPKIHRSASEPSLNRAGFQTEDFSLYACASPKTPIQAGGYGAFPVH",
   "positions_1idx": [
+    32,
+    40,
+    63,
+    79,
+    89,
+    114,
+    130,
+    143,
+    144,
+    151,
+    157,
+    164,
+    187,
+    190,
+    249,
+    261,
+    266,
+    270
+  ],
+  "wt_aas": [
+    "I",
+    "R",
+    "P",
+    "H",
+    "R",
+    "W",
+    "F",
+    "R",
+    "K",
+    "F",
+    "K",
+    "R",
+    "W",
+    "I",
+    "G",
+    "P",
+    "V",
+    "L"
+  ],
+  "exp_binding_loss": [
+    -2.4383,
+    -4.0671,
+    -0.9205,
+    -2.1144,
+    -0.9934,
+    -0.8501,
+    -1.02,
+    -3.8024,
+    -0.8534,
+    -5.4024,
+    -3.5714,
+    -0.8681,
+    -3.6274,
+    -2.6334,
+    -2.7749,
+    -10.4081,
+    -2.5008,
+    -2.2983
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "moderate",
+    "moderate"
+  ],
+  "full_positions_1idx": [
     2,
     3,
     4,
@@ -258,7 +339,7 @@
     303,
     305
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "E",
     "H",
     "I",
@@ -510,7 +591,7 @@
     "T",
     "W"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     -2.1602,
     -2.1736,
     -2.2158,
@@ -761,6 +842,5 @@
     -2.6416,
     -2.5557,
     -2.3576
-  ],
-  "is_interface_flags": null
+  ]
 }

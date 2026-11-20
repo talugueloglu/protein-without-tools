@@ -7,6 +7,87 @@
   "scanned_sequence": "MEAIAKYDFKATADDELSFKRGDILKVLNEECDQNWYKAELNGKDGFIPKNYIEMKPHPWFFGKIPRAKAEEMLSKQRHDGAFLIRESESAPGDFSLSVKFGNDVQHFKVLRDGAGKYFLWVVKFNSLNELVDYHRSTSVSRNQQIFLRDIEQVPQQPTYVQALFDFDPQEDGELGFRRGDFIHVMDNSDPNWWKGACHGQTGMFPRNYVTPVNRNV",
   "partner_sequence": "NKSLEIEPRNPKPLPRFPKKYSYPLKSPGVRPSNPRPGTMRHPTPLQQEPRKISYSRIPESETESTASAPNSPRTPLTPPPASGASSTTDVCSVFDSDHSSPFHSSNDTVFIQVTLPHGPRSASVSSISLTKGTDEVPVPPPVPPRRRPESAPAESSPSKIMSKHLDSPPAIPPRQPTSKAYSPRYSISDRTSISDPPESPPLLPPREPVRTPDVFSSSPLHLQPPPLGKKSDHGNAFFPNSPSPFTPPPPQTPSPHGTRRHLPSPPLTQEVDLHSIAGPPVPPRQSTSQHIPKLPPKTYKREHTHPSMHRDGPPLLENAHSS",
   "positions_1idx": [
+    7,
+    9,
+    26,
+    56,
+    67,
+    79,
+    86,
+    108,
+    111,
+    120,
+    126,
+    135,
+    142,
+    148,
+    172,
+    175,
+    178,
+    205
+  ],
+  "wt_aas": [
+    "Y",
+    "F",
+    "K",
+    "K",
+    "R",
+    "H",
+    "R",
+    "F",
+    "L",
+    "L",
+    "N",
+    "H",
+    "R",
+    "L",
+    "D",
+    "L",
+    "R",
+    "F"
+  ],
+  "exp_binding_loss": [
+    -0.9146,
+    -1.0753,
+    -0.9509,
+    -1.1177,
+    -0.6659,
+    -1.0191,
+    -0.7352,
+    -0.7415,
+    -0.6289,
+    -0.7082,
+    -0.9945,
+    -1.1147,
+    -0.6694,
+    -1.3593,
+    -0.9758,
+    -1.4691,
+    -1.1009,
+    -1.3938
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "moderate",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "hotspot",
+    "same_aa_decoy",
+    "moderate",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy"
+  ],
+  "full_positions_1idx": [
     2,
     4,
     6,
@@ -212,7 +293,7 @@
     216,
     217
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "E",
     "I",
     "K",
@@ -418,7 +499,7 @@
     "N",
     "V"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     -1.1758,
     -0.9494,
     -0.981,
@@ -623,6 +704,5 @@
     -0.939,
     -0.9449,
     -0.9887
-  ],
-  "is_interface_flags": null
+  ]
 }

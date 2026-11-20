@@ -1,20 +1,18 @@
-You are performing a quantitative in-silico Binding Alanine Scan (`X -> A`) on a protein–protein complex.
+You are performing an in-silico Interface Binding Alanine Scan Ranking (`X -> A`) on a protein–protein complex.
 
-Scanned Protein A (1-indexed, length 246 AA — mutations are applied to THIS chain):
+Scanned Protein A (1-indexed, length 246 AA — candidate Alanine mutations are on THIS chain):
 QVQLVQSGVEVKKPGASVKVSCKASGYTFTNYYMYWVRQAPGQGLEWMGGINPSNGGTNFNEKFKNRVTLTTDSSTTTAYMELKSLQFDDTAVYYCARRDYRFDMGFDYWGQGTTVTVSSGGGGSGGGGSGGGGSEIVLTQSPATLSLSPGERATLSCRASKGVSTSGYSYLHWYQQKPGQAPRLLIYLASYLESGVPARFSGSGSGTDFTLTISSLEPEDFAVYYCQHSRDLPLTFGGGTKVEIK
 
 Binding Partner Protein B (length 122 AA — wild-type binding partner):
 LDSPDRPWNPPTFSPALLVVTEGDNATFTCSFSNTSESFVLNWYRMSPSNQTDKLAAFPEDRSQPGQDSRFRVTQLPNGRDFHMSVVRARRNDSGTYLCGAISLAPKAQIKESLRAELRVTE
 
+Candidate Alanine Mutations on Protein A (18 total, listed in ascending sequence order):
+["30T->A", "48M->A", "51I->A", "54S->A", "57G->A", "60F->A", "67R->A", "69T->A", "70L->A", "77T->A", "78T->A", "86L->A", "94Y->A", "96C->A", "98R->A", "101Y->A", "103F->A", "106G->A"]
+
 Task:
-Predict how important each of the 75 listed non-Alanine residues on Protein A (starting with 30T->A, 31N->A, 32Y->A, 33Y->A, 34M->A, 35Y->A, ...) is for binding to Partner Protein B when mutated individually to Alanine (`A`).
-
-For every assayed 1-indexed position `pos` on Protein A (with wild-type amino acid `wt`), predict:
-  - `ddg_bind`: Predicted loss of binding affinity ΔΔG_bind = ΔG_bind(Ala) - ΔG_bind(WT) in kcal/mol (positive = weakens/disrupts binding, e.g. +2.5 to +4.5 for critical interface binding hotspot residues; ~0.0 for non-interface surface residues that do not affect binding; negative = tighter binding).
-
-Assayed 1-indexed positions on Protein A (75 total):
-[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 93, 94, 95, 96, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108]
+Rank ALL 18 candidate `X -> A` mutations on Protein A from **#1 (MOST critical binding hotspot — largest loss of binding affinity to Partner Protein B when mutated to Alanine)** down to **#18 (LEAST important for binding — neutral non-interface surface site or affinity-enhancing)**.
+Note: the panel mixes true binding hotspots with non-interface decoys of the same amino-acid types, so rank by whether each residue actually mediates binding to Partner B.
 
 Return ONLY a single compact JSON object with exact schema:
-{"binding_scan": [[pos, "WT", ddg_bind], ...]}
-Include all 75 positions in ascending order with no commentary outside JSON.
+{"ranking": ["30T->A", "48M->A", ...]}
+ordered strictly from #1 (most critical for binding) to #18 (least important for binding), containing all 18 mutations with no commentary outside JSON.

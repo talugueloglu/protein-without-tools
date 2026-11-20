@@ -7,6 +7,87 @@
   "scanned_sequence": "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHHYREQIKRVKDSEDVPMVLVGNKCDLPSRTVDTKQAQDLARSYGIPFIETSAKTRQGVDDAFYTLVREIRKHKEKMSKDGKKKKKKSKTKCVIM",
   "partner_sequence": "MAGPGSTGGQIGAAALAGGARSKVAPSVDFDHSCSDSVEYLTLNFGPFETVHRWRRLPPCDEFVGARRSKHTVVAYKDAIYVFGGDNGKTMLNDLLRFDVKDCSWCRAFTTGTPPAPRYHHSAVVYGSSMFVFGGYTGDIYSNSNLKNKNDLFEYKFATGQWTEWKIEGRLPVARSAHGATVYSDKLWIFAGYDGNARLNDMWTIGLQDRELTCWEEVAQSGEIPPSCCNFPVAVCRDKMFVFSGQSGAKITNNLFQFEFKDKTWTRIPTEHLLRGSPPPPQRRYGHTMVAFDRHLYVFGGAADNTLPNELHCYDVDFQTWEVVQPSSDSEVGGAEVPERACASEEVPTLTYEERVGFKKSRDVFGLDFGTTSAKQPTQPASELPSGRLFHAAAVISDAMYIFGGTVDNNIRSGEMYRFQ",
   "positions_1idx": [
+    5,
+    13,
+    16,
+    23,
+    38,
+    40,
+    56,
+    67,
+    69,
+    75,
+    105,
+    120,
+    122,
+    136,
+    147,
+    173,
+    176,
+    181
+  ],
+  "wt_aas": [
+    "K",
+    "G",
+    "K",
+    "L",
+    "D",
+    "Y",
+    "L",
+    "M",
+    "D",
+    "G",
+    "D",
+    "L",
+    "S",
+    "S",
+    "K",
+    "D",
+    "K",
+    "S"
+  ],
+  "exp_binding_loss": [
+    -0.2204,
+    -0.9094,
+    -0.2146,
+    -1.3259,
+    -0.2421,
+    -0.7775,
+    -0.3348,
+    -0.3296,
+    -0.2202,
+    -0.8625,
+    -1.2362,
+    -1.1096,
+    -0.7091,
+    -0.9566,
+    -1.2016,
+    -1.4509,
+    -1.4626,
+    -1.0397
+  ],
+  "is_interface_flags": null,
+  "panel_roles": [
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "same_aa_decoy",
+    "hotspot",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "moderate",
+    "moderate",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "moderate"
+  ],
+  "full_positions_1idx": [
     2,
     3,
     4,
@@ -171,7 +252,7 @@
     184,
     186
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "T",
     "E",
     "Y",
@@ -336,7 +417,7 @@
     "K",
     "V"
   ],
-  "exp_binding_loss": [
+  "full_exp_binding_loss": [
     -0.8722,
     -0.7231,
     -0.7917,
@@ -500,6 +581,5 @@
     -0.8812,
     -1.1351,
     -1.3049
-  ],
-  "is_interface_flags": null
+  ]
 }

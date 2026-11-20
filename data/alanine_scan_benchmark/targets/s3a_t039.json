@@ -5,6 +5,88 @@
   "sequence": "MASHKLLVTPPKALLKPLSIPNQLLLGPGPSNLPPRIMAAGGLQMIGSMSKDMYQIMDEIKEGIQYVFQTRNPLTLVISGSGHCALEAALVNVLEPGDSFLVGANGIWGQRAVDIGERIGARVHPMTKDPGGHYTLQEVEEGLAQHKPVLLFLTHGESSTGVLQPLDGFGELCHRYKCLLLVDSVASLGGTPLYMDRQGIDILYSGSQKALNAPPGTSLISFSDKAKKKMYSRKTKPFSFYLDIKWLANFWGCDDQPRMYHHTIPVISLYSLRESLALIAEQGLENSWRQHREAAAYLHGRLQALGLQLFVKDPALRLPT",
   "length": 320,
   "positions_1idx": [
+    12,
+    24,
+    30,
+    44,
+    61,
+    66,
+    69,
+    81,
+    100,
+    151,
+    194,
+    240,
+    264,
+    275,
+    284,
+    308,
+    314,
+    316
+  ],
+  "wt_aas": [
+    "K",
+    "L",
+    "P",
+    "Q",
+    "K",
+    "Y",
+    "Q",
+    "S",
+    "F",
+    "L",
+    "Y",
+    "F",
+    "I",
+    "S",
+    "L",
+    "Q",
+    "P",
+    "L"
+  ],
+  "exp_destab_scores": [
+    -0.5946,
+    0.1139,
+    0.2374,
+    -0.9405,
+    -0.6747,
+    0.1673,
+    0.3002,
+    -0.7526,
+    -1.0295,
+    -1.1522,
+    -1.0133,
+    0.2065,
+    -0.4321,
+    -0.8448,
+    0.1046,
+    -1.1812,
+    -1.2189,
+    -1.1305
+  ],
+  "exp_func_loss_scores": null,
+  "is_core_flags": null,
+  "panel_roles": [
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "hotspot",
+    "moderate",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "hotspot",
+    "moderate",
+    "moderate",
+    "hotspot",
+    "same_aa_decoy",
+    "same_aa_decoy",
+    "same_aa_decoy"
+  ],
+  "full_positions_1idx": [
     3,
     5,
     6,
@@ -301,7 +383,7 @@
     319,
     320
   ],
-  "wt_aas": [
+  "full_wt_aas": [
     "S",
     "K",
     "L",
@@ -598,7 +680,7 @@
     "P",
     "T"
   ],
-  "exp_destab_scores": [
+  "full_exp_destab_scores": [
     -0.797,
     -0.368,
     -0.9314,
@@ -895,6 +977,5 @@
     -1.051,
     -0.6926
   ],
-  "exp_func_loss_scores": null,
-  "is_core_flags": null
+  "full_exp_func_loss_scores": null
 }

@@ -174,14 +174,14 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
         })
 
     # ==========================================================================
-    # 4. Stage 3A (4 Alanine-Scan Categories — 1 visual example per category)
+    # 4. Test 5: Monomer Alanine Scan Ranking (4 Categories — 1 per category)
     # ==========================================================================
     m3a = json.loads((REPO / "data/alanine_scan_benchmark/manifest.json").read_text(encoding="utf-8"))
     s3a_picks = [
-        ("de_novo_ddg", "s3a_t001", "Category 1: Zero-Homolog De Novo Miniproteins (n = 24)", "Synthetic Rocklin HEEH design • Wet-lab ΔΔG_fold (kcal/mol)"),
-        ("natural_ddg", "s3a_t026", "Category 2: Natural Protein Domains (n = 14)", "Tsuboyama natural domain (1PSE) • Wet-lab ΔΔG_fold (kcal/mol)"),
-        ("post_cutoff_mavedb", "s3a_t042", "Category 3: May–Nov 2026 MaveDB DMS Scans (n = 12)", "Human GBA1 (published Nov 11, 2026) • 290 X→Ala DMS variants"),
-        ("dual_stability_function", "s3a_t048", "Category 4: Dual Stability vs. Signaling DMS (n = 2)", "Human μ-Opioid Receptor OPRM1 (Nov 9, 2026) • Abundance vs. Signaling"),
+        ("de_novo_ddg", "s3a_t001", "Category 1: Zero-Homolog De Novo Miniproteins (n = 24)", "Synthetic Rocklin HEEH design • Rank 18 X→Ala candidates"),
+        ("natural_ddg", "s3a_t026", "Category 2: Natural Protein Domains (n = 14)", "Tsuboyama natural domain (1PSE) • Rank 18 X→Ala candidates"),
+        ("post_cutoff_mavedb", "s3a_t042", "Category 3: May–Nov 2026 MaveDB DMS Scans (n = 12)", "Human GBA1 (published Nov 11, 2026) • 18-site panel from 290 X→Ala"),
+        ("dual_stability_function", "s3a_t048", "Category 4: Dual Stability vs. Signaling DMS (n = 2)", "Human μ-Opioid Receptor OPRM1 (Nov 9, 2026) • 18-site ranking panel"),
     ]
     s3a_examples = []
     for cat, tid, ctitle, csub in s3a_picks:
@@ -192,7 +192,23 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
         if pdb_p.exists():
             st_a = load_structure(pdb_p, pdb_id=tid)
             ca_coords = np.round(st_a.coords_ca, 1).tolist()
-        lim = min(72, len(tobj["positions_1idx"]))
+        f_pos = tobj.get("full_positions_1idx") or tobj["positions_1idx"]
+        f_wt = tobj.get("full_wt_aas") or tobj["wt_aas"]
+        f_dest = tobj.get("full_exp_destab_scores") or tobj["exp_destab_scores"]
+        f_func = tobj.get("full_exp_func_loss_scores") or tobj.get("exp_func_loss_scores")
+        lim = min(72, len(f_pos))
+        # Build true #1..#K ground-truth ranking order on the 18-site panel
+        pan_order = np.argsort(-np.asarray(tobj["exp_destab_scores"], dtype=np.float64)).tolist()
+        roles = tobj.get("panel_roles") or ["moderate"] * len(pan_order)
+        ranked_panel = [
+            {
+                "rank": r_i + 1,
+                "mut": f"{tobj['positions_1idx'][k]}{tobj['wt_aas'][k]}→A",
+                "val": round(float(tobj["exp_destab_scores"][k]), 2),
+                "role": roles[k],
+            }
+            for r_i, k in enumerate(pan_order)
+        ]
         s3a_examples.append({
             "tid": tid,
             "cat": cat,
@@ -201,26 +217,27 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
             "name": meta["source_name"],
             "date": meta["published_date"],
             "len": tobj["length"],
-            "n_assayed": len(tobj["positions_1idx"]),
-            "pos": tobj["positions_1idx"][:lim],
-            "wt": tobj["wt_aas"][:lim],
-            "destab": [round(float(v), 2) for v in tobj["exp_destab_scores"][:lim]],
-            "func": ([round(float(v), 2) for v in tobj["exp_func_loss_scores"][:lim]] if tobj.get("exp_func_loss_scores") else []),
-            "core": (tobj["is_core_flags"][:lim] if tobj.get("is_core_flags") else []),
+            "n_panel": len(tobj["positions_1idx"]),
+            "n_full": len(f_pos),
+            "pos": f_pos[:lim],
+            "wt": f_wt[:lim],
+            "destab": [round(float(v), 2) for v in f_dest[:lim]],
+            "func": ([round(float(v), 2) for v in f_func[:lim]] if f_func else []),
+            "ranked_panel": ranked_panel,
             "ca": ca_coords,
-            "full_pos": tobj["positions_1idx"],
-            "full_destab": [round(float(v), 2) for v in tobj["exp_destab_scores"]],
+            "full_pos": f_pos,
+            "full_destab": [round(float(v), 2) for v in f_dest],
         })
 
     # ==========================================================================
-    # 4B. Test 6: Interface Binding Alanine Scanning (4 Categories — 1 per category)
+    # 4B. Test 6: Interface Binding Alanine Scan Ranking (4 Categories — 1 per category)
     # ==========================================================================
     m6 = json.loads((REPO / "data/binding_alanine_benchmark/manifest.json").read_text(encoding="utf-8"))
     s6_picks = [
-        ("skempi_biophysical_ddg", "s6_b003", "Category 1: SKEMPI v2.0 Biophysical SPR/ITC ΔΔG_bind (n = 26)", "Human Growth Hormone × hGH Receptor (1A22) • 62 X→Ala kcal/mol sites"),
-        ("oncology_alphaseq_kd", "s6_b027", "Category 2: Immuno-Oncology Checkpoint AlphaSeq Kd (n = 3)", "Pembrolizumab-scFv × Human PD-1 (YM_0852) • 75 X→Ala Δlog10 Kd sites"),
-        ("ppi_binding_dms", "s6_b030", "Category 3: Direct PPI Binding DMS Scans (n = 5)", "Human MLH1 CTD × PMS2 MutLα Heterodimer • 242 X→Ala binding sites"),
-        ("post_may2026_mavedb_binding", "s6_b035", "Category 4: Oct–Nov 2026 Post-Cutoff Binding DMS (n = 4)", "Human KRAS × LZTR1 Direct Binding (Oct 16, 2026) • 163 X→Ala sites"),
+        ("skempi_biophysical_ddg", "s6_b003", "Category 1: SKEMPI v2.0 Biophysical SPR/ITC ΔΔG_bind (n = 26)", "Human Growth Hormone × hGH Receptor (1A22) • 18-site panel from 62 X→Ala"),
+        ("oncology_alphaseq_kd", "s6_b027", "Category 2: Immuno-Oncology Checkpoint AlphaSeq Kd (n = 3)", "Pembrolizumab-scFv × Human PD-1 (YM_0852) • 18-site panel from 75 X→Ala"),
+        ("ppi_binding_dms", "s6_b030", "Category 3: Direct PPI Binding DMS Scans (n = 5)", "Human MLH1 CTD × PMS2 MutLα Heterodimer • 18-site panel from 242 X→Ala"),
+        ("post_may2026_mavedb_binding", "s6_b035", "Category 4: Oct–Nov 2026 Post-Cutoff Binding DMS (n = 4)", "Human KRAS × LZTR1 Direct Binding (Oct 16, 2026) • 18-site panel from 163 X→Ala"),
     ]
     s6_examples = []
     for cat, tid, ctitle, csub in s6_picks:
@@ -237,10 +254,22 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
                         ca_a6.append(xyz)
                     elif ch_id == "B":
                         ca_b6.append(xyz)
-        lim6 = min(85, len(tobj6["positions_1idx"]))
-        raw_loss = np.asarray(tobj6["exp_binding_loss"], dtype=np.float64)
-        # Shift DMS scores relative to median so positive = above-median binding loss for visual barcode
-        vis_loss = (raw_loss - float(np.median(raw_loss))) if tobj6["assay_type"] == "binding_dms_loss" else raw_loss
+        f6_pos = tobj6.get("full_positions_1idx") or tobj6["positions_1idx"]
+        f6_wt = tobj6.get("full_wt_aas") or tobj6["wt_aas"]
+        f6_loss = np.asarray(tobj6.get("full_exp_binding_loss") or tobj6["exp_binding_loss"], dtype=np.float64)
+        lim6 = min(85, len(f6_pos))
+        vis_loss = (f6_loss - float(np.median(f6_loss))) if tobj6["assay_type"] == "binding_dms_loss" else f6_loss
+        pan6_order = np.argsort(-np.asarray(tobj6["exp_binding_loss"], dtype=np.float64)).tolist()
+        roles6 = tobj6.get("panel_roles") or ["moderate"] * len(pan6_order)
+        ranked_panel6 = [
+            {
+                "rank": r_i + 1,
+                "mut": f"{tobj6['positions_1idx'][k]}{tobj6['wt_aas'][k]}→A",
+                "val": round(float(tobj6["exp_binding_loss"][k]), 2),
+                "role": roles6[k],
+            }
+            for r_i, k in enumerate(pan6_order)
+        ]
         s6_examples.append({
             "tid": tid,
             "cat": cat,
@@ -250,14 +279,16 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
             "date": meta6["published_date"],
             "len_a": tobj6["scanned_length"],
             "len_b": tobj6["partner_length"],
-            "n_assayed": len(tobj6["positions_1idx"]),
-            "pos": tobj6["positions_1idx"][:lim6],
-            "wt": tobj6["wt_aas"][:lim6],
+            "n_panel": len(tobj6["positions_1idx"]),
+            "n_full": len(f6_pos),
+            "pos": f6_pos[:lim6],
+            "wt": f6_wt[:lim6],
             "loss": [round(float(v), 2) for v in vis_loss[:lim6]],
-            "raw_loss": [round(float(v), 2) for v in raw_loss[:lim6]],
+            "raw_loss": [round(float(v), 2) for v in f6_loss[:lim6]],
+            "ranked_panel": ranked_panel6,
             "ca_a": ca_a6,
             "ca_b": ca_b6,
-            "full_pos": tobj6["positions_1idx"],
+            "full_pos": f6_pos,
             "full_loss": [round(float(v), 2) for v in vis_loss],
         })
 
@@ -548,45 +579,46 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     </section>
 
     <!-- =================================================================== -->
-    <!-- TEST 5. MONOMER ALANINE SCANNING                                    -->
+    <!-- TEST 5. MONOMER ALANINE SCAN RANKING                                -->
     <!-- =================================================================== -->
     <section id="test-5" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <span class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-500 text-xs font-bold">TEST 5 • 52 PROTEINS • 5,348 WET-LAB X → ALA MUTATIONS • SPECIALISTS: THERMOMPNN &amp; ESM-2</span>
-          <h2 class="text-xl font-bold mt-1">5. Monomer Alanine Scanning (Implicit 3D Core Burial vs. 1D Lookup)</h2>
+          <span class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-500 text-xs font-bold">TEST 5 • 52 PROTEINS × 18-CANDIDATE RANKING PANELS (FROM 5,348 MUTANTS) • SPECIALISTS: THERMOMPNN &amp; ESM-2</span>
+          <h2 class="text-xl font-bold mt-1">5. Monomer Alanine Scan Ranking (Rank #1 Core Hotspot → #18 Neutral Decoy)</h2>
           <p class="text-xs text-[var(--muted-foreground)]">
-            Inspired by @sokrypton &amp; @WUFang: static 1D hydrophobicity gets <strong>Raw ρ = 0.339</strong>, so we grade <strong>AA-Demeaned Context ρ</strong> (which scores <strong>0.000</strong> unless the model distinguishes buried core Leu from surface Leu!).
+            Models rank a balanced 18-mutation panel (<strong>6 hotspots + 6 moderate + 6 same-AA neutral decoys</strong>, e.g. buried core Leu vs. surface Leu). Graded by <strong>NDCG@5</strong>, <strong>Top-K Precision</strong>, <strong>Same-AA Decoy Win Rate</strong> (1D lookup = <strong>50% coin-flip</strong>), &amp; <strong>AA-Demeaned Rank ρ</strong>.
           </p>
         </div>
-        <div class="flex items-center gap-3 text-xs shrink-0">
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Strongly Destabilizing (Core Hotspot)</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-500 inline-block"></span>Neutral / Tolerated (Surface)</span>
+        <div class="flex items-center gap-3 text-xs shrink-0 flex-wrap">
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Hotspot</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500 inline-block"></span>Moderate</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-500 inline-block"></span>Same-AA Neutral Decoy</span>
         </div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="s3a-cards"></div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- TEST 6. INTERFACE BINDING ALANINE SCANNING                          -->
+    <!-- TEST 6. INTERFACE BINDING ALANINE SCAN RANKING                      -->
     <!-- =================================================================== -->
     <section id="test-6" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 text-xs font-bold">TEST 6 • 38 COMPLEXES • 2,767 WET-LAB X → ALA BINDING MUTANTS • SPECIALISTS: ESM-2 COMPLEX &amp; MPNN ΔlogP</span>
-          <h2 class="text-xl font-bold mt-1">6. Interface Binding Alanine Scanning (Chain A + Partner B → Binding Hotspots)</h2>
+          <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 text-xs font-bold">TEST 6 • 38 COMPLEXES × BALANCED RANKING PANELS (FROM 2,767 MUTANTS) • SPECIALISTS: ESM-2 COMPLEX &amp; MPNN ΔlogP</span>
+          <h2 class="text-xl font-bold mt-1">6. Interface Binding Alanine Scan Ranking (Rank #1 Binding Hotspot → #K Non-Interface Decoy)</h2>
           <p class="text-xs text-[var(--muted-foreground)]">
-            Given only the two interacting amino-acid sequences, how important is each residue on Chain A for binding to Partner B? Static Bogan–Thorn 1D <code class="text-xs">(Trp/Tyr/Arg)</code> lookup gets <strong>Raw ρ = 0.221</strong>, yet collapses to <strong>AA-Demeaned Context ρ = 0.000</strong> because it cannot tell interface Tyr from non-interface Tyr!
+            Given only Scanned Chain A + Partner B, models rank 8–18 candidate <code class="text-xs">X → Ala</code> mutations from most critical for binding (#1) to least (#K). Bogan–Thorn 1D <code class="text-xs">(Trp/Tyr/Arg)</code> gets <strong>50.0% coin-flip</strong> on matched same-AA pairs &amp; <strong>0.000 AA-Demeaned ρ</strong> vs. <strong>94.4%</strong> wet-lab replicate win rate!
           </p>
         </div>
         <div class="flex items-center gap-3 text-xs shrink-0 flex-wrap">
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Critical Binding Hotspot (X→A Kills Binding)</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span>Partner Chain B</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Interface Hotspot</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-500 inline-block"></span>Same-AA Non-Interface Decoy</span>
         </div>
       </div>
       <div>
         <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
-          One Real Protein–Protein Complex Per Category (SKEMPI SPR/ITC, Immuno-Oncology AlphaSeq Kd, PPI Binding DMS, &amp; Oct-2026 KRAS–LZTR1)
+          One Real Protein–Protein Complex Per Category (3D Complex + Full Scan + True #1..#K Ground-Truth Ranking Panel)
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="s6-cards"></div>
       </div>
@@ -868,6 +900,25 @@ Seq B: ${ex.snip_b}...</pre>
       `).join('');
     }
 
+    function renderRankPills(rankedPanel) {
+      // Show top 5 (#1..#5) + middle 2 + bottom 5 (same-AA neutral decoys) so card stays super compact!
+      const n = rankedPanel.length;
+      const shown = n <= 12
+        ? rankedPanel
+        : [...rankedPanel.slice(0, 5), { ellipsis: true }, ...rankedPanel.slice(n - 5)];
+      return shown.map(item => {
+        if (item.ellipsis) {
+          return '<span class="px-1.5 py-0.5 text-xs text-[var(--muted-foreground)]">⋯</span>';
+        }
+        const cls = item.role === 'hotspot'
+          ? 'bg-rose-500/15 text-rose-500 border-rose-500/30'
+          : (item.role === 'same_aa_decoy'
+              ? 'bg-sky-500/15 text-sky-500 border-sky-500/30'
+              : 'bg-amber-500/15 text-amber-500 border-amber-500/30');
+        return `<span title="True Rank #${item.rank} (${item.role}, exp=${item.val})" class="px-1.5 py-0.5 rounded border text-xs font-mono font-semibold ${cls}">#${item.rank} ${item.mut}</span>`;
+      }).join('');
+    }
+
     // =========================================================================
     // Render Test 5
     // =========================================================================
@@ -878,24 +929,8 @@ Seq B: ${ex.snip_b}...</pre>
         const cells1 = ex.destab.map((v, i) => {
           const norm = Math.max(0, Math.min(1, v / (maxV * 0.85)));
           const bg = v > 0.25 ? `rgba(244, 63, 94, ${(0.22 + 0.78 * norm).toFixed(2)})` : 'rgba(56, 189, 248, 0.28)';
-          return `<div title="${ex.wt[i]}${ex.pos[i]}A: ${v}" style="flex:1;height:18px;background:${bg};min-width:3px"></div>`;
+          return `<div title="${ex.wt[i]}${ex.pos[i]}A: ${v}" style="flex:1;height:16px;background:${bg};min-width:3px"></div>`;
         }).join('');
-
-        let secondTrack = '';
-        if (ex.func && ex.func.length > 0) {
-          const maxF = Math.max(1.2, ...ex.func.map(v => Math.abs(v)));
-          const cells2 = ex.func.map((v, i) => {
-            const norm = Math.max(0, Math.min(1, v / (maxF * 0.85)));
-            const bg = v > 0.25 ? `rgba(168, 85, 247, ${(0.22 + 0.78 * norm).toFixed(2)})` : 'rgba(148, 163, 184, 0.22)';
-            return `<div title="${ex.wt[i]}${ex.pos[i]}A signaling loss: ${v}" style="flex:1;height:18px;background:${bg};min-width:3px"></div>`;
-          }).join('');
-          secondTrack = `
-            <div class="space-y-1">
-              <div class="text-xs font-semibold text-purple-500">Track 2 — G-Protein Signaling Loss (Active-Site vs. Folding Separation):</div>
-              <div class="flex rounded overflow-hidden border border-[var(--border)]">${cells2}</div>
-            </div>
-          `;
-        }
 
         const has3d = ex.ca && ex.ca.length > 0;
         return `
@@ -904,23 +939,27 @@ Seq B: ${ex.snip_b}...</pre>
               <div>
                 <div class="text-xs font-bold text-rose-500">${ex.title}</div>
                 <div class="font-bold text-sm mt-0.5">${ex.name}</div>
-                <div class="text-xs text-[var(--muted-foreground)]">${ex.subtitle} • ${ex.n_assayed} assayed X→A positions</div>
+                <div class="text-xs text-[var(--muted-foreground)]">${ex.subtitle} (${ex.n_panel} ranked from ${ex.n_full} assayed)</div>
               </div>
               <span class="px-2 py-0.5 rounded bg-[var(--card)] border border-[var(--border)] text-xs shrink-0">${ex.date}</span>
             </div>
 
             ${has3d ? `
               <div class="rounded-lg border border-[var(--border)] bg-[var(--card)] overflow-hidden relative">
-                <canvas id="s3a-3d-${idx}" width="420" height="145" class="w-full h-[135px] cursor-grab"></canvas>
-                <div class="absolute bottom-1.5 left-2.5 text-xs text-[var(--muted-foreground)] pointer-events-none">3D Backbone Colored by Wet-Lab X→A ΔΔG_fold (Red = Destabilizing Core)</div>
+                <canvas id="s3a-3d-${idx}" width="420" height="140" class="w-full h-[130px] cursor-grab"></canvas>
+                <div class="absolute bottom-1.5 left-2.5 text-xs text-[var(--muted-foreground)] pointer-events-none">3D Backbone Colored by Wet-Lab X→A ΔΔG_fold (Red = Core Hotspot)</div>
               </div>
             ` : ''}
 
             <div class="space-y-1">
-              <div class="text-xs font-semibold">Per-Residue Wet-Lab X → Ala Destabilization Barcode (hover any bar):</div>
+              <div class="text-xs font-semibold">Full Wet-Lab Landscape (${ex.n_full} X→A sites):</div>
               <div class="flex rounded overflow-hidden border border-[var(--border)]">${cells1}</div>
             </div>
-            ${secondTrack}
+
+            <div class="space-y-1 pt-1 border-t border-[var(--border)]">
+              <div class="text-xs font-semibold">Ground-Truth Ranking Order (#1 Most Disruptive → #${ex.n_panel} Neutral Decoy):</div>
+              <div class="flex flex-wrap gap-1">${renderRankPills(ex.ranked_panel)}</div>
+            </div>
           </div>
         `;
       }).join('');
@@ -992,8 +1031,13 @@ Seq B: ${ex.snip_b}...</pre>
             ` : ''}
 
             <div class="space-y-1">
-              <div class="text-xs font-semibold">Per-Residue Wet-Lab X → Ala Binding Importance Barcode (${ex.n_assayed} assayed sites — hover any bar):</div>
+              <div class="text-xs font-semibold">Full Wet-Lab Binding Landscape (${ex.n_full} X→A sites):</div>
               <div class="flex rounded overflow-hidden border border-[var(--border)]">${cells}</div>
+            </div>
+
+            <div class="space-y-1 pt-1 border-t border-[var(--border)]">
+              <div class="text-xs font-semibold">Ground-Truth Binding Ranking (#1 Critical Hotspot → #${ex.n_panel} Non-Interface Decoy):</div>
+              <div class="flex flex-wrap gap-1">${renderRankPills(ex.ranked_panel)}</div>
             </div>
           </div>
         `;
