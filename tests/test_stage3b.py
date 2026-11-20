@@ -216,11 +216,12 @@ def test_built_stage3b_manifests_and_zero_leakage() -> None:
             assert pdb_leak not in txt
 
     m2 = json.loads(m2_p.read_text(encoding="utf-8"))
-    assert m2["n_targets"] == 8
+    assert m2["n_targets"] == 12
     p2_lines = (repo / "outputs" / "prompts" / "stage3b_binder_round1_prompts.jsonl").read_text().splitlines()
-    assert len(p2_lines) == 8
+    assert len(p2_lines) == 12
     for ep_meta, pl in zip(m2["targets"], p2_lines):
         txt = json.loads(pl)["prompt"]
         assert ep_meta["pdb_id"] not in txt
-        assert ep_meta["heldout_partner_sequence"][:14] not in txt
+        if ep_meta["heldout_partner_sequence"]:
+            assert ep_meta["heldout_partner_sequence"][:14] not in txt
         assert (repo / "data" / "stage3b_design" / "target_pdbs" / f"{ep_meta['target_id']}.pdb").exists()

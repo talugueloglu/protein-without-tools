@@ -13,7 +13,7 @@
 | **2A** | **Remote Homology (`TEA`)** | **`N = 120`** `SCOPe 2.08` pairs (`Seq-Easy` $\to$ `Foldseek 3Di` $\to$ **`Deep TEA Zone`** $\to$ class-matched decoys) | `Foldseek 3Di`, `PickyBinders/tea`, `ESM-2` | Stratified `AUROC`, `AUPRC`, & Rung `Recall @ 10% FPR` |
 | **2B** | **Function (`CAFA`)** | **`N = 60`** 2026 experimental `QuickGO` holdouts vs. `1,728` pre-2025 Swiss-Prot ref bank | `Smith-Waterman`, `ESM-2` $k$-NN, `CAFA Naive` | Official `CAFA` `wF_max` & `F_max` (`MF`, `BP`, `CC`) |
 | **3A** | **Alanine Scan (`X -> A`)** | **`N = 52`** proteins (**`5,348`** wet-lab `X -> A` mutants: `24` *de novo* $\Delta\Delta G$, `14` natural $\Delta\Delta G$, `14` May–Nov 2026 `MaveDB` DMS) | `ThermoMPNN`, `ESM-2` (650M & 3B) marginals | `Spearman ρ`, **`AA-Demeaned Context ρ`**, Hotspot & Core `AUROC` |
-| **3B** | ***De Novo* & Closed-Loop Binders** | **`N = 40`** fold/motif prompts + **`N = 8` epitopes $\times$ `16` `AF2` shots** (`2` classic + **`6` post-May-2026 stripped complexes**) | `BindCraft` (`ColabDesign AF2`), `ESM3`, `MPNN` | 5-Gate `% Designable` + Closed-Loop **`Shots-to-Hit`** (`Pass@1..16`) |
+| **3B** | ***De Novo* & Closed-Loop Binders** | **`N = 40`** fold/motif prompts + **`N = 12` proven-bindable epitopes $\times$ `16` `AF2` shots** (`4` `RFD4`/`ProtDBench` + `5` `BoltzProt-1` hard novel + `3` 2026 *de novo* binder crystals) | `BindCraft` (`ColabDesign AF2`), `ProtDBench` (`RFD3`, `PXDesign`, `BoltzGen`) | 5-Gate `% Designable` + Closed-Loop **`Shots-to-Hit`** (`Pass@1..16`) |
 
 ---
 

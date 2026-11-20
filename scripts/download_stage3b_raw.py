@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Download raw RCSB crystal structures for Stage 3B (De Novo Design & Closed-Loop Epitope Binder Design).
+"""Download raw RCSB structures & benchmark configs for Stage 3B (N = 12 Proven-Bindable Epitopes).
 
-Fetches and caches into `data/raw_stage3b_cache/`:
-  1. Part 1 Motif & Fold Reference PDBs:
-     - `1CLL` (Calmodulin `EF-hand` Ca2+-binding loop)
-     - `1AAY` (Zif268 `C2H2` Zn-finger chelating motif)
-     - `5P21` (H-Ras `Walker-A` P-loop + `Rossmann` alpha/beta/alpha sandwich)
-     - `1SHG` (`SH3` domain `all-beta` barrel)
-  2. Part 2 Classic Epitope Binder Controls:
-     - `5O45` (Human `PD-L1` IgV domain + binder complex)
-     - `1WWW` (Human `TrkA-d5` domain + NGF complex)
-  3. Part 2 Post-May-2026 (`release_date >= 2026-05-01`) Heterodimeric Complexes:
-     - Searches RCSB for high-resolution (`<= 3.0 A`) heterodimeric protein complexes released
-       after `2026-05-01` (`polymer_entity_count_protein == 2`), verifies globular target chain
-       (`75 <= L_A <= 210`), tight physical protein-protein interface (`>= 10` Cbeta < 8A contacts),
-       and `< 30%` pre-May-2026 PDB sequence identity (`MMseqs2`) so zero binders exist in training data!
+Fetches & caches into `data/raw_stage3b_cache/`:
+  1. Part 1 Motif & Fold Reference PDBs (`1CLL`, `1AAY`, `5P21`, `1SHG`).
+  2. Part 2 `N = 12` Proven-De-Novo-Bindable Epitope Panel:
+     - Tier 1 (`RFD4-Proteina` / `Proteina-Complexa` / `ProtDBench` Classics, n=4):
+       `5O45` (`PD-L1`), `1WWW` (`TrkA`), `3DI3` (`IL-7Ra`), `3MJG` (`PDGFRb`).
+     - Tier 2 (`BoltzProt-1` / `BoltzGen` June-2026 Hard Novel Panel, n=5):
+       `3QKG` (`AMBP`), `1G13` (`GM2A`), `1JQD` (`HNMT`), `7AAH` (`MZB1`), `1NB0` (`RFK`),
+       plus optional YAML hotspot specs from `HannesStark/boltzgen` / `congliuUvA/ProtDBench` if public.
+     - Tier 3 (Post-May-2026 Wet-Lab Synthetic De Novo Binder Complexes, n=3):
+       `9S83` (`2026-08-05` `JUBO4` de novo binder + `LEDGF PWWP`) + RCSB search for
+       `release_date >= 2026-05-01` + `taxonomy_id == 32630 ("synthetic construct")`
+       with `return_explain_metadata: True` verifying `< 30%` pre-May-2026 binder SeqID!
 """
 
 from __future__ import annotations
@@ -41,9 +39,10 @@ def radius_of_gyration(ca: np.ndarray) -> float:
     ctr = np.mean(ca, axis=0)
     return float(np.sqrt(np.mean(np.sum((ca - ctr) ** 2, axis=1))))
 
+
 SAFETY_BLOCKLIST = re.compile(
     r"(virus|viral|virion|capsid|phage|toxin|venom|ricin|abrin|"
-    r"botulinum|anthrax|ebola|marburg|variola|influenza|corona|sars|\bhiv\b)",
+    r"botulinum|anthrax|ebola|marburg|variola|influenza|corona|sars|\bhiv\b|nipah)",
     re.IGNORECASE,
 )
 
@@ -78,13 +77,13 @@ def parse_cif_all_protein_chains(cif_text: str) -> Dict[str, Dict[str, Any]]:
     idx_comp = col_idx.get("label_comp_id", col_idx.get("auth_comp_id", -1))
     idx_asym = col_idx.get("auth_asym_id", col_idx.get("label_asym_id", -1))
     idx_seq = col_idx.get("label_seq_id", col_idx.get("auth_seq_id", -1))
+    idx_auth_seq = col_idx.get("auth_seq_id", idx_seq)
     idx_alt = col_idx.get("label_alt_id", -1)
     idx_mod = col_idx.get("pdbx_PDB_model_num", -1)
     idx_x, idx_y, idx_z = col_idx.get("Cartn_x", -1), col_idx.get("Cartn_y", -1), col_idx.get("Cartn_z", -1)
 
     first_model: Optional[str] = None
-    # chain -> seq_num -> atom -> xyz
-    raw_chains: Dict[str, Dict[int, Tuple[str, Dict[str, List[float]]]]] = {}
+    raw_chains: Dict[str, Dict[int, Tuple[str, int, Dict[str, List[float]]]]] = {}
 
     for k in range(data_start, n_lines):
         raw = lines[k].strip()
@@ -115,30 +114,30 @@ def parse_cif_all_protein_chains(cif_text: str) -> Dict[str, Dict[str, Any]]:
         if not seq_str.lstrip("-").isdigit():
             continue
         snum = int(seq_str)
+        auth_snum = int(toks[idx_auth_seq]) if toks[idx_auth_seq].lstrip("-").isdigit() else snum
         ch = toks[idx_asym]
         ch_map = raw_chains.setdefault(ch, {})
         aa1 = AA3_TO_1[comp]
         if snum not in ch_map:
-            ch_map[snum] = (aa1, {})
-        if atom not in ch_map[snum][1]:
-            ch_map[snum][1][atom] = [float(toks[idx_x]), float(toks[idx_y]), float(toks[idx_z])]
+            ch_map[snum] = (aa1, auth_snum, {})
+        if atom not in ch_map[snum][2]:
+            ch_map[snum][2][atom] = [float(toks[idx_x]), float(toks[idx_y]), float(toks[idx_z])]
 
     out: Dict[str, Dict[str, Any]] = {}
     for ch, res_map in raw_chains.items():
-        # Extract longest contiguous (`CA-CA < 4.4 A`) resolved backbone segment
         ordered = [
-            (sn, aa, atoms)
-            for sn, (aa, atoms) in sorted(res_map.items())
+            (sn, aa, asn, atoms)
+            for sn, (aa, asn, atoms) in sorted(res_map.items())
             if all(a in atoms for a in ("N", "CA", "C", "O")) and aa in CANONICAL_AA_SET
         ]
         if len(ordered) < 35:
             continue
-        best_seg: List[Tuple[int, str, Dict[str, List[float]]]] = []
+        best_seg: List[Tuple[int, str, int, Dict[str, List[float]]]] = []
         cur_seg = [ordered[0]]
         for item in ordered[1:]:
-            prev_ca = np.array(cur_seg[-1][2]["CA"])
-            cur_ca = np.array(item[2]["CA"])
-            if float(np.linalg.norm(cur_ca - prev_ca)) <= 4.5:
+            prev_ca = np.array(cur_seg[-1][3]["CA"])
+            cur_ca = np.array(item[3]["CA"])
+            if float(np.linalg.norm(cur_ca - prev_ca)) <= 4.6:
                 cur_seg.append(item)
             else:
                 if len(cur_seg) > len(best_seg):
@@ -149,16 +148,17 @@ def parse_cif_all_protein_chains(cif_text: str) -> Dict[str, Dict[str, Any]]:
         if len(best_seg) < 35:
             continue
         seq = "".join(x[1] for x in best_seg)
-        n_arr = np.array([x[2]["N"] for x in best_seg], dtype=np.float64)
-        ca_arr = np.array([x[2]["CA"] for x in best_seg], dtype=np.float64)
-        c_arr = np.array([x[2]["C"] for x in best_seg], dtype=np.float64)
-        o_arr = np.array([x[2]["O"] for x in best_seg], dtype=np.float64)
+        n_arr = np.array([x[3]["N"] for x in best_seg], dtype=np.float64)
+        ca_arr = np.array([x[3]["CA"] for x in best_seg], dtype=np.float64)
+        c_arr = np.array([x[3]["C"] for x in best_seg], dtype=np.float64)
+        o_arr = np.array([x[3]["O"] for x in best_seg], dtype=np.float64)
         cb_arr = compute_virtual_cb(n_arr, ca_arr, c_arr)
         out[ch] = {
             "chain_id": ch,
             "sequence": seq,
             "length": len(seq),
             "res_nums": [x[0] for x in best_seg],
+            "auth_res_nums": [x[2] for x in best_seg],
             "n": n_arr,
             "ca": ca_arr,
             "c": c_arr,
@@ -169,8 +169,8 @@ def parse_cif_all_protein_chains(cif_text: str) -> Dict[str, Dict[str, Any]]:
     return out
 
 
-def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "2026-05-01") -> float:
-    """Return max sequence identity (%) in RCSB PDB released strictly before `cutoff`."""
+def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "2026-05-01") -> Tuple[float, List[str]]:
+    """Return `(max_seqid_pct, hit_entity_ids)` in RCSB PDB released strictly before `cutoff` (WITH explain metadata!)."""
     q = {
         "query": {
             "type": "group",
@@ -181,7 +181,7 @@ def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "202
                     "service": "sequence",
                     "parameters": {
                         "evalue_cutoff": 10.0,
-                        "identity_cutoff": 0.20,
+                        "identity_cutoff": 0.25,
                         "sequence_type": "protein",
                         "value": seq,
                     },
@@ -198,17 +198,22 @@ def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "202
             ],
         },
         "return_type": "polymer_entity",
-        "request_options": {"paginate": {"start": 0, "rows": 25}, "scoring_strategy": "sequence"},
+        "request_options": {
+            "paginate": {"start": 0, "rows": 25},
+            "scoring_strategy": "sequence",
+            "return_explain_metadata": True,
+        },
     }
     r = client.post("https://search.rcsb.org/rcsbsearch/v2/query", json=q)
     if r.status_code in (204, 404):
-        return 0.0
+        return 0.0, []
     if r.status_code != 200:
-        return 0.0
+        return 100.0, ["http_err"]
     hits = r.json().get("result_set") or []
     if not hits:
-        return 0.0
-    best_id = 0.0
+        return 0.0, []
+    hit_ids = [str(h.get("identifier", "")) for h in hits[:10]]
+    best_id = 30.0  # conservative non-zero floor whenever >=25% identity hits exist!
     for h in hits[:10]:
         for sc in h.get("services") or []:
             for n in sc.get("nodes") or []:
@@ -216,18 +221,29 @@ def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "202
                     sid = float(m.get("sequence_identity", 0.0)) * 100.0
                     if sid > best_id:
                         best_id = sid
-    return round(best_id, 1)
+    return round(best_id, 1), hit_ids
 
 
 def main() -> None:
     repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
     raw_dir = repo / "data" / "raw_stage3b_cache"
     cif_dir = raw_dir / "cifs"
+    cfg_dir = raw_dir / "upstream_configs"
     cif_dir.mkdir(parents=True, exist_ok=True)
+    cfg_dir.mkdir(parents=True, exist_ok=True)
 
     with httpx.Client(timeout=60.0, follow_redirects=True) as client:
-        # 1. Fixed reference PDBs (Part 1 motifs/folds + Part 2 classic controls)
-        fixed_pdbs = ["1CLL", "1AAY", "5P21", "1SHG", "5O45", "1WWW"]
+        # 1. Fixed PDBs across Part 1 + Part 2 Tier 1 (`ProtDBench`/`RFD4`) + Part 2 Tier 2 (`BoltzProt-1`) + `9S83`
+        fixed_pdbs = [
+            # Part 1 motifs/folds
+            "1CLL", "1AAY", "5P21", "1SHG",
+            # Tier 1: RFD4-Proteina / Proteina-Complexa / ProtDBench classics
+            "5O45", "1WWW", "3DI3", "3MJG",
+            # Tier 2: BoltzProt-1 / BoltzGen 5 hard novel targets
+            "3QKG", "1G13", "1JQD", "7AAH", "1NB0",
+            # Tier 3 anchor: Aug-2026 wet-lab de novo minibinder JUBO4 + LEDGF PWWP
+            "9S83",
+        ]
         for pid in fixed_pdbs:
             dest = cif_dir / f"{pid}.cif"
             if not dest.exists():
@@ -236,9 +252,31 @@ def main() -> None:
                 dest.write_text(r.text, encoding="utf-8")
             print(f"  Cached {pid}.cif ({dest.stat().st_size / 1024:.1f} KB)", flush=True)
 
-        # 2. Search RCSB for post-May-2026 (`>= 2026-05-01`) heterodimeric protein-protein complexes
-        print("Searching RCSB for post-2026-05-01 heterodimeric protein complexes...", flush=True)
-        search_q = {
+        # 2. Check upstream `HannesStark/boltzgen` & `congliuUvA/ProtDBench` trees for any public YAML target specs
+        for repo_slug, local_tag in (("HannesStark/boltzgen", "boltzgen"), ("congliuUvA/ProtDBench", "protd_bench")):
+            try:
+                rt = client.get(f"https://api.github.com/repos/{repo_slug}/git/trees/HEAD?recursive=1")
+                if rt.status_code == 200:
+                    paths = [
+                        item["path"]
+                        for item in (rt.json().get("tree") or [])
+                        if any(k in item["path"].lower() for k in ("3qkg", "1g13", "1jqd", "7aah", "1nb0", "3di3", "3mjg", "1www", "5o45", "target", "benchmark"))
+                        and item["path"].endswith((".yaml", ".yml", ".json", ".csv", ".tsv"))
+                    ]
+                    (cfg_dir / f"{local_tag}_paths.json").write_text(json.dumps(paths, indent=2), encoding="utf-8")
+                    print(f"  [{repo_slug}] Found {len(paths)} matching config paths", flush=True)
+                    for p in paths[:15]:
+                        rcf = client.get(f"https://raw.githubusercontent.com/{repo_slug}/HEAD/{p}")
+                        if rcf.status_code == 200 and len(rcf.text) < 250_000:
+                            safe_n = p.replace("/", "__")
+                            (cfg_dir / f"{local_tag}__{safe_n}").write_text(rcf.text, encoding="utf-8")
+            except Exception as exc:
+                print(f"  [{repo_slug}] skipped config probe: {exc}", flush=True)
+
+        # 3. Search RCSB specifically for post-May-2026 (`>= 2026-05-01`) Wet-Lab Synthetic De Novo Binder Complexes!
+        #    (`ncbi_taxonomy_id == 32630` "synthetic construct" + `polymer_entity_count_protein >= 2`)
+        print("Searching RCSB for post-2026-05-01 wet-lab synthetic de novo binder complexes...", flush=True)
+        q_denovo = {
             "query": {
                 "type": "group",
                 "logical_operator": "and",
@@ -256,8 +294,17 @@ def main() -> None:
                         "type": "terminal",
                         "service": "text",
                         "parameters": {
+                            "attribute": "rcsb_entity_source_organism.ncbi_scientific_name",
+                            "operator": "exact_match",
+                            "value": "synthetic construct",
+                        },
+                    },
+                    {
+                        "type": "terminal",
+                        "service": "text",
+                        "parameters": {
                             "attribute": "rcsb_entry_info.polymer_entity_count_protein",
-                            "operator": "equals",
+                            "operator": "greater_or_equal",
                             "value": 2,
                         },
                     },
@@ -267,30 +314,19 @@ def main() -> None:
                         "parameters": {
                             "attribute": "rcsb_entry_info.deposited_polymer_monomer_count",
                             "operator": "less_or_equal",
-                            "value": 460,
-                        },
-                    },
-                    {
-                        "type": "terminal",
-                        "service": "text",
-                        "parameters": {
-                            "attribute": "rcsb_entry_info.resolution_combined",
-                            "operator": "less_or_equal",
-                            "value": 3.0,
+                            "value": 900,
                         },
                     },
                 ],
             },
             "return_type": "entry",
-            "request_options": {"paginate": {"start": 0, "rows": 140}},
+            "request_options": {"paginate": {"start": 0, "rows": 180}},
         }
-        rs = client.post("https://search.rcsb.org/rcsbsearch/v2/query", json=search_q)
-        rs.raise_for_status()
-        cand_ids = [h["identifier"] for h in (rs.json().get("result_set") or [])]
-        print(f"  Found {len(cand_ids)} candidate post-May-2026 heterodimer entries.", flush=True)
+        rd = client.post("https://search.rcsb.org/rcsbsearch/v2/query", json=q_denovo)
+        rd.raise_for_status()
+        cand_ids = [h["identifier"] for h in (rd.json().get("result_set") or [])]
+        print(f"  Found {len(cand_ids)} post-May-2026 synthetic-construct protein complexes.", flush=True)
 
-        # Fetch GraphQL titles/dates/organisms in batches of 40 for safety filtering
-        entry_meta: Dict[str, Dict[str, str]] = {}
         gql = """
         query($ids: [String!]!) {
           entries(entry_ids: $ids) {
@@ -298,135 +334,122 @@ def main() -> None:
             struct { title }
             rcsb_accession_info { initial_release_date }
             polymer_entities {
-              rcsb_entity_source_organism { ncbi_scientific_name }
-              entity_poly { pdbx_strand_id }
+              rcsb_entity_source_organism { ncbi_scientific_name ncbi_taxonomy_id }
+              entity_poly { pdbx_strand_id pdbx_seq_one_letter_code_can }
               rcsb_polymer_entity { pdbx_description }
             }
           }
         }
         """
+        ab_regex = re.compile(r"\b(fab|scfv|nanobody|vhh|antibody|immunoglobulin|heavy chain|light chain|sybody|darpin)\b", re.I)
+        denovo_kw = re.compile(r"\b(de novo|designed|minibinder|miniprotein|binder|rfdiffusion|hallucin|scaffold)\b", re.I)
+
+        cands_filtered = []
         for i in range(0, len(cand_ids), 40):
-            rg = client.post(
-                "https://data.rcsb.org/graphql",
-                json={"query": gql, "variables": {"ids": cand_ids[i : i + 40]}},
-            )
+            rg = client.post("https://data.rcsb.org/graphql", json={"query": gql, "variables": {"ids": cand_ids[i : i + 40]}})
             if rg.status_code != 200:
                 continue
             for ent in ((rg.json().get("data") or {}).get("entries") or []):
                 eid = ent["rcsb_id"]
                 title = str((ent.get("struct") or {}).get("title") or "")
                 rdate = str((ent.get("rcsb_accession_info") or {}).get("initial_release_date") or "")[:10]
-                orgs = []
-                descs = []
-                for pe in ent.get("polymer_entities") or []:
-                    for o in pe.get("rcsb_entity_source_organism") or []:
-                        if o.get("ncbi_scientific_name"):
-                            orgs.append(str(o["ncbi_scientific_name"]))
-                    d = str((pe.get("rcsb_polymer_entity") or {}).get("pdbx_description") or "")
-                    if d:
-                        descs.append(d)
-                blob = f"{title} {' '.join(orgs)} {' '.join(descs)}"
-                if SAFETY_BLOCKLIST.search(blob):
+                pes = ent.get("polymer_entities") or []
+                blob_parts = [title]
+                has_synth_miniprotein = False
+                has_target = False
+                for pe in pes:
+                    orgs = pe.get("rcsb_entity_source_organism") or []
+                    txids = {o.get("ncbi_taxonomy_id") for o in orgs}
+                    onames = [str(o.get("ncbi_scientific_name") or "") for o in orgs]
+                    desc = str((pe.get("rcsb_polymer_entity") or {}).get("pdbx_description") or "")
+                    seq = str((pe.get("entity_poly") or {}).get("pdbx_seq_one_letter_code_can") or "").replace("\n", "")
+                    blob_parts.extend(onames + [desc])
+                    if 32630 in txids and 42 <= len(seq) <= 125:
+                        has_synth_miniprotein = True
+                    elif 32630 not in txids and 65 <= len(seq) <= 320:
+                        has_target = True
+                blob = " ".join(blob_parts)
+                if SAFETY_BLOCKLIST.search(blob) or ab_regex.search(blob):
                     continue
-                # Avoid trivial Fab/scFv antibody-antigen crystal complexes so we get genuine non-antibody PPIs too!
-                is_ab = bool(re.search(r"\b(fab|scfv|nanobody|vhh|antibody|immunoglobulin|heavy chain|light chain)\b", blob, re.I))
-                entry_meta[eid] = {
-                    "pdb_id": eid,
-                    "title": title,
-                    "release_date": rdate,
-                    "organisms": "; ".join(sorted(set(orgs)))[:120],
-                    "descriptions": "; ".join(descs)[:180],
-                    "is_antibody_like": "yes" if is_ab else "no",
-                }
+                if has_synth_miniprotein and (has_target or denovo_kw.search(blob)):
+                    prio = 0 if denovo_kw.search(blob) else 1
+                    cands_filtered.append((prio, eid, rdate, title, pes))
 
-        # Prioritize non-antibody novel PPIs first, then novel binder complexes
-        ordered_eids = sorted(entry_meta.keys(), key=lambda k: (0 if entry_meta[k]["is_antibody_like"] == "no" else 1, k))
+        cands_filtered.sort()
+        print(f"  {len(cands_filtered)} non-viral, non-antibody synthetic miniprotein complex candidates after title filter.", flush=True)
 
-        verified_complexes: List[Dict[str, Any]] = []
-        seen_target_kmers: List[set[str]] = []
-
-        for eid in ordered_eids:
-            if len(verified_complexes) >= 8:
+        accepted_denovo: List[Dict[str, Any]] = []
+        for _prio, eid, rdate, title, pes in cands_filtered:
+            if len(accepted_denovo) >= 6:
                 break
+            # Identify synthetic binder entity (42..125 AA) with STRICT `< 30%` pre-May-2026 PDB sequence identity!
+            synth_chains: List[str] = []
+            target_chains: List[str] = []
+            binder_sid = 100.0
+            for pe in pes:
+                txids = {o.get("ncbi_taxonomy_id") for o in (pe.get("rcsb_entity_source_organism") or [])}
+                strands = [s.strip() for s in str((pe.get("entity_poly") or {}).get("pdbx_strand_id") or "").split(",") if s.strip()]
+                seq = str((pe.get("entity_poly") or {}).get("pdbx_seq_one_letter_code_can") or "").replace("\n", "")
+                if 32630 in txids and 42 <= len(seq) <= 125:
+                    sid, hits = check_precutoff_pdb_seqid(client, seq)
+                    if sid < 30.0 and len(hits) == 0:
+                        synth_chains.extend(strands)
+                        binder_sid = sid
+                elif 65 <= len(seq) <= 320:
+                    target_chains.extend(strands)
+
+            if not synth_chains or not target_chains:
+                continue
+
             cif_p = cif_dir / f"{eid}.cif"
             if not cif_p.exists():
                 rc = client.get(f"https://files.rcsb.org/download/{eid}.cif")
                 if rc.status_code != 200:
                     continue
                 cif_p.write_text(rc.text, encoding="utf-8")
-            chains = parse_cif_all_protein_chains(cif_p.read_text(encoding="utf-8"))
-            if len(chains) < 2:
-                continue
 
-            # Find best heteromeric pair (ch_target, ch_partner) with distinct sequences, globular target 75..205 AA,
-            # partner 42..175 AA, and >= 12 intermolecular Cbeta < 8.0 A contacts!
+            chs = parse_cif_all_protein_chains(cif_p.read_text(encoding="utf-8"))
             best_pair = None
-            ch_keys = sorted(chains.keys())
-            for ca_id in ch_keys:
-                for cb_id in ch_keys:
-                    if ca_id == cb_id:
+            for tc in target_chains:
+                for bc in synth_chains:
+                    if tc not in chs or bc not in chs:
                         continue
-                    ta, tb = chains[ca_id], chains[cb_id]
-                    if ta["sequence"] == tb["sequence"]:
+                    ta, tb = chs[tc], chs[bc]
+                    if not (65 <= ta["length"] <= 280 and 42 <= tb["length"] <= 120):
                         continue
-                    la, lb = ta["length"], tb["length"]
-                    if not (75 <= la <= 205 and 42 <= lb <= 175):
+                    if ta["rg"] > 2.45 * (ta["length"] ** 0.38):
                         continue
-                    # Globularity check on Target Chain A
-                    if ta["rg"] > 2.38 * (la ** 0.38):
-                        continue
-                    # Intermolecular Cbeta distance matrix
                     dmat = np.linalg.norm(ta["cb"][:, None, :] - tb["cb"][None, :, :], axis=-1)
-                    n_contacts = int(np.sum(dmat < 8.0))
-                    n_target_iface = int(np.sum(np.min(dmat, axis=1) < 8.0))
-                    # Check zero severe backbone clashes
-                    d_ca = np.linalg.norm(ta["ca"][:, None, :] - tb["ca"][None, :, :], axis=-1)
-                    if int(np.sum(d_ca < 3.2)) > 0:
-                        continue
-                    if n_contacts >= 14 and n_target_iface >= 6:
-                        if best_pair is None or n_contacts > best_pair[0]:
-                            best_pair = (n_contacts, ca_id, cb_id)
-
-            if best_pair is None:
-                continue
-
-            n_cont, ca_id, cb_id = best_pair
-            ta, tb = chains[ca_id], chains[cb_id]
-            km_a = {ta["sequence"][j : j + 3] for j in range(ta["length"] - 2)}
-            if any(len(km_a & okm) / float(max(1, len(km_a | okm))) > 0.25 for okm in seen_target_kmers):
-                continue
-
-            # Verify pre-cutoff PDB sequence novelty (`< 30%` SeqID on partner OR target!)
-            sid_partner = check_precutoff_pdb_seqid(client, tb["sequence"])
-            sid_target = check_precutoff_pdb_seqid(client, ta["sequence"])
-            if sid_partner >= 30.0 and sid_target >= 30.0:
-                continue
-
-            seen_target_kmers.append(km_a)
-            meta = dict(entry_meta[eid])
-            meta.update(
-                {
-                    "target_chain": ca_id,
-                    "partner_chain": cb_id,
-                    "target_len": ta["length"],
-                    "partner_len": tb["length"],
-                    "interchain_cb8_contacts": n_cont,
-                    "target_precutoff_pdb_seqid": sid_target,
-                    "partner_precutoff_pdb_seqid": sid_partner,
+                    nc = int(np.sum(dmat < 8.0))
+                    nhs = int(np.sum(np.min(dmat, axis=1) < 8.0))
+                    if nc >= 14 and nhs >= 5:
+                        if best_pair is None or nc > best_pair[0]:
+                            best_pair = (nc, tc, bc)
+            if best_pair:
+                nc, tc, bc = best_pair
+                rec = {
+                    "pdb_id": eid,
+                    "release_date": rdate,
+                    "title": title,
+                    "target_chain": tc,
+                    "target_len": chs[tc]["length"],
+                    "binder_chain": bc,
+                    "binder_len": chs[bc]["length"],
+                    "binder_precutoff_pdb_seqid": binder_sid,
+                    "interchain_cb8_contacts": nc,
                 }
-            )
-            verified_complexes.append(meta)
-            print(
-                f"  [Accepted Post-May-2026 Complex] {eid} ({meta['release_date']}): "
-                f"Target {ca_id} ({ta['length']} AA, pre-PDB={sid_target}%) + "
-                f"Partner {cb_id} ({tb['length']} AA, pre-PDB={sid_partner}%), {n_cont} contacts — {meta['title'][:65]}",
-                flush=True,
-            )
+                accepted_denovo.append(rec)
+                print(
+                    f"  [Accepted Post-May-2026 De Novo Binder Complex] {eid} ({rdate}): "
+                    f"Target {tc} ({chs[tc]['length']} AA) + Synthetic Binder {bc} ({chs[bc]['length']} AA, pre-PDB={binder_sid}%), "
+                    f"{nc} contacts — {title[:75]}",
+                    flush=True,
+                )
 
-        (raw_dir / "post_may2026_complexes.json").write_text(
-            json.dumps(verified_complexes, indent=2), encoding="utf-8"
+        (raw_dir / "post_may2026_denovo_binder_complexes.json").write_text(
+            json.dumps(accepted_denovo, indent=2), encoding="utf-8"
         )
-        print(f"Saved {len(verified_complexes)} verified post-May-2026 heterodimer complexes!", flush=True)
+        print(f"Saved {len(accepted_denovo)} verified post-May-2026 wet-lab de novo binder complexes!", flush=True)
 
 
 if __name__ == "__main__":

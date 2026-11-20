@@ -501,7 +501,7 @@ def score_3d_complex_geometry(
     )
 
     max_forb = external_max_seqid
-    for fseq in [target.heldout_partner_sequence, *target.forbidden_sequences]:
+    for fseq in [target.target_sequence, target.heldout_partner_sequence, *target.forbidden_sequences]:
         if fseq and len(binder_seq) >= 25:
             _b, _ev, sid = smith_waterman_affine(binder_seq, fseq)
             max_forb = max(max_forb, sid)
@@ -608,7 +608,7 @@ class SurrogatePhysicsBinderOracle:
             )
 
         max_forb = 0.0
-        for fseq in [target.heldout_partner_sequence, *target.forbidden_sequences]:
+        for fseq in [target.target_sequence, target.heldout_partner_sequence, *target.forbidden_sequences]:
             if fseq and len(s) >= 25:
                 _b, _ev, sid = smith_waterman_affine(s, fseq)
                 max_forb = max(max_forb, sid)

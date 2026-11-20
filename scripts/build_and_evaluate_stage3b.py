@@ -350,118 +350,219 @@ def build_part1_monomer_and_motif(
     return specs
 
 
+def select_surface_hydrophobic_patch_hotspots(seq: str, ca: np.ndarray, cb: np.ndarray) -> List[int]:
+    """Select 5 coherent, solvent-exposed hydrophobic/aromatic patch hotspot residues (1-indexed) for apo targets (`BoltzProt-1`)."""
+    from fable_bench.stage3b_design import AROMATIC_SET, KYTE_DOOLITTLE
+
+    dmat = np.linalg.norm(cb[:, None, :] - cb[None, :, :], axis=-1)
+    # Burial count (`Cbeta < 10.0 A`, excluding self & +/-1 neighbors)
+    nbr_cnt = np.sum(dmat < 10.0, axis=1) - 1
+    median_nbr = float(np.median(nbr_cnt))
+    # Surface-exposed mask (`nbr_cnt <= median_nbr`)
+    surf_mask = nbr_cnt <= median_nbr
+
+    res_prop = np.array(
+        [
+            (1.6 if aa in AROMATIC_SET else 0.0) + max(0.0, KYTE_DOOLITTLE[aa] * 0.45) + (0.35 if aa in "HYQNRK" else 0.0)
+            for aa in seq
+        ],
+        dtype=np.float64,
+    )
+    best_patch_score = -1e9
+    best_anchor = 0
+    for i in range(len(seq)):
+        if not surf_mask[i]:
+            continue
+        local_surf = [j for j in range(len(seq)) if surf_mask[j] and dmat[i, j] <= 12.5]
+        if len(local_surf) < 6:
+            continue
+        sc = float(np.sum(res_prop[local_surf]))
+        if sc > best_patch_score:
+            best_patch_score = sc
+            best_anchor = i
+
+    patch_cands = sorted(
+        [j for j in range(len(seq)) if surf_mask[j] and dmat[best_anchor, j] <= 13.5],
+        key=lambda j: (-res_prop[j], dmat[best_anchor, j]),
+    )
+    chosen_1idx: List[int] = []
+    for j in patch_cands:
+        if all(abs((j + 1) - h) >= 2 for h in chosen_1idx):
+            chosen_1idx.append(int(j + 1))
+        if len(chosen_1idx) == 5:
+            break
+    return sorted(chosen_1idx)
+
+
 def build_part2_epitope_binders(
     raw_cif_dir: Path,
     out_dir: Path,
     prompts_dir: Path,
 ) -> List[EpitopeTarget]:
-    """Build `N = 8` Epitope Binder Targets (`2` Classic Controls + `6` Post-May-2026 Stripped Heterodimers)."""
+    """Build `N = 12` Proven-De-Novo-Bindable Epitope Targets across 3 Tiers:
+      - Tier 1 (`rfd4_proteina_classic`, n=4): `5O45` (`PD-L1`), `1WWW` (`TrkA`), `3DI3` (`IL-7Ra`), `3MJG` (`PDGFRb`)
+      - Tier 2 (`boltzprot1_hard_novel`, n=5): `3QKG` (`AMBP`), `1G13` (`GM2A`), `1JQD` (`HNMT`), `7AAH` (`MZB1`), `1NB0` (`RFK`)
+      - Tier 3 (`post_may2026_denovo_crystal`, n=3): `9S83` (`LEDGF PWWP + JUBO4`), `9RVK` (`Aurora-A + DBL5`), `9TLV` (`MCL-1 + Sc-aMCL1`)
+    """
     target_pdb_dir = out_dir / "target_pdbs"
+    if target_pdb_dir.exists():
+        for old_p in target_pdb_dir.glob("*.pdb"):
+            old_p.unlink()
     target_pdb_dir.mkdir(parents=True, exist_ok=True)
 
-    # First inspect `5O45` all chains (note `5O45` has `PD-L1` Chain A + nanobody KN035 Chain B; let's check!)
-    # Format: (tid, tier, label, pdb_id, rdate, target_ch, partner_ch_opt, explicit_hotspots_opt, extra_forb)
-    # Note: for `5O45` if nanobody chain is present in CIF we compute exact interface hotspots, otherwise use canonical PD-L1 IgV face!
     raw_specs = [
+        # Tier 1: RFD4-Proteina / Proteina-Complexa / ProtDBench Canonical Targets (n = 4)
         (
             "s3b_ep01",
-            "classic_control",
-            "Human_PDL1_IgV_Epitope",
+            "rfd4_proteina_classic",
+            "PDL1_IgV_ProtDBench",
             "5O45",
             "2017-07-26",
             "A",
-            None,  # check partner chain dynamically or use canonical PD-L1 hotspots `Ile38,Tyr40,Met99,Ala105,Tyr107`
+            None,
+            "pdl1_canonical",
             ["SDLGKKLLEAARAGQDDEVRILMANGADVNA", "DDFKKLLERAKKGDDEVRKLMANGADVNA"],
         ),
         (
             "s3b_ep02",
-            "classic_control",
-            "Human_TrkA_d5_Epitope",
+            "rfd4_proteina_classic",
+            "TrkA_d5_ProtDBench",
             "1WWW",
             "2001-09-19",
             "X",
             "V",
+            None,
             [],
         ),
         (
             "s3b_ep03",
-            "post_may_2026_complex",
-            "PostCutoff_9S83_PWWP_Domain",
-            "9S83",
-            "2026-08-05",
-            "B",  # 89 AA LEDGF PWWP target domain; Chain A is 74 AA de novo binder JUBO4 (0% pre-cutoff SeqID!)
+            "rfd4_proteina_classic",
+            "IL7Ra_ECD_ProtDBench",
+            "3DI3",
+            "2009-04-21",
+            "B",
             "A",
+            None,
             [],
         ),
         (
             "s3b_ep04",
-            "post_may_2026_complex",
-            "PostCutoff_12TB_NovelFold_Target",
-            "12TB",
-            "2026-11-04",
-            "A",  # 135 AA novel-fold target; Chain B is 70 AA partner (0% pre-cutoff SeqID!)
+            "rfd4_proteina_classic",
+            "PDGFRb_D2D3_ProteinaComplexa",
+            "3MJG",
+            "2010-05-19",
+            "X",
             "B",
+            None,
             [],
         ),
+        # Tier 2: BoltzProt-1 / BoltzGen (June 2026) Hard Novel Targets — Zero prior PDB binders, wet-lab nM proven (n = 5)
         (
             "s3b_ep05",
-            "post_may_2026_complex",
-            "PostCutoff_10CY_Archaeal_Target",
-            "10CY",
-            "2026-08-26",
-            "B",  # 169 AA target; Chain C is 90 AA partner (0% pre-cutoff SeqID!)
-            "C",
+            "boltzprot1_hard_novel",
+            "AMBP_BoltzProt1_Novel",
+            "3QKG",
+            "2011-05-04",
+            "A",
+            None,
+            "surface_patch",
             [],
         ),
         (
             "s3b_ep06",
-            "post_may_2026_complex",
-            "PostCutoff_9XGP_Synthase_Target",
-            "9XGP",
-            "2026-11-04",
-            "D",  # 144 AA target; Chain C is 83 AA sulfur carrier partner (0% pre-cutoff SeqID!)
-            "C",
+            "boltzprot1_hard_novel",
+            "GM2A_BoltzProt1_Novel",
+            "1G13",
+            "2001-01-10",
+            "A",
+            None,
+            "surface_patch",
             [],
         ),
         (
             "s3b_ep07",
-            "post_may_2026_complex",
-            "PostCutoff_44HP_PASB_Target",
-            "44HP",
-            "2026-08-19",
-            "A",  # 113 AA PAS-B target; Chain B is 103 AA partner
-            "B",
+            "boltzprot1_hard_novel",
+            "HNMT_BoltzProt1_Novel",
+            "1JQD",
+            "2001-10-17",
+            "A",
+            None,
+            "surface_patch",
             [],
         ),
         (
             "s3b_ep08",
-            "post_may_2026_complex",
-            "PostCutoff_11GH_SwitchII_Target",
-            "11GH",
-            "2026-10-07",
-            "A",  # 169 AA G12C/Y96D target; Chain B is 82 AA effector domain
-            "B",
+            "boltzprot1_hard_novel",
+            "MZB1_BoltzProt1_Novel",
+            "7AAH",
+            "2021-03-31",
+            "A",
+            None,
+            "surface_patch",
+            [],
+        ),
+        (
+            "s3b_ep09",
+            "boltzprot1_hard_novel",
+            "RFK_BoltzProt1_Novel",
+            "1NB0",
+            "2003-02-04",
+            "A",
+            None,
+            "surface_patch",
+            [],
+        ),
+        # Tier 3: Post-May-2026 Wet-Lab De Novo Minibinder Crystal Structures (n = 3, 0% pre-cutoff binder SeqID!)
+        (
+            "s3b_ep10",
+            "post_may2026_denovo_crystal",
+            "LEDGF_PWWP_JUBO4_Aug2026",
+            "9S83",
+            "2026-08-05",
+            "B",  # 89 AA LEDGF PWWP target; Chain A = 74 AA de novo minibinder JUBO4
+            "A",
+            None,
+            [],
+        ),
+        (
+            "s3b_ep11",
+            "post_may2026_denovo_crystal",
+            "AuroraA_DBL5_Jul2026",
+            "9RVK",
+            "2026-07-22",
+            "B",  # 264 AA Aurora-A target; Chain A = 60 AA de novo minibinder DBL5
+            "A",
+            None,
+            [],
+        ),
+        (
+            "s3b_ep12",
+            "post_may2026_denovo_crystal",
+            "MCL1_ScHairpin_Aug2026",
+            "9TLV",
+            "2026-08-19",
+            "B",  # 149 AA MCL-1 target; Chain A = 69 AA de novo coiled-coil minibinder
+            "A",
+            None,
             [],
         ),
     ]
 
     epitope_targets: List[EpitopeTarget] = []
 
-    for tid, tier, name, pid, rdate, tch, pch, extra_forb in raw_specs:
+    for tid, tier, name, pid, rdate, tch, pch, hs_mode, extra_forb in raw_specs:
         chs = parse_cif_all_protein_chains((raw_cif_dir / f"{pid}.cif").read_text(encoding="utf-8"))
         ta = chs[tch]
         write_backbone_pdb(ta["sequence"], ta["n"], ta["ca"], ta["c"], ta["o"], target_pdb_dir / f"{tid}.pdb")
 
         if pch and pch in chs:
             tb = chs[pch]
-            # Rank target residues by minimum Cbeta distance to held-out partner Chain B!
             dmat = np.linalg.norm(ta["cb"][:, None, :] - tb["cb"][None, :, :], axis=-1)
             min_d = np.min(dmat, axis=1)
-            # Pick 5 well-spaced (`|i - j| >= 2`) tightest-contacting epitope hotspot residues (`< 8.0 A`)
             cand_0idx = list(np.argsort(min_d))
             hotspots_1idx: List[int] = []
             for idx0 in cand_0idx:
-                if min_d[idx0] < 8.5 and all(abs((idx0 + 1) - h) >= 2 for h in hotspots_1idx):
+                if min_d[idx0] < 9.0 and all(abs((idx0 + 1) - h) >= 2 for h in hotspots_1idx):
                     hotspots_1idx.append(int(idx0 + 1))
                 if len(hotspots_1idx) == 5:
                     break
@@ -469,13 +570,17 @@ def build_part2_epitope_binders(
             p_seq = tb["sequence"]
             p_ca = np.round(tb["ca"], 3).tolist()
             p_cb = np.round(tb["cb"], 3).tolist()
-        else:
-            # Canonical PD-L1 IgV (`5O45` Chain A) PD-1 / Cao-2022 binding patch (`LIVYWEM` + `CMISYGGADY`)
+        elif hs_mode == "pdl1_canonical":
             s_pdl1 = ta["sequence"]
-            i_liv = s_pdl1.index("LIVYWEM")  # Ile54 = i_liv+1, Tyr56 = i_liv+3
-            i_cmi = s_pdl1.index("CMISYGGADY")  # Met115 = i_cmi+1, Ala121 = i_cmi+7, Tyr123 = i_cmi+9
+            i_liv = s_pdl1.index("LIVYWEM")
+            i_cmi = s_pdl1.index("CMISYGGADY")
             hotspots_1idx = sorted([i_liv + 2, i_liv + 4, i_cmi + 2, i_cmi + 8, i_cmi + 10])
             p_seq = "MDEEVKRKLEALVKKYNPDAVLVIKELVKKFEEKLAQMGDPNTVRKLIEALKKQGWYPEELK"
+            p_ca = []
+            p_cb = []
+        else:
+            hotspots_1idx = select_surface_hydrophobic_patch_hotspots(ta["sequence"], ta["ca"], ta["cb"])
+            p_seq = ""
             p_ca = []
             p_cb = []
 
@@ -503,8 +608,14 @@ def build_part2_epitope_binders(
         json.dumps(
             {
                 "benchmark": "fable-protein-bench-stage3b-part2-closed-loop-binders",
+                "version": "2.0",
                 "budget_shots_per_target": 16,
                 "n_targets": len(epitope_targets),
+                "tier_counts": {
+                    "rfd4_proteina_classic": sum(1 for e in epitope_targets if e.tier == "rfd4_proteina_classic"),
+                    "boltzprot1_hard_novel": sum(1 for e in epitope_targets if e.tier == "boltzprot1_hard_novel"),
+                    "post_may2026_denovo_crystal": sum(1 for e in epitope_targets if e.tier == "post_may2026_denovo_crystal"),
+                },
                 "targets": [asdict(e) for e in epitope_targets],
             },
             indent=2,
@@ -528,7 +639,7 @@ def build_part2_epitope_binders(
         )
     (prompts_dir / "stage3b_binder_round1_prompts.jsonl").write_text("\n".join(p1_lines) + "\n", encoding="utf-8")
     (prompts_dir / "web_chat_spotcheck" / "s3b_ep03_closed_loop_binder_shot1.txt").write_text(
-        build_binder_initial_prompt(epitope_targets[2]), encoding="utf-8"
+        build_binder_initial_prompt(epitope_targets[9]), encoding="utf-8"
     )
 
     return epitope_targets
@@ -728,10 +839,10 @@ def run_stage3b_calibration_and_plot(
         hist_o = [oracle.evaluate_binder(ep, _semi_structured_proposal(orng), round_idx=r) for r in range(1, budget_k + 1)]
         open_campaigns.append(evaluate_binder_campaign(ep.target_id, hist_o, budget_k=budget_k))
 
-    # Method 3: Held-Out Partner Copy-Paste Cheat (tests `<25%` SeqID anti-memorization block!)
+    # Method 3: Held-Out Partner / Target Copy-Paste Cheat (tests `<25%` SeqID anti-memorization block!)
     cheat_campaigns = []
     for ep in epitope_targets:
-        pseq = ep.heldout_partner_sequence[:82]
+        pseq = (ep.heldout_partner_sequence or ep.target_sequence)[:80]
         if len(pseq) < 55:
             pseq = (pseq + "GSDEELKRKLEALVKKYNPDAVLVIK")[:60]
         hist_c = [oracle.evaluate_binder(ep, pseq, round_idx=r) for r in range(1, budget_k + 1)]
@@ -832,36 +943,30 @@ def plot_stage3b_overview(
     ax.legend(loc="upper center", ncol=2, fontsize=7.6, frameon=True)
     ax.grid(True, axis="y", alpha=0.22)
 
-    # Panel B: Part 2 (`N = 8` Epitope Binder Panel) — Target Length vs Held-Out Partner Length
+    # Panel B: Published 2026 Specialist Pass Rates (`ProtDBench` AF2_Easy_SR %) on Tier-1 Targets + 3-Tier Overview
     ax = axes[0, 1]
     ax.set_facecolor("#FFFFFF")
-    for tier, tlbl, col, mk in (
-        ("classic_control", "Classic BindCraft Controls (PD-L1, TrkA-d5)", "#2563EB", "s"),
-        ("post_may_2026_complex", "Post-May-2026 Stripped Complexes (n=6)", "#0D9488", "o"),
-    ):
-        sub = [e for e in epitope_targets if e.tier == tier]
-        xs = [len(e.target_sequence) for e in sub]
-        ys = [len(e.heldout_partner_sequence) for e in sub]
-        ax.scatter(xs, ys, s=90, c=col, marker=mk, label=tlbl, alpha=0.88, edgecolors="white", linewidth=0.8)
-        for e in sub:
-            short_tag = f"{e.pdb_id} ({e.release_date[:7]})"
-            ax.annotate(
-                short_tag,
-                (len(e.target_sequence), len(e.heldout_partner_sequence)),
-                xytext=(5, 4),
-                textcoords="offset points",
-                fontsize=8.0,
-                fontweight="bold",
-                color="#1E293B",
-            )
-    ax.axhspan(55, 85, color="#D1FAE5", alpha=0.35, zorder=0, label="Allowed de novo binder window (55-85 AA)")
-    ax.set_xlim(75, 195)
-    ax.set_ylim(45, 120)
-    ax.set_xlabel("Target Chain Length (AA)")
-    ax.set_ylabel("Held-Out Native Partner Length (AA)")
-    ax.set_title("B. Stage 3B Part 2: 8 Crystallographically Verified Binder Epitopes")
-    ax.legend(loc="upper right", fontsize=8.0, frameon=True)
-    ax.grid(True, alpha=0.22)
+    t1_targets = ["PD-L1\n(5O45)", "PDGFRβ\n(3MJG)", "TrkA\n(1WWW)", "IL-7Rα\n(3DI3)"]
+    # Exact published values from `congliuUvA/ProtDBench` (`ALL_sr__10targets.csv` & `ALL_sr__cao5targets.csv`)
+    protd_specialists = [
+        ("BindCraft (AF2 Hallucination)", [67.30, 54.19, 51.45, 39.56], "#0D9488"),
+        ("PXDesign (2026)", [45.33, 29.80, 23.55, 29.80], "#2563EB"),
+        ("BoltzDesign-1", [31.91, 45.73, 34.77, 7.61], "#7C3AED"),
+        ("BoltzGen", [14.26, 34.15, 28.65, 12.41], "#F59E0B"),
+        ("RFdiffusion-3", [16.81, 26.94, 14.44, 6.47], "#64748B"),
+    ]
+    xb = np.arange(len(t1_targets))
+    wb = 0.78 / len(protd_specialists)
+    for idx_sp, (sp_lbl, sp_vals, sp_col) in enumerate(protd_specialists):
+        off = (idx_sp - (len(protd_specialists) - 1) / 2.0) * wb
+        ax.bar(xb + off, sp_vals, width=wb * 0.90, label=sp_lbl, color=sp_col, alpha=0.90)
+    ax.set_xticks(xb)
+    ax.set_xticklabels(t1_targets, fontsize=9.0)
+    ax.set_ylim(0, 82.0)
+    ax.set_ylabel("Published Single-Shot AF2 Pass Rate (%)")
+    ax.set_title("B. Published ProtDBench Specialist Pass Rates (Tier-1 Targets)")
+    ax.legend(loc="upper right", fontsize=7.6, frameon=True)
+    ax.grid(True, axis="y", alpha=0.22)
 
     # Panel C: Closed-Loop vs Open-Loop `Pass@k` (`Shots-to-Hit` Curve over 1..16 Shots)
     ax = axes[1, 0]

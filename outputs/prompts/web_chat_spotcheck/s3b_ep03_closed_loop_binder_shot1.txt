@@ -1,6 +1,6 @@
 You are competing in a BindCraft-style closed-loop de novo miniprotein binder design challenge.
 
-Anonymized Target Protein (s3b_ep03, length 89 AA):
+Anonymized Target Protein (s3b_ep10, length 89 AA):
 TRDFKPGDLIFAKMKGYPHWPARVDEVPDGAVKPPTNKLPIFFFGTHETAFLGPKDIFPYSENKEKYGKPNKRKGFNEGLWEIDNNPKV
 
 Target Epitope Hotspot Residues (1-indexed — your binder MUST directly contact >=3 of these):
