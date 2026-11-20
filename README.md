@@ -4,16 +4,17 @@
 
 ---
 
-## Complete 6-Benchmark Suite (All 6 Ready Offline + Turnkey Live Runners)
+## Complete 7-Test Suite (All 7 Ready Offline + Turnkey Live Runners)
 
-| Stage | Benchmark | Curated Dataset (Leak-Free & Stratified) | Specialist GPU Baselines | Primary Metrics |
+| # | Test | Curated Dataset (Leak-Free & Stratified) | Specialist GPU Baselines | Primary Metrics |
 | :---: | :--- | :--- | :--- | :--- |
-| **1A** | **Forward Folding** | **`N = 100`** (`85` post-May-2026 PDB incl. **`18` true novel folds `TM < 0.52`** + `15` pre-cutoff controls) | `ESMFold`, `Boltz-2` (AF3-class), `ESM-2` | Exact `TM-score`, `Cα RMSD`, `lDDT-Cα`, `P@L` (`\|i-j\| ≥ 24`), `Q3` |
-| **1B** | **Inverse Folding** | **`N = 100`** stripped `UNK` 3D backbones (`N, Cα, C, O` only) | `ProteinMPNN` (`v_48_020`) + `ESMFold` | `NSR %` (All / Core / Surface), refolded `scTM` & `scRMSD < 2.0 Å` |
-| **2A** | **Remote Homology (`TEA`)** | **`N = 120`** `SCOPe 2.08` pairs (`Seq-Easy` $\to$ `Foldseek 3Di` $\to$ **`Deep TEA Zone`** $\to$ class-matched decoys) | `Foldseek 3Di`, `PickyBinders/tea`, `ESM-2` | Stratified `AUROC`, `AUPRC`, & Rung `Recall @ 10% FPR` |
-| **2B** | **Function (`CAFA`)** | **`N = 60`** 2026 experimental `QuickGO` holdouts vs. `1,728` pre-2025 Swiss-Prot ref bank | `Smith-Waterman`, `ESM-2` $k$-NN, `CAFA Naive` | Official `CAFA` `wF_max` & `F_max` (`MF`, `BP`, `CC`) |
-| **3A** | **Alanine Scan (`X -> A`)** | **`N = 52`** proteins (**`5,348`** wet-lab `X -> A` mutants: `24` *de novo* $\Delta\Delta G$, `14` natural $\Delta\Delta G$, `14` May–Nov 2026 `MaveDB` DMS) | `ThermoMPNN`, `ESM-2` (650M & 3B) marginals | `Spearman ρ`, **`AA-Demeaned Context ρ`**, Hotspot & Core `AUROC` |
-| **3B** | ***De Novo* & Closed-Loop Binders** | **`N = 40`** fold/motif prompts + **`N = 12` proven-bindable epitopes $\times$ `16` `AF2` shots** (`4` `RFD4`/`ProtDBench` + `5` `BoltzProt-1` hard novel + `3` 2026 *de novo* binder crystals) | `BindCraft` (`ColabDesign AF2`), `ProtDBench` (`RFD3`, `PXDesign`, `BoltzGen`) | 5-Gate `% Designable` + Closed-Loop **`Shots-to-Hit`** (`Pass@1..16`) |
+| **1.** | **Forward Folding** | **`N = 100`** (`85` post-May-2026 PDB incl. **`18` true novel folds `TM < 0.52`** + `15` pre-cutoff controls) | `ESMFold`, `Boltz-2` (AF3-class), `ESM-2` | Exact `TM-score`, `Cα RMSD`, `lDDT-Cα`, `P@L` (`\|i-j\| ≥ 24`), `Q3` |
+| **2.** | **Inverse Folding** | **`N = 100`** stripped `UNK` 3D backbones (`N, Cα, C, O` only) | `ProteinMPNN` (`v_48_020`) + `ESMFold` | `NSR %` (All / Core / Surface), refolded `scTM` & `scRMSD < 2.0 Å` |
+| **3.** | **Remote Homology (`TEA`)** | **`N = 120`** `SCOPe 2.08` pairs (`Seq-Easy` $\to$ `Foldseek 3Di` $\to$ **`Deep TEA Zone`** $\to$ class-matched decoys) | `Foldseek 3Di`, `PickyBinders/tea`, `ESM-2` | Stratified `AUROC`, `AUPRC`, & Rung `Recall @ 10% FPR` |
+| **4.** | **Function (`CAFA`)** | **`N = 60`** 2026 experimental `QuickGO` holdouts vs. `1,728` pre-2025 Swiss-Prot ref bank | `Smith-Waterman`, `ESM-2` $k$-NN, `CAFA Naive` | Official `CAFA` `wF_max` & `F_max` (`MF`, `BP`, `CC`) |
+| **5.** | **Alanine Scan (`X -> A`)** | **`N = 52`** proteins (**`5,348`** wet-lab `X -> A` mutants: `24` *de novo* $\Delta\Delta G$, `14` natural $\Delta\Delta G$, `14` May–Nov 2026 `MaveDB` DMS) | `ThermoMPNN`, `ESM-2` (650M & 3B) marginals | `Spearman ρ`, **`AA-Demeaned Context ρ`**, Hotspot & Core `AUROC` |
+| **6.** | ***De Novo* Monomer & Motif** | **`N = 40`** tasks (`24` fold-conditioned across 4 topologies + `16` crystal-motif scaffolds) | `ESM3-open`, `ProGen2`, `ProteinMPNN` | 5-Gate `% Designable` (`pLDDT ≥ 80`, `scRMSD ≤ 2 Å`, `motif RMSD ≤ 1.5 Å`, `<30%` SeqID) |
+| **7.** | **Closed-Loop Epitope Binders** | **`N = 12` proven-bindable epitopes $\times$ `16` `AF2` shots** (`4` `RFD4`/`ProtDBench` + `5` `BoltzProt-1` hard novel + `3` 2026 *de novo* binder crystals) | `BindCraft` (`ColabDesign AF2`), `ProtDBench` (`RFD3`, `PXDesign`, `BoltzGen`) | Closed-Loop **`Shots-to-Hit`** (`Pass@1..16`, `ipTM ≥ 0.75`, `iPAE < 10 Å`) |
 
 ---
 

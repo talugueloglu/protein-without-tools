@@ -226,15 +226,15 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
     s3b_part1_examples = [
         {
             "cat": "fold_conditioned",
-            "title": "Part 1A: Fold-Conditioned Monomer Generation (n = 24)",
-            "subtitle": "Example: SH3-like 5-Stranded All-β Barrel (72–82 AA, 0% HelixCheat allowed)",
+            "title": "Category 1: Fold-Conditioned Monomer Generation (n = 24)",
+            "subtitle": "Example: SH3-like 5-Stranded All-β Barrel (72–82 AA, 0% helix cheat allowed)",
             "ca": np.round(st_sh3.coords_ca, 1).tolist(),
             "highlight_0idx": [],
             "badge": "4 Topologies × 6 Specs (4-Helix, Ferredoxin, Rossmann, All-β)",
         },
         {
             "cat": "motif_scaffolding",
-            "title": "Part 1B: Functional Crystal Motif Scaffolding (n = 16)",
+            "title": "Category 2: Functional Crystal Motif Scaffolding (n = 16)",
             "subtitle": "Example: 12-AA EF-Hand Ca²⁺ Loop (DKDGDGTITTKE, gold) held within ≤ 1.50 Å RMSD",
             "ca": np.round(c1cll["ca"][:82], 1).tolist(),
             "highlight_0idx": list(range(ef_start, ef_start + 12)),
@@ -244,9 +244,9 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
 
     m3b_ep = json.loads((REPO / "data/stage3b_design/epitope_binder_manifest.json").read_text(encoding="utf-8"))
     tier_picks = [
-        ("rfd4_proteina_classic", "3MJG", "Tier 1: RFD4-Proteina / ProtDBench Classics (n = 4)", "PDGFRβ (3MJG) • Proteina-Complexa 63.5% wet-lab & BindCraft 54.2% AF2 target"),
-        ("boltzprot1_hard_novel", "3QKG", "Tier 2: BoltzProt-1 June-2026 Hard Novel Panel (n = 5)", "Human AMBP (3QKG) • Zero prior PDB binders, proven nM bindable in June 2026"),
-        ("post_may2026_denovo_crystal", "9S83", "Tier 3: July–Aug 2026 Wet-Lab De Novo Crystals (n = 3)", "LEDGF PWWP + De Novo Minibinder JUBO4 (9S83, released Aug 5, 2026)"),
+        ("rfd4_proteina_classic", "3MJG", "Category 1: RFD4-Proteina / ProtDBench Classics (n = 4)", "PDGFRβ (3MJG) • Proteina-Complexa 63.5% wet-lab & BindCraft 54.2% AF2 target"),
+        ("boltzprot1_hard_novel", "3QKG", "Category 2: BoltzProt-1 June-2026 Hard Novel Panel (n = 5)", "Human AMBP (3QKG) • Zero prior PDB binders, proven nM bindable in June 2026"),
+        ("post_may2026_denovo_crystal", "9S83", "Category 3: July–Aug 2026 Wet-Lab De Novo Crystals (n = 3)", "LEDGF PWWP + De Novo Minibinder JUBO4 (9S83, released Aug 5, 2026)"),
     ]
     s3b_part2_examples = []
     for tier_k, pdb_k, ttitle, tsub in tier_picks:
@@ -301,7 +301,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-xs font-bold">
             <span>VISUAL BENCHMARK ATLAS</span>
             <span>•</span>
-            <span>6 TESTS • 20 CATEGORY EXAMPLES • ZERO LEAKAGE</span>
+            <span>7 TESTS (1. TO 7.) • 21 CATEGORY EXAMPLES • ZERO LEAKAGE</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
             Does Raw Protein Pretraining Teach Folding Physics—Or Just Sequence Patterns?
@@ -310,11 +310,14 @@ VISUAL_HTML = r"""<!DOCTYPE html>
             Auditing <strong>Claude Fable 5.2</strong> (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-fable-5-2</code>) against general reasoning LLMs (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Opus 5.5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">GPT-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Gemini 3.1 Pro</code>) and specialist structural biology models across <strong>No-Code (Weights Only)</strong> vs. <strong>With-Code (Air-Gapped NumPy)</strong>.
           </p>
         </div>
-        <div class="flex flex-wrap gap-2 text-xs">
-          <a href="#sec-s1" class="pill-nav px-3 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">1A/1B Folding</a>
-          <a href="#sec-s2" class="pill-nav px-3 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">2A/2B Homology &amp; GO</a>
-          <a href="#sec-s3a" class="pill-nav px-3 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">3A Alanine Scan</a>
-          <a href="#sec-s3b" class="pill-nav px-3 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">3B De Novo &amp; AF2 Binders</a>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          <a href="#test-1" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">1. Forward Folding</a>
+          <a href="#test-2" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">2. Inverse Folding</a>
+          <a href="#test-3" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">3. Remote Homology</a>
+          <a href="#test-4" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">4. Function (CAFA)</a>
+          <a href="#test-5" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">5. Alanine Scan</a>
+          <a href="#test-6" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">6. Monomer &amp; Motif</a>
+          <a href="#test-7" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">7. Epitope Binders</a>
         </div>
       </div>
 
@@ -322,7 +325,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
         <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-500 text-xs font-bold">TRACK 1 • NO-CODE (PURE WEIGHTS)</span>
+            <span class="px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-500 text-xs font-bold">TRACK A • NO-CODE (PURE WEIGHTS)</span>
             <span class="text-xs text-[var(--muted-foreground)]">Direct &amp; Thinking</span>
           </div>
           <div class="text-sm font-bold">Mental Geometry + Implicit Fold Intuition</div>
@@ -337,28 +340,28 @@ VISUAL_HTML = r"""<!DOCTYPE html>
 
         <div class="rounded-xl border-2 border-sky-500/50 bg-[var(--background)] p-4 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-500 text-xs font-bold">TRACK 2 • WITH-CODE (AIR-GAPPED NUMPY)</span>
+            <span class="px-2.5 py-0.5 rounded bg-sky-500/15 text-sky-500 text-xs font-bold">TRACK B • WITH-CODE (AIR-GAPPED NUMPY)</span>
             <span class="text-xs text-[var(--muted-foreground)]">No Net • No Bio-Libs</span>
           </div>
           <div class="text-sm font-bold">Separates Math Arithmetic from Missing Biology</div>
           <p class="text-xs text-[var(--muted-foreground)]">
             Gives models <code class="text-xs">python + numpy/scipy</code> only:
-            <strong>Unlocks 3D coordinate geometry</strong> (1B burial/angles, 3B hotspot distances), <strong>but CANNOT fake 1D sequence physics</strong> (1A novel folds, 2A TEA twilight zone, 3A AA-demeaned ΔΔG)!
+            <strong>Unlocks 3D coordinate geometry</strong> (Tests 2, 6, 7), <strong>but CANNOT fake 1D sequence physics</strong> (Tests 1, 3, 4, 5)!
           </p>
           <div class="pt-1 flex flex-wrap gap-1.5 text-xs">
-            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-500 font-medium">1B &amp; 3B Big Boost</span>
-            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-500 font-medium">1A / 2A-R3 / 3A Still Pure Biology</span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-500 font-medium">Tests 2, 6, 7 Big Boost</span>
+            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-500 font-medium">Tests 1, 3, 5 Still Pure Biology</span>
           </div>
         </div>
 
         <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">TRACK 3 • SPECIALIST BIO-TOOLS</span>
+            <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">TRACK C • SPECIALIST BIO-TOOLS</span>
             <span class="text-xs text-[var(--muted-foreground)]">Modal L40S GPUs</span>
           </div>
           <div class="text-sm font-bold">Purpose-Built Structural &amp; Evolutionary Ceilings</div>
           <p class="text-xs text-[var(--muted-foreground)]">
-            Every task has its domain gold standard: <strong>ESMFold &amp; Boltz-2</strong> (1A), <strong>ProteinMPNN</strong> (1B), <strong>PickyBinders/tea</strong> (2A), <strong>ESM-2 kNN</strong> (2B), <strong>ThermoMPNN</strong> (3A), and <strong>BindCraft AF2</strong> (3B).
+            Every test has its domain gold standard: <strong>ESMFold &amp; Boltz-2</strong> (1.), <strong>ProteinMPNN</strong> (2.), <strong>PickyBinders/tea</strong> (3.), <strong>ESM-2 kNN</strong> (4.), <strong>ThermoMPNN</strong> (5.), <strong>ESM3</strong> (6.), and <strong>BindCraft AF2</strong> (7.).
           </p>
           <div class="pt-1 flex flex-wrap gap-1.5 text-xs">
             <span class="px-2 py-0.5 rounded bg-teal-500/15 text-teal-500 font-medium">Calibrated Head-to-Head Bar</span>
@@ -368,186 +371,194 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     </header>
 
     <!-- =================================================================== -->
-    <!-- 1. STAGE 1A & 1B: FORWARD & INVERSE FOLDING (5 STRATA + 1B CARD)    -->
+    <!-- TEST 1. FORWARD FOLDING                                             -->
     <!-- =================================================================== -->
-    <section id="sec-s1" class="space-y-5">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
-          <div>
-            <span class="px-2.5 py-0.5 rounded bg-blue-500/15 text-blue-500 text-xs font-bold">STAGE 1A &amp; 1B • N = 100 STRUCTURES</span>
-            <h2 class="text-xl font-bold mt-1">Forward Folding (Seq → Contacts → 3D) &amp; Inverse Folding (Stripped Backbone → Seq)</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Stratified by <strong>exact Foldseek TM-align 3D TM-score</strong> and <strong>MMseqs2 sequence identity</strong> to pre-May-2026 PDB &amp; AlphaFold DB. Drag any 3D structure below!</p>
-          </div>
-          <!-- Visual Pipeline Flow -->
-          <div class="flex items-center gap-2 text-xs font-semibold shrink-0 flex-wrap">
-            <span class="px-2.5 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)]">1D Sequence</span>
-            <span class="text-[var(--muted-foreground)]">→</span>
-            <span class="px-2.5 py-1.5 rounded-lg bg-blue-500/15 text-blue-500">Cβ &lt; 8Å Map + Q3</span>
-            <span class="text-[var(--muted-foreground)]">→</span>
-            <span class="px-2.5 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)]">Chiral L-BFGS 3D</span>
-            <span class="text-[var(--muted-foreground)]">→</span>
-            <span class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-500">Exact TM-Score</span>
-          </div>
-        </div>
-
-        <!-- 5 VISUAL EXAMPLE CARDS: ONE PER STAGE-1 CATEGORY -->
+    <section id="test-1" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
-            Stage 1A — One Real Example Per Novelty Stratum (3D Fold + True 2D Contact Map + Q3 Ribbon)
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4" id="s1a-cards"></div>
+          <span class="px-2.5 py-0.5 rounded bg-blue-500/15 text-blue-500 text-xs font-bold">TEST 1 • N = 100 STRUCTURES • SPECIALISTS: ESMFOLD &amp; BOLTZ-2</span>
+          <h2 class="text-xl font-bold mt-1">1. Forward Folding (Sequence → Contacts &amp; Q3 → 3D Structure)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Stratified into 5 novelty categories by <strong>exact Foldseek TM-align 3D TM-score</strong> and <strong>MMseqs2 sequence identity</strong> to pre-May-2026 PDB &amp; AlphaFold DB. Drag any 3D fold below!</p>
         </div>
+        <div class="flex items-center gap-2 text-xs font-semibold shrink-0 flex-wrap">
+          <span class="px-2.5 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)]">1D Sequence</span>
+          <span class="text-[var(--muted-foreground)]">→</span>
+          <span class="px-2.5 py-1.5 rounded-lg bg-blue-500/15 text-blue-500">Cβ &lt; 8Å Map + Q3</span>
+          <span class="text-[var(--muted-foreground)]">→</span>
+          <span class="px-2.5 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)]">Chiral L-BFGS 3D</span>
+          <span class="text-[var(--muted-foreground)]">→</span>
+          <span class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-500">Exact TM-Score</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
+          One Real Example Per Novelty Category (3D Fold + True 2D Contact Map + Q3 Ribbon)
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4" id="s1a-cards"></div>
+      </div>
+    </section>
 
-        <!-- STAGE 1B VISUAL INVERSE FOLDING EXPLAINER CARD -->
-        <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-          <div class="lg:col-span-5 space-y-2">
-            <span class="px-2.5 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">STAGE 1B EXAMPLE • STRIPPED UNK BACKBONE</span>
-            <h3 class="text-base font-bold" id="s1b-title">Inverse Folding on Novel Fold 11CY (PDB TM = 0.35)</h3>
-            <p class="text-xs text-[var(--muted-foreground)]">
-              All amino-acid labels and sidechains are stripped (<code class="text-xs">RES = UNK</code>, leaving only <code class="text-xs">N, Cα, C, O</code> coordinates).
-              In <strong>No-Code</strong>, the LLM sees raw coordinate floats. In <strong>With-Code (NumPy)</strong>, it can compute exact virtual-Cβ burial (<strong>red = buried hydrophobic core</strong>, <strong>sky-blue = solvent-exposed surface</strong>) and Ramachandran angles—then we refold its designed sequence in <strong>ESMFold</strong> to test <code class="text-xs">scRMSD &lt; 2.0 Å</code>!
-            </p>
+    <!-- =================================================================== -->
+    <!-- TEST 2. INVERSE FOLDING                                             -->
+    <!-- =================================================================== -->
+    <section id="test-2" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">TEST 2 • N = 100 STRIPPED BACKBONES • SPECIALIST: PROTEINMPNN</span>
+          <h2 class="text-xl font-bold mt-1">2. Inverse Folding (Stripped 3D Backbone → Sequence → ESMFold Refold)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Design a foldable sequence from pure backbone <code class="text-xs">(N, Cα, C, O)</code> geometry with all amino-acid identities stripped to <code class="text-xs">UNK</code>.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-semibold shrink-0 flex-wrap">
+          <span class="px-2.5 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)]">Stripped UNK (x,y,z)</span>
+          <span class="text-[var(--muted-foreground)]">→</span>
+          <span class="px-2.5 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-500">Designed Sequence</span>
+          <span class="text-[var(--muted-foreground)]">→</span>
+          <span class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-500">ESMFold scRMSD &lt; 2.0 Å</span>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+        <div class="lg:col-span-5 space-y-2">
+          <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">VISUAL EXAMPLE • NOVEL FOLD 11CY</span>
+          <h3 class="text-base font-bold" id="s1b-title">Inverse Folding on Novel Fold 11CY (PDB TM = 0.35)</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            In <strong>No-Code</strong>, the model reads raw floating-point lines in text. In <strong>With-Code (NumPy)</strong>, it can compute exact virtual-Cβ burial (<strong>red = buried hydrophobic core</strong>, <strong>sky-blue = solvent-exposed surface</strong>) and Ramachandran <code class="text-xs">(φ, ψ)</code> angles—directly testing whether an LLM can program a physical packing function!
+          </p>
+        </div>
+        <div class="lg:col-span-4 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2 relative">
+          <canvas id="s1b-canvas" width="340" height="200" class="w-full h-[185px] cursor-grab"></canvas>
+          <div class="absolute bottom-2 left-3 text-xs text-[var(--muted-foreground)] pointer-events-none">Red = Buried Core • Blue = Surface</div>
+        </div>
+        <div class="lg:col-span-3 space-y-2 text-xs">
+          <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+            <div class="font-bold text-indigo-500">Input Shown to Model</div>
+            <div class="font-mono mt-1 text-[var(--muted-foreground)]">ATOM 1 N UNK A 1 ...<br/>ATOM 2 CA UNK A 1 ...<br/>ATOM 3 C UNK A 1 ...</div>
           </div>
-          <div class="lg:col-span-4 rounded-xl border border-[var(--border)] bg-[var(--card)] p-2 relative">
-            <canvas id="s1b-canvas" width="340" height="200" class="w-full h-[185px] cursor-grab"></canvas>
-            <div class="absolute bottom-2 left-3 text-xs text-[var(--muted-foreground)] pointer-events-none">Red = Buried Core • Blue = Surface</div>
-          </div>
-          <div class="lg:col-span-3 space-y-2 text-xs">
-            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
-              <div class="font-bold text-indigo-500">Input Shown to Model</div>
-              <div class="font-mono mt-1 text-[var(--muted-foreground)]">ATOM 1 N UNK A 1 ...<br/>ATOM 2 CA UNK A 1 ...<br/>ATOM 3 C UNK A 1 ...</div>
-            </div>
-            <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
-              <div class="font-bold text-emerald-500">Graded By</div>
-              <div class="mt-1 text-[var(--muted-foreground)]">Core NSR %, Surface NSR %, &amp; ESMFold refolded <strong>scRMSD &lt; 2.0 Å</strong> vs. ProteinMPNN</div>
-            </div>
+          <div class="p-3 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+            <div class="font-bold text-emerald-500">Graded By</div>
+            <div class="mt-1 text-[var(--muted-foreground)]">Core NSR %, Surface NSR %, &amp; ESMFold refolded <strong>scRMSD &lt; 2.0 Å</strong> vs. ProteinMPNN</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- 2. STAGE 2A (REMOTE HOMOLOGY LADDER) & STAGE 2B (CAFA GO DAG)       -->
+    <!-- TEST 3. REMOTE HOMOLOGY DETECTION                                   -->
     <!-- =================================================================== -->
-    <section id="sec-s2" class="space-y-5">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
-        <div class="border-b border-[var(--border)] pb-4">
-          <span class="px-2.5 py-0.5 rounded bg-purple-500/15 text-purple-500 text-xs font-bold">STAGE 2A (N = 120 PAIRS) &amp; STAGE 2B (N = 60 HOLDOUTS)</span>
-          <h2 class="text-xl font-bold mt-1">Evolutionary Twilight-Zone Homology (PickyBinders/tea) &amp; CAFA Experimental Function</h2>
-          <p class="text-xs text-[var(--muted-foreground)]">Testing whether raw protein pretraining learns deep fold-superfamily relationships (&lt;15% SeqID) where even coding Smith–Waterman in Python fails.</p>
+    <section id="test-3" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="border-b border-[var(--border)] pb-4">
+        <span class="px-2.5 py-0.5 rounded bg-purple-500/15 text-purple-500 text-xs font-bold">TEST 3 • N = 120 SCOPe 2.08 PAIRS • SPECIALIST: PICKYBINDERS/TEA &amp; FOLDSEEK</span>
+        <h2 class="text-xl font-bold mt-1">3. Remote Homology Detection (Sequence-Easy → Foldseek → Deep TEA Twilight Zone)</h2>
+        <p class="text-xs text-[var(--muted-foreground)]">Testing whether raw protein pretraining recognizes shared 3D superfamily topology at &lt;15% SeqID where even coding Smith–Waterman in Python fails.</p>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
+          One Real SCOPe 2.08 Pair Per Category (4 Categories: 3 Homology Depths + 1 Class/Length-Matched Decoy)
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="s2a-rung-cards"></div>
+      </div>
+    </section>
 
-        <!-- STAGE 2A: 4 VISUAL RUNG CARDS -->
-        <div>
-          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
-            Stage 2A — One Real SCOPe 2.08 Pair Per Difficulty Rung (Showing Recall @ 10% FPR Step-Down)
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="s2a-rung-cards"></div>
+    <!-- =================================================================== -->
+    <!-- TEST 4. PROTEIN FUNCTION PREDICTION (CAFA)                          -->
+    <!-- =================================================================== -->
+    <section id="test-4" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="border-b border-[var(--border)] pb-4">
+        <span class="px-2.5 py-0.5 rounded bg-amber-500/15 text-amber-500 text-xs font-bold">TEST 4 • N = 60 2026 QUICKGO HOLDOUTS • SPECIALIST: ESM-2 k-NN &amp; HOMOLOGY</span>
+        <h2 class="text-xl font-bold mt-1">4. Protein Function Prediction (CAFA Experimental Gene Ontology)</h2>
+        <p class="text-xs text-[var(--muted-foreground)]">Predicting experimental Molecular Function (MF), Biological Process (BP), and Cellular Component (CC) annotations curated in 2026.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+        <div class="lg:col-span-5 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-2">
+          <div class="text-xs font-bold text-amber-500">CORE IDEA • WHY IC-WEIGHTED wF_max BEATS GENERIC GUESSING</div>
+          <svg viewBox="0 0 380 200" class="w-full h-auto">
+            <line x1="190" y1="34" x2="105" y2="92" stroke="#94a3b8" stroke-width="1.8" />
+            <line x1="190" y1="34" x2="275" y2="92" stroke="#94a3b8" stroke-width="1.8" />
+            <line x1="275" y1="116" x2="275" y2="162" stroke="#10b981" stroke-width="2.4" />
+            <rect x="115" y="10" width="150" height="28" rx="7" fill="#64748b" fill-opacity="0.18" stroke="#64748b" />
+            <text x="190" y="28" font-size="12" text-anchor="middle" fill="currentColor">GO:0003674 Root (Excluded)</text>
+            <rect x="20" y="90" width="165" height="34" rx="7" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" />
+            <text x="102" y="105" font-size="12" font-weight="600" text-anchor="middle" fill="#f59e0b">binding (IC = 0.8 bits)</text>
+            <text x="102" y="119" font-size="12" text-anchor="middle" fill="#94a3b8">CAFA Naive spams this</text>
+            <rect x="195" y="90" width="165" height="30" rx="7" fill="#3b82f6" fill-opacity="0.16" stroke="#3b82f6" />
+            <text x="277" y="109" font-size="12" font-weight="600" text-anchor="middle" fill="#3b82f6">transferase (IC = 3.1 bits)</text>
+            <rect x="180" y="156" width="190" height="36" rx="7" fill="#10b981" fill-opacity="0.20" stroke="#10b981" stroke-width="1.8" />
+            <text x="275" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#10b981">Ser/Thr kinase (IC = 6.8 bits)</text>
+            <text x="275" y="186" font-size="12" text-anchor="middle" fill="#10b981">MF wF_max: Homology 0.36 vs Naive 0.13</text>
+          </svg>
         </div>
-
-        <!-- STAGE 2B: VISUAL GO DAG + 2 TEMPORAL TIER EXAMPLES -->
-        <div class="pt-2 border-t border-[var(--border)] grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-          <!-- Visual SVG GO Tree explaining wF_max vs F_max -->
-          <div class="lg:col-span-5 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-2">
-            <div class="text-xs font-bold text-amber-500">STAGE 2B IDEA • WHY IC-WEIGHTED wF_max BEATS GENERIC GUESSING</div>
-            <svg viewBox="0 0 380 200" class="w-full h-auto">
-              <!-- Edges -->
-              <line x1="190" y1="34" x2="105" y2="92" stroke="#94a3b8" stroke-width="1.8" />
-              <line x1="190" y1="34" x2="275" y2="92" stroke="#94a3b8" stroke-width="1.8" />
-              <line x1="275" y1="116" x2="275" y2="162" stroke="#10b981" stroke-width="2.4" />
-              <!-- Root Node -->
-              <rect x="115" y="10" width="150" height="28" rx="7" fill="#64748b" fill-opacity="0.18" stroke="#64748b" />
-              <text x="190" y="28" font-size="12" text-anchor="middle" fill="currentColor">GO:0003674 Root (Excluded)</text>
-              <!-- Generic Node (Naive spam) -->
-              <rect x="20" y="90" width="165" height="34" rx="7" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" />
-              <text x="102" y="105" font-size="12" font-weight="600" text-anchor="middle" fill="#f59e0b">binding (IC = 0.8 bits)</text>
-              <text x="102" y="119" font-size="12" text-anchor="middle" fill="#94a3b8">CAFA Naive spams this</text>
-              <!-- Intermediate Node -->
-              <rect x="195" y="90" width="165" height="30" rx="7" fill="#3b82f6" fill-opacity="0.16" stroke="#3b82f6" />
-              <text x="277" y="109" font-size="12" font-weight="600" text-anchor="middle" fill="#3b82f6">transferase (IC = 3.1 bits)</text>
-              <!-- Specific Leaf Node -->
-              <rect x="180" y="156" width="190" height="36" rx="7" fill="#10b981" fill-opacity="0.20" stroke="#10b981" stroke-width="1.8" />
-              <text x="275" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#10b981">Ser/Thr kinase (IC = 6.8 bits)</text>
-              <text x="275" y="186" font-size="12" text-anchor="middle" fill="#10b981">MF wF_max: Homology 0.36 vs Naive 0.13</text>
-            </svg>
+        <div class="lg:col-span-7 space-y-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)]">
+            One Real Experimental Holdout Protein Per Temporal Category
           </div>
-
-          <!-- 2 Real Examples (Post-May-2026 + Early-2026 Holdout) -->
-          <div class="lg:col-span-7 space-y-3">
-            <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)]">
-              Stage 2B — One Real Experimental Holdout Protein Per Temporal Category
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="s2b-cards"></div>
-          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="s2b-cards"></div>
         </div>
       </div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- 3. STAGE 3A: WET-LAB ALANINE SCAN (4 CATEGORIES VISUALIZED!)        -->
+    <!-- TEST 5. IN-SILICO ALANINE SCANNING                                  -->
     <!-- =================================================================== -->
-    <section id="sec-s3a" class="space-y-5">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
-          <div>
-            <span class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-500 text-xs font-bold">STAGE 3A • 52 PROTEINS • 5,348 WET-LAB X → ALA MUTATIONS</span>
-            <h2 class="text-xl font-bold mt-1">In-Silico Alanine Scanning: Implicit 3D Core Burial vs. 1D Amino-Acid Lookup</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">
-              Inspired by @sokrypton &amp; @WUFang: static 1D hydrophobicity gets <strong>Raw ρ = 0.339</strong>, so we grade <strong>AA-Demeaned Context ρ</strong> (which scores <strong>0.000</strong> unless the model distinguishes buried core Leu from surface Leu!).
-            </p>
-          </div>
-          <div class="flex items-center gap-3 text-xs shrink-0">
-            <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Strongly Destabilizing (Core Hotspot)</span>
-            <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-500 inline-block"></span>Neutral / Tolerated (Surface)</span>
-          </div>
+    <section id="test-5" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-500 text-xs font-bold">TEST 5 • 52 PROTEINS • 5,348 WET-LAB X → ALA MUTATIONS • SPECIALISTS: THERMOMPNN &amp; ESM-2</span>
+          <h2 class="text-xl font-bold mt-1">5. In-Silico Alanine Scanning (Implicit 3D Core Burial vs. 1D Lookup)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Inspired by @sokrypton &amp; @WUFang: static 1D hydrophobicity gets <strong>Raw ρ = 0.339</strong>, so we grade <strong>AA-Demeaned Context ρ</strong> (which scores <strong>0.000</strong> unless the model distinguishes buried core Leu from surface Leu!).
+          </p>
         </div>
-
-        <!-- 4 VISUAL CARDS: ONE PER ALANINE-SCAN CATEGORY -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="s3a-cards"></div>
+        <div class="flex items-center gap-3 text-xs shrink-0">
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Strongly Destabilizing (Core Hotspot)</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-sky-500 inline-block"></span>Neutral / Tolerated (Surface)</span>
+        </div>
       </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="s3a-cards"></div>
     </section>
 
     <!-- =================================================================== -->
-    <!-- 4. STAGE 3B: DE NOVO DESIGN & CLOSED-LOOP AF2 EPITOPE BINDERS       -->
+    <!-- TEST 6. DE NOVO MONOMER & MOTIF SCAFFOLDING                         -->
     <!-- =================================================================== -->
-    <section id="sec-s3b" class="space-y-5">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
-        <div class="border-b border-[var(--border)] pb-4 space-y-3">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">STAGE 3B • 40 MONOMER/MOTIF TASKS + 12 EPITOPES × 16 AF2 SHOTS</span>
-            <span class="text-xs font-semibold text-teal-500">Closed-Loop Hit@16 = 92% vs. Blind Pass@16 = 33%</span>
-          </div>
-          <h2 class="text-xl font-bold">De Novo Fold/Motif Scaffolding &amp; BindCraft-Style Closed-Loop AlphaFold2 Binder Design</h2>
-
-          <!-- VISUAL CLOSED-LOOP DIAGRAM -->
-          <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
-            <div class="px-3 py-2 rounded-lg bg-[var(--card)] border border-[var(--border)]">1. Target 3D Surface + 5 Red Hotspots</div>
-            <span class="text-teal-500 font-bold">→</span>
-            <div class="px-3 py-2 rounded-lg bg-sky-500/15 text-sky-500">2. LLM Proposes 55–85 AA Binder</div>
-            <span class="text-teal-500 font-bold">→</span>
-            <div class="px-3 py-2 rounded-lg bg-purple-500/15 text-purple-500">3. Modal L40S ColabDesign AF2 Co-Fold (~4s)</div>
-            <span class="text-teal-500 font-bold">→</span>
-            <div class="px-3 py-2 rounded-lg bg-amber-500/15 text-amber-500">4. Oracle Returns ipTM, iPAE, monoRMSD &amp; Hotspots Hit</div>
-            <span class="text-teal-500 font-bold">→</span>
-            <div class="px-3 py-2 rounded-lg bg-emerald-500/15 text-emerald-500">5. Repeat 16 Shots → Shots-to-First-Hit!</div>
-          </div>
-        </div>
-
-        <!-- PART 1: 2 VISUAL EXAMPLES (FOLD-CONDITIONED ALL-BETA + GOLD EF-HAND MOTIF SCAFFOLD) -->
+    <section id="test-6" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
-            Stage 3B Part 1 — One 3D Example Per Monomer Design Category (Graded by 5 Anti-Cheat Gates)
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="s3b-p1-cards"></div>
+          <span class="px-2.5 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">TEST 6 • N = 40 DESIGN TASKS • SPECIALISTS: ESM3-OPEN &amp; PROGEN2</span>
+          <h2 class="text-xl font-bold mt-1">6. De Novo Monomer Generation &amp; Crystal Motif Scaffolding</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Must pass all 5 anti-cheat gates: (1) entropy/no EAAAK repeats, (2) ESMFold pLDDT ≥ 80 &amp; globular Rg, (3) MPNN scRMSD ≤ 2Å, (4) fold TM ≥ 0.50 or motif RMSD ≤ 1.5Å, (5) &lt;30% natural SeqID.</p>
         </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="s3b-p1-cards"></div>
+    </section>
 
-        <!-- PART 2: 3 LIVE 3D EPITOPE CARDS — ONE PER PROVEN-BINDABLE TIER -->
-        <div class="pt-2 border-t border-[var(--border)]">
-          <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
-            Stage 3B Part 2 — One Live 3D Epitope Example Per Proven-Bindable Tier (Sky = Target, Red = 5 Hotspots, Green = Held-Out Binder)
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5" id="s3b-p2-cards"></div>
+    <!-- =================================================================== -->
+    <!-- TEST 7. CLOSED-LOOP EPITOPE BINDER DESIGN (AF2 ORACLE)              -->
+    <!-- =================================================================== -->
+    <section id="test-7" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
+      <div class="border-b border-[var(--border)] pb-4 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">TEST 7 • 12 PROVEN-BINDABLE EPITOPES × 16 AF2 SHOTS • SPECIALIST: BINDCRAFT &amp; PROTDBENCH</span>
+          <span class="text-xs font-semibold text-teal-500">Closed-Loop Hit@16 = 92% vs. Blind Pass@16 = 33%</span>
         </div>
+        <h2 class="text-xl font-bold">7. Closed-Loop Epitope Binder Design (AlphaFold2 Oracle Shots-to-Hit)</h2>
+
+        <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
+          <div class="px-3 py-2 rounded-lg bg-[var(--card)] border border-[var(--border)]">Target 3D Surface + 5 Red Hotspots</div>
+          <span class="text-teal-500 font-bold">→</span>
+          <div class="px-3 py-2 rounded-lg bg-sky-500/15 text-sky-500">LLM Proposes 55–85 AA Binder</div>
+          <span class="text-teal-500 font-bold">→</span>
+          <div class="px-3 py-2 rounded-lg bg-purple-500/15 text-purple-500">Modal L40S ColabDesign AF2 Co-Fold (~4s)</div>
+          <span class="text-teal-500 font-bold">→</span>
+          <div class="px-3 py-2 rounded-lg bg-amber-500/15 text-amber-500">Oracle Returns ipTM, iPAE, monoRMSD &amp; Hotspots</div>
+          <span class="text-teal-500 font-bold">→</span>
+          <div class="px-3 py-2 rounded-lg bg-emerald-500/15 text-emerald-500">16 Turns → Shots-to-First-Hit!</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
+          One Live 3D Epitope Example Per Proven-Bindable Category (Sky = Target, Red = 5 Hotspots, Green = Held-Out Binder)
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5" id="s3b-p2-cards"></div>
       </div>
     </section>
 
@@ -599,7 +610,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     }
 
     // =========================================================================
-    // 1. Render Stage 1A (5 Category Cards) + Stage 1B (11CY Core/Surface)
+    // Render Test 1 & Test 2
     // =========================================================================
     const S1_LABELS = {
       post_cutoff_struct_novel: ['1. Structurally Novel', 'bg-emerald-500/15 text-emerald-500'],
@@ -688,7 +699,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
         });
       });
 
-      // Stage 1B Stripped UNK Backbone Viewer (colored by Core vs Surface!)
+      // Test 2 Stripped UNK Backbone Viewer (colored by Core vs Surface!)
       const bEx = ATLAS.s1b_example;
       document.getElementById('s1b-title').textContent = `Inverse Folding on Novel Fold ${bEx.pdb} (${bEx.len} AA, PDB TM = ${bEx.pdb_tm})`;
       const c1b = document.getElementById('s1b-canvas');
@@ -716,7 +727,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     }
 
     // =========================================================================
-    // 2. Render Stage 2A (4 Rungs) & Stage 2B (2 Temporal Holdout Tiers)
+    // Render Test 3 & Test 4
     // =========================================================================
     function renderStage2Section() {
       const s2aRep = ATLAS.s2_report.stage2a_remote_homology;
@@ -782,7 +793,7 @@ Seq B: ${ex.snip_b}...</pre>
     }
 
     // =========================================================================
-    // 3. Render Stage 3A (4 Alanine-Scan Category Cards with Heatstrips + 3D)
+    // Render Test 5
     // =========================================================================
     function renderStage3ASection() {
       const wrap = document.getElementById('s3a-cards');
@@ -868,7 +879,7 @@ Seq B: ${ex.snip_b}...</pre>
     }
 
     // =========================================================================
-    // 4. Render Stage 3B (2 Part-1 Cards + 3 Part-2 Proven-Bindable Tier Cards)
+    // Render Test 6 & Test 7
     // =========================================================================
     function renderStage3BSection() {
       const p1Wrap = document.getElementById('s3b-p1-cards');
