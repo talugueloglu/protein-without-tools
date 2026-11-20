@@ -1,0 +1,2294 @@
+{
+  "benchmark": "fable-protein-bench-stage3b-part1-monomer-motif",
+  "n_tasks": 40,
+  "tasks": [
+    {
+      "task_id": "s3b_d001",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 76,
+      "max_length": 86,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d002",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 80,
+      "max_length": 90,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d003",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 84,
+      "max_length": 94,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d004",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 88,
+      "max_length": 98,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d005",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 92,
+      "max_length": 102,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d006",
+      "category": "fold_conditioned",
+      "subfamily": "4_helix_bundle",
+      "min_length": 96,
+      "max_length": 108,
+      "description": "Up-down-up-down antiparallel 4-helix bundle (all-alpha globular core)",
+      "ss_bounds": [
+        0.55,
+        0.9,
+        0.0,
+        0.08
+      ],
+      "reference_pdb": "reference_pdbs/4helix_6MRR.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GWSTELEKHREELKEFLKKEGITNVEIRIDNGRLEVRVEGGTERLKRFLEELRQKLEKKGYTVDIKIE"
+      ]
+    },
+    {
+      "task_id": "s3b_d007",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 78,
+      "max_length": 88,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d008",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 82,
+      "max_length": 92,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d009",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 86,
+      "max_length": 96,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d010",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 90,
+      "max_length": 100,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d011",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 94,
+      "max_length": 104,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d012",
+      "category": "fold_conditioned",
+      "subfamily": "ferredoxin_bababb",
+      "min_length": 98,
+      "max_length": 110,
+      "description": "Ferredoxin-like alpha+beta sandwich with beta-alpha-beta-beta-alpha-beta topology",
+      "ss_bounds": [
+        0.22,
+        0.48,
+        0.24,
+        0.52
+      ],
+      "reference_pdb": "reference_pdbs/ferredoxin_6CZH.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "QLLPGTWQVTMTNEDGQTSQGQMHFQPRSPYTLDIVAQGTISDGRPITGYGKVTVKTDDTLHVNITYPSLGNIKVQGQITMDSPTQATWNSTTSDGKKLTGTLQR"
+      ]
+    },
+    {
+      "task_id": "s3b_d013",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 104,
+      "max_length": 116,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d014",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 108,
+      "max_length": 120,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d015",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 112,
+      "max_length": 124,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d016",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 116,
+      "max_length": 128,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d017",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 120,
+      "max_length": 132,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d018",
+      "category": "fold_conditioned",
+      "subfamily": "rossmann_aba_sandwich",
+      "min_length": 124,
+      "max_length": 136,
+      "description": "Rossmann-like 3-layer alpha/beta/alpha parallel beta-sheet sandwich",
+      "ss_bounds": [
+        0.28,
+        0.54,
+        0.18,
+        0.42
+      ],
+      "reference_pdb": "reference_pdbs/rossmann_5P21.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d019",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 64,
+      "max_length": 74,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d020",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 68,
+      "max_length": 78,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d021",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 72,
+      "max_length": 82,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d022",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 76,
+      "max_length": 86,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d023",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 80,
+      "max_length": 90,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d024",
+      "category": "fold_conditioned",
+      "subfamily": "all_beta_barrel_sh3",
+      "min_length": 84,
+      "max_length": 96,
+      "description": "SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)",
+      "ss_bounds": [
+        0.0,
+        0.12,
+        0.36,
+        0.72
+      ],
+      "reference_pdb": "reference_pdbs/all_beta_1SHG.pdb",
+      "motif_segments": [],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "KELVLALYDYQEKSPREVTMKKGDILTLLNSTNKDWWKVEVNDRQGFVPAAYVKKLD"
+      ]
+    },
+    {
+      "task_id": "s3b_d025",
+      "category": "motif_scaffolding",
+      "subfamily": "EF_hand_Ca_loop",
+      "min_length": 75,
+      "max_length": 95,
+      "description": "Scaffold a 12-residue Ca2+-chelating EF-hand loop in its native pentagonal-bipyramidal geometry",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ef_loop",
+          "sequence": "DKDGDGTITTKE",
+          "min_linker_before": 16,
+          "max_linker_before": 45,
+          "native_ca_coords": [
+            [
+              0.199,
+              -2.761,
+              2.085
+            ],
+            [
+              2.188,
+              -0.606,
+              4.594
+            ],
+            [
+              -0.638,
+              1.805,
+              5.288
+            ],
+            [
+              -3.522,
+              -0.665,
+              5.101
+            ],
+            [
+              -5.721,
+              1.073,
+              2.478
+            ],
+            [
+              -6.29,
+              -2.184,
+              0.559
+            ],
+            [
+              -3.847,
+              -1.436,
+              -2.263
+            ],
+            [
+              -0.157,
+              -1.78,
+              -2.943
+            ],
+            [
+              1.509,
+              1.225,
+              -4.64
+            ],
+            [
+              4.937,
+              1.655,
+              -6.302
+            ],
+            [
+              6.29,
+              3.241,
+              -3.102
+            ],
+            [
+              5.055,
+              0.428,
+              -0.859
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "LTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTIDFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREADIDGDGQVNYEEFVQMMTA"
+      ]
+    },
+    {
+      "task_id": "s3b_d026",
+      "category": "motif_scaffolding",
+      "subfamily": "EF_hand_Ca_loop",
+      "min_length": 85,
+      "max_length": 105,
+      "description": "Scaffold a 12-residue Ca2+-chelating EF-hand loop in its native pentagonal-bipyramidal geometry",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ef_loop",
+          "sequence": "DKDGDGTITTKE",
+          "min_linker_before": 22,
+          "max_linker_before": 55,
+          "native_ca_coords": [
+            [
+              0.199,
+              -2.761,
+              2.085
+            ],
+            [
+              2.188,
+              -0.606,
+              4.594
+            ],
+            [
+              -0.638,
+              1.805,
+              5.288
+            ],
+            [
+              -3.522,
+              -0.665,
+              5.101
+            ],
+            [
+              -5.721,
+              1.073,
+              2.478
+            ],
+            [
+              -6.29,
+              -2.184,
+              0.559
+            ],
+            [
+              -3.847,
+              -1.436,
+              -2.263
+            ],
+            [
+              -0.157,
+              -1.78,
+              -2.943
+            ],
+            [
+              1.509,
+              1.225,
+              -4.64
+            ],
+            [
+              4.937,
+              1.655,
+              -6.302
+            ],
+            [
+              6.29,
+              3.241,
+              -3.102
+            ],
+            [
+              5.055,
+              0.428,
+              -0.859
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "LTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTIDFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREADIDGDGQVNYEEFVQMMTA"
+      ]
+    },
+    {
+      "task_id": "s3b_d027",
+      "category": "motif_scaffolding",
+      "subfamily": "EF_hand_Ca_loop",
+      "min_length": 90,
+      "max_length": 112,
+      "description": "Scaffold a 12-residue Ca2+-chelating EF-hand loop in its native pentagonal-bipyramidal geometry",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ef_loop",
+          "sequence": "DKDGDGTITTKE",
+          "min_linker_before": 28,
+          "max_linker_before": 60,
+          "native_ca_coords": [
+            [
+              0.199,
+              -2.761,
+              2.085
+            ],
+            [
+              2.188,
+              -0.606,
+              4.594
+            ],
+            [
+              -0.638,
+              1.805,
+              5.288
+            ],
+            [
+              -3.522,
+              -0.665,
+              5.101
+            ],
+            [
+              -5.721,
+              1.073,
+              2.478
+            ],
+            [
+              -6.29,
+              -2.184,
+              0.559
+            ],
+            [
+              -3.847,
+              -1.436,
+              -2.263
+            ],
+            [
+              -0.157,
+              -1.78,
+              -2.943
+            ],
+            [
+              1.509,
+              1.225,
+              -4.64
+            ],
+            [
+              4.937,
+              1.655,
+              -6.302
+            ],
+            [
+              6.29,
+              3.241,
+              -3.102
+            ],
+            [
+              5.055,
+              0.428,
+              -0.859
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "LTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTIDFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREADIDGDGQVNYEEFVQMMTA"
+      ]
+    },
+    {
+      "task_id": "s3b_d028",
+      "category": "motif_scaffolding",
+      "subfamily": "EF_hand_Ca_loop",
+      "min_length": 95,
+      "max_length": 120,
+      "description": "Scaffold a 12-residue Ca2+-chelating EF-hand loop in its native pentagonal-bipyramidal geometry",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ef_loop",
+          "sequence": "DKDGDGTITTKE",
+          "min_linker_before": 32,
+          "max_linker_before": 68,
+          "native_ca_coords": [
+            [
+              0.199,
+              -2.761,
+              2.085
+            ],
+            [
+              2.188,
+              -0.606,
+              4.594
+            ],
+            [
+              -0.638,
+              1.805,
+              5.288
+            ],
+            [
+              -3.522,
+              -0.665,
+              5.101
+            ],
+            [
+              -5.721,
+              1.073,
+              2.478
+            ],
+            [
+              -6.29,
+              -2.184,
+              0.559
+            ],
+            [
+              -3.847,
+              -1.436,
+              -2.263
+            ],
+            [
+              -0.157,
+              -1.78,
+              -2.943
+            ],
+            [
+              1.509,
+              1.225,
+              -4.64
+            ],
+            [
+              4.937,
+              1.655,
+              -6.302
+            ],
+            [
+              6.29,
+              3.241,
+              -3.102
+            ],
+            [
+              5.055,
+              0.428,
+              -0.859
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "LTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTIDFPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREADIDGDGQVNYEEFVQMMTA"
+      ]
+    },
+    {
+      "task_id": "s3b_d029",
+      "category": "motif_scaffolding",
+      "subfamily": "C2H2_Zn_finger",
+      "min_length": 70,
+      "max_length": 92,
+      "description": "Scaffold a discontinuous C2H2 Zn2+-chelating beta-hairpin + alpha-helix motif in native 3D orientation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "zn_c2_hairpin",
+          "sequence": "YACPVESCDRR",
+          "min_linker_before": 10,
+          "max_linker_before": 35,
+          "native_ca_coords": [
+            [
+              -8.623,
+              -1.403,
+              -1.627
+            ],
+            [
+              -6.621,
+              0.292,
+              1.127
+            ],
+            [
+              -2.891,
+              -0.18,
+              1.6
+            ],
+            [
+              -2.262,
+              -2.314,
+              4.758
+            ],
+            [
+              1.006,
+              -0.601,
+              5.723
+            ],
+            [
+              0.054,
+              1.449,
+              8.8
+            ],
+            [
+              2.326,
+              4.354,
+              7.797
+            ],
+            [
+              0.648,
+              4.632,
+              4.388
+            ],
+            [
+              -2.979,
+              5.53,
+              3.575
+            ],
+            [
+              -3.429,
+              4.994,
+              -0.181
+            ],
+            [
+              -6.685,
+              3.456,
+              -1.479
+            ]
+          ]
+        },
+        {
+          "segment_id": "zn_h2_helix",
+          "sequence": "LTRHIRIHT",
+          "min_linker_before": 3,
+          "max_linker_before": 10,
+          "native_ca_coords": [
+            [
+              -3.024,
+              -2.213,
+              -4.879
+            ],
+            [
+              -0.653,
+              -5.009,
+              -5.871
+            ],
+            [
+              1.383,
+              -2.678,
+              -8.081
+            ],
+            [
+              1.49,
+              0.01,
+              -5.344
+            ],
+            [
+              2.481,
+              -2.54,
+              -2.679
+            ],
+            [
+              5.836,
+              -2.874,
+              -4.455
+            ],
+            [
+              7.01,
+              0.524,
+              -3.154
+            ],
+            [
+              6.741,
+              -0.995,
+              0.351
+            ],
+            [
+              8.2,
+              -4.442,
+              -0.367
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 2,
+      "forbidden_parent_sequences": [
+        "RPYACPVESCDRRFSRSDELTRHIRIHTGQKPFQCRICMRNFSRSDHLTTHIRTHTGEKPFACDICGRKFARSDERKRHTKIHLR"
+      ]
+    },
+    {
+      "task_id": "s3b_d030",
+      "category": "motif_scaffolding",
+      "subfamily": "C2H2_Zn_finger",
+      "min_length": 80,
+      "max_length": 102,
+      "description": "Scaffold a discontinuous C2H2 Zn2+-chelating beta-hairpin + alpha-helix motif in native 3D orientation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "zn_c2_hairpin",
+          "sequence": "YACPVESCDRR",
+          "min_linker_before": 14,
+          "max_linker_before": 42,
+          "native_ca_coords": [
+            [
+              -8.623,
+              -1.403,
+              -1.627
+            ],
+            [
+              -6.621,
+              0.292,
+              1.127
+            ],
+            [
+              -2.891,
+              -0.18,
+              1.6
+            ],
+            [
+              -2.262,
+              -2.314,
+              4.758
+            ],
+            [
+              1.006,
+              -0.601,
+              5.723
+            ],
+            [
+              0.054,
+              1.449,
+              8.8
+            ],
+            [
+              2.326,
+              4.354,
+              7.797
+            ],
+            [
+              0.648,
+              4.632,
+              4.388
+            ],
+            [
+              -2.979,
+              5.53,
+              3.575
+            ],
+            [
+              -3.429,
+              4.994,
+              -0.181
+            ],
+            [
+              -6.685,
+              3.456,
+              -1.479
+            ]
+          ]
+        },
+        {
+          "segment_id": "zn_h2_helix",
+          "sequence": "LTRHIRIHT",
+          "min_linker_before": 3,
+          "max_linker_before": 12,
+          "native_ca_coords": [
+            [
+              -3.024,
+              -2.213,
+              -4.879
+            ],
+            [
+              -0.653,
+              -5.009,
+              -5.871
+            ],
+            [
+              1.383,
+              -2.678,
+              -8.081
+            ],
+            [
+              1.49,
+              0.01,
+              -5.344
+            ],
+            [
+              2.481,
+              -2.54,
+              -2.679
+            ],
+            [
+              5.836,
+              -2.874,
+              -4.455
+            ],
+            [
+              7.01,
+              0.524,
+              -3.154
+            ],
+            [
+              6.741,
+              -0.995,
+              0.351
+            ],
+            [
+              8.2,
+              -4.442,
+              -0.367
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 2,
+      "forbidden_parent_sequences": [
+        "RPYACPVESCDRRFSRSDELTRHIRIHTGQKPFQCRICMRNFSRSDHLTTHIRTHTGEKPFACDICGRKFARSDERKRHTKIHLR"
+      ]
+    },
+    {
+      "task_id": "s3b_d031",
+      "category": "motif_scaffolding",
+      "subfamily": "C2H2_Zn_finger",
+      "min_length": 88,
+      "max_length": 110,
+      "description": "Scaffold a discontinuous C2H2 Zn2+-chelating beta-hairpin + alpha-helix motif in native 3D orientation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "zn_c2_hairpin",
+          "sequence": "YACPVESCDRR",
+          "min_linker_before": 18,
+          "max_linker_before": 48,
+          "native_ca_coords": [
+            [
+              -8.623,
+              -1.403,
+              -1.627
+            ],
+            [
+              -6.621,
+              0.292,
+              1.127
+            ],
+            [
+              -2.891,
+              -0.18,
+              1.6
+            ],
+            [
+              -2.262,
+              -2.314,
+              4.758
+            ],
+            [
+              1.006,
+              -0.601,
+              5.723
+            ],
+            [
+              0.054,
+              1.449,
+              8.8
+            ],
+            [
+              2.326,
+              4.354,
+              7.797
+            ],
+            [
+              0.648,
+              4.632,
+              4.388
+            ],
+            [
+              -2.979,
+              5.53,
+              3.575
+            ],
+            [
+              -3.429,
+              4.994,
+              -0.181
+            ],
+            [
+              -6.685,
+              3.456,
+              -1.479
+            ]
+          ]
+        },
+        {
+          "segment_id": "zn_h2_helix",
+          "sequence": "LTRHIRIHT",
+          "min_linker_before": 3,
+          "max_linker_before": 12,
+          "native_ca_coords": [
+            [
+              -3.024,
+              -2.213,
+              -4.879
+            ],
+            [
+              -0.653,
+              -5.009,
+              -5.871
+            ],
+            [
+              1.383,
+              -2.678,
+              -8.081
+            ],
+            [
+              1.49,
+              0.01,
+              -5.344
+            ],
+            [
+              2.481,
+              -2.54,
+              -2.679
+            ],
+            [
+              5.836,
+              -2.874,
+              -4.455
+            ],
+            [
+              7.01,
+              0.524,
+              -3.154
+            ],
+            [
+              6.741,
+              -0.995,
+              0.351
+            ],
+            [
+              8.2,
+              -4.442,
+              -0.367
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 2,
+      "forbidden_parent_sequences": [
+        "RPYACPVESCDRRFSRSDELTRHIRIHTGQKPFQCRICMRNFSRSDHLTTHIRTHTGEKPFACDICGRKFARSDERKRHTKIHLR"
+      ]
+    },
+    {
+      "task_id": "s3b_d032",
+      "category": "motif_scaffolding",
+      "subfamily": "C2H2_Zn_finger",
+      "min_length": 95,
+      "max_length": 118,
+      "description": "Scaffold a discontinuous C2H2 Zn2+-chelating beta-hairpin + alpha-helix motif in native 3D orientation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "zn_c2_hairpin",
+          "sequence": "YACPVESCDRR",
+          "min_linker_before": 22,
+          "max_linker_before": 55,
+          "native_ca_coords": [
+            [
+              -8.623,
+              -1.403,
+              -1.627
+            ],
+            [
+              -6.621,
+              0.292,
+              1.127
+            ],
+            [
+              -2.891,
+              -0.18,
+              1.6
+            ],
+            [
+              -2.262,
+              -2.314,
+              4.758
+            ],
+            [
+              1.006,
+              -0.601,
+              5.723
+            ],
+            [
+              0.054,
+              1.449,
+              8.8
+            ],
+            [
+              2.326,
+              4.354,
+              7.797
+            ],
+            [
+              0.648,
+              4.632,
+              4.388
+            ],
+            [
+              -2.979,
+              5.53,
+              3.575
+            ],
+            [
+              -3.429,
+              4.994,
+              -0.181
+            ],
+            [
+              -6.685,
+              3.456,
+              -1.479
+            ]
+          ]
+        },
+        {
+          "segment_id": "zn_h2_helix",
+          "sequence": "LTRHIRIHT",
+          "min_linker_before": 3,
+          "max_linker_before": 14,
+          "native_ca_coords": [
+            [
+              -3.024,
+              -2.213,
+              -4.879
+            ],
+            [
+              -0.653,
+              -5.009,
+              -5.871
+            ],
+            [
+              1.383,
+              -2.678,
+              -8.081
+            ],
+            [
+              1.49,
+              0.01,
+              -5.344
+            ],
+            [
+              2.481,
+              -2.54,
+              -2.679
+            ],
+            [
+              5.836,
+              -2.874,
+              -4.455
+            ],
+            [
+              7.01,
+              0.524,
+              -3.154
+            ],
+            [
+              6.741,
+              -0.995,
+              0.351
+            ],
+            [
+              8.2,
+              -4.442,
+              -0.367
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 2,
+      "forbidden_parent_sequences": [
+        "RPYACPVESCDRRFSRSDELTRHIRIHTGQKPFQCRICMRNFSRSDHLTTHIRTHTGEKPFACDICGRKFARSDERKRHTKIHLR"
+      ]
+    },
+    {
+      "task_id": "s3b_d033",
+      "category": "motif_scaffolding",
+      "subfamily": "WalkerA_Ploop",
+      "min_length": 82,
+      "max_length": 104,
+      "description": "Scaffold a 12-residue Walker-A P-loop phosphate-binding cradle (`GxxxxGKS`) inside a de novo globular core",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ploop",
+          "sequence": "LVVVGAGGVGKS",
+          "min_linker_before": 8,
+          "max_linker_before": 36,
+          "native_ca_coords": [
+            [
+              -6.058,
+              -1.264,
+              -10.06
+            ],
+            [
+              -5.973,
+              -1.488,
+              -6.272
+            ],
+            [
+              -2.762,
+              -1.013,
+              -4.18
+            ],
+            [
+              -2.861,
+              -3.041,
+              -0.879
+            ],
+            [
+              -0.409,
+              -3.939,
+              1.885
+            ],
+            [
+              0.481,
+              -3.14,
+              5.473
+            ],
+            [
+              0.766,
+              0.357,
+              6.93
+            ],
+            [
+              3.871,
+              2.327,
+              6.015
+            ],
+            [
+              5.208,
+              0.052,
+              3.193
+            ],
+            [
+              5.026,
+              2.885,
+              0.582
+            ],
+            [
+              1.691,
+              2.246,
+              -1.211
+            ],
+            [
+              1.021,
+              6.02,
+              -1.475
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d034",
+      "category": "motif_scaffolding",
+      "subfamily": "WalkerA_Ploop",
+      "min_length": 90,
+      "max_length": 112,
+      "description": "Scaffold a 12-residue Walker-A P-loop phosphate-binding cradle (`GxxxxGKS`) inside a de novo globular core",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ploop",
+          "sequence": "LVVVGAGGVGKS",
+          "min_linker_before": 14,
+          "max_linker_before": 44,
+          "native_ca_coords": [
+            [
+              -6.058,
+              -1.264,
+              -10.06
+            ],
+            [
+              -5.973,
+              -1.488,
+              -6.272
+            ],
+            [
+              -2.762,
+              -1.013,
+              -4.18
+            ],
+            [
+              -2.861,
+              -3.041,
+              -0.879
+            ],
+            [
+              -0.409,
+              -3.939,
+              1.885
+            ],
+            [
+              0.481,
+              -3.14,
+              5.473
+            ],
+            [
+              0.766,
+              0.357,
+              6.93
+            ],
+            [
+              3.871,
+              2.327,
+              6.015
+            ],
+            [
+              5.208,
+              0.052,
+              3.193
+            ],
+            [
+              5.026,
+              2.885,
+              0.582
+            ],
+            [
+              1.691,
+              2.246,
+              -1.211
+            ],
+            [
+              1.021,
+              6.02,
+              -1.475
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d035",
+      "category": "motif_scaffolding",
+      "subfamily": "WalkerA_Ploop",
+      "min_length": 98,
+      "max_length": 120,
+      "description": "Scaffold a 12-residue Walker-A P-loop phosphate-binding cradle (`GxxxxGKS`) inside a de novo globular core",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ploop",
+          "sequence": "LVVVGAGGVGKS",
+          "min_linker_before": 20,
+          "max_linker_before": 52,
+          "native_ca_coords": [
+            [
+              -6.058,
+              -1.264,
+              -10.06
+            ],
+            [
+              -5.973,
+              -1.488,
+              -6.272
+            ],
+            [
+              -2.762,
+              -1.013,
+              -4.18
+            ],
+            [
+              -2.861,
+              -3.041,
+              -0.879
+            ],
+            [
+              -0.409,
+              -3.939,
+              1.885
+            ],
+            [
+              0.481,
+              -3.14,
+              5.473
+            ],
+            [
+              0.766,
+              0.357,
+              6.93
+            ],
+            [
+              3.871,
+              2.327,
+              6.015
+            ],
+            [
+              5.208,
+              0.052,
+              3.193
+            ],
+            [
+              5.026,
+              2.885,
+              0.582
+            ],
+            [
+              1.691,
+              2.246,
+              -1.211
+            ],
+            [
+              1.021,
+              6.02,
+              -1.475
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d036",
+      "category": "motif_scaffolding",
+      "subfamily": "WalkerA_Ploop",
+      "min_length": 105,
+      "max_length": 128,
+      "description": "Scaffold a 12-residue Walker-A P-loop phosphate-binding cradle (`GxxxxGKS`) inside a de novo globular core",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "ploop",
+          "sequence": "LVVVGAGGVGKS",
+          "min_linker_before": 25,
+          "max_linker_before": 60,
+          "native_ca_coords": [
+            [
+              -6.058,
+              -1.264,
+              -10.06
+            ],
+            [
+              -5.973,
+              -1.488,
+              -6.272
+            ],
+            [
+              -2.762,
+              -1.013,
+              -4.18
+            ],
+            [
+              -2.861,
+              -3.041,
+              -0.879
+            ],
+            [
+              -0.409,
+              -3.939,
+              1.885
+            ],
+            [
+              0.481,
+              -3.14,
+              5.473
+            ],
+            [
+              0.766,
+              0.357,
+              6.93
+            ],
+            [
+              3.871,
+              2.327,
+              6.015
+            ],
+            [
+              5.208,
+              0.052,
+              3.193
+            ],
+            [
+              5.026,
+              2.885,
+              0.582
+            ],
+            [
+              1.691,
+              2.246,
+              -1.211
+            ],
+            [
+              1.021,
+              6.02,
+              -1.475
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "MTEYKLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQH"
+      ]
+    },
+    {
+      "task_id": "s3b_d037",
+      "category": "motif_scaffolding",
+      "subfamily": "Discontinuous_bihotspot",
+      "min_length": 72,
+      "max_length": 92,
+      "description": "Scaffold two discontinuous 10-residue binding segments at their exact relative 3D translation & rotation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "seg1",
+          "sequence": "AKELAEKALA",
+          "min_linker_before": 6,
+          "max_linker_before": 26,
+          "native_ca_coords": [
+            [
+              2.031,
+              -3.739,
+              12.208
+            ],
+            [
+              4.471,
+              -3.931,
+              9.308
+            ],
+            [
+              3.117,
+              -7.37,
+              8.45
+            ],
+            [
+              -0.47,
+              -6.157,
+              8.576
+            ],
+            [
+              0.415,
+              -3.272,
+              6.278
+            ],
+            [
+              2.394,
+              -5.485,
+              3.902
+            ],
+            [
+              -0.512,
+              -7.863,
+              3.776
+            ],
+            [
+              -2.937,
+              -5.074,
+              2.854
+            ],
+            [
+              -0.733,
+              -3.782,
+              0.031
+            ],
+            [
+              -0.276,
+              -7.31,
+              -1.41
+            ]
+          ]
+        },
+        {
+          "segment_id": "seg2",
+          "sequence": "QWSRENMYRA",
+          "min_linker_before": 14,
+          "max_linker_before": 34,
+          "native_ca_coords": [
+            [
+              3.768,
+              1.311,
+              -9.878
+            ],
+            [
+              4.15,
+              4.745,
+              -8.324
+            ],
+            [
+              1.28,
+              7.16,
+              -8.948
+            ],
+            [
+              -0.717,
+              9.653,
+              -6.889
+            ],
+            [
+              -3.679,
+              7.278,
+              -7.1
+            ],
+            [
+              -1.627,
+              4.422,
+              -5.642
+            ],
+            [
+              -0.323,
+              6.644,
+              -2.832
+            ],
+            [
+              -3.996,
+              7.084,
+              -1.892
+            ],
+            [
+              -4.75,
+              3.369,
+              -2.164
+            ],
+            [
+              -1.613,
+              2.309,
+              -0.304
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GLAEKAKELAEKALAELGIEATVEVEEDEDGTLEITITIKPEQWSRENMYRAALAAGTASDEIADVNVRARPAE"
+      ]
+    },
+    {
+      "task_id": "s3b_d038",
+      "category": "motif_scaffolding",
+      "subfamily": "Discontinuous_bihotspot",
+      "min_length": 80,
+      "max_length": 102,
+      "description": "Scaffold two discontinuous 10-residue binding segments at their exact relative 3D translation & rotation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "seg1",
+          "sequence": "AKELAEKALA",
+          "min_linker_before": 10,
+          "max_linker_before": 32,
+          "native_ca_coords": [
+            [
+              2.031,
+              -3.739,
+              12.208
+            ],
+            [
+              4.471,
+              -3.931,
+              9.308
+            ],
+            [
+              3.117,
+              -7.37,
+              8.45
+            ],
+            [
+              -0.47,
+              -6.157,
+              8.576
+            ],
+            [
+              0.415,
+              -3.272,
+              6.278
+            ],
+            [
+              2.394,
+              -5.485,
+              3.902
+            ],
+            [
+              -0.512,
+              -7.863,
+              3.776
+            ],
+            [
+              -2.937,
+              -5.074,
+              2.854
+            ],
+            [
+              -0.733,
+              -3.782,
+              0.031
+            ],
+            [
+              -0.276,
+              -7.31,
+              -1.41
+            ]
+          ]
+        },
+        {
+          "segment_id": "seg2",
+          "sequence": "QWSRENMYRA",
+          "min_linker_before": 16,
+          "max_linker_before": 38,
+          "native_ca_coords": [
+            [
+              3.768,
+              1.311,
+              -9.878
+            ],
+            [
+              4.15,
+              4.745,
+              -8.324
+            ],
+            [
+              1.28,
+              7.16,
+              -8.948
+            ],
+            [
+              -0.717,
+              9.653,
+              -6.889
+            ],
+            [
+              -3.679,
+              7.278,
+              -7.1
+            ],
+            [
+              -1.627,
+              4.422,
+              -5.642
+            ],
+            [
+              -0.323,
+              6.644,
+              -2.832
+            ],
+            [
+              -3.996,
+              7.084,
+              -1.892
+            ],
+            [
+              -4.75,
+              3.369,
+              -2.164
+            ],
+            [
+              -1.613,
+              2.309,
+              -0.304
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GLAEKAKELAEKALAELGIEATVEVEEDEDGTLEITITIKPEQWSRENMYRAALAAGTASDEIADVNVRARPAE"
+      ]
+    },
+    {
+      "task_id": "s3b_d039",
+      "category": "motif_scaffolding",
+      "subfamily": "Discontinuous_bihotspot",
+      "min_length": 88,
+      "max_length": 110,
+      "description": "Scaffold two discontinuous 10-residue binding segments at their exact relative 3D translation & rotation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "seg1",
+          "sequence": "AKELAEKALA",
+          "min_linker_before": 14,
+          "max_linker_before": 38,
+          "native_ca_coords": [
+            [
+              2.031,
+              -3.739,
+              12.208
+            ],
+            [
+              4.471,
+              -3.931,
+              9.308
+            ],
+            [
+              3.117,
+              -7.37,
+              8.45
+            ],
+            [
+              -0.47,
+              -6.157,
+              8.576
+            ],
+            [
+              0.415,
+              -3.272,
+              6.278
+            ],
+            [
+              2.394,
+              -5.485,
+              3.902
+            ],
+            [
+              -0.512,
+              -7.863,
+              3.776
+            ],
+            [
+              -2.937,
+              -5.074,
+              2.854
+            ],
+            [
+              -0.733,
+              -3.782,
+              0.031
+            ],
+            [
+              -0.276,
+              -7.31,
+              -1.41
+            ]
+          ]
+        },
+        {
+          "segment_id": "seg2",
+          "sequence": "QWSRENMYRA",
+          "min_linker_before": 18,
+          "max_linker_before": 42,
+          "native_ca_coords": [
+            [
+              3.768,
+              1.311,
+              -9.878
+            ],
+            [
+              4.15,
+              4.745,
+              -8.324
+            ],
+            [
+              1.28,
+              7.16,
+              -8.948
+            ],
+            [
+              -0.717,
+              9.653,
+              -6.889
+            ],
+            [
+              -3.679,
+              7.278,
+              -7.1
+            ],
+            [
+              -1.627,
+              4.422,
+              -5.642
+            ],
+            [
+              -0.323,
+              6.644,
+              -2.832
+            ],
+            [
+              -3.996,
+              7.084,
+              -1.892
+            ],
+            [
+              -4.75,
+              3.369,
+              -2.164
+            ],
+            [
+              -1.613,
+              2.309,
+              -0.304
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GLAEKAKELAEKALAELGIEATVEVEEDEDGTLEITITIKPEQWSRENMYRAALAAGTASDEIADVNVRARPAE"
+      ]
+    },
+    {
+      "task_id": "s3b_d040",
+      "category": "motif_scaffolding",
+      "subfamily": "Discontinuous_bihotspot",
+      "min_length": 96,
+      "max_length": 118,
+      "description": "Scaffold two discontinuous 10-residue binding segments at their exact relative 3D translation & rotation",
+      "ss_bounds": [
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "reference_pdb": "",
+      "motif_segments": [
+        {
+          "segment_id": "seg1",
+          "sequence": "AKELAEKALA",
+          "min_linker_before": 18,
+          "max_linker_before": 44,
+          "native_ca_coords": [
+            [
+              2.031,
+              -3.739,
+              12.208
+            ],
+            [
+              4.471,
+              -3.931,
+              9.308
+            ],
+            [
+              3.117,
+              -7.37,
+              8.45
+            ],
+            [
+              -0.47,
+              -6.157,
+              8.576
+            ],
+            [
+              0.415,
+              -3.272,
+              6.278
+            ],
+            [
+              2.394,
+              -5.485,
+              3.902
+            ],
+            [
+              -0.512,
+              -7.863,
+              3.776
+            ],
+            [
+              -2.937,
+              -5.074,
+              2.854
+            ],
+            [
+              -0.733,
+              -3.782,
+              0.031
+            ],
+            [
+              -0.276,
+              -7.31,
+              -1.41
+            ]
+          ]
+        },
+        {
+          "segment_id": "seg2",
+          "sequence": "QWSRENMYRA",
+          "min_linker_before": 20,
+          "max_linker_before": 46,
+          "native_ca_coords": [
+            [
+              3.768,
+              1.311,
+              -9.878
+            ],
+            [
+              4.15,
+              4.745,
+              -8.324
+            ],
+            [
+              1.28,
+              7.16,
+              -8.948
+            ],
+            [
+              -0.717,
+              9.653,
+              -6.889
+            ],
+            [
+              -3.679,
+              7.278,
+              -7.1
+            ],
+            [
+              -1.627,
+              4.422,
+              -5.642
+            ],
+            [
+              -0.323,
+              6.644,
+              -2.832
+            ],
+            [
+              -3.996,
+              7.084,
+              -1.892
+            ],
+            [
+              -4.75,
+              3.369,
+              -2.164
+            ],
+            [
+              -1.613,
+              2.309,
+              -0.304
+            ]
+          ]
+        }
+      ],
+      "max_allowed_cys": 1,
+      "forbidden_parent_sequences": [
+        "GLAEKAKELAEKALAELGIEATVEVEEDEDGTLEITITIKPEQWSRENMYRAALAAGTASDEIADVNVRARPAE"
+      ]
+    }
+  ]
+}

@@ -13,6 +13,7 @@ __pycache__/
 data/raw_pdb_cache/
 data/raw_alanine_cache/
 data/raw_stage2_cache/
+data/raw_stage3b_cache/
 outputs/api_cache/
 outputs/results/reconstructed_pdbs/
 outputs/figures/stage1_interactive_3d.html

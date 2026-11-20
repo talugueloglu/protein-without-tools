@@ -1,0 +1,16 @@
+You are performing de novo functional motif scaffolding in protein engineering.
+
+Design Specification (s3b_d025):
+  - Functional Goal: Scaffold a 12-residue Ca2+-chelating EF-hand loop in its native pentagonal-bipyramidal geometry
+  - Total Sequence Length (motif + designed scaffold): 75 to 95 AA
+  - Motif Segment 1 (`DKDGDGTITTKE`, 12 AA):
+      * N-terminal scaffold flank: 16 to 45 designed residues
+      * Target relative 3D Cα coordinates (Å): [(0.20,-2.76,2.08); (2.19,-0.61,4.59); (-0.64,1.80,5.29); (-3.52,-0.67,5.10); (-5.72,1.07,2.48); (-6.29,-2.18,0.56); (-3.85,-1.44,-2.26); (-0.16,-1.78,-2.94); (1.51,1.23,-4.64); (4.94,1.66,-6.30); (6.29,3.24,-3.10); (5.05,0.43,-0.86)]
+  - C-terminal scaffold flank after final motif segment: at least 6 designed residues
+  - Requirements:
+      1. Embed EVERY motif segment verbatim (`100%` exact sequence match) in the specified order.
+      2. Design a compact, well-packed globular scaffold (`<30%` SeqID to natural proteins outside the motif) that holds the motif Cα atoms within `< 1.50 Å` RMSD of their target 3D geometry.
+      3. At most 1 total cysteine(s) across the entire sequence.
+
+Return ONLY a single compact JSON object:
+{"sequence": "FULL_SCAFFOLD_PLUS_MOTIF_SEQUENCE", "rationale": "1-sentence scaffolding strategy"}

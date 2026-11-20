@@ -1,0 +1,14 @@
+You are designing a brand-new, globular, monomeric de novo protein from scratch.
+
+Design Specification (s3b_d019):
+  - Target 3D Fold Architecture: SH3-like antiparallel 5-stranded all-beta barrel (strictly minimal/zero alpha-helix)
+  - Allowed Sequence Length: 64 to 74 canonical amino acids
+  - Target Secondary Structure Content: helix fraction in [0%, 12%], beta-strand fraction in [36%, 72%]
+  - Biophysical Requirements:
+      1. Well-packed hydrophobic core with a water-soluble polar/charged exterior.
+      2. High sequence complexity (do NOT use repetitive `EAAAK`/`LEEL` coiled-coil patterns).
+      3. At most 1 cysteine residue(s).
+      4. Strictly de novo (`<30%` sequence identity to any natural protein in UniProt/PDB).
+
+Return ONLY a single compact JSON object:
+{"sequence": "YOUR_DESIGNED_SEQUENCE", "rationale": "1-sentence topology & core packing plan"}

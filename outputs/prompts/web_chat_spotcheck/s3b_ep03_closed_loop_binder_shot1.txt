@@ -1,0 +1,62 @@
+You are competing in a BindCraft-style closed-loop de novo miniprotein binder design challenge.
+
+Anonymized Target Protein (s3b_ep03, length 89 AA):
+TRDFKPGDLIFAKMKGYPHWPARVDEVPDGAVKPPTNKLPIFFFGTHETAFLGPKDIFPYSENKEKYGKPNKRKGFNEGLWEIDNNPKV
+
+Target Epitope Hotspot Residues (1-indexed — your binder MUST directly contact >=3 of these):
+  K15, P28, H47, T49, F51
+
+Local 3D Epitope Surface Geometry (centered at epitope centroid, Å):
+  res   6 (P): Cα=( -9.79,   6.64,  -4.99)
+  res   7 (G): Cα=( -7.44,   9.50,  -5.83)
+  res   9 (L): Cα=( -4.52,  12.60,  -1.17)
+  res  10 (I): Cα=( -3.64,  11.77,   2.40)
+  res  11 (F): Cα=( -1.09,  11.14,   5.06)
+  res  12 (A): Cα=( -0.81,   7.52,   6.17)
+  res  13 (K): Cα=(  0.64,   6.29,   9.44)
+  res  14 (M): Cα=(  2.47,   3.00,   9.84)
+  res  15 (K): Cα=(  4.67,   1.71,  12.64) [HOTSPOT]
+  res  17 (Y): Cα=(  7.55,   5.80,  10.08)
+  res  19 (H): Cα=(  2.88,  10.25,   8.90)
+  res  20 (W): Cα=(  3.65,   9.72,   5.21)
+  res  21 (P): Cα=(  2.39,  11.39,   1.96)
+  res  22 (A): Cα=(  0.12,   8.90,   0.20)
+  res  23 (R): Cα=( -3.07,   8.36,  -1.76)
+  res  24 (V): Cα=( -6.10,   6.10,  -1.84)
+  res  25 (D): Cα=( -5.78,   3.67,  -4.75)
+  res  26 (E): Cα=( -8.37,   1.83,  -6.83)
+  res  27 (V): Cα=( -9.18,  -1.84,  -6.83)
+  res  28 (P): Cα=( -7.95,  -3.36, -10.12) [HOTSPOT]
+  res  33 (K): Cα=(-12.09,  -6.30,  -2.81)
+  res  34 (P): Cα=(-10.49,  -5.32,   0.53)
+  res  38 (K): Cα=( -9.68,  -1.27,   4.64)
+  res  39 (L): Cα=( -8.42,   0.78,   1.73)
+  res  40 (P): Cα=( -5.62,   0.25,  -0.78)
+  res  41 (I): Cα=( -2.91,   2.84,  -0.14)
+  res  42 (F): Cα=( -0.01,   4.01,  -2.28)
+  res  43 (F): Cα=(  2.92,   5.78,  -0.62)
+  res  44 (F): Cα=(  4.53,   8.62,  -2.51)
+  res  45 (G): Cα=(  8.29,   8.55,  -2.74)
+  res  46 (T): Cα=(  8.74,   4.84,  -1.94)
+  res  47 (H): Cα=(  5.89,   3.75,  -4.29) [HOTSPOT]
+  res  48 (E): Cα=(  4.98,   0.93,  -1.87)
+  res  49 (T): Cα=(  1.41,  -0.28,  -1.30) [HOTSPOT]
+  res  50 (A): Cα=( -0.51,  -1.45,   1.74)
+  res  51 (F): Cα=( -4.03,  -1.82,   3.07) [HOTSPOT]
+  res  52 (L): Cα=( -4.96,   0.52,   5.92)
+  res  53 (G): Cα=( -7.95,   1.44,   8.05)
+  res  54 (P): Cα=( -9.51,   4.92,   8.33)
+  res  56 (D): Cα=( -4.44,   5.18,   9.88)
+  res  57 (I): Cα=( -5.08,   7.87,   7.30)
+  res  79 (G): Cα=(  7.05,  11.89,  -1.64)
+  res  89 (V): Cα=(  2.38,   8.63, -10.66)
+
+Hit Criteria (evaluated by AlphaFold2-Multimer + Monomer Self-Consistency Oracle):
+  1. Binder length between 55 and 85 canonical amino acids.
+  2. Interface `ipTM >= 0.75` AND `iPAE < 10.0 Å`.
+  3. Direct intermolecular contact (`Cβ < 8.0 Å`) with at least 3 of the 5 specified hotspot residues.
+  4. Folds stably on its own as an unbound globular monomer (`binder pLDDT >= 80`, `monomer RMSD <= 2.0 Å`).
+  5. Strictly de novo (`<25%` SeqID to any natural partner or published binder), <=1 Cys, non-repetitive.
+
+Shot 1 — Propose your initial de novo miniprotein binder as a compact JSON object:
+{"binder_sequence": "YOUR_SEQUENCE", "rationale": "brief interface & fold strategy"}
