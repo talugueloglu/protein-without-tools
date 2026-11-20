@@ -213,6 +213,55 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
         })
 
     # ==========================================================================
+    # 4B. Test 6: Interface Binding Alanine Scanning (4 Categories — 1 per category)
+    # ==========================================================================
+    m6 = json.loads((REPO / "data/binding_alanine_benchmark/manifest.json").read_text(encoding="utf-8"))
+    s6_picks = [
+        ("skempi_biophysical_ddg", "s6_b003", "Category 1: SKEMPI v2.0 Biophysical SPR/ITC ΔΔG_bind (n = 26)", "Human Growth Hormone × hGH Receptor (1A22) • 62 X→Ala kcal/mol sites"),
+        ("oncology_alphaseq_kd", "s6_b027", "Category 2: Immuno-Oncology Checkpoint AlphaSeq Kd (n = 3)", "Pembrolizumab-scFv × Human PD-1 (YM_0852) • 75 X→Ala Δlog10 Kd sites"),
+        ("ppi_binding_dms", "s6_b030", "Category 3: Direct PPI Binding DMS Scans (n = 5)", "Human MLH1 CTD × PMS2 MutLα Heterodimer • 242 X→Ala binding sites"),
+        ("post_may2026_mavedb_binding", "s6_b035", "Category 4: Oct–Nov 2026 Post-Cutoff Binding DMS (n = 4)", "Human KRAS × LZTR1 Direct Binding (Oct 16, 2026) • 163 X→Ala sites"),
+    ]
+    s6_examples = []
+    for cat, tid, ctitle, csub in s6_picks:
+        meta6 = next(x for x in m6["targets"] if x["target_id"] == tid)
+        tobj6 = json.loads((REPO / "data/binding_alanine_benchmark/targets" / f"{tid}.json").read_text(encoding="utf-8"))
+        pdb6 = REPO / "data/binding_alanine_benchmark/structures" / f"{tid}.pdb"
+        ca_a6, ca_b6 = [], []
+        if pdb6.exists():
+            for ln in pdb6.read_text(encoding="utf-8").splitlines():
+                if ln.startswith("ATOM") and ln[12:16].strip() == "CA":
+                    ch_id = ln[21]
+                    xyz = [round(float(ln[30:38]), 1), round(float(ln[38:46]), 1), round(float(ln[46:54]), 1)]
+                    if ch_id == "A":
+                        ca_a6.append(xyz)
+                    elif ch_id == "B":
+                        ca_b6.append(xyz)
+        lim6 = min(85, len(tobj6["positions_1idx"]))
+        raw_loss = np.asarray(tobj6["exp_binding_loss"], dtype=np.float64)
+        # Shift DMS scores relative to median so positive = above-median binding loss for visual barcode
+        vis_loss = (raw_loss - float(np.median(raw_loss))) if tobj6["assay_type"] == "binding_dms_loss" else raw_loss
+        s6_examples.append({
+            "tid": tid,
+            "cat": cat,
+            "title": ctitle,
+            "subtitle": csub,
+            "name": meta6["source_name"],
+            "date": meta6["published_date"],
+            "len_a": tobj6["scanned_length"],
+            "len_b": tobj6["partner_length"],
+            "n_assayed": len(tobj6["positions_1idx"]),
+            "pos": tobj6["positions_1idx"][:lim6],
+            "wt": tobj6["wt_aas"][:lim6],
+            "loss": [round(float(v), 2) for v in vis_loss[:lim6]],
+            "raw_loss": [round(float(v), 2) for v in raw_loss[:lim6]],
+            "ca_a": ca_a6,
+            "ca_b": ca_b6,
+            "full_pos": tobj6["positions_1idx"],
+            "full_loss": [round(float(v), 2) for v in vis_loss],
+        })
+
+    # ==========================================================================
     # 5. Stage 3B Part 1 (2 Categories: Fold-Conditioned & Motif Scaffolding)
     #    + Part 2 (3 Proven-Bindable Epitope Tiers)
     # ==========================================================================
@@ -272,6 +321,7 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
         "s2a_examples": s2a_examples,
         "s2b_examples": s2b_examples,
         "s3a_examples": s3a_examples,
+        "s6_examples": s6_examples,
         "s3b_part1_examples": s3b_part1_examples,
         "s3b_part2_examples": s3b_part2_examples,
     }
@@ -301,10 +351,10 @@ VISUAL_HTML = r"""<!DOCTYPE html>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-xs font-bold">
             <span>VISUAL BENCHMARK ATLAS</span>
             <span>•</span>
-            <span>7 TESTS (1. TO 7.) • 21 CATEGORY EXAMPLES • ZERO LEAKAGE</span>
+            <span>8 TESTS (1. TO 8.) • 25 CATEGORY EXAMPLES • ZERO LEAKAGE</span>
           </div>
           <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Does Raw Protein Pretraining Teach Folding Physics—Or Just Sequence Patterns?
+            Does Raw Protein Pretraining Teach Folding &amp; Binding Physics—Or Just Sequence Patterns?
           </h1>
           <p class="text-sm text-[var(--muted-foreground)] max-w-4xl">
             Auditing <strong>Claude Fable 5.2</strong> (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-fable-5-2</code>) against general reasoning LLMs (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Opus 5.5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">GPT-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Gemini 3.1 Pro</code>) and specialist structural biology models across <strong>No-Code (Weights Only)</strong> vs. <strong>With-Code (Air-Gapped NumPy)</strong>.
@@ -315,9 +365,10 @@ VISUAL_HTML = r"""<!DOCTYPE html>
           <a href="#test-2" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">2. Inverse Folding</a>
           <a href="#test-3" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">3. Remote Homology</a>
           <a href="#test-4" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">4. Function (CAFA)</a>
-          <a href="#test-5" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">5. Alanine Scan</a>
-          <a href="#test-6" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">6. Monomer &amp; Motif</a>
-          <a href="#test-7" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">7. Epitope Binders</a>
+          <a href="#test-5" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">5. Monomer Ala Scan</a>
+          <a href="#test-6" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">6. Binding Ala Scan</a>
+          <a href="#test-7" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">7. Monomer &amp; Motif</a>
+          <a href="#test-8" class="pill-nav px-2.5 py-1.5 rounded-lg bg-[var(--secondary)] text-[var(--secondary-foreground)] font-semibold">8. Epitope Binders</a>
         </div>
       </div>
 
@@ -346,11 +397,11 @@ VISUAL_HTML = r"""<!DOCTYPE html>
           <div class="text-sm font-bold">Separates Math Arithmetic from Missing Biology</div>
           <p class="text-xs text-[var(--muted-foreground)]">
             Gives models <code class="text-xs">python + numpy/scipy</code> only:
-            <strong>Unlocks 3D coordinate geometry</strong> (Tests 2, 6, 7), <strong>but CANNOT fake 1D sequence physics</strong> (Tests 1, 3, 4, 5)!
+            <strong>Unlocks 3D coordinate geometry</strong> (Tests 2, 7, 8), <strong>but CANNOT fake 1D folding or binding physics</strong> (Tests 1, 3, 5, 6)!
           </p>
           <div class="pt-1 flex flex-wrap gap-1.5 text-xs">
-            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-500 font-medium">Tests 2, 6, 7 Big Boost</span>
-            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-500 font-medium">Tests 1, 3, 5 Still Pure Biology</span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/15 text-sky-500 font-medium">Tests 2, 7, 8 Big Boost</span>
+            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-500 font-medium">Tests 1, 3, 5, 6 Pure Biology</span>
           </div>
         </div>
 
@@ -361,7 +412,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
           </div>
           <div class="text-sm font-bold">Purpose-Built Structural &amp; Evolutionary Ceilings</div>
           <p class="text-xs text-[var(--muted-foreground)]">
-            Every test has its domain gold standard: <strong>ESMFold &amp; Boltz-2</strong> (1.), <strong>ProteinMPNN</strong> (2.), <strong>PickyBinders/tea</strong> (3.), <strong>ESM-2 kNN</strong> (4.), <strong>ThermoMPNN</strong> (5.), <strong>ESM3</strong> (6.), and <strong>BindCraft AF2</strong> (7.).
+            Every test has its domain gold standard: <strong>ESMFold &amp; Boltz-2</strong> (1.), <strong>ProteinMPNN</strong> (2.), <strong>PickyBinders/tea</strong> (3.), <strong>ESM-2 kNN</strong> (4.), <strong>ThermoMPNN</strong> (5.), <strong>ESM-2 Complex &amp; MPNN ΔlogP</strong> (6.), <strong>ESM3</strong> (7.), and <strong>BindCraft AF2</strong> (8.).
           </p>
           <div class="pt-1 flex flex-wrap gap-1.5 text-xs">
             <span class="px-2 py-0.5 rounded bg-teal-500/15 text-teal-500 font-medium">Calibrated Head-to-Head Bar</span>
@@ -497,13 +548,13 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     </section>
 
     <!-- =================================================================== -->
-    <!-- TEST 5. IN-SILICO ALANINE SCANNING                                  -->
+    <!-- TEST 5. MONOMER ALANINE SCANNING                                    -->
     <!-- =================================================================== -->
     <section id="test-5" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
           <span class="px-2.5 py-0.5 rounded bg-rose-500/15 text-rose-500 text-xs font-bold">TEST 5 • 52 PROTEINS • 5,348 WET-LAB X → ALA MUTATIONS • SPECIALISTS: THERMOMPNN &amp; ESM-2</span>
-          <h2 class="text-xl font-bold mt-1">5. In-Silico Alanine Scanning (Implicit 3D Core Burial vs. 1D Lookup)</h2>
+          <h2 class="text-xl font-bold mt-1">5. Monomer Alanine Scanning (Implicit 3D Core Burial vs. 1D Lookup)</h2>
           <p class="text-xs text-[var(--muted-foreground)]">
             Inspired by @sokrypton &amp; @WUFang: static 1D hydrophobicity gets <strong>Raw ρ = 0.339</strong>, so we grade <strong>AA-Demeaned Context ρ</strong> (which scores <strong>0.000</strong> unless the model distinguishes buried core Leu from surface Leu!).
           </p>
@@ -517,13 +568,38 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     </section>
 
     <!-- =================================================================== -->
-    <!-- TEST 6. DE NOVO MONOMER & MOTIF SCAFFOLDING                         -->
+    <!-- TEST 6. INTERFACE BINDING ALANINE SCANNING                          -->
     <!-- =================================================================== -->
-    <section id="test-6" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+    <section id="test-6" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <span class="px-2.5 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">TEST 6 • N = 40 DESIGN TASKS • SPECIALISTS: ESM3-OPEN &amp; PROGEN2</span>
-          <h2 class="text-xl font-bold mt-1">6. De Novo Monomer Generation &amp; Crystal Motif Scaffolding</h2>
+          <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 text-xs font-bold">TEST 6 • 38 COMPLEXES • 2,767 WET-LAB X → ALA BINDING MUTANTS • SPECIALISTS: ESM-2 COMPLEX &amp; MPNN ΔlogP</span>
+          <h2 class="text-xl font-bold mt-1">6. Interface Binding Alanine Scanning (Chain A + Partner B → Binding Hotspots)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Given only the two interacting amino-acid sequences, how important is each residue on Chain A for binding to Partner B? Static Bogan–Thorn 1D <code class="text-xs">(Trp/Tyr/Arg)</code> lookup gets <strong>Raw ρ = 0.221</strong>, yet collapses to <strong>AA-Demeaned Context ρ = 0.000</strong> because it cannot tell interface Tyr from non-interface Tyr!
+          </p>
+        </div>
+        <div class="flex items-center gap-3 text-xs shrink-0 flex-wrap">
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500 inline-block"></span>Critical Binding Hotspot (X→A Kills Binding)</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span>Partner Chain B</span>
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[var(--muted-foreground)] mb-3">
+          One Real Protein–Protein Complex Per Category (SKEMPI SPR/ITC, Immuno-Oncology AlphaSeq Kd, PPI Binding DMS, &amp; Oct-2026 KRAS–LZTR1)
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="s6-cards"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TEST 7. DE NOVO MONOMER & MOTIF SCAFFOLDING                         -->
+    <!-- =================================================================== -->
+    <section id="test-7" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded bg-indigo-500/15 text-indigo-500 text-xs font-bold">TEST 7 • N = 40 DESIGN TASKS • SPECIALISTS: ESM3-OPEN &amp; PROGEN2</span>
+          <h2 class="text-xl font-bold mt-1">7. De Novo Monomer Generation &amp; Crystal Motif Scaffolding</h2>
           <p class="text-xs text-[var(--muted-foreground)]">Must pass all 5 anti-cheat gates: (1) entropy/no EAAAK repeats, (2) ESMFold pLDDT ≥ 80 &amp; globular Rg, (3) MPNN scRMSD ≤ 2Å, (4) fold TM ≥ 0.50 or motif RMSD ≤ 1.5Å, (5) &lt;30% natural SeqID.</p>
         </div>
       </div>
@@ -531,15 +607,15 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     </section>
 
     <!-- =================================================================== -->
-    <!-- TEST 7. CLOSED-LOOP EPITOPE BINDER DESIGN (AF2 ORACLE)              -->
+    <!-- TEST 8. CLOSED-LOOP EPITOPE BINDER DESIGN (AF2 ORACLE)              -->
     <!-- =================================================================== -->
-    <section id="test-7" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
+    <section id="test-8" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="border-b border-[var(--border)] pb-4 space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">TEST 7 • 12 PROVEN-BINDABLE EPITOPES × 16 AF2 SHOTS • SPECIALIST: BINDCRAFT &amp; PROTDBENCH</span>
+          <span class="px-2.5 py-0.5 rounded bg-teal-500/15 text-teal-500 text-xs font-bold">TEST 8 • 12 PROVEN-BINDABLE EPITOPES × 16 AF2 SHOTS • SPECIALIST: BINDCRAFT &amp; PROTDBENCH</span>
           <span class="text-xs font-semibold text-teal-500">Closed-Loop Hit@16 = 92% vs. Blind Pass@16 = 33%</span>
         </div>
-        <h2 class="text-xl font-bold">7. Closed-Loop Epitope Binder Design (AlphaFold2 Oracle Shots-to-Hit)</h2>
+        <h2 class="text-xl font-bold">8. Closed-Loop Epitope Binder Design (AlphaFold2 Oracle Shots-to-Hit)</h2>
 
         <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
           <div class="px-3 py-2 rounded-lg bg-[var(--card)] border border-[var(--border)]">Target 3D Surface + 5 Red Hotspots</div>
@@ -879,7 +955,91 @@ Seq B: ${ex.snip_b}...</pre>
     }
 
     // =========================================================================
-    // Render Test 6 & Test 7
+    // Render Test 6 (Interface Binding Alanine Scanning)
+    // =========================================================================
+    function renderTest6BindingSection() {
+      const wrap6 = document.getElementById('s6-cards');
+      wrap6.innerHTML = ATLAS.s6_examples.map((ex, idx) => {
+        const sortedAbs = [...ex.loss].sort((a, b) => a - b);
+        const q80 = sortedAbs[Math.floor(sortedAbs.length * 0.80)] || 0.4;
+        const maxL = Math.max(0.5, ...ex.loss.map(v => Math.abs(v)));
+        const cells = ex.loss.map((v, i) => {
+          const norm = Math.max(0, Math.min(1, v / (maxL * 0.85)));
+          const isHot = v >= Math.max(0.18, q80);
+          const bg = isHot
+            ? `rgba(244, 63, 94, ${(0.35 + 0.65 * norm).toFixed(2)})`
+            : (v > 0.05 ? 'rgba(251, 146, 60, 0.35)' : 'rgba(56, 189, 248, 0.25)');
+          return `<div title="${ex.wt[i]}${ex.pos[i]}A binding loss: ${ex.raw_loss[i]}" style="flex:1;height:18px;background:${bg};min-width:3px"></div>`;
+        }).join('');
+
+        const has3d = ex.ca_a && ex.ca_a.length > 0 && ex.ca_b && ex.ca_b.length > 0;
+        return `
+          <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="text-xs font-bold text-emerald-500">${ex.title}</div>
+                <div class="font-bold text-sm mt-0.5">${ex.name}</div>
+                <div class="text-xs text-[var(--muted-foreground)]">${ex.subtitle} • Chain A (${ex.len_a} AA) × Partner B (${ex.len_b} AA)</div>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-[var(--card)] border border-[var(--border)] text-xs shrink-0">${ex.date}</span>
+            </div>
+
+            ${has3d ? `
+              <div class="rounded-lg border border-[var(--border)] bg-[var(--card)] overflow-hidden relative">
+                <canvas id="s6-3d-${idx}" width="420" height="155" class="w-full h-[145px] cursor-grab"></canvas>
+                <div class="absolute bottom-1.5 left-2.5 text-xs text-[var(--muted-foreground)] pointer-events-none">Sky = Scanned Chain A • Green = Partner B • Red Spheres = Wet-Lab ΔΔG_bind Hotspots</div>
+              </div>
+            ` : ''}
+
+            <div class="space-y-1">
+              <div class="text-xs font-semibold">Per-Residue Wet-Lab X → Ala Binding Importance Barcode (${ex.n_assayed} assayed sites — hover any bar):</div>
+              <div class="flex rounded overflow-hidden border border-[var(--border)]">${cells}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      ATLAS.s6_examples.forEach((ex, idx) => {
+        if (!ex.ca_a || !ex.ca_a.length || !ex.ca_b || !ex.ca_b.length) return;
+        const c = document.getElementById(`s6-3d-${idx}`);
+        const allPts = ex.ca_a.concat(ex.ca_b);
+        const { ctr, maxR } = computeBounds(allPts);
+        const lossMap = {};
+        ex.full_pos.forEach((p1, k) => { lossMap[p1] = ex.full_loss[k]; });
+        attach3DViewer(c, st => {
+          const ctx = c.getContext('2d');
+          const w = c.width, h = c.height;
+          ctx.clearRect(0, 0, w, h);
+          const scale = Math.min(w, h) * 0.42 / maxR;
+          const pA = ex.ca_a.map(p => projPt(p, ctr, st.rotX, st.rotY, scale, w, h));
+          const pB = ex.ca_b.map(p => projPt(p, ctr, st.rotX, st.rotY, scale, w, h));
+
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 2.6;
+          ctx.beginPath();
+          pB.forEach((p, i) => { if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); });
+          ctx.stroke();
+
+          ctx.strokeStyle = '#0ea5e9';
+          ctx.lineWidth = 2.9;
+          ctx.beginPath();
+          pA.forEach((p, i) => { if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); });
+          ctx.stroke();
+
+          pA.forEach((p, i0) => {
+            const ddg = lossMap[i0 + 1] || 0;
+            if (ddg >= 1.2) {
+              ctx.fillStyle = '#f43f5e';
+              ctx.beginPath(); ctx.arc(p[0], p[1], 5.0, 0, Math.PI * 2); ctx.fill();
+              ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.2; ctx.stroke();
+            }
+          });
+        }, 0.65);
+      });
+    }
+
+    // =========================================================================
+    // Render Test 7 & Test 8
     // =========================================================================
     function renderStage3BSection() {
       const p1Wrap = document.getElementById('s3b-p1-cards');
@@ -980,6 +1140,7 @@ Seq B: ${ex.snip_b}...</pre>
     renderStage1Section();
     renderStage2Section();
     renderStage3ASection();
+    renderTest6BindingSection();
     renderStage3BSection();
   </script>
 </body>

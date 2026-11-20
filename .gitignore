@@ -12,6 +12,7 @@ __pycache__/
 # Large raw PDB downloads / temporary caches (metadata & curated splits are tracked)
 data/raw_pdb_cache/
 data/raw_alanine_cache/
+data/raw_binding_alanine_cache/
 data/raw_stage2_cache/
 data/raw_stage3b_cache/
 outputs/api_cache/

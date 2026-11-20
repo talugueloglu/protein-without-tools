@@ -1,0 +1,132 @@
+{
+  "benchmark": "Test 6: Interface Binding Alanine Scan (X -> Ala)",
+  "n_targets": 38,
+  "total_assayed_alanine_mutants": 2767,
+  "category_counts": {
+    "skempi_biophysical_ddg": 26,
+    "oncology_alphaseq_kd": 3,
+    "ppi_binding_dms": 5,
+    "post_may2026_mavedb_binding": 4
+  },
+  "kras_lztr1_oct2026_wetlab_replicate_spearman_rho": 0.3062,
+  "models": {
+    "Oracle_NoisyReplicate": {
+      "n_targets": 38,
+      "mean_spearman_rho": 0.8365,
+      "mean_pearson_r": 0.9115,
+      "mean_spearman_rho_aa_demeaned": 0.8441,
+      "mean_binding_hotspot_auroc": 0.944,
+      "mean_interface_3d_auroc": 0.5738,
+      "by_category": {
+        "skempi_biophysical_ddg": {
+          "n": 26,
+          "mean_spearman_rho": 0.8653,
+          "mean_spearman_rho_aa_demeaned": 0.8691,
+          "mean_binding_hotspot_auroc": 0.9593
+        },
+        "oncology_alphaseq_kd": {
+          "n": 3,
+          "mean_spearman_rho": 0.8607,
+          "mean_spearman_rho_aa_demeaned": 0.8714,
+          "mean_binding_hotspot_auroc": 0.9231
+        },
+        "ppi_binding_dms": {
+          "n": 5,
+          "mean_spearman_rho": 0.7514,
+          "mean_spearman_rho_aa_demeaned": 0.7766,
+          "mean_binding_hotspot_auroc": 0.9207
+        },
+        "post_may2026_mavedb_binding": {
+          "n": 4,
+          "mean_spearman_rho": 0.7374,
+          "mean_spearman_rho_aa_demeaned": 0.7456,
+          "mean_binding_hotspot_auroc": 0.8899
+        }
+      }
+    },
+    "Oracle_3D_Interface_Contacts": {
+      "n_targets": 26,
+      "mean_spearman_rho": 0.2115,
+      "mean_pearson_r": 0.2222,
+      "mean_spearman_rho_aa_demeaned": 0.1369,
+      "mean_binding_hotspot_auroc": 0.6395,
+      "mean_interface_3d_auroc": 1.0,
+      "by_category": {
+        "skempi_biophysical_ddg": {
+          "n": 26,
+          "mean_spearman_rho": 0.2115,
+          "mean_spearman_rho_aa_demeaned": 0.1369,
+          "mean_binding_hotspot_auroc": 0.6395
+        }
+      }
+    },
+    "Baseline_BoganThorn_1D": {
+      "n_targets": 38,
+      "mean_spearman_rho": 0.2206,
+      "mean_pearson_r": 0.2334,
+      "mean_spearman_rho_aa_demeaned": 0.0,
+      "mean_binding_hotspot_auroc": 0.6177,
+      "mean_interface_3d_auroc": 0.4779,
+      "by_category": {
+        "skempi_biophysical_ddg": {
+          "n": 26,
+          "mean_spearman_rho": 0.2708,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.6249
+        },
+        "oncology_alphaseq_kd": {
+          "n": 3,
+          "mean_spearman_rho": 0.3494,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.7148
+        },
+        "ppi_binding_dms": {
+          "n": 5,
+          "mean_spearman_rho": 0.0241,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5687
+        },
+        "post_may2026_mavedb_binding": {
+          "n": 4,
+          "mean_spearman_rho": 0.0433,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5598
+        }
+      }
+    },
+    "Null_Uniform": {
+      "n_targets": 38,
+      "mean_spearman_rho": 0.0,
+      "mean_pearson_r": 0.0,
+      "mean_spearman_rho_aa_demeaned": 0.0,
+      "mean_binding_hotspot_auroc": 0.5,
+      "mean_interface_3d_auroc": 0.5,
+      "by_category": {
+        "skempi_biophysical_ddg": {
+          "n": 26,
+          "mean_spearman_rho": 0.0,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5
+        },
+        "oncology_alphaseq_kd": {
+          "n": 3,
+          "mean_spearman_rho": 0.0,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5
+        },
+        "ppi_binding_dms": {
+          "n": 5,
+          "mean_spearman_rho": 0.0,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5
+        },
+        "post_may2026_mavedb_binding": {
+          "n": 4,
+          "mean_spearman_rho": 0.0,
+          "mean_spearman_rho_aa_demeaned": 0.0,
+          "mean_binding_hotspot_auroc": 0.5
+        }
+      }
+    }
+  }
+}

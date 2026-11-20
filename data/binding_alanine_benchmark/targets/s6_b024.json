@@ -1,0 +1,61 @@
+{
+  "target_id": "s6_b024",
+  "category": "skempi_biophysical_ddg",
+  "assay_type": "spr_itc_ddg_kcal",
+  "scanned_length": 262,
+  "partner_length": 273,
+  "scanned_sequence": "PETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRVDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW",
+  "partner_sequence": "VAATSVVAWGGNNDWGEATVPAEAQSGVDAIAGGYFHGLALKGGKVLGWGANLNGQLTMPAATQSGVDAIAAGNYHSLALKDGEVIAWGGNEDGQTTVPAEARSGVDAIAAGAWASYALKDGKVIAWGDDSDGQTTVPAEAQSGVTALDGGVYTALAVKNGGVIAWGDNYFGQTTVPAEAQSGVDDVAGGIFHSLALKDGKVIAWGDNRYKQTTVPTEALSGVSAIASGEWYSLALKNGKVIAWGSSRTAPSSVQSGVSSIEAGPNAAYALKG",
+  "positions_1idx": [
+    73,
+    74,
+    76,
+    78,
+    79,
+    81,
+    84,
+    85,
+    103,
+    190,
+    244
+  ],
+  "wt_aas": [
+    "Q",
+    "N",
+    "L",
+    "E",
+    "Y",
+    "P",
+    "E",
+    "K",
+    "M",
+    "V",
+    "M"
+  ],
+  "exp_binding_loss": [
+    0.515,
+    0.7955,
+    1.7215,
+    0.8347,
+    2.2348,
+    1.7215,
+    0.038,
+    2.1293,
+    2.5046,
+    0.038,
+    0.2765
+  ],
+  "is_interface_flags": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1
+  ]
+}

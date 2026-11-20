@@ -1,0 +1,20 @@
+You are performing a quantitative in-silico Binding Alanine Scan (`X -> A`) on a protein–protein complex.
+
+Scanned Protein A (1-indexed, length 246 AA — mutations are applied to THIS chain):
+QVQLVQSGVEVKKPGASVKVSCKASGYTFTNYYMYWVRQAPGQGLEWMGGINPSNGGTNFNEKFKNRVTLTTDSSTTTAYMELKSLQFDDTAVYYCARRDYRFDMGFDYWGQGTTVTVSSGGGGSGGGGSGGGGSEIVLTQSPATLSLSPGERATLSCRASKGVSTSGYSYLHWYQQKPGQAPRLLIYLASYLESGVPARFSGSGSGTDFTLTISSLEPEDFAVYYCQHSRDLPLTFGGGTKVEIK
+
+Binding Partner Protein B (length 122 AA — wild-type binding partner):
+LDSPDRPWNPPTFSPALLVVTEGDNATFTCSFSNTSESFVLNWYRMSPSNQTDKLAAFPEDRSQPGQDSRFRVTQLPNGRDFHMSVVRARRNDSGTYLCGAISLAPKAQIKESLRAELRVTE
+
+Task:
+Predict how important each of the 75 listed non-Alanine residues on Protein A (starting with 30T->A, 31N->A, 32Y->A, 33Y->A, 34M->A, 35Y->A, ...) is for binding to Partner Protein B when mutated individually to Alanine (`A`).
+
+For every assayed 1-indexed position `pos` on Protein A (with wild-type amino acid `wt`), predict:
+  - `ddg_bind`: Predicted loss of binding affinity ΔΔG_bind = ΔG_bind(Ala) - ΔG_bind(WT) in kcal/mol (positive = weakens/disrupts binding, e.g. +2.5 to +4.5 for critical interface binding hotspot residues; ~0.0 for non-interface surface residues that do not affect binding; negative = tighter binding).
+
+Assayed 1-indexed positions on Protein A (75 total):
+[30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 93, 94, 95, 96, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108]
+
+Return ONLY a single compact JSON object with exact schema:
+{"binding_scan": [[pos, "WT", ddg_bind], ...]}
+Include all 75 positions in ascending order with no commentary outside JSON.

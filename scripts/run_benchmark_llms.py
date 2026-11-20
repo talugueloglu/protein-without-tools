@@ -17,11 +17,21 @@ from typing import Any, Dict, List, Tuple
 from fable_bench.llm_client import UnifiedLLMRunner
 
 STAGE_SPECS: Dict[str, Tuple[str, str, int]] = {
+    # Clean sequential test numbers (1..7; Test 8 uses `run_stage3b_closed_loop_llms.py`)
+    "1": ("stage1a_forward_prompts.jsonl", "stage1a", 4096),
+    "2": ("stage1b_inverse_prompts.jsonl", "stage1b", 2048),
+    "3": ("stage2a_homology_prompts.jsonl", "stage2a", 1024),
+    "4": ("stage2b_cafa_prompts.jsonl", "stage2b", 2048),
+    "5": ("stage3a_alanine_prompts.jsonl", "stage3a", 4096),
+    "6": ("stage6_binding_alanine_prompts.jsonl", "stage6_binding", 4096),
+    "7": ("stage3b_denovo_prompts.jsonl", "stage3b", 2048),
+    # Backwards-compatible aliases
     "1a": ("stage1a_forward_prompts.jsonl", "stage1a", 4096),
     "1b": ("stage1b_inverse_prompts.jsonl", "stage1b", 2048),
     "2a": ("stage2a_homology_prompts.jsonl", "stage2a", 1024),
     "2b": ("stage2b_cafa_prompts.jsonl", "stage2b", 2048),
     "3a": ("stage3a_alanine_prompts.jsonl", "stage3a", 4096),
+    "3a_bind": ("stage6_binding_alanine_prompts.jsonl", "stage6_binding", 4096),
     "3b": ("stage3b_denovo_prompts.jsonl", "stage3b", 2048),
 }
 
@@ -98,7 +108,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.stages.strip().lower() == "all":
-        stage_keys = ["1a", "1b", "2a", "2b", "3a", "3b"]
+        stage_keys = ["1", "2", "3", "4", "5", "6", "7"]
     else:
         stage_keys = [s.strip().lower() for s in args.stages.split(",") if s.strip()]
 
