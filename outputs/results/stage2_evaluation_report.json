@@ -104,6 +104,62 @@
         }
       }
     },
+    "gpt-6.1-sol_think4096": {
+      "n_pairs": 120,
+      "overall_auroc": 0.7859,
+      "overall_auprc": 0.9259,
+      "fpr10_threshold": 0.93,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.9661,
+          "recall_at_fpr10": 0.9
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.7361,
+          "recall_at_fpr10": 0.2
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.6556,
+          "recall_at_fpr10": 0.2
+        }
+      },
+      "n_evaluated": 120,
+      "parse_rate": 1.0
+    },
+    "gpt-6.2-astra_think4096": {
+      "n_pairs": 120,
+      "overall_auroc": 0.8926,
+      "overall_auprc": 0.9669,
+      "fpr10_threshold": 0.27,
+      "by_rung": {
+        "1_seq_easy": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 1.0,
+          "recall_at_fpr10": 1.0
+        },
+        "2_foldseek_3di": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.8761,
+          "recall_at_fpr10": 0.6667
+        },
+        "3_deep_tea_zone": {
+          "n_pos": 30,
+          "n_neg": 30,
+          "auroc_vs_hard_decoys": 0.8017,
+          "recall_at_fpr10": 0.5
+        }
+      },
+      "n_evaluated": 120,
+      "parse_rate": 1.0
+    },
     "gpt-6.2-sol_think4096": {
       "n_pairs": 120,
       "overall_auroc": 0.8628,
@@ -233,6 +289,60 @@
       },
       "macro_fmax": 0.3112,
       "macro_wfmax": 0.2406
+    },
+    "gpt-6.1-sol_think4096": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 0.3527,
+        "wfmax": 0.3207,
+        "best_threshold": 0.94,
+        "coverage": 0.8571
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 0.264,
+        "wfmax": 0.2166,
+        "best_threshold": 0.02,
+        "coverage": 0.8333
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 0.598,
+        "wfmax": 0.4724,
+        "best_threshold": 0.58,
+        "coverage": 1.0
+      },
+      "macro_fmax": 0.4049,
+      "macro_wfmax": 0.3366,
+      "n_evaluated": 60,
+      "parse_rate": 1.0
+    },
+    "gpt-6.2-astra_think4096": {
+      "MF": {
+        "n_targets": 28,
+        "fmax": 0.4396,
+        "wfmax": 0.4097,
+        "best_threshold": 0.98,
+        "coverage": 0.9643
+      },
+      "BP": {
+        "n_targets": 18,
+        "fmax": 0.2954,
+        "wfmax": 0.206,
+        "best_threshold": 0.2,
+        "coverage": 1.0
+      },
+      "CC": {
+        "n_targets": 49,
+        "fmax": 0.6633,
+        "wfmax": 0.561,
+        "best_threshold": 0.34,
+        "coverage": 1.0
+      },
+      "macro_fmax": 0.4661,
+      "macro_wfmax": 0.3922,
+      "n_evaluated": 60,
+      "parse_rate": 1.0
     },
     "gpt-6.2-sol_think4096": {
       "MF": {

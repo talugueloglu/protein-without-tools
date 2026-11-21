@@ -138,6 +138,13 @@ def plot_dashboard(summary: Dict[str, Any], out_png: Path) -> None:
             .replace("Baseline_BoganThorn_1D", "Bogan-Thorn 1D")
         )
 
+    def _llm_col(name: str) -> str:
+        if "astra" in name:
+            return "#E11D48"
+        if "6.1" in name:
+            return "#0284C7"
+        return "#4F46E5"
+
     # --- Panel A: Test 1 Forward Folding TM-Score across Novelty Strata ---
     ax = axes[0, 0]
     ax.set_facecolor("#FFFFFF")
@@ -151,7 +158,7 @@ def plot_dashboard(summary: Dict[str, Any], out_png: Path) -> None:
         ("post_cutoff_struct_novel", "Post\nTrue Novel (18)"),
     ]
     plot_models_t1 = [("Heuristic_1D_LocalOnly", "#CBD5E1"), ("NoisyOracle_50pctPrec", "#94A3B8")] + [
-        (lk, "#4F46E5") for lk in llm_keys_t1
+        (lk, _llm_col(lk)) for lk in llm_keys_t1
     ]
     x = np.arange(len(strata_order))
     w = 0.78 / max(1, len(plot_models_t1))
@@ -184,7 +191,7 @@ def plot_dashboard(summary: Dict[str, Any], out_png: Path) -> None:
     llm_keys_t3 = [k for k in t3 if k not in ("Foldseek_3Di_Structure", "BLOSUM62_SmithWaterman", "Baseline_AAComposition_Cosine", "Null_Random")]
     rungs = [("1_seq_easy", "Rung 1\n(Seq-Easy)"), ("2_foldseek_3di", "Rung 2\n(Foldseek 3Di)"), ("3_deep_tea_zone", "Rung 3\n(Deep TEA)")]
     plot_models_t3 = [("Foldseek_3Di_Structure", "#0D9488"), ("BLOSUM62_SmithWaterman", "#64748B")] + [
-        (lk, "#4F46E5") for lk in llm_keys_t3
+        (lk, _llm_col(lk)) for lk in llm_keys_t3
     ]
     x3 = np.arange(len(rungs))
     w3 = 0.76 / max(1, len(plot_models_t3))
@@ -211,8 +218,8 @@ def plot_dashboard(summary: Dict[str, Any], out_png: Path) -> None:
     t4 = summary["test4_cafa_function"]
     llm_keys_t4 = [k for k in t4 if k not in ("Oracle_GroundTruth", "CAFA_NaivePrior", "CAFA_SequenceHomology_SW", "Baseline_3mer_kNN")]
     aspects = ["MF", "BP", "CC"]
-    plot_models_t4 = [("CAFA_SequenceHomology_SW", "#0EA5E9"), ("CAFA_NaivePrior", "#F59E0B")] + [
-        (lk, "#4F46E5") for lk in llm_keys_t4
+    plot_models_t4 = [("CAFA_SequenceHomology_SW", "#94A3B8"), ("CAFA_NaivePrior", "#F59E0B")] + [
+        (lk, _llm_col(lk)) for lk in llm_keys_t4
     ]
     x4 = np.arange(len(aspects))
     w4 = 0.76 / max(1, len(plot_models_t4))

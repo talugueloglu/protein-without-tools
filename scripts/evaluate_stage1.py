@@ -274,6 +274,7 @@ def main() -> None:
     forward_summaries: List[Dict[str, Any]] = []
     inverse_summaries: List[Dict[str, Any]] = []
 
+    prev_1a_by_model: Dict[str, Dict[str, Any]] = {}
     if args.run_calibration:
         rng = np.random.default_rng(20261118)
         for mode in ("Oracle_TrueContacts", "NoisyOracle_50pctPrec", "Heuristic_1D_LocalOnly", "Null_Random"):
@@ -317,7 +318,11 @@ def main() -> None:
             prev = json.loads(existing_file.read_text(encoding="utf-8"))
             cal_1a = {"Oracle_TrueContacts", "NoisyOracle_50pctPrec", "Heuristic_1D_LocalOnly", "Null_Random"}
             cal_1b = {"Heuristic_BurialPolarity", "Null_Uniform20AA"}
-            forward_summaries.extend(x for x in prev.get("stage1a_forward_folding", []) if x.get("model") in cal_1a)
+            for x in prev.get("stage1a_forward_folding", []):
+                if x.get("model") in cal_1a:
+                    forward_summaries.append(x)
+                elif x.get("model"):
+                    prev_1a_by_model[x["model"]] = x
             inverse_summaries.extend(x for x in prev.get("stage1b_inverse_folding", []) if x.get("model") in cal_1b)
 
     # Grade any LLM or Modal specialist JSONL files in `outputs/predictions/`
@@ -325,8 +330,12 @@ def main() -> None:
         n_workers = min(8, os.cpu_count() or 4)
         for jf in sorted(pred_dir.glob("*_stage1a.jsonl")):
             mname = jf.name.replace("_stage1a.jsonl", "")
-            print(f"Grading Stage 1A model predictions ({n_workers} workers): {mname} ...", flush=True)
             rows = [json.loads(l) for l in jf.read_text(encoding="utf-8").splitlines() if l.strip()]
+            if mname in prev_1a_by_model and prev_1a_by_model[mname].get("overall", {}).get("n") == len(rows):
+                print(f"Reusing cached Stage 1A evaluation for {mname} (n={len(rows)}) ...", flush=True)
+                forward_summaries.append(prev_1a_by_model[mname])
+                continue
+            print(f"Grading Stage 1A model predictions ({n_workers} workers): {mname} ...", flush=True)
             f_grades = []
             worker_jobs: List[Tuple[ProteinStructure, str, str, int]] = []
             for r in rows:
