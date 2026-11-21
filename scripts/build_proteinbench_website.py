@@ -62,7 +62,7 @@ WEBSITE_TEMPLATE = r"""<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ProteinBench: Auditing Folding &amp; Binding Physics in Frontier Reasoning Models</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="__TAILWIND_SCRIPT_URL__"></script>
   <style>
 __STANDALONE_FALLBACK_VARS__
     body {
@@ -93,14 +93,19 @@ __STANDALONE_FALLBACK_VARS__
         <span>ProteinBench</span>
         <span class="px-2 py-0.5 rounded-full bg-[var(--secondary)] text-[var(--muted-foreground)] text-xs font-medium">v1.0</span>
       </a>
-      <div class="hidden md:flex items-center gap-5 text-xs font-semibold text-[var(--muted-foreground)]">
-        <a href="#abstract" class="hover:text-[var(--foreground)] transition">Abstract</a>
-        <a href="#overview" class="hover:text-[var(--foreground)] transition">Architecture</a>
-        <a href="#explorer" class="hover:text-[var(--foreground)] transition">8 Tasks Explorer</a>
-        <a href="#reasoning" class="hover:text-[var(--foreground)] transition">Reasoning Audit</a>
-        <a href="#results" class="hover:text-[var(--foreground)] transition">Benchmarks</a>
-        <a href="#quickstart" class="hover:text-[var(--foreground)] transition">Quickstart</a>
-        <a href="#citation" class="hover:text-[var(--foreground)] transition">BibTeX</a>
+      <div class="flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-5 text-xs font-semibold text-[var(--muted-foreground)]">
+          <a href="#abstract" class="hover:text-[var(--foreground)] transition">Abstract</a>
+          <a href="#overview" class="hover:text-[var(--foreground)] transition">Architecture</a>
+          <a href="#explorer" class="hover:text-[var(--foreground)] transition">8 Tasks Explorer</a>
+          <a href="#reasoning" class="hover:text-[var(--foreground)] transition">Reasoning Audit</a>
+          <a href="#results" class="hover:text-[var(--foreground)] transition">Benchmarks</a>
+          <a href="#quickstart" class="hover:text-[var(--foreground)] transition">Quickstart</a>
+          <a href="#citation" class="hover:text-[var(--foreground)] transition">BibTeX</a>
+        </div>
+        <button id="copy-html-btn" class="px-3 py-1.5 rounded-full bg-indigo-600 text-white hover:bg-indigo-500 text-xs font-semibold shadow-sm transition shrink-0">
+          Copy HTML Source
+        </button>
       </div>
     </div>
   </nav>
@@ -965,6 +970,18 @@ __STANDALONE_FALLBACK_VARS__
       setTimeout(() => { ev.currentTarget.textContent = 'Copy BibTeX'; }, 1600);
     });
 
+    document.getElementById('copy-html-btn').addEventListener('click', ev => {
+      const rootVars = ':root{--background:#f8fafc;--foreground:#0f172a;--card:#ffffff;--border:#e2e8f0;--secondary:#f1f5f9;--muted-foreground:#475569;}';
+      let raw = '<!DOCTYPE html>\n' + document.documentElement.outerHTML
+        .replace('https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js', 'https://cdn.tailwindcss.com');
+      if (!raw.includes('--background:')) {
+        raw = raw.replace('<style>', '<style>\n    ' + rootVars);
+      }
+      navigator.clipboard.writeText(raw);
+      ev.currentTarget.textContent = 'Copied Full HTML!';
+      setTimeout(() => { ev.currentTarget.textContent = 'Copy HTML Source'; }, 1800);
+    });
+
     renderExplorer();
   </script>
 </body>
@@ -972,14 +989,37 @@ __STANDALONE_FALLBACK_VARS__
 """
 
 
+def trim_explorer_atlas(full_atlas: Dict[str, Any]) -> Dict[str, Any]:
+    """Keep only the exact showcase records rendered by the 8-tab explorer so `website/index.html` stays ~35 KB!"""
+    return {
+        "s1_examples": [full_atlas["s1_examples"][0]],
+        "s1b_example": full_atlas["s1b_example"],
+        "s2a_examples": [full_atlas["s2a_examples"][0], full_atlas["s2a_examples"][1], full_atlas["s2a_examples"][2]],
+        "s2b_examples": [full_atlas["s2b_examples"][0]],
+        "s3a_examples": [full_atlas["s3a_examples"][0]],
+        "s6_examples": [
+            full_atlas["s6_examples"][0],
+            full_atlas["s6_examples"][1],
+            full_atlas["s6_examples"][2],
+            full_atlas["s6_examples"][3],
+        ],
+        "s3b_part1_examples": [full_atlas["s3b_part1_examples"][0], full_atlas["s3b_part1_examples"][1]],
+        "s3b_part2_examples": [
+            full_atlas["s3b_part2_examples"][0],
+            full_atlas["s3b_part2_examples"][1],
+            full_atlas["s3b_part2_examples"][2],
+        ],
+    }
+
+
 def main() -> None:
     payload = {
-        "atlas": compile_visual_atlas_data(),
+        "atlas": trim_explorer_atlas(compile_visual_atlas_data()),
         "prompts": load_sample_prompts(),
     }
     json_blob = json.dumps(payload, separators=(",", ":"))
 
-    # 1. Standalone GitHub-Pages / Browser website (`website/index.html`) with crisp light academic theme defaults
+    # 1. Standalone GitHub-Pages / Browser website (`website/index.html`) using public Tailwind CDN + light theme
     standalone_vars = """    :root {
       --background: #f8fafc;
       --foreground: #0f172a;
@@ -991,14 +1031,16 @@ def main() -> None:
     web_dir = REPO / "website"
     web_dir.mkdir(parents=True, exist_ok=True)
     standalone_html = (
-        WEBSITE_TEMPLATE.replace("__STANDALONE_FALLBACK_VARS__", standalone_vars)
+        WEBSITE_TEMPLATE.replace("__TAILWIND_SCRIPT_URL__", "https://cdn.tailwindcss.com")
+        .replace("__STANDALONE_FALLBACK_VARS__", standalone_vars)
         .replace("__WEBSITE_DATA_JSON__", json_blob)
     )
     (web_dir / "index.html").write_text(standalone_html, encoding="utf-8")
 
-    # 2. Antigravity inline artifact version (strictly zero `:root` overrides per `generative_ui` skill!)
+    # 2. Antigravity inline artifact version (gstatic allowlisted Tailwind + zero `:root` overrides)
     artifact_html = (
-        WEBSITE_TEMPLATE.replace("__STANDALONE_FALLBACK_VARS__", "")
+        WEBSITE_TEMPLATE.replace("__TAILWIND_SCRIPT_URL__", "https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js")
+        .replace("__STANDALONE_FALLBACK_VARS__", "")
         .replace("__WEBSITE_DATA_JSON__", json_blob)
     )
     (web_dir / "proteinbench_artifact.html").write_text(artifact_html, encoding="utf-8")
