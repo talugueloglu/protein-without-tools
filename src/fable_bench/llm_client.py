@@ -10,6 +10,7 @@ Works with zero vendor SDK bloat (pure `httpx`), supports:
 
 from __future__ import annotations
 
+import asyncio
 from dataclasses import asdict, dataclass
 import hashlib
 import json
@@ -25,9 +26,43 @@ import httpx
 PRICING_USD_PER_MTOK: Dict[str, tuple[float, float]] = {
     "claude-fable-5-2": (8.0, 40.0),
     "claude-opus-5-5": (5.0, 25.0),
+    "gpt-6.2-astra": (5.0, 25.0),
+    "gpt-6-astra": (5.0, 25.0),
+    "gpt-6.1-sol": (2.0, 10.0),
+    "gpt-6.1": (2.0, 10.0),
     "gpt-5.2": (2.5, 15.0),
+    "gemini-3.1-pro": (2.0, 12.0),
     "gemini-3-pro": (2.0, 12.0),
 }
+
+
+async def _post_with_retries(
+    url: str,
+    headers: Optional[Dict[str, str]],
+    json_body: Dict[str, Any],
+    max_attempts: int = 5,
+    timeout_sec: float = 300.0,
+) -> Dict[str, Any]:
+    """POST JSON with exponential backoff on transient 429/5xx/network errors."""
+    last_err: Optional[Exception] = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            async with httpx.AsyncClient(timeout=timeout_sec) as client:
+                resp = await client.post(url, headers=headers, json=json_body)
+            if resp.status_code in (429, 500, 502, 503, 504, 529) and attempt < max_attempts:
+                wait_s = min(30.0, 1.8 * (2 ** (attempt - 1)))
+                await asyncio.sleep(wait_s)
+                continue
+            if resp.status_code >= 400:
+                raise RuntimeError(f"HTTP {resp.status_code}: {resp.text[:500]}")
+            return resp.json()
+        except (httpx.TimeoutException, httpx.TransportError) as exc:
+            last_err = exc
+            if attempt < max_attempts:
+                await asyncio.sleep(min(30.0, 2.0 * (2 ** (attempt - 1))))
+                continue
+            raise
+    raise RuntimeError(f"Exhausted {max_attempts} retries: {last_err}")
 
 
 @dataclass
@@ -168,18 +203,15 @@ class UnifiedLLMRunner:
             body["max_tokens"] = max_tokens
             body["temperature"] = temperature
 
-        async with httpx.AsyncClient(timeout=240.0) as client:
-            resp = await client.post(
-                "https://api.anthropic.com/v1/messages",
-                headers={
-                    "x-api-key": api_key,
-                    "anthropic-version": "2023-06-01",
-                    "content-type": "application/json",
-                },
-                json=body,
-            )
-            resp.raise_for_status()
-            data = resp.json()
+        data = await _post_with_retries(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json_body=body,
+        )
 
         returned_model = str(data.get("model", model))
         stop_reason = str(data.get("stop_reason", ""))
@@ -234,18 +266,22 @@ class UnifiedLLMRunner:
             "max_completion_tokens": max_tokens + thinking_budget,
         }
         if thinking_budget > 0:
-            body["reasoning_effort"] = "high"
+            if thinking_budget >= 12000:
+                body["reasoning_effort"] = "xhigh"
+            elif thinking_budget >= 4000:
+                body["reasoning_effort"] = "high"
+            elif thinking_budget >= 1500:
+                body["reasoning_effort"] = "medium"
+            else:
+                body["reasoning_effort"] = "low"
         else:
             body["temperature"] = temperature
 
-        async with httpx.AsyncClient(timeout=240.0) as client:
-            resp = await client.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json=body,
-            )
-            resp.raise_for_status()
-            data = resp.json()
+        data = await _post_with_retries(
+            "https://api.openai.com/v1/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json_body=body,
+        )
 
         choice = data["choices"][0]
         text = choice["message"].get("content") or ""
@@ -287,10 +323,7 @@ class UnifiedLLMRunner:
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {"temperature": temperature, "maxOutputTokens": max_tokens},
         }
-        async with httpx.AsyncClient(timeout=240.0) as client:
-            resp = await client.post(url, json=body)
-            resp.raise_for_status()
-            data = resp.json()
+        data = await _post_with_retries(url, headers=None, json_body=body)
 
         cand = data.get("candidates", [{}])[0]
         parts = cand.get("content", {}).get("parts", [])
@@ -332,14 +365,11 @@ class UnifiedLLMRunner:
             "max_tokens": max_tokens,
             "temperature": temperature,
         }
-        async with httpx.AsyncClient(timeout=240.0) as client:
-            resp = await client.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json=body,
-            )
-            resp.raise_for_status()
-            data = resp.json()
+        data = await _post_with_retries(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json_body=body,
+        )
 
         choice = data["choices"][0]
         text = choice["message"].get("content") or ""
