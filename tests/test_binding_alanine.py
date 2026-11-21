@@ -78,8 +78,10 @@ def test_binding_alanine_ranking_prompt_parser_and_same_aa_separation() -> None:
 def test_built_binding_alanine_manifest_and_zero_leakage() -> None:
     bdir = REPO / "data" / "binding_alanine_benchmark"
     manifest = json.loads((bdir / "manifest.json").read_text(encoding="utf-8"))
-    assert manifest["n_targets"] == 38
-    assert manifest["total_underlying_wetlab_alanine_mutants"] >= 2500
+    assert manifest["n_targets"] >= 35
+    assert manifest["total_underlying_wetlab_alanine_mutants"] >= 1600
+    assert manifest["memorization_stratum_counts"].get("known_pdb_pre2026", 0) >= 20
+    assert manifest["memorization_stratum_counts"].get("unseen_or_post2026", 0) >= 6
     for req_cat in ("skempi_biophysical_ddg", "oncology_alphaseq_kd", "ppi_binding_dms", "post_may2026_mavedb_binding"):
         assert manifest["category_counts"].get(req_cat, 0) >= 3
 

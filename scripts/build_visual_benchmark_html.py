@@ -234,10 +234,10 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
     # ==========================================================================
     m6 = json.loads((REPO / "data/binding_alanine_benchmark/manifest.json").read_text(encoding="utf-8"))
     s6_picks = [
-        ("skempi_biophysical_ddg", "s6_b003", "Category 1: SKEMPI v2.0 Biophysical SPR/ITC ΔΔG_bind (n = 26)", "Human Growth Hormone × hGH Receptor (1A22) • 18-site panel from 62 X→Ala"),
-        ("oncology_alphaseq_kd", "s6_b027", "Category 2: Immuno-Oncology Checkpoint AlphaSeq Kd (n = 3)", "Pembrolizumab-scFv × Human PD-1 (YM_0852) • 18-site panel from 75 X→Ala"),
-        ("ppi_binding_dms", "s6_b030", "Category 3: Direct PPI Binding DMS Scans (n = 5)", "Human MLH1 CTD × PMS2 MutLα Heterodimer • 18-site panel from 242 X→Ala"),
-        ("post_may2026_mavedb_binding", "s6_b035", "Category 4: Oct–Nov 2026 Post-Cutoff Binding DMS (n = 4)", "Human KRAS × LZTR1 Direct Binding (Oct 16, 2026) • 18-site panel from 163 X→Ala"),
+        ("skempi_biophysical_ddg", "s6_b003", "Category 1: SKEMPI v2.0 Purified SPR/ITC ΔΔG_bind (n = 28)", "Human Growth Hormone × hGH Receptor (1A22) • Non-interior surface/interface"),
+        ("oncology_alphaseq_kd", "s6_b030", "Category 2: Oncology Checkpoint AlphaSeq Kd (n = 3)", "Anti-TIGIT PP489 × Human TIGIT (Zero PDB!) • CDR/surface-filtered"),
+        ("ppi_binding_dms", "s6_b032", "Category 3: Abundance-Controlled PPI Binding DMS (n = 3)", "Human MLH1 CTD × PMS2 MutLα • Filtered by paired MLH1 abundance"),
+        ("post_may2026_mavedb_binding", "s6_b035", "Category 4: Oct–Nov 2026 Post-Cutoff Binding DMS (n = 4)", "Human KRAS × LZTR1 Direct Binding (Oct 16, 2026) • Filtered by KRAS abundance"),
     ]
     s6_examples = []
     for cat, tid, ctitle, csub in s6_picks:
@@ -273,6 +273,7 @@ def compile_visual_atlas_data() -> Dict[str, Any]:
         s6_examples.append({
             "tid": tid,
             "cat": cat,
+            "mem_stratum": tobj6.get("memorization_stratum", "known_pdb_pre2026"),
             "title": ctitle,
             "subtitle": csub,
             "name": meta6["source_name"],
@@ -605,10 +606,10 @@ VISUAL_HTML = r"""<!DOCTYPE html>
     <section id="test-6" class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-6">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 text-xs font-bold">TEST 6 • 38 COMPLEXES × BALANCED RANKING PANELS (FROM 2,767 MUTANTS) • SPECIALISTS: ESM-2 COMPLEX &amp; MPNN ΔlogP</span>
-          <h2 class="text-xl font-bold mt-1">6. Interface Binding Alanine Scan Ranking (Rank #1 Binding Hotspot → #K Non-Interface Decoy)</h2>
+          <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 text-xs font-bold">TEST 6 • 38 COMPLEXES (31 KNOWN PDB vs. 7 UNSEEN/POST-2026) • MONOMER-STABILITY FILTERED</span>
+          <h2 class="text-xl font-bold mt-1">6. Interface Binding Alanine Scan Ranking (Pure Handshake Hotspots vs. Memorization Split)</h2>
           <p class="text-xs text-[var(--muted-foreground)]">
-            Given only Scanned Chain A + Partner B, models rank 8–18 candidate <code class="text-xs">X → Ala</code> mutations from most critical for binding (#1) to least (#K). Bogan–Thorn 1D <code class="text-xs">(Trp/Tyr/Arg)</code> gets <strong>50.0% coin-flip</strong> on matched same-AA pairs &amp; <strong>0.000 AA-Demeaned ρ</strong> vs. <strong>94.4%</strong> wet-lab replicate win rate!
+            Monomer-melting core sites are excluded (via CDR/surface masks &amp; paired abundance scans) so 100% of candidates test <strong>direct partner binding</strong>. Stratified into <strong>Known Pre-2026 PDBs</strong> (where LLMs can recall crystal structures like <code class="text-xs">5B8C</code>) vs. <strong>Unseen / Post-2026 Complexes</strong> (<code class="text-xs">PP489×TIGIT</code>, <code class="text-xs">KRAS×LZTR1</code>).
           </p>
         </div>
         <div class="flex items-center gap-3 text-xs shrink-0 flex-wrap">
@@ -1012,6 +1013,9 @@ Seq B: ${ex.snip_b}...</pre>
         }).join('');
 
         const has3d = ex.ca_a && ex.ca_a.length > 0 && ex.ca_b && ex.ca_b.length > 0;
+        const memBadge = ex.mem_stratum === 'unseen_or_post2026'
+          ? '<span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-500 text-xs font-bold shrink-0">UNSEEN / POST-2026</span>'
+          : '<span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-500 text-xs font-bold shrink-0">KNOWN PRE-2026 PDB</span>';
         return `
           <div class="rounded-xl border border-[var(--border)] bg-[var(--background)] p-4 space-y-3">
             <div class="flex items-start justify-between gap-2">
@@ -1020,7 +1024,10 @@ Seq B: ${ex.snip_b}...</pre>
                 <div class="font-bold text-sm mt-0.5">${ex.name}</div>
                 <div class="text-xs text-[var(--muted-foreground)]">${ex.subtitle} • Chain A (${ex.len_a} AA) × Partner B (${ex.len_b} AA)</div>
               </div>
-              <span class="px-2 py-0.5 rounded bg-[var(--card)] border border-[var(--border)] text-xs shrink-0">${ex.date}</span>
+              <div class="flex flex-col items-end gap-1 shrink-0">
+                ${memBadge}
+                <span class="px-2 py-0.5 rounded bg-[var(--card)] border border-[var(--border)] text-xs">${ex.date}</span>
+              </div>
             </div>
 
             ${has3d ? `

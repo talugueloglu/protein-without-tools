@@ -1,6 +1,7 @@
 {
   "target_id": "s6_b007",
   "category": "skempi_biophysical_ddg",
+  "memorization_stratum": "known_pdb_pre2026",
   "assay_type": "spr_itc_ddg_kcal",
   "scanned_length": 241,
   "partner_length": 56,

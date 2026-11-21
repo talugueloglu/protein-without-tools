@@ -334,7 +334,7 @@ def parse_alanine_scan_response(raw_text: str, target: AlanineScanTarget) -> Ala
     if not raw_text or not raw_text.strip():
         return AlanineScanParsed(pred_ddg, pred_func, 0, 0.0, False)
 
-    cleaned = raw_text.strip()
+    cleaned = raw_text.strip().replace("\u201c", '"').replace("\u201d", '"').replace("\u2018", "'").replace("\u2019", "'")
     fence_match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", cleaned, flags=re.DOTALL)
     if fence_match:
         cleaned = fence_match.group(1)

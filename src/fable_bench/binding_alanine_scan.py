@@ -68,6 +68,7 @@ class BindingAlanineTarget:
     exp_binding_loss: List[float]
     is_interface_flags: Optional[List[int]] = None
     panel_roles: Optional[List[str]] = None
+    memorization_stratum: str = "known_pdb_pre2026"  # "known_pdb_pre2026" | "unseen_or_post2026"
 
 
 @dataclass
@@ -82,6 +83,7 @@ class BindingAlanineParsed:
 class BindingAlanineGrade:
     target_id: str
     category: str
+    memorization_stratum: str
     scanned_length: int
     partner_length: int
     n_assayed: int
@@ -121,10 +123,12 @@ def build_binding_alanine_prompt(target: BindingAlanineTarget) -> str:
         f"{json.dumps(mut_tokens)}\n\n"
         f"Task:\n"
         f"Rank ALL {n_mut} candidate `X -> A` mutations on Protein A from **#1 (MOST critical binding hotspot — "
-        f"largest loss of binding affinity to Partner Protein B when mutated to Alanine)** down to "
+        f"largest loss of direct binding affinity to Partner Protein B when mutated to Alanine)** down to "
         f"**#{n_mut} (LEAST important for binding — neutral non-interface surface site or affinity-enhancing)**.\n"
-        f"Note: the panel mixes true binding hotspots with non-interface decoys of the same amino-acid types, "
-        f"so rank by whether each residue actually mediates binding to Partner B.\n\n"
+        f"Notes:\n"
+        f"  1. Monomer-unfolding core mutations have been excluded so every candidate folds stably as a monomer; "
+        f"rank strictly by direct binding-interface importance to Partner B.\n"
+        f"  2. The panel mixes true interface hotspots with non-interface decoys of the same amino-acid types.\n\n"
         f"Return ONLY a single compact JSON object with exact schema:\n"
         f'{{"ranking": ["{mut_tokens[0]}", "{mut_tokens[1]}", ...]}}\n'
         f"ordered strictly from #1 (most critical for binding) to #{n_mut} (least important for binding), "
@@ -143,7 +147,7 @@ def parse_binding_alanine_response(raw_text: str, target: BindingAlanineTarget) 
     if not raw_text or not raw_text.strip():
         return BindingAlanineParsed(preds, 0, 0.0, False)
 
-    cleaned = raw_text.strip()
+    cleaned = raw_text.strip().replace("\u201c", '"').replace("\u201d", '"').replace("\u2018", "'").replace("\u2019", "'")
     m_f = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", cleaned, flags=re.DOTALL)
     if m_f:
         cleaned = m_f.group(1)
@@ -273,6 +277,7 @@ def grade_binding_alanine_target(
     return BindingAlanineGrade(
         target_id=target.target_id,
         category=target.category,
+        memorization_stratum=target.memorization_stratum,
         scanned_length=len(target.scanned_sequence),
         partner_length=len(target.partner_sequence),
         n_assayed=n,

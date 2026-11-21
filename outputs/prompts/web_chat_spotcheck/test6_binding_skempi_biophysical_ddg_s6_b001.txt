@@ -7,12 +7,14 @@ Binding Partner Protein B (length 125 AA — wild-type binding partner):
 PSNCDCLNGGTCVSNKYFSNIHWCNCPKKFGGQHCEIDKSKTCYEGNGHFYRGKASTDTMGRPCLPWNSATVLQQTYHAHRSDALQLGLGKHNYCRNPDNRRRPWCYVQVGLKPLVQECMVHDCA
 
 Candidate Alanine Mutations on Protein A (18 total, listed in ascending sequence order):
-["10G->A", "23L->A", "32W->A", "36E->A", "61L->A", "66L->A", "88S->A", "91L->A", "97G->A", "100D->A", "111L->A", "138D->A", "146G->A", "148L->A", "161D->A", "210L->A", "212D->A", "231N->A"]
+["7K->A", "11D->A", "55L->A", "57Y->A", "61L->A", "66L->A", "69V->A", "100D->A", "128I->A", "136P->A", "138D->A", "147Y->A", "148L->A", "201H->A", "210L->A", "212D->A", "246Q->A", "266K->A"]
 
 Task:
-Rank ALL 18 candidate `X -> A` mutations on Protein A from **#1 (MOST critical binding hotspot — largest loss of binding affinity to Partner Protein B when mutated to Alanine)** down to **#18 (LEAST important for binding — neutral non-interface surface site or affinity-enhancing)**.
-Note: the panel mixes true binding hotspots with non-interface decoys of the same amino-acid types, so rank by whether each residue actually mediates binding to Partner B.
+Rank ALL 18 candidate `X -> A` mutations on Protein A from **#1 (MOST critical binding hotspot — largest loss of direct binding affinity to Partner Protein B when mutated to Alanine)** down to **#18 (LEAST important for binding — neutral non-interface surface site or affinity-enhancing)**.
+Notes:
+  1. Monomer-unfolding core mutations have been excluded so every candidate folds stably as a monomer; rank strictly by direct binding-interface importance to Partner B.
+  2. The panel mixes true interface hotspots with non-interface decoys of the same amino-acid types.
 
 Return ONLY a single compact JSON object with exact schema:
-{"ranking": ["10G->A", "23L->A", ...]}
+{"ranking": ["7K->A", "11D->A", ...]}
 ordered strictly from #1 (most critical for binding) to #18 (least important for binding), containing all 18 mutations with no commentary outside JSON.

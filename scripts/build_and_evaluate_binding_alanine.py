@@ -276,6 +276,10 @@ def main() -> None:
         pdb4, g1, g2 = parts[0].upper(), parts[1], parts[2]
         if pdb4 not in cif_cache:
             continue
+        mut_loc = str(row.get("iMutation_Location(s)") or "").strip().upper()
+        # Exclude buried monomer-interior (`INT`) mutations so SKEMPI strictly tests surface/interface sites
+        if mut_loc == "INT":
+            continue
         pm = parse_skempi_pdb_mut(mut_pdb)
         if not pm:
             continue
@@ -352,6 +356,7 @@ def main() -> None:
             wt_aas=wt_aas,
             exp_binding_loss=exp_vals,
             is_interface_flags=iface_flags,
+            memorization_stratum="known_pdb_pre2026",
         )
         curated_records.append(
             (
@@ -359,50 +364,91 @@ def main() -> None:
                 {
                     **meta_sk[key],
                     "published_date": "pre-2026-05 (SKEMPI v2.0)",
+                    "memorization_stratum": "known_pdb_pre2026",
+                    "monomer_stability_filter": "SKEMPI purified protein + excluded INT buried interior",
                     "crystal_contact_counts": iface_cnts,
                 },
             )
         )
-        if sum(1 for t, _ in curated_records if t.category == "skempi_biophysical_ddg") >= 26:
+        if sum(1 for t, _ in curated_records if t.category == "skempi_biophysical_ddg") >= 28:
             break
 
     # ==========================================================================
-    # CATEGORY 2: `oncology_alphaseq_kd` (A-Alpha Bio Open-AlphaSeq PD-1 & TIGIT)
+    # CATEGORY 2: `oncology_alphaseq_kd` (CDR / Surface-Filtered PD-1 & TIGIT)
     # ==========================================================================
+    # Exclude buried VH β-sandwich framework core, C96 disulfide, buried Vernier anchors (51, 60, 64),
+    # and the YM_0852 pos-78 oligo dropout so 100% of candidates are folded CDR/outer-loop sites!
+    pembro_surface_paratope = (
+        set(range(26, 36))
+        | (set(range(50, 67)) - {51, 60, 64})
+        | set(range(74, 78))
+        | set(range(99, 111))
+    )
+    pp489_surface_paratope = (
+        set(range(26, 36))
+        | (set(range(50, 67)) - {51, 60, 64})
+        | set(range(74, 79))
+        | set(range(99, 115))
+    )
     alphaseq_specs = [
-        ("YM_0852", "huPD-1_RE(rebuilt)", "Pembrolizumab-scFv × Human PD-1 (Open-AlphaSeq YM_0852)", "2024-09"),
-        ("YM_0693", "TIGIT_22-137_POI-AGA2", "Anti-TIGIT scFv PP489 × Human TIGIT (Open-AlphaSeq YM_0693)", "2024-09"),
-        ("YM_0693", "TIGIT_Mouse", "Anti-TIGIT scFv PP489 × Mouse TIGIT (Open-AlphaSeq YM_0693)", "2024-09"),
+        (
+            "YM_0852",
+            "huPD-1_RE(rebuilt)",
+            "Pembrolizumab-scFv × Human PD-1 (Open-AlphaSeq YM_0852, CDR/Surface-Filtered)",
+            "2024-09",
+            "known_pdb_pre2026",
+            pembro_surface_paratope,
+        ),
+        (
+            "YM_0693",
+            "TIGIT_22-137_POI-AGA2",
+            "Anti-TIGIT scFv PP489 × Human TIGIT (Open-AlphaSeq YM_0693, CDR/Surface-Filtered)",
+            "2024-09",
+            "unseen_or_post2026",
+            pp489_surface_paratope,
+        ),
+        (
+            "YM_0693",
+            "TIGIT_Mouse",
+            "Anti-TIGIT scFv PP489 × Mouse TIGIT (Open-AlphaSeq YM_0693, CDR/Surface-Filtered)",
+            "2024-09",
+            "unseen_or_post2026",
+            pp489_surface_paratope,
+        ),
     ]
-    for cfg, partner_desc, label, pub_dt in alphaseq_specs:
+    for cfg, partner_desc, label, pub_dt, mem_strat, allowed_pos_set in alphaseq_specs:
         tbl = pq.read_table(raw_dir / "alphaseq" / f"{cfg}.parquet")
         d = tbl.to_pydict()
         rows_p = [
-            (ms, bs, aff)
-            for ms, bs, pd_s, aff in zip(
-                d["mata_sequence"], d["matalpha_sequence"], d["matalpha_description"], d["alphaseq_affinity"]
+            (ms, bs, aff, rep_ok)
+            for ms, bs, pd_s, aff, rep_ok in zip(
+                d["mata_sequence"],
+                d["matalpha_sequence"],
+                d["matalpha_description"],
+                d["alphaseq_affinity"],
+                d["sufficient_replicate_observations"],
             )
             if pd_s == partner_desc and ms and bs
         ]
-        Lm = Counter(len(ms) for ms, _, _ in rows_p).most_common(1)[0][0]
-        seqs_L = [ms for ms, _, _ in rows_p if len(ms) == Lm]
+        Lm = Counter(len(ms) for ms, _, _, _ in rows_p).most_common(1)[0][0]
+        seqs_L = [ms for ms, _, _, _ in rows_p if len(ms) == Lm]
         wt_sa = "".join(Counter(s[i] for s in seqs_L).most_common(1)[0][0] for i in range(Lm))
-        wt_sb = Counter(bs for _, bs, _ in rows_p).most_common(1)[0][0]
-        # Clean non-canonical characters if any
+        wt_sb = Counter(bs for _, bs, _, _ in rows_p).most_common(1)[0][0]
         wt_sa = "".join(c for c in wt_sa if c in CANONICAL_AA_SET)
         wt_sb = "".join(c for c in wt_sb if c in CANONICAL_AA_SET)
 
-        wt_affs = [float(aff) for ms, _, aff in rows_p if ms == wt_sa and aff is not None and not math.isnan(float(aff))]
+        wt_affs = [float(aff) for ms, _, aff, _ in rows_p if ms == wt_sa and aff is not None and not math.isnan(float(aff))]
         wt_kd_log10 = float(np.median(wt_affs))
 
         pos_affs: Dict[int, List[float]] = defaultdict(list)
-        for ms, _, aff in rows_p:
-            if len(ms) != len(wt_sa) or aff is None or math.isnan(float(aff)):
+        for ms, _, aff, rep_ok in rows_p:
+            if len(ms) != len(wt_sa) or aff is None or math.isnan(float(aff)) or rep_ok is False:
                 continue
             diffs = [idx for idx in range(len(wt_sa)) if ms[idx] != wt_sa[idx]]
             if len(diffs) == 1 and ms[diffs[0]] == "A":
-                # Higher log10(Kd_Ala) - log10(Kd_WT) = weaker binding upon X->Ala!
-                pos_affs[diffs[0] + 1].append(float(aff) - wt_kd_log10)
+                p1 = diffs[0] + 1
+                if p1 in allowed_pos_set:
+                    pos_affs[p1].append(float(aff) - wt_kd_log10)
 
         positions = sorted(pos_affs.keys())
         wt_aas = [wt_sa[p - 1] for p in positions]
@@ -418,14 +464,17 @@ def main() -> None:
             wt_aas=wt_aas,
             exp_binding_loss=exp_vals,
             is_interface_flags=None,
+            memorization_stratum=mem_strat,
         )
         curated_records.append(
             (
                 tgt,
                 {
-                    "pdb_id": None,
+                    "pdb_id": ("5B8C/5JXE" if cfg == "YM_0852" else None),
                     "source_name": label,
                     "published_date": pub_dt,
+                    "memorization_stratum": mem_strat,
+                    "monomer_stability_filter": "Restricted to CDR-H1/H2/H3 + exposed DE loop (excluded VH core & C96)",
                     "wt_log10_kd_nM": round(wt_kd_log10, 3),
                 },
             )
@@ -433,6 +482,7 @@ def main() -> None:
 
     # ==========================================================================
     # CATEGORY 3 (`ppi_binding_dms`) & CATEGORY 4 (`post_may2026_mavedb_binding`)
+    # ALL FILTERED BY PAIRED MONOMER ABUNDANCE / SURFACE EXPRESSION!
     # ==========================================================================
     AA3_MAP = {
         "Ala": "A", "Cys": "C", "Asp": "D", "Glu": "E", "Phe": "F",
@@ -441,10 +491,33 @@ def main() -> None:
         "Ser": "S", "Thr": "T", "Val": "V", "Trp": "W", "Tyr": "Y",
     }
 
+    def _load_companion_abundance_map(csv_path: Path, gene_filter: Optional[str], c_start: int, c_end: int) -> Dict[int, float]:
+        rows_a = list(csv.DictReader(io.StringIO(csv_path.read_text(encoding="utf-8"))))
+        acc: Dict[int, List[float]] = defaultdict(list)
+        for r in rows_a:
+            hp = str(r.get("hgvs_pro") or "")
+            if gene_filter and ":" in hp and hp.split(":")[0].upper() != gene_filter.upper():
+                continue
+            m = re.search(r"p\.([A-Z][a-z]{2})(\d+)Ala$", hp)
+            if not m:
+                continue
+            pos_raw = int(m.group(2))
+            if not (c_start <= pos_raw <= c_end):
+                continue
+            try:
+                v = float(r.get("score") or "nan")
+                if not math.isnan(v):
+                    acc[pos_raw - c_start + 1].append(v)
+            except ValueError:
+                pass
+        return {k: float(np.median(vs)) for k, vs in acc.items()}
+
     def _load_mavedb_ala_scan(
         urn_file_stem: str,
+        companion_abund_csv: Path,
         partner_seq: str,
         category: str,
+        mem_strat: str,
         source_name: str,
         gene_filter: Optional[str] = None,
         crop_range_1idx: Optional[Tuple[int, int]] = None,
@@ -461,6 +534,9 @@ def main() -> None:
         full_seq = str((chosen_tg.get("targetSequence") or {}).get("sequence") or "").strip().upper()
         c_start, c_end = crop_range_1idx if crop_range_1idx else (1, len(full_seq))
         sa_cropped = full_seq[c_start - 1 : c_end]
+
+        abund_map = _load_companion_abundance_map(companion_abund_csv, gene_filter, c_start, c_end)
+        abund_cut = float(np.quantile(list(abund_map.values()), 0.35)) if abund_map else -1e9
 
         csv_rows = list(csv.DictReader(io.StringIO((raw_dir / "mavedb_binding" / f"{urn_file_stem}.csv").read_text(encoding="utf-8"))))
         by_pos: Dict[int, List[float]] = defaultdict(list)
@@ -481,6 +557,9 @@ def main() -> None:
             pos_rel = pos_raw - c_start + 1
             if sa_cropped[pos_rel - 1] != wt1:
                 continue
+            # Require WT-like monomer abundance / surface expression in companion scan!
+            if abund_map and abund_map.get(pos_rel, -1e9) < abund_cut:
+                continue
             sc_s = r.get("score")
             if sc_s in (None, "", "NA", "nan"):
                 continue
@@ -490,7 +569,6 @@ def main() -> None:
                     continue
             except ValueError:
                 continue
-            # In MaveDB binding assays, lower WT-relative score = loss of binding -> negate so HIGHER = MORE IMPORTANT!
             loss_val = -sc_val if flip_sign else sc_val
             by_pos[pos_rel].append(loss_val)
 
@@ -504,11 +582,6 @@ def main() -> None:
                     pass
 
         positions = sorted(by_pos.keys())
-        # Keep <= 250 evenly strided or full positions so JSON prompt+response always fits comfortably in 4096 tokens
-        if len(positions) > 250:
-            idxs = np.linspace(0, len(positions) - 1, 250, dtype=int)
-            positions = [positions[k] for k in sorted(set(idxs.tolist()))]
-
         wt_aas = [sa_cropped[p - 1] for p in positions]
         exp_vals = [round(float(np.median(by_pos[p])), 4) for p in positions]
 
@@ -528,46 +601,47 @@ def main() -> None:
             wt_aas=wt_aas,
             exp_binding_loss=exp_vals,
             is_interface_flags=None,
+            memorization_stratum=mem_strat,
         )
         meta_out: Dict[str, Any] = {
             "pdb_id": None,
             "mavedb_urn": j_meta.get("urn"),
             "source_name": source_name,
             "published_date": str(j_meta.get("publishedDate") or "")[:10],
+            "memorization_stratum": mem_strat,
+            "monomer_stability_filter": f"Filtered by companion abundance/expression CSV ({companion_abund_csv.name} >= q35)",
         }
         if rep_rho is not None:
             meta_out["measured_wetlab_replicate_spearman_rho"] = rep_rho
         return tgt, meta_out
 
-    # Category 3: Pre-May-2026 PPI Binding DMS (`n = 5`)
-    pms2_seq = partner_uniprot["PMS2"][:360]  # PMS2 N-terminal ATPase/dimerization domain + C-term or full
-    ins_mature = partner_uniprot["INS"][24:110]  # Mature human proinsulin/insulin chains B+A
+    ins_mature = partner_uniprot["INS"][24:110]
     kras_seq = json.loads((raw_dir / "mavedb_binding" / "urn_mavedb_00001302-d-1.json").read_text())["targetGenes"][1]["targetSequence"]["sequence"]
-    sos1_pr = partner_uniprot["SOS1"][1010:1333]  # SOS1 proline-rich SH3-binding C-terminal region
-    lztr1_kelch = partner_uniprot["LZTR1"][:420]  # LZTR1 Kelch-repeat KRAS-binding domain
-    beta_endorphin = partner_uniprot["POMC"][236:267]  # Endogenous human beta-endorphin 31-AA µOR peptide agonist!
-    # mAb 83-07 INSR-CR Fab partner sequence (use canonical IgG1 VH framework/receptor ectodomain partner)
+    sos1_pr = partner_uniprot["SOS1"][1010:1333]
+    lztr1_kelch = partner_uniprot["LZTR1"][:420]
+    beta_endorphin = partner_uniprot["POMC"][236:267]
     ighg1_seq = partner_uniprot["IGHG1"][:230]
+    mb_dir = raw_dir / "mavedb_binding"
+    ma_dir = REPO / "data" / "raw_alanine_cache" / "mavedb"
 
+    # Category 3: Abundance/Expression-Filtered PPI Binding DMS (`n = 3`)
     cat3_specs = [
-        ("urn_mavedb_00001218-a-2", partner_uniprot["PMS2"][500:], "ppi_binding_dms", "Human MLH1 CTD × PMS2 MutLα Dimerization DMS", None, None),
-        ("urn_mavedb_00001239-a-2", ighg1_seq, "ppi_binding_dms", "Human Insulin Receptor (L1-CR-L2) × mAb 83-07 FACS Binding DMS", None, (1, 470)),
-        ("urn_mavedb_00001239-a-1", ins_mature, "ppi_binding_dms", "Human Insulin Receptor (L1-CR-L2) × Human Insulin DMS", None, (1, 470)),
-        ("urn_mavedb_00001002-a-1", kras_seq, "ppi_binding_dms", "Human RAF1 Ras-Binding Domain × Human KRAS DMS", None, None),
-        ("urn_mavedb_00000835-a-1", sos1_pr, "ppi_binding_dms", "Human GRB2 C-SH3 Domain × Human SOS1 Proline-Rich Region DMS", None, None),
+        ("urn_mavedb_00001218-a-2", mb_dir / "urn_mavedb_00001218-a-1.csv", partner_uniprot["PMS2"][500:], "ppi_binding_dms", "unseen_or_post2026", "Human MLH1 CTD × PMS2 MutLα Dimerization DMS (Abundance-Filtered)", None, None),
+        ("urn_mavedb_00001239-a-2", mb_dir / "urn_mavedb_00001239-a-1.csv", ighg1_seq, "ppi_binding_dms", "known_pdb_pre2026", "Human Insulin Receptor (L1-CR-L2) × mAb 83-07 FACS Binding DMS (Surface-Filtered)", None, (1, 470)),
+        ("urn_mavedb_00001239-a-1", mb_dir / "urn_mavedb_00001239-a-2.csv", ins_mature, "ppi_binding_dms", "known_pdb_pre2026", "Human Insulin Receptor (L1-CR-L2) × Human Insulin DMS (Surface-Filtered)", None, (1, 470)),
     ]
-    for u_stem, p_seq, cat_k, s_name, g_filt, c_rng in cat3_specs:
-        curated_records.append(_load_mavedb_ala_scan(u_stem, p_seq, cat_k, s_name, g_filt, c_rng))
+    for u_stem, ab_csv, p_seq, cat_k, m_st, s_name, g_filt, c_rng in cat3_specs:
+        curated_records.append(_load_mavedb_ala_scan(u_stem, ab_csv, p_seq, cat_k, m_st, s_name, g_filt, c_rng))
 
-    # Category 4: Post-May-2026 MaveDB Interaction & Peptide-Binding DMS (`n = 4`, Oct–Nov 2026!)
+    # Category 4: Post-May-2026 Abundance/Expression-Filtered Binding DMS (`n = 4`, Oct–Nov 2026!)
     cat4_specs = [
-        ("urn_mavedb_00001302-g-1", lztr1_kelch, "post_may2026_mavedb_binding", "Human KRAS × Human LZTR1 Direct Binding DMS (Oct 16, 2026)", "KRAS", None),
-        ("urn_mavedb_00001305-b-1", sos1_pr, "post_may2026_mavedb_binding", "Human GRB2 (Full-Length) × Human SOS1 Adaptor Signaling DMS (Oct 16, 2026)", "GRB2", None),
-        ("urn_mavedb_00001316-0-3", kras_seq, "post_may2026_mavedb_binding", "Human RAF1 (N-Term RBD-CRD) × Human KRAS Signaling DMS (Oct 16, 2026)", "RAF1", (1, 305)),
-        ("urn_mavedb_00001326-e-1", beta_endorphin, "post_may2026_mavedb_binding", "Human µ-Opioid Receptor OPRM1 × Peptide Agonist Potency DMS (Nov 9, 2026)", None, None),
+        ("urn_mavedb_00001302-g-1", mb_dir / "urn_mavedb_00001302-d-1.csv", lztr1_kelch, "post_may2026_mavedb_binding", "unseen_or_post2026", "Human KRAS × Human LZTR1 Direct Binding DMS (Oct 16, 2026, Abundance-Filtered)", "KRAS", None),
+        ("urn_mavedb_00001305-b-1", mb_dir / "urn_mavedb_00001305-a-1.csv", sos1_pr, "post_may2026_mavedb_binding", "unseen_or_post2026", "Human GRB2 × Human SOS1 Adaptor Signaling DMS (Oct 16, 2026, Abundance-Filtered)", "GRB2", None),
+        ("urn_mavedb_00001316-0-3", mb_dir / "urn_mavedb_00001316-0-2.csv", kras_seq, "post_may2026_mavedb_binding", "unseen_or_post2026", "Human RAF1 (N-Term RBD-CRD) × Human KRAS DMS (Oct 16, 2026, Abundance-Filtered)", "RAF1", (1, 305)),
+        ("urn_mavedb_00001326-e-1", ma_dir / "urn_mavedb_00001326-a-1.csv", beta_endorphin, "post_may2026_mavedb_binding", "unseen_or_post2026", "Human µ-Opioid Receptor OPRM1 × Peptide Agonist DMS (Nov 9, 2026, Surface-Filtered)", None, None),
     ]
-    for u_stem, p_seq, cat_k, s_name, g_filt, c_rng in cat4_specs:
-        curated_records.append(_load_mavedb_ala_scan(u_stem, p_seq, cat_k, s_name, g_filt, c_rng))
+    for u_stem, ab_csv, p_seq, cat_k, m_st, s_name, g_filt, c_rng in cat4_specs:
+        curated_records.append(_load_mavedb_ala_scan(u_stem, ab_csv, p_seq, cat_k, m_st, s_name, g_filt, c_rng))
 
     # ==========================================================================
     # SUBSAMPLE BALANCED 18-RESIDUE RANKING PANELS & SAVE TARGETS + PROMPTS
@@ -608,6 +682,7 @@ def main() -> None:
             exp_binding_loss=pan_loss,
             is_interface_flags=pan_iface,
             panel_roles=roles,
+            memorization_stratum=full_tgt.memorization_stratum,
         )
         panel_records.append((tgt, extra_meta, full_pos, full_loss))
         total_panel_mutants += len(pan_pos)
@@ -615,6 +690,7 @@ def main() -> None:
         t_json = {
             "target_id": tgt.target_id,
             "category": tgt.category,
+            "memorization_stratum": tgt.memorization_stratum,
             "assay_type": tgt.assay_type,
             "scanned_length": len(tgt.scanned_sequence),
             "partner_length": len(tgt.partner_sequence),
@@ -632,7 +708,7 @@ def main() -> None:
         (t_dir / f"{tgt.target_id}.json").write_text(json.dumps(t_json, indent=2), encoding="utf-8")
 
         prompt_txt = build_binding_alanine_prompt(tgt)
-        for forbidden in (tgt.target_id, str(extra_meta.get("pdb_id") or "ZZZZ"), str(extra_meta.get("mavedb_urn") or "ZZZZ")):
+        for forbidden in (tgt.target_id, str(extra_meta.get("pdb_id") or "ZZZZ").split("/")[0], str(extra_meta.get("mavedb_urn") or "ZZZZ")):
             if forbidden and forbidden != "ZZZZ" and len(forbidden) >= 4:
                 assert forbidden not in prompt_txt, f"Leakage of {forbidden} in {tgt.target_id}"
 
@@ -642,6 +718,7 @@ def main() -> None:
                     "target_id": tgt.target_id,
                     "task": "test6_binding_alanine_ranking",
                     "category": tgt.category,
+                    "memorization_stratum": tgt.memorization_stratum,
                     "length": len(tgt.scanned_sequence),
                     "partner_length": len(tgt.partner_sequence),
                     "n_assayed": len(tgt.positions_1idx),
@@ -665,13 +742,15 @@ def main() -> None:
         )
 
     cat_counts = dict(Counter(r["category"] for r in manifest_rows))
+    mem_counts = dict(Counter(r["memorization_stratum"] for r in manifest_rows))
     manifest_obj = {
-        "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan Ranking (X -> Ala)",
+        "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
         "n_targets": len(manifest_rows),
         "total_panel_candidates": total_panel_mutants,
         "total_assayed_alanine_mutants": total_panel_mutants,
         "total_underlying_wetlab_alanine_mutants": total_full_mutants,
         "category_counts": cat_counts,
+        "memorization_stratum_counts": mem_counts,
         "targets": manifest_rows,
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest_obj, indent=2), encoding="utf-8")
@@ -745,6 +824,17 @@ def main() -> None:
                     "mean_spearman_rho_aa_demeaned": round(float(np.mean([r["spearman_rho_aa_demeaned"] for r in sub])), 4),
                     "mean_binding_hotspot_auroc": round(float(np.mean([r["binding_hotspot_auroc"] for r in sub])), 4),
                 }
+        by_mem: Dict[str, Any] = {}
+        for m_name in ("known_pdb_pre2026", "unseen_or_post2026"):
+            sub_m = [r for r in rows if r.get("memorization_stratum") == m_name]
+            if sub_m:
+                by_mem[m_name] = {
+                    "n": len(sub_m),
+                    "mean_spearman_rho": round(float(np.mean([r["spearman_rho"] for r in sub_m])), 4),
+                    "mean_ndcg_at_5": round(float(np.mean([r["ndcg_at_5"] for r in sub_m])), 4),
+                    "mean_same_aa_win_rate": round(float(np.mean([r["same_aa_win_rate"] for r in sub_m])), 4),
+                    "mean_spearman_rho_aa_demeaned": round(float(np.mean([r["spearman_rho_aa_demeaned"] for r in sub_m])), 4),
+                }
         return {
             "n_targets": len(rows),
             "mean_spearman_rho": round(float(np.mean([r["spearman_rho"] for r in rows])), 4),
@@ -754,6 +844,7 @@ def main() -> None:
             "mean_spearman_rho_aa_demeaned": round(float(np.mean([r["spearman_rho_aa_demeaned"] for r in rows])), 4),
             "mean_binding_hotspot_auroc": round(float(np.mean([r["binding_hotspot_auroc"] for r in rows])), 4),
             "mean_interface_3d_auroc": (round(float(np.mean(iface_vals)), 4) if iface_vals else None),
+            "by_memorization_stratum": by_mem,
             "by_category": by_cat,
         }
 
