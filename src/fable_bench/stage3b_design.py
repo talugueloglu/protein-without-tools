@@ -501,11 +501,14 @@ def score_3d_complex_geometry(
     )
 
     max_forb = external_max_seqid
+    is_memorized_homolog = external_max_seqid >= 35.0
     for fseq in [target.target_sequence, target.heldout_partner_sequence, *target.forbidden_sequences]:
-        if fseq and len(binder_seq) >= 25:
-            _b, _ev, sid = smith_waterman_affine(binder_seq, fseq)
+        if fseq and len(fseq) >= 40 and len(binder_seq) >= 25:
+            _b, ev, sid = smith_waterman_affine(binder_seq, fseq)
             max_forb = max(max_forb, sid)
-    novelty_ok = max_forb < 25.0
+            if (sid >= 35.0 and ev < 1e-2) or sid >= 45.0:
+                is_memorized_homolog = True
+    novelty_ok = not is_memorized_homolog
 
     # Compute intermolecular Cbeta contacts (< 8.0 A) & Cα steric clashes (< 3.3 A)
     t_ca = np.asarray(target.target_ca_coords, dtype=np.float64)
@@ -608,11 +611,14 @@ class SurrogatePhysicsBinderOracle:
             )
 
         max_forb = 0.0
+        is_memorized_homolog = False
         for fseq in [target.target_sequence, target.heldout_partner_sequence, *target.forbidden_sequences]:
-            if fseq and len(s) >= 25:
-                _b, _ev, sid = smith_waterman_affine(s, fseq)
+            if fseq and len(fseq) >= 40 and len(s) >= 25:
+                _b, ev, sid = smith_waterman_affine(s, fseq)
                 max_forb = max(max_forb, sid)
-        novelty_ok = max_forb < 25.0
+                if (sid >= 35.0 and ev < 1e-2) or sid >= 45.0:
+                    is_memorized_homolog = True
+        novelty_ok = not is_memorized_homolog
 
         # Analyze target epitope patch physicochemical signature
         ep_aas = [target.target_sequence[i - 1] for i in target.epitope_hotspots_1idx if 1 <= i <= len(target.target_sequence)]

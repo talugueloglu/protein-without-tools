@@ -49,6 +49,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
 
     # Load per-target live LLM grades if evaluated
     s1_per_tid: Dict[str, Dict[str, Any]] = {}
+    s2_per_tid: Dict[str, Dict[str, Any]] = {}
     if (rdir / "stage1_evaluation_report.json").exists():
         s1_rep = json.loads((rdir / "stage1_evaluation_report.json").read_text(encoding="utf-8"))
         for m in s1_rep.get("stage1a_forward_folding", []):
@@ -60,6 +61,42 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                         "p_at_l_sep24": round(float(g["p_at_l_sep24"]), 3),
                         "q3_accuracy": round(float(g["q3_accuracy"]), 3),
                     }
+        for m in s1_rep.get("stage1b_inverse_folding", []):
+            mname = m["model"]
+            if mname not in ("Heuristic_BurialPolarity", "Null_Uniform20AA", "control_wildtype_native"):
+                for g in m.get("per_target", []):
+                    s2_per_tid.setdefault(g["target_id"], {})[mname] = {
+                        "sc_tm_score": round(float(g["sc_tm_score"]), 3) if g.get("sc_tm_score") is not None else None,
+                        "sc_rmsd_ca": round(float(g["sc_rmsd_ca"]), 2) if g.get("sc_rmsd_ca") is not None else None,
+                        "plddt": round(float(g["esmfold_plddt"]), 1) if g.get("esmfold_plddt") is not None else None,
+                        "nsr": round(float(g["nsr_overall"]), 3),
+                    }
+
+    s7_per_tid: Dict[str, Dict[str, Any]] = {}
+    if (rdir / "test7_esmfold2_evaluation_report.json").exists():
+        s7_rep = json.loads((rdir / "test7_esmfold2_evaluation_report.json").read_text(encoding="utf-8"))
+        for mname, mobj in s7_rep.get("models", {}).items():
+            for g in mobj.get("per_task", []):
+                s7_per_tid.setdefault(g["task_id"], {})[mname] = {
+                    "plddt_mean": g.get("plddt_mean"),
+                    "tm_to_target_fold": g.get("tm_to_target_fold"),
+                    "motif_ca_rmsd": g.get("motif_ca_rmsd"),
+                    "cross_oracle_sc_rmsd": g.get("cross_oracle_sc_rmsd"),
+                    "esmfold2_4gate_pass": g.get("esmfold2_4gate_pass"),
+                }
+
+    s8_per_tid: Dict[str, Dict[str, Any]] = {}
+    for cf in sorted(pred_dir.glob("stage3b_binder_campaign_*_closed_loop_af2.json")):
+        cobj = json.loads(cf.read_text(encoding="utf-8"))
+        mtag = cobj.get("model_tag", cf.stem)
+        for pt in cobj.get("summary", {}).get("per_target", []):
+            s8_per_tid.setdefault(pt["target_id"], {})[mtag] = {
+                "hit_achieved": pt.get("hit_achieved"),
+                "shots_to_first_hit": pt.get("shots_to_first_hit"),
+                "best_iptm_on_epitope": pt.get("best_iptm_on_epitope"),
+                "best_ipae_on_epitope": pt.get("best_ipae_on_epitope"),
+                "best_composite_score": pt.get("best_composite_score"),
+            }
 
     s5_per_tid: Dict[str, Dict[str, Any]] = {}
     if (rdir / "stage3a_alanine_report.json").exists():
@@ -154,7 +191,8 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
         pr2 = p_1b.get(tid, {}).get("prompt", "")
         pr2_lines = pr2.splitlines()
         pr2_short = "\n".join(pr2_lines[:14] + ([f"... [{len(pr2_lines)-20} 3D backbone rows] ..."] + pr2_lines[-5:] if len(pr2_lines) > 22 else []))
-        gt2 = f"Native 1D sequence (L={rec['length']}), Fold={rec.get('fold_class','')}, Pre-Cutoff PDB TM={pdb_tm}"
+        gt2 = f"Input 3D backbone (L={rec['length']}), Fold={rec.get('fold_class','')}, Pre-Cutoff PDB TM={pdb_tm} -> Graded by ESMFold-2 scTM & scRMSD"
+        sc2 = s2_per_tid.get(tid, {})
         _add(
             {
                 "test_num": 2,
@@ -168,7 +206,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "ground_truth_sequence": seq,
                 "ground_truth_summary": gt2,
                 "prompt": pr2,
-                "live_scores": {},
+                "live_scores": sc2,
             },
             {
                 "t": 2,
@@ -180,7 +218,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "seq": seq,
                 "gt": gt2,
                 "pr": pr2_short,
-                "sc": {},
+                "sc": sc2,
             },
         )
 
@@ -356,7 +394,8 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     for rec in m7["tasks"]:
         tid = rec["task_id"]
         pr7 = p_7.get(tid, {}).get("prompt", "")
-        gt7 = f"Length {rec['min_length']}–{rec['max_length']} AA | 5-gate ESMFold+MPNN designability (pLDDT>=75, scTM>=0.80, Motif RMSD<=1.5Å)"
+        gt7 = f"Length {rec['min_length']}–{rec['max_length']} AA | ESMFold-2 + OpenFold3 designability (pLDDT>=80, Fold TM>=0.50 / Motif RMSD<=1.5Å)"
+        sc7 = s7_per_tid.get(tid, {})
         _add(
             {
                 "test_num": 7,
@@ -369,7 +408,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "length": int((rec["min_length"] + rec["max_length"]) // 2),
                 "ground_truth_summary": gt7,
                 "prompt": pr7,
-                "live_scores": {},
+                "live_scores": sc7,
             },
             {
                 "t": 7,
@@ -381,7 +420,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "seq": "(Generative de novo sequence design task)",
                 "gt": gt7,
                 "pr": "\n".join(pr7.splitlines()[:20]),
-                "sc": {},
+                "sc": sc7,
             },
         )
 
@@ -392,8 +431,9 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
         pr8 = p_8.get(tid, {}).get("prompt", "")
         gt8 = (
             f"Target PDB {rec['pdb_id']}:{rec['target_chain']} ({rec.get('release_date','')}) | "
-            f"Epitope hotspots: {rec['epitope_hotspots_1idx']} | Binder {rec['binder_min_len']}–{rec['binder_max_len']} AA"
+            f"Epitope hotspots: {rec['epitope_hotspots_1idx']} | Binder {rec['binder_min_len']}–{rec['binder_max_len']} AA (16-shot AF2 oracle)"
         )
+        sc8 = s8_per_tid.get(tid, {})
         _add(
             {
                 "test_num": 8,
@@ -408,7 +448,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "epitope_hotspots_1idx": rec["epitope_hotspots_1idx"],
                 "ground_truth_summary": gt8,
                 "prompt": pr8,
-                "live_scores": {},
+                "live_scores": sc8,
             },
             {
                 "t": 8,
@@ -420,7 +460,7 @@ def build_all_datapoints() -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
                 "seq": rec["target_sequence"],
                 "gt": gt8,
                 "pr": "\n".join(pr8.splitlines()[:20]),
-                "sc": {},
+                "sc": sc8,
             },
         )
 

@@ -18,5 +18,9 @@ data/raw_stage3b_cache/
 outputs/api_cache/
 outputs/batches/
 outputs/colab/
+outputs/japanfold_cache/
+outputs/proteinmpnn_cache/
 outputs/results/reconstructed_pdbs/
 outputs/figures/stage1_interactive_3d.html
+website/proteinbench_artifact.html
+website/proteinbench_redesign.html

@@ -323,11 +323,35 @@ def main() -> None:
     parser.add_argument("--status", action="store_true", help="Check batch status")
     parser.add_argument("--collect", action="store_true", help="Download completed batch into outputs/predictions/")
     parser.add_argument("--wait", action="store_true", help="Poll every 60s until completed, then auto-collect")
+    parser.add_argument("--submit-and-wait", action="store_true", help="Submit one or more --models and wait/collect all")
     parser.add_argument("--model", default="gpt-6.2-astra")
+    parser.add_argument("--models", default="", help="Comma-separated models for --submit-and-wait")
     parser.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh"])
     parser.add_argument("--stages", default="1,3,4,5,6", help="Comma-separated test IDs, e.g. 2,7")
     parser.add_argument("--batch-id", help="Batch ID (defaults to latest in outputs/batches/active_batches.json)")
     args = parser.parse_args()
+
+    if args.submit_and_wait:
+        mlist = [m.strip() for m in (args.models or args.model).split(",") if m.strip()]
+        pending: Dict[str, str] = {}
+        for m in mlist:
+            b_obj = submit_batch(m, args.effort, stages=args.stages)
+            pending[b_obj["id"]] = m
+        while pending:
+            done_ids = []
+            for bid, m in list(pending.items()):
+                b = check_batch_status(bid)
+                st = b.get("status")
+                if st == "completed":
+                    collect_batch(bid, model_override=m, effort_override=args.effort)
+                    done_ids.append(bid)
+                elif st in ("failed", "expired", "cancelled"):
+                    raise SystemExit(f"Batch {bid} ({m}) ended with status={st}: {b.get('errors')}")
+            for bid in done_ids:
+                pending.pop(bid, None)
+            if pending:
+                time.sleep(60.0)
+        return
 
     if args.prepare:
         prepare_batch_jsonl(args.model, args.effort, skip_cached=args.skip_cached, stages=args.stages)

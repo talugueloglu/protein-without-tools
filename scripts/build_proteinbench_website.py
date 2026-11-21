@@ -1153,6 +1153,64 @@ __STANDALONE_FALLBACK_VARS__
               </tbody>
             </table>
           </div>
+        </div>
+        ${renderFoldingDesignLeaderboard(S, llmModels)}`;
+    }
+
+    function renderFoldingDesignLeaderboard(S, llmModels) {
+      const G = DATA.gpu_summary;
+      if (!G) return '';
+      const t2 = G.test2 || {};
+      const t7 = G.test7 || {};
+      const t8 = G.test8 || {};
+      const rows278 = llmModels.map(m => {
+        const g2 = (t2[m] || {}).overall || {};
+        const g7 = t7[m] || {};
+        const g8 = t8[m] || {};
+        const sctm = g2.sc_tm_score !== undefined ? g2.sc_tm_score.toFixed(3) : '—';
+        const pass2a = g2.designable_pass_rate_2A !== undefined ? (g2.designable_pass_rate_2A * 100).toFixed(1) + '%' : '—';
+        const plddt7 = g7.mean_plddt !== undefined ? g7.mean_plddt.toFixed(1) : '—';
+        const sc7 = g7.gate3_cross_oracle_sc_rate !== undefined ? (g7.gate3_cross_oracle_sc_rate * 100).toFixed(1) + '%' : '—';
+        const mrmsd7 = g7.mean_motif_ca_rmsd !== undefined ? g7.mean_motif_ca_rmsd.toFixed(2) + 'Å' : '—';
+        const hit8 = g8.hit_rate !== undefined ? (g8.hit_rate * 100).toFixed(1) + '%' : 'Running';
+        const iptm8 = g8.mean_best_iptm !== undefined ? g8.mean_best_iptm.toFixed(3) : '—';
+        const gain8 = g8.mean_closed_loop_gain !== undefined ? '+' + g8.mean_closed_loop_gain.toFixed(3) : '—';
+        return `
+          <tr class="bg-rose-500/5 font-semibold">
+            <td class="py-3 px-4 font-bold text-rose-600">${prettyModel(m)}</td>
+            <td class="py-3 px-4 font-mono">${sctm} <span class="text-[11px] text-[var(--muted-foreground)]">(&lt;2Å: ${pass2a})</span></td>
+            <td class="py-3 px-4 font-mono">${plddt7} <span class="text-[11px] text-[var(--muted-foreground)]">(OF3-SC: ${sc7}, Motif: ${mrmsd7})</span></td>
+            <td class="py-3 px-4 font-mono">${hit8} <span class="text-[11px] text-[var(--muted-foreground)]">(ipTM ${iptm8}, Δ=${gain8})</span></td>
+          </tr>`;
+      }).join('');
+      const wt2 = ((t2['control_wildtype_native'] || {}).overall) || {};
+      return `
+        <div class="rounded-2xl bg-[var(--card)] border-2 border-rose-500/35 overflow-hidden shadow-sm">
+          <div class="px-5 py-3.5 border-b border-[var(--border)] bg-rose-500/10 flex items-center justify-between flex-wrap gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-600">Live 3D Folding &amp; Closed-Loop Design Suite (Tests 2, 7, 8 — ESMFold-2, OpenFold3 &amp; Official AlphaFold2)</span>
+            <span class="text-xs font-mono text-[var(--muted-foreground)]">152 Tasks • 16-Shot Closed-Loop AF2 Binder Campaigns</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[var(--border)] bg-[var(--secondary)]/60 text-[var(--muted-foreground)]">
+                  <th class="py-2.5 px-4 font-bold">Model / Reference Control</th>
+                  <th class="py-2.5 px-4 font-bold">2. Inverse Fold ESMFold-2 scTM (&lt;2Å%)</th>
+                  <th class="py-2.5 px-4 font-bold">7. De Novo/Motif pLDDT (Cross-SC / Motif RMSD)</th>
+                  <th class="py-2.5 px-4 font-bold">8. Closed-Loop AF2 Binder Hit@16 (ipTM / ΔGain)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)]">
+                ${rows278}
+                <tr>
+                  <td class="py-2.5 px-4 text-[var(--muted-foreground)]">Wild-Type Native Sequence Control (ESMFold-2 Oracle Ceiling)</td>
+                  <td class="py-2.5 px-4 font-mono">${wt2.sc_tm_score !== undefined ? wt2.sc_tm_score.toFixed(3) : '—'} <span class="text-[11px] text-[var(--muted-foreground)]">(&lt;2Å: ${wt2.designable_pass_rate_2A !== undefined ? (wt2.designable_pass_rate_2A*100).toFixed(1)+'%' : '—'})</span></td>
+                  <td class="py-2.5 px-4 font-mono text-[var(--muted-foreground)]">—</td>
+                  <td class="py-2.5 px-4 font-mono text-[var(--muted-foreground)]">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>`;
     }
 
@@ -1166,9 +1224,12 @@ __STANDALONE_FALLBACK_VARS__
     function formatRowScore(row) {
       const sc = row.sc || {};
       const keys = Object.keys(sc);
-      if (!keys.length) return '<span class="text-[var(--muted-foreground)]">GPU / Pending</span>';
+      if (!keys.length) return '<span class="text-[var(--muted-foreground)]">Pending</span>';
       const v = sc[keys[0]];
       if (v.tm_score !== undefined) return `<span class="font-mono font-semibold text-indigo-600">TM ${v.tm_score.toFixed(3)}</span>`;
+      if (v.sc_tm_score !== undefined && v.sc_tm_score !== null) return `<span class="font-mono font-semibold text-sky-600">scTM ${v.sc_tm_score.toFixed(3)}</span>`;
+      if (v.plddt_mean !== undefined && v.plddt_mean !== null) return `<span class="font-mono font-semibold text-teal-600">pLDDT ${Number(v.plddt_mean).toFixed(1)}</span>`;
+      if (v.best_iptm_on_epitope !== undefined) return `<span class="font-mono font-semibold text-rose-600">ipTM ${Number(v.best_iptm_on_epitope).toFixed(2)}</span>`;
       if (v.ndcg_at_5 !== undefined) return `<span class="font-mono font-semibold text-emerald-600">NDCG ${v.ndcg_at_5.toFixed(2)}</span>`;
       if (v.raw !== undefined) {
         const m = v.raw.match(/"prob_homolog"\s*:\s*([0-9.]+)/);
@@ -1341,10 +1402,34 @@ def main() -> None:
     dp_path = REPO / "website" / "data" / "proteinbench_v1_explorer.json"
     datapoints = json.loads(dp_path.read_text(encoding="utf-8")) if dp_path.exists() else []
 
+    # Compile Tests 2, 7, 8 live GPU/JapanFold summary
+    gpu_sum: Dict[str, Any] = {"test2": {}, "test7": {}, "test8": {}}
+    s1_rep_p = REPO / "outputs" / "results" / "stage1_evaluation_report.json"
+    if s1_rep_p.exists():
+        s1_rep = json.loads(s1_rep_p.read_text(encoding="utf-8"))
+        for m in s1_rep.get("stage1b_inverse_folding", []):
+            mc = dict(m)
+            mc.pop("per_target", None)
+            gpu_sum["test2"][mc["model"]] = mc
+    s7_rep_p = REPO / "outputs" / "results" / "test7_esmfold2_evaluation_report.json"
+    if s7_rep_p.exists():
+        s7_rep = json.loads(s7_rep_p.read_text(encoding="utf-8"))
+        for mname, mobj in s7_rep.get("models", {}).items():
+            mc = dict(mobj)
+            mc.pop("per_task", None)
+            gpu_sum["test7"][mname] = mc
+    for cf in sorted((REPO / "outputs" / "predictions").glob("stage3b_binder_campaign_*_closed_loop_af2.json")):
+        cobj = json.loads(cf.read_text(encoding="utf-8"))
+        base_m = cobj.get("model_tag", "").replace("_closed_loop_af2", "")
+        sm = dict(cobj.get("summary", {}))
+        sm.pop("per_target", None)
+        gpu_sum["test8"][base_m] = sm
+
     payload = {
         "atlas": trim_explorer_atlas(compile_visual_atlas_data()),
         "prompts": load_sample_prompts(),
         "live_summary": live_sum,
+        "gpu_summary": gpu_sum,
         "datapoints": datapoints,
     }
     json_blob = json.dumps(payload, separators=(",", ":"))
