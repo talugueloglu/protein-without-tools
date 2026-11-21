@@ -9,10 +9,15 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+from collections import defaultdict
 import json
 from pathlib import Path
 import sys
 from typing import Any, Dict, List, Tuple
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from fable_bench.llm_client import UnifiedLLMRunner
 
@@ -56,22 +61,59 @@ async def run_stage_jsonl(
         for line in prompt_jsonl.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    if limit is not None:
-        rows = rows[:limit]
+    if limit is not None and limit < len(rows):
+        # Round-robin across strata/rungs so pilots cover every difficulty/decoy group
+        buckets: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+        for r in rows:
+            bkey = str(
+                r.get("rung")
+                or r.get("stratum")
+                or r.get("memorization_stratum")
+                or r.get("temporal_tier")
+                or "all"
+            )
+            buckets[bkey].append(r)
+        sampled: List[Dict[str, Any]] = []
+        keys = list(buckets.keys())
+        round_idx = 0
+        while len(sampled) < limit:
+            added_any = False
+            for bk in keys:
+                if round_idx < len(buckets[bk]):
+                    sampled.append(buckets[bk][round_idx])
+                    added_any = True
+                    if len(sampled) >= limit:
+                        break
+            if not added_any:
+                break
+            round_idx += 1
+        rows = sampled
 
     sem = asyncio.Semaphore(concurrency)
-    results: List[Dict[str, Any]] = [{}] * len(rows)
+    results: List[Dict[str, Any] | None] = [None] * len(rows)
+    budget_tripped = False
 
     async def _worker(idx: int, item: Dict[str, Any]) -> None:
+        nonlocal budget_tripped
         async with sem:
-            rec = await runner.complete(
-                provider=provider,
-                model=model,
-                prompt=item["prompt"],
-                max_tokens=max_tokens,
-                thinking_budget=thinking_budget,
-                temperature=0.0,
-            )
+            if budget_tripped:
+                return
+            try:
+                rec = await runner.complete(
+                    provider=provider,
+                    model=model,
+                    prompt=item["prompt"],
+                    max_tokens=max_tokens,
+                    thinking_budget=thinking_budget,
+                    temperature=0.0,
+                )
+            except RuntimeError as exc:
+                if "Hard budget cap reached" in str(exc):
+                    if not budget_tripped:
+                        print(f"  [BUDGET GUARD] {exc} — saving completed responses cleanly.", flush=True)
+                    budget_tripped = True
+                    return
+                raise
             tid = item.get("target_id") or item.get("pair_id") or f"item_{idx}"
             out_row: Dict[str, Any] = {
                 "target_id": tid,
@@ -85,13 +127,22 @@ async def run_stage_jsonl(
             tag = "CACHE" if rec.cached else f"${rec.est_cost_usd:.4f}"
             print(
                 f"  [{idx + 1:3d}/{len(rows):3d}] {tid} ({out_row['task']}) "
-                f"-> {rec.returned_model} [{tag}, {rec.latency_sec:.1f}s]"
+                f"-> {rec.returned_model} [{tag}, in={rec.input_tokens}, out={rec.output_tokens}, {rec.latency_sec:.1f}s]",
+                flush=True,
             )
 
     await asyncio.gather(*(_worker(i, r) for i, r in enumerate(rows)))
-    out_jsonl.parent.mkdir(parents=True, exist_ok=True)
-    out_jsonl.write_text("\n".join(json.dumps(r) for r in results) + "\n", encoding="utf-8")
-    print(f"Saved {len(results)} responses -> {out_jsonl} (Cumulative spend: ${runner.cumulative_live_usd:.3f})")
+    done = [r for r in results if r is not None]
+    if done:
+        out_jsonl.parent.mkdir(parents=True, exist_ok=True)
+        out_jsonl.write_text("\n".join(json.dumps(r) for r in done) + "\n", encoding="utf-8")
+        print(
+            f"Saved {len(done)}/{len(rows)} responses -> {out_jsonl} "
+            f"(Cumulative live spend: ${runner.cumulative_live_usd:.3f})",
+            flush=True,
+        )
+    if budget_tripped:
+        raise SystemExit(f"Stopped cleanly at hard budget cap (${runner.cumulative_live_usd:.2f}).")
 
 
 def main() -> None:
@@ -100,8 +151,8 @@ def main() -> None:
     parser.add_argument("--model", required=True, help="e.g. claude-fable-5-2, claude-opus-5-5, gpt-5.2, gemini-3.1-pro")
     parser.add_argument("--stages", default="all", help="Comma-separated stages: 1a,1b,2a,2b,3a,3b or 'all'")
     parser.add_argument("--thinking-budget", type=int, default=0, help="Extended thinking token budget (0 = Direct)")
-    parser.add_argument("--prompts-dir", default="outputs/prompts")
-    parser.add_argument("--out-dir", default="outputs/predictions")
+    parser.add_argument("--prompts-dir", default=str(REPO_ROOT / "outputs" / "prompts"))
+    parser.add_argument("--out-dir", default=str(REPO_ROOT / "outputs" / "predictions"))
     parser.add_argument("--concurrency", type=int, default=4)
     parser.add_argument("--pilot", type=int, default=None, help="Optional pilot limit N items per stage")
     parser.add_argument("--max-usd", type=float, default=35.0)

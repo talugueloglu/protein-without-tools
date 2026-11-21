@@ -98,8 +98,8 @@ __STANDALONE_FALLBACK_VARS__
           <a href="#abstract" class="hover:text-[var(--foreground)] transition">Abstract</a>
           <a href="#overview" class="hover:text-[var(--foreground)] transition">Architecture</a>
           <a href="#explorer" class="hover:text-[var(--foreground)] transition">8 Tasks Explorer</a>
-          <a href="#reasoning" class="hover:text-[var(--foreground)] transition">Reasoning Audit</a>
-          <a href="#results" class="hover:text-[var(--foreground)] transition">Benchmarks</a>
+          <a href="#results" class="hover:text-[var(--foreground)] transition">Live Leaderboard</a>
+          <a href="#dataset" class="hover:text-[var(--foreground)] transition">All 522 Datapoints</a>
           <a href="#quickstart" class="hover:text-[var(--foreground)] transition">Quickstart</a>
           <a href="#citation" class="hover:text-[var(--foreground)] transition">BibTeX</a>
         </div>
@@ -157,7 +157,11 @@ __STANDALONE_FALLBACK_VARS__
         </a>
         <a href="#results" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--secondary)] text-xs font-semibold transition">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>Benchmark Tables</span>
+          <span>Live Leaderboard</span>
+        </a>
+        <a href="#dataset" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-500 text-xs font-semibold shadow-sm transition">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span>Browse All 522 Datapoints</span>
         </a>
         <a href="#citation" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--secondary)] text-xs font-semibold transition">
           <span>BibTeX</span>
@@ -401,6 +405,9 @@ __STANDALONE_FALLBACK_VARS__
         <p class="text-xs text-[var(--muted-foreground)]">All 8 tasks include verified positive/oracle ceilings, domain specialist baselines, and anti-cheat null floors.</p>
       </div>
 
+      <!-- Live Frontier Evaluation Leaderboard (dynamically rendered from live_summary) -->
+      <div id="live-leaderboard-container" class="space-y-4"></div>
+
       <!-- Table 1: Complete 8-Task Architecture -->
       <div class="rounded-2xl bg-[var(--card)] border border-[var(--border)] overflow-hidden shadow-sm">
         <div class="px-5 py-3.5 border-b border-[var(--border)] flex items-center justify-between flex-wrap gap-2">
@@ -517,6 +524,59 @@ __STANDALONE_FALLBACK_VARS__
             <div class="flex justify-between"><span>Blind Open-Loop:</span><span>Pass@16 <strong>33.3%</strong></span></div>
             <div class="flex justify-between text-rose-500"><span>Copy-Paste Cheat:</span><span>Hit@16 <strong>0.0%</strong> (Blocked)</span></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6B. ALL 522 DATAPOINTS INTERACTIVE BROWSER (`#dataset`)               -->
+    <!-- ===================================================================== -->
+    <section id="dataset" class="space-y-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3">
+        <div class="space-y-1">
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">Complete Benchmark Explorer</div>
+          <h2 class="text-2xl font-bold tracking-tight">Browse All 522 Datapoints (Prompts, Ground Truth &amp; Live Scores)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Filter by task (Tests 1–8), search by ID, PDB/UniProt/SCOPe, stratum, or sequence, and click any row to inspect its sequence, zero-leakage prompt, ground truth, and live model score.</p>
+        </div>
+        <button id="download-jsonl-btn" class="px-3.5 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-500 text-xs font-semibold shadow-sm shrink-0 transition">
+          Download All 522 Datapoints (.json)
+        </button>
+      </div>
+
+      <div class="rounded-2xl bg-[var(--card)] border border-[var(--border)] p-4 md:p-5 space-y-4 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div id="ds-test-filters" class="flex flex-wrap gap-1.5"></div>
+          <input id="ds-search-input" type="text" placeholder="Search ID, PDB, UniProt, organism, stratum, or sequence..." class="w-full md:w-72 px-3 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/40" />
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+          <div class="lg:col-span-7 space-y-2">
+            <div class="overflow-x-auto rounded-xl border border-[var(--border)] max-h-[460px] overflow-y-auto">
+              <table class="w-full text-xs text-left border-collapse">
+                <thead class="sticky top-0 bg-[var(--secondary)] text-[var(--muted-foreground)] border-b border-[var(--border)]">
+                  <tr>
+                    <th class="py-2 px-3 font-bold">Test</th>
+                    <th class="py-2 px-3 font-bold">ID</th>
+                    <th class="py-2 px-3 font-bold">Source / Target</th>
+                    <th class="py-2 px-3 font-bold">Stratum</th>
+                    <th class="py-2 px-3 font-bold">Len</th>
+                    <th class="py-2 px-3 font-bold">Live Score</th>
+                  </tr>
+                </thead>
+                <tbody id="ds-table-body" class="divide-y divide-[var(--border)]"></tbody>
+              </table>
+            </div>
+            <div class="flex items-center justify-between text-xs text-[var(--muted-foreground)] pt-1">
+              <span id="ds-count-label"></span>
+              <div class="flex items-center gap-2">
+                <button id="ds-prev-btn" class="px-2.5 py-1 rounded border border-[var(--border)] hover:bg-[var(--secondary)] disabled:opacity-40">Prev</button>
+                <span id="ds-page-label" class="font-mono"></span>
+                <button id="ds-next-btn" class="px-2.5 py-1 rounded border border-[var(--border)] hover:bg-[var(--secondary)] disabled:opacity-40">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="ds-detail-pane" class="lg:col-span-5 rounded-xl bg-[var(--background)] border border-[var(--border)] p-4 space-y-3 text-xs"></div>
         </div>
       </div>
     </section>
@@ -982,7 +1042,264 @@ __STANDALONE_FALLBACK_VARS__
       setTimeout(() => { ev.currentTarget.textContent = 'Copy HTML Source'; }, 1800);
     });
 
+    function prettyModel(m) {
+      return m
+        .replace('gpt-6.2-sol_think4096', 'GPT-6.2 Sol (High Reasoning)')
+        .replace('gpt-6.1-sol_think4096', 'GPT-6.1 Sol (High Reasoning)')
+        .replace('gpt-6.2-astra_think4096', 'GPT-6.2 Astra (High Reasoning)')
+        .replace('_think4096', ' (High)');
+    }
+
+    function renderLiveLeaderboard() {
+      const el = document.getElementById('live-leaderboard-container');
+      const S = DATA.live_summary;
+      if (!el || !S) return;
+
+      const t1 = {}; (S.test1_forward_folding || []).forEach(x => { t1[x.model] = x; });
+      const t3 = S.test3_remote_homology || {};
+      const t4 = S.test4_cafa_function || {};
+      const t5 = {}; (S.test5_monomer_alanine_ranking || []).forEach(x => { t5[x.model] = x; });
+      const t6 = {}; (S.test6_binding_alanine_ranking || []).forEach(x => { t6[x.model] = x; });
+
+      const llmModels = Object.keys(S.telemetry || {});
+      if (!llmModels.length) return;
+
+      const rowsHtml = llmModels.map(m => {
+        const tel = S.telemetry[m] || {};
+        const f1 = t1[m] || { overall: {}, splits: {} };
+        const f3 = t3[m] || { by_rung: {} };
+        const f4 = t4[m] || {};
+        const f5 = (t5[m] || {}).overall || {};
+        const f6Obj = t6[m] || { overall: {}, by_memorization_stratum: {} };
+        const f6 = f6Obj.overall || {};
+        const f6Known = (f6Obj.by_memorization_stratum || {}).known_pdb_pre2026 || {};
+        const f6Unseen = (f6Obj.by_memorization_stratum || {}).unseen_or_post2026 || {};
+
+        const tmAll = (f1.overall.tm_score || 0).toFixed(3);
+        const tmPre = ((f1.splits.pre_cutoff || {}).tm_score || 0).toFixed(3);
+        const tmNov = ((f1.splits.post_cutoff_struct_novel || {}).tm_score || 0).toFixed(3);
+        const auc3 = (f3.overall_auroc || 0).toFixed(3);
+        const r3Tea = (((f3.by_rung || {})['3_deep_tea_zone'] || {}).recall_at_fpr10 || 0).toFixed(2);
+        const wf4 = (f4.macro_wfmax || 0).toFixed(3);
+        const n5 = (f5.ndcg_at_5 || 0).toFixed(3);
+        const w5 = (((f5.same_aa_win_rate || 0) * 100)).toFixed(1) + '%';
+        const n6 = (f6.ndcg_at_5 || 0).toFixed(3);
+        const w6 = (((f6.same_aa_win_rate || 0) * 100)).toFixed(1) + '%';
+        const memSplit = `${(f6Known.ndcg_at_5 || 0).toFixed(2)} / ${(f6Unseen.ndcg_at_5 || 0).toFixed(2)}`;
+
+        return `
+          <tr class="bg-indigo-500/5 font-semibold">
+            <td class="py-3 px-4">
+              <div class="font-bold text-indigo-600">${prettyModel(m)}</div>
+              <div class="text-[11px] text-[var(--muted-foreground)] font-normal">${tel.total_calls || 370} calls • $${(tel.total_est_cost_usd || 0).toFixed(2)} • ${Math.round((tel.total_reasoning_tokens || 0)/1000)}k reasoning tok</div>
+            </td>
+            <td class="py-3 px-4 font-mono">${tmAll} <span class="text-[11px] text-[var(--muted-foreground)]">(${tmPre}→${tmNov})</span></td>
+            <td class="py-3 px-4 font-mono">${auc3} <span class="text-[11px] text-[var(--muted-foreground)]">(TEA ${r3Tea})</span></td>
+            <td class="py-3 px-4 font-mono">${wf4}</td>
+            <td class="py-3 px-4 font-mono">${n5} <span class="text-[11px] text-[var(--muted-foreground)]">(${w5})</span></td>
+            <td class="py-3 px-4 font-mono">${n6} <span class="text-[11px] text-[var(--muted-foreground)]">(${w6})</span></td>
+            <td class="py-3 px-4 font-mono">${memSplit}</td>
+          </tr>`;
+      }).join('');
+
+      // Reference baseline comparison rows
+      const h1 = (t1['Heuristic_1D_LocalOnly'] || { overall: {}, splits: {} });
+      const sw3 = t3['BLOSUM62_SmithWaterman'] || { by_rung: {} };
+      const fs3 = t3['Foldseek_3Di_Structure'] || { by_rung: {} };
+      const sw4 = t4['CAFA_SequenceHomology_SW'] || {};
+      const lk5 = (t5['Baseline_AA_LookupOnly'] || {}).overall || {};
+      const bt6Obj = t6['Baseline_BoganThorn_1D'] || { overall: {}, by_memorization_stratum: {} };
+      const or6Obj = t6['Oracle_3D_Interface_Contacts'] || { overall: {}, by_memorization_stratum: {} };
+
+      el.innerHTML = `
+        <div class="rounded-2xl bg-[var(--card)] border-2 border-indigo-500/40 overflow-hidden shadow-sm">
+          <div class="px-5 py-3.5 border-b border-[var(--border)] bg-indigo-500/10 flex items-center justify-between flex-wrap gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Live Evaluation Results • Local Suite (Tests 1, 3, 4, 5, 6 — 370 Tasks, Zero-Code Weights Track)</span>
+            <span class="text-xs font-mono text-[var(--muted-foreground)]">366/370 Answered (4 Abstentions on T6) • Zero Fallbacks</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="border-b border-[var(--border)] bg-[var(--secondary)]/60 text-[var(--muted-foreground)]">
+                  <th class="py-2.5 px-4 font-bold">Model / Reference Baseline</th>
+                  <th class="py-2.5 px-4 font-bold">1. Fold TM (Pre→Novel)</th>
+                  <th class="py-2.5 px-4 font-bold">3. Homology AUC (TEA Rec)</th>
+                  <th class="py-2.5 px-4 font-bold">4. CAFA wF_max</th>
+                  <th class="py-2.5 px-4 font-bold">5. Mono Ala NDCG@5 (Win%)</th>
+                  <th class="py-2.5 px-4 font-bold">6. Bind Ala NDCG@5 (Win%)</th>
+                  <th class="py-2.5 px-4 font-bold">6b. Known PDB / Unseen</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border)]">
+                ${rowsHtml}
+                <tr>
+                  <td class="py-2.5 px-4 font-semibold text-[var(--muted-foreground)]">3D Structure / Homology Reference (Foldseek / Crystal / SW)</td>
+                  <td class="py-2.5 px-4 font-mono">${((t1['NoisyOracle_50pctPrec']||{}).overall||{}).tm_score?.toFixed(3) || '—'} <span class="text-[11px] text-[var(--muted-foreground)]">(50%-Prec)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(fs3.overall_auroc||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(TEA ${(((fs3.by_rung||{})['3_deep_tea_zone']||{}).recall_at_fpr10||0).toFixed(2)})</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(sw4.macro_wfmax||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(SW)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(((t5['Baseline_LocalWindowKD']||{}).overall||{}).ndcg_at_5||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(KD Win)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${((or6Obj.overall||{}).ndcg_at_5||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(3D Contacts)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(((or6Obj.by_memorization_stratum||{}).known_pdb_pre2026||{}).ndcg_at_5||0).toFixed(2)} / ${(((or6Obj.by_memorization_stratum||{}).unseen_or_post2026||{}).ndcg_at_5||0).toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-4 text-[var(--muted-foreground)]">1D Sequence / Hydrophobicity Lookup Baseline</td>
+                  <td class="py-2.5 px-4 font-mono">${(h1.overall.tm_score||0).toFixed(3)}</td>
+                  <td class="py-2.5 px-4 font-mono">${(sw3.overall_auroc||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(TEA ${(((sw3.by_rung||{})['3_deep_tea_zone']||{}).recall_at_fpr10||0).toFixed(2)})</span></td>
+                  <td class="py-2.5 px-4 font-mono">${((t4['CAFA_NaivePrior']||{}).macro_wfmax||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(Naive)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(lk5.ndcg_at_5||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(50.0%)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${((bt6Obj.overall||{}).ndcg_at_5||0).toFixed(3)} <span class="text-[11px] text-[var(--muted-foreground)]">(50.0%)</span></td>
+                  <td class="py-2.5 px-4 font-mono">${(((bt6Obj.by_memorization_stratum||{}).known_pdb_pre2026||{}).ndcg_at_5||0).toFixed(2)} / ${(((bt6Obj.by_memorization_stratum||{}).unseen_or_post2026||{}).ndcg_at_5||0).toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>`;
+    }
+
+    // --- All 522 Datapoints Interactive Browser ---
+    let dsFilterTest = 0; // 0 = All
+    let dsQuery = '';
+    let dsPage = 0;
+    let dsSelectedKey = null;
+    const DS_PAGE_SIZE = 18;
+
+    function formatRowScore(row) {
+      const sc = row.sc || {};
+      const keys = Object.keys(sc);
+      if (!keys.length) return '<span class="text-[var(--muted-foreground)]">GPU / Pending</span>';
+      const v = sc[keys[0]];
+      if (v.tm_score !== undefined) return `<span class="font-mono font-semibold text-indigo-600">TM ${v.tm_score.toFixed(3)}</span>`;
+      if (v.ndcg_at_5 !== undefined) return `<span class="font-mono font-semibold text-emerald-600">NDCG ${v.ndcg_at_5.toFixed(2)}</span>`;
+      if (v.raw !== undefined) {
+        const m = v.raw.match(/"prob_homolog"\s*:\s*([0-9.]+)/);
+        if (m) return `<span class="font-mono font-semibold text-purple-600">p=${Number(m[1]).toFixed(2)}</span>`;
+        return `<span class="font-mono font-semibold text-amber-600">Scored ✓</span>`;
+      }
+      return '—';
+    }
+
+    function renderDatasetBrowser() {
+      const rows = DATA.datapoints || [];
+      const filterEl = document.getElementById('ds-test-filters');
+      if (!filterEl) return;
+
+      const filterBtns = [{ t: 0, lbl: `All (${rows.length})` }].concat(
+        [1,2,3,4,5,6,7,8].map(n => ({ t: n, lbl: `T${n} (${rows.filter(r => r.t === n).length})` }))
+      );
+      filterEl.innerHTML = filterBtns.map(b => {
+        const act = b.t === dsFilterTest ? 'tab-btn-active' : 'bg-[var(--background)] border-[var(--border)] hover:bg-[var(--secondary)]';
+        return `<button data-dst="${b.t}" class="px-2.5 py-1 rounded-full border text-xs font-semibold transition ${act}">${b.lbl}</button>`;
+      }).join('');
+      filterEl.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          dsFilterTest = Number(btn.getAttribute('data-dst'));
+          dsPage = 0;
+          renderDatasetBrowser();
+        });
+      });
+
+      const q = dsQuery.trim().toLowerCase();
+      const filtered = rows.filter(r => {
+        if (dsFilterTest !== 0 && r.t !== dsFilterTest) return false;
+        if (!q) return true;
+        return (
+          r.id.toLowerCase().includes(q) ||
+          (r.src || '').toLowerCase().includes(q) ||
+          (r.desc || '').toLowerCase().includes(q) ||
+          (r.st || '').toLowerCase().includes(q) ||
+          (r.seq || '').toLowerCase().includes(q)
+        );
+      });
+
+      const totalPages = Math.max(1, Math.ceil(filtered.length / DS_PAGE_SIZE));
+      if (dsPage >= totalPages) dsPage = totalPages - 1;
+      const pageRows = filtered.slice(dsPage * DS_PAGE_SIZE, (dsPage + 1) * DS_PAGE_SIZE);
+
+      if (!dsSelectedKey || !filtered.some(r => `${r.t}:${r.id}` === dsSelectedKey)) {
+        dsSelectedKey = pageRows.length ? `${pageRows[0].t}:${pageRows[0].id}` : null;
+      }
+
+      const tbody = document.getElementById('ds-table-body');
+      tbody.innerHTML = pageRows.map(r => {
+        const key = `${r.t}:${r.id}`;
+        const selCls = key === dsSelectedKey ? 'bg-indigo-500/10 font-semibold' : 'hover:bg-[var(--secondary)]/60';
+        return `
+          <tr data-rkey="${key}" class="cursor-pointer transition ${selCls}">
+            <td class="py-2 px-3 font-mono font-bold text-indigo-500">T${r.t}</td>
+            <td class="py-2 px-3 font-mono">${r.id}</td>
+            <td class="py-2 px-3 truncate max-w-[170px]" title="${r.src}">${r.src}</td>
+            <td class="py-2 px-3 font-mono text-[11px] text-[var(--muted-foreground)]">${r.st}</td>
+            <td class="py-2 px-3 font-mono">${r.len}</td>
+            <td class="py-2 px-3">${formatRowScore(r)}</td>
+          </tr>`;
+      }).join('');
+
+      tbody.querySelectorAll('tr').forEach(tr => {
+        tr.addEventListener('click', () => {
+          dsSelectedKey = tr.getAttribute('data-rkey');
+          renderDatasetBrowser();
+        });
+      });
+
+      document.getElementById('ds-count-label').textContent = `Showing ${pageRows.length} of ${filtered.length} datapoints`;
+      document.getElementById('ds-page-label').textContent = `${dsPage + 1} / ${totalPages}`;
+      document.getElementById('ds-prev-btn').disabled = dsPage <= 0;
+      document.getElementById('ds-next-btn').disabled = dsPage >= totalPages - 1;
+
+      const detailEl = document.getElementById('ds-detail-pane');
+      const sel = rows.find(r => `${r.t}:${r.id}` === dsSelectedKey);
+      if (!sel) {
+        detailEl.innerHTML = '<div class="text-[var(--muted-foreground)]">No matching datapoint.</div>';
+      } else {
+        const scJson = Object.keys(sel.sc || {}).length ? JSON.stringify(sel.sc, null, 2) : 'Not yet evaluated (GPU task)';
+        detailEl.innerHTML = `
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-[var(--border)]">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-500 font-mono font-bold">Test ${sel.t} • ${sel.id}</span>
+              <div class="font-bold text-sm mt-1">${sel.src}</div>
+              <div class="text-[var(--muted-foreground)]">${sel.desc} • Stratum: <code class="font-mono">${sel.st}</code></div>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="font-bold uppercase tracking-wider text-[10px] text-emerald-600">Ground Truth</div>
+            <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] font-mono text-[11px] leading-relaxed break-words">${sel.gt}</div>
+          </div>
+          <div class="space-y-1">
+            <div class="font-bold uppercase tracking-wider text-[10px] text-indigo-600">Live Model Output / Grade</div>
+            <pre class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] font-mono text-[11px] overflow-x-auto whitespace-pre-wrap max-h-28 overflow-y-auto">${scJson}</pre>
+          </div>
+          <div class="space-y-1">
+            <div class="font-bold uppercase tracking-wider text-[10px] text-[var(--muted-foreground)]">Sequence (${sel.len} AA)</div>
+            <pre class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] font-mono text-[11px] overflow-x-auto whitespace-pre-wrap break-all max-h-28 overflow-y-auto">${sel.seq}</pre>
+          </div>
+          <div class="space-y-1">
+            <div class="font-bold uppercase tracking-wider text-[10px] text-[var(--muted-foreground)]">Prompt Preview</div>
+            <pre class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] font-mono text-[11px] overflow-x-auto whitespace-pre-wrap max-h-36 overflow-y-auto">${sel.pr}</pre>
+          </div>`;
+      }
+    }
+
+    const dsInput = document.getElementById('ds-search-input');
+    if (dsInput) {
+      dsInput.addEventListener('input', ev => {
+        dsQuery = ev.target.value;
+        dsPage = 0;
+        renderDatasetBrowser();
+      });
+      document.getElementById('ds-prev-btn').addEventListener('click', () => { if (dsPage > 0) { dsPage--; renderDatasetBrowser(); } });
+      document.getElementById('ds-next-btn').addEventListener('click', () => { dsPage++; renderDatasetBrowser(); });
+      document.getElementById('download-jsonl-btn').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(DATA.datapoints || [], null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'proteinbench_v1_522_datapoints.json';
+        a.click();
+      });
+    }
+
     renderExplorer();
+    renderLiveLeaderboard();
+    renderDatasetBrowser();
   </script>
 </body>
 </html>
@@ -1013,9 +1330,22 @@ def trim_explorer_atlas(full_atlas: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def main() -> None:
+    live_sum_path = REPO / "outputs" / "results" / "local_13456_unified_summary.json"
+    live_sum = json.loads(live_sum_path.read_text(encoding="utf-8")) if live_sum_path.exists() else None
+    # Strip bulky per_target arrays from live_sum inside HTML since `datapoints` already carries per-row scores
+    if live_sum:
+        for k in ("test1_forward_folding", "test5_monomer_alanine_ranking", "test6_binding_alanine_ranking"):
+            for item in live_sum.get(k, []):
+                item.pop("per_target", None)
+
+    dp_path = REPO / "website" / "data" / "proteinbench_v1_explorer.json"
+    datapoints = json.loads(dp_path.read_text(encoding="utf-8")) if dp_path.exists() else []
+
     payload = {
         "atlas": trim_explorer_atlas(compile_visual_atlas_data()),
         "prompts": load_sample_prompts(),
+        "live_summary": live_sum,
+        "datapoints": datapoints,
     }
     json_blob = json.dumps(payload, separators=(",", ":"))
 

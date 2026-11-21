@@ -15,11 +15,18 @@ from __future__ import annotations
 
 import argparse
 from collections import defaultdict
+from concurrent.futures import ProcessPoolExecutor
 import json
+import os
 from pathlib import Path
+import sys
 from typing import Any, Dict, List, Tuple
 
 import numpy as np
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from fable_bench.pdb_utils import CANONICAL_AA_SET, ProteinStructure
 from fable_bench.stage1_grader import (
@@ -241,11 +248,17 @@ def summarize_inverse(
     }
 
 
+def _grade_single_forward_worker(args_tuple: Tuple[ProteinStructure, str, str, int]) -> ForwardGradeResult:
+    struct, raw_text, pdb_out_str, restarts = args_tuple
+    parsed = parse_forward_folding_response(raw_text, struct.length)
+    return grade_forward_prediction(struct, parsed, out_pdb_path=Path(pdb_out_str), n_restarts=restarts)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Grade Stage 1 predictions and calibration baselines.")
-    parser.add_argument("--data-dir", default="data/stage1_benchmark")
-    parser.add_argument("--pred-dir", default="outputs/predictions")
-    parser.add_argument("--out-dir", default="outputs/results")
+    parser.add_argument("--data-dir", default=str(REPO_ROOT / "data" / "stage1_benchmark"))
+    parser.add_argument("--pred-dir", default=str(REPO_ROOT / "outputs" / "predictions"))
+    parser.add_argument("--out-dir", default=str(REPO_ROOT / "outputs" / "results"))
     parser.add_argument("--run-calibration", action="store_true", help="Run offline oracle & null baselines")
     parser.add_argument("--restarts", type=int, default=3, help="L-BFGS restarts per structure")
     args = parser.parse_args()
@@ -298,21 +311,30 @@ def main() -> None:
                 )
                 i_grades.append(grade_inverse_prediction(struct, ipred))
             inverse_summaries.append(summarize_inverse(inv_mode, i_grades, meta_by_id))
+    else:
+        existing_file = out_dir / "stage1_evaluation_report.json"
+        if existing_file.exists():
+            prev = json.loads(existing_file.read_text(encoding="utf-8"))
+            cal_1a = {"Oracle_TrueContacts", "NoisyOracle_50pctPrec", "Heuristic_1D_LocalOnly", "Null_Random"}
+            cal_1b = {"Heuristic_BurialPolarity", "Null_Uniform20AA"}
+            forward_summaries.extend(x for x in prev.get("stage1a_forward_folding", []) if x.get("model") in cal_1a)
+            inverse_summaries.extend(x for x in prev.get("stage1b_inverse_folding", []) if x.get("model") in cal_1b)
 
     # Grade any LLM or Modal specialist JSONL files in `outputs/predictions/`
     if pred_dir.exists():
+        n_workers = min(8, os.cpu_count() or 4)
         for jf in sorted(pred_dir.glob("*_stage1a.jsonl")):
             mname = jf.name.replace("_stage1a.jsonl", "")
-            print(f"Grading Stage 1A model predictions: {mname} ...")
+            print(f"Grading Stage 1A model predictions ({n_workers} workers): {mname} ...", flush=True)
             rows = [json.loads(l) for l in jf.read_text(encoding="utf-8").splitlines() if l.strip()]
             f_grades = []
+            worker_jobs: List[Tuple[ProteinStructure, str, str, int]] = []
             for r in rows:
                 tid = r["target_id"]
                 if tid not in structures:
                     continue
                 struct = structures[tid]
                 if "precomputed_tm_score" in r:
-                    # Direct 3D structure predictor from Modal (e.g. ESMFold)
                     f_grades.append(
                         ForwardGradeResult(
                             target_id=tid,
@@ -335,11 +357,11 @@ def main() -> None:
                         )
                     )
                 else:
-                    parsed = parse_forward_folding_response(r["text"], struct.length)
-                    pdb_out = recon_pdb_dir / f"{mname}__{tid}.pdb"
-                    f_grades.append(
-                        grade_forward_prediction(struct, parsed, out_pdb_path=pdb_out, n_restarts=args.restarts)
-                    )
+                    pdb_out = str(recon_pdb_dir / f"{mname}__{tid}.pdb")
+                    worker_jobs.append((struct, r["text"], pdb_out, args.restarts))
+            if worker_jobs:
+                with ProcessPoolExecutor(max_workers=n_workers) as pool:
+                    f_grades.extend(pool.map(_grade_single_forward_worker, worker_jobs))
             forward_summaries.append(summarize_forward(mname, f_grades, meta_by_id))
 
         for jf in sorted(pred_dir.glob("*_stage1b.jsonl")):

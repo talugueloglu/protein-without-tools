@@ -17,10 +17,15 @@ import argparse
 from collections import defaultdict
 import json
 from pathlib import Path
+import sys
 from typing import Any, Dict, List
 
 import matplotlib.pyplot as plt
 import numpy as np
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from fable_bench.alanine_scan import (
     AA_TO_ALA_LOOKUP_DDG,
@@ -180,9 +185,9 @@ def plot_alanine_overview(summaries: List[Dict[str, Any]], out_png: Path) -> Non
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", default="data/alanine_scan_benchmark")
-    parser.add_argument("--pred-dir", default="outputs/predictions")
-    parser.add_argument("--out-dir", default="outputs/results")
+    parser.add_argument("--data-dir", default=str(REPO_ROOT / "data" / "alanine_scan_benchmark"))
+    parser.add_argument("--pred-dir", default=str(REPO_ROOT / "outputs" / "predictions"))
+    parser.add_argument("--out-dir", default=str(REPO_ROOT / "outputs" / "results"))
     parser.add_argument("--run-calibration", action="store_true")
     args = parser.parse_args()
 

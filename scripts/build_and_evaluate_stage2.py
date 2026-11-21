@@ -559,15 +559,19 @@ def evaluate_stage2_all(
                     obj = json.loads(line)
                     k = str(obj.get("pair_id") or obj.get("target_id") or "")
                     raw_map[k] = str(obj.get("text") or "")
+            eval_pairs = [p for p in pairs if p.pair_id in raw_map]
+            if not eval_pairs:
+                continue
             parsed_scores = []
             n_ok = 0
-            for p in pairs:
+            for p in eval_pairs:
                 pr = parse_remote_homology_response(raw_map.get(p.pair_id, ""))
                 if pr.parse_ok:
                     n_ok += 1
                 parsed_scores.append(pr.prob_homolog)
-            metrics = evaluate_homology_predictions(pairs, parsed_scores)
-            metrics["parse_rate"] = round(n_ok / float(max(1, len(pairs))), 4)
+            metrics = evaluate_homology_predictions(eval_pairs, parsed_scores)
+            metrics["n_evaluated"] = len(eval_pairs)
+            metrics["parse_rate"] = round(n_ok / float(max(1, len(eval_pairs))), 4)
             s2a_leaderboard[tag] = metrics
 
     # === 2. Stage 2B CAFA Offline Baselines ===
@@ -676,8 +680,20 @@ def evaluate_stage2_all(
                     if ok:
                         n_ok += 1
                     pred_map[tid] = pmap
-            m = _grade_cafa_model(pred_map)
-            m["parse_rate"] = round(n_ok / float(max(1, len(cafa_targets))), 4)
+            eval_cafa = [t for t in cafa_targets if t.target_id in pred_map]
+            if not eval_cafa:
+                continue
+            f_vals_m, wf_vals_m = [], []
+            m: Dict[str, Any] = {}
+            for asp in ("MF", "BP", "CC"):
+                am = compute_cafa_fmax(dag, eval_cafa, pred_map, aspect=asp, ic_map=ic_map)
+                m[asp] = am
+                f_vals_m.append(am["fmax"])
+                wf_vals_m.append(am["wfmax"])
+            m["macro_fmax"] = round(float(np.mean(f_vals_m)), 4)
+            m["macro_wfmax"] = round(float(np.mean(wf_vals_m)), 4)
+            m["n_evaluated"] = len(eval_cafa)
+            m["parse_rate"] = round(n_ok / float(max(1, len(eval_cafa))), 4)
             s2b_leaderboard[tag] = m
 
     report = {
