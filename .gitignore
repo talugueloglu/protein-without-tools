@@ -17,5 +17,6 @@ data/raw_stage2_cache/
 data/raw_stage3b_cache/
 outputs/api_cache/
 outputs/batches/
+outputs/colab/
 outputs/results/reconstructed_pdbs/
 outputs/figures/stage1_interactive_3d.html

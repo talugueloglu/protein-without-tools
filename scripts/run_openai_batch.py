@@ -31,13 +31,18 @@ if str(REPO_ROOT / "src") not in sys.path:
 
 from fable_bench.llm_client import UnifiedLLMRunner
 
-LOCAL_STAGE_FILES = [
-    ("stage1a", "stage1a_forward_prompts.jsonl"),
-    ("stage2a", "stage2a_homology_prompts.jsonl"),
-    ("stage2b", "stage2b_cafa_prompts.jsonl"),
-    ("stage3a", "stage3a_alanine_prompts.jsonl"),
-    ("stage6_binding", "stage6_binding_alanine_prompts.jsonl"),
-]
+STAGE_ID_MAP = {
+    "1": ("stage1a", "stage1a_forward_prompts.jsonl"),
+    "2": ("stage1b", "stage1b_inverse_prompts.jsonl"),
+    "3": ("stage2a", "stage2a_homology_prompts.jsonl"),
+    "4": ("stage2b", "stage2b_cafa_prompts.jsonl"),
+    "5": ("stage3a", "stage3a_alanine_prompts.jsonl"),
+    "6": ("stage6_binding", "stage6_binding_alanine_prompts.jsonl"),
+    "7": ("stage3b", "stage3b_denovo_prompts.jsonl"),
+}
+
+LOCAL_STAGE_FILES = [STAGE_ID_MAP[k] for k in ("1", "3", "4", "5", "6")]
+ALL_STAGE_FILES = [STAGE_ID_MAP[k] for k in ("1", "2", "3", "4", "5", "6", "7")]
 
 # 50%-discounted Batch API per-million-token rates (Input, Output)
 BATCH_PRICING_USD_PER_MTOK: Dict[str, tuple[float, float]] = {
@@ -56,11 +61,11 @@ EFFORT_TO_TAG_BUDGET = {
 }
 
 
-def get_batch_input_path(model: str, effort: str) -> Path:
+def get_batch_input_path(model: str, effort: str, stages_key: str = "13456") -> Path:
     bdir = REPO_ROOT / "outputs" / "batches"
     bdir.mkdir(parents=True, exist_ok=True)
     safe = model.replace("/", "_")
-    return bdir / f"{safe}_{effort}_13456_batch_input.jsonl"
+    return bdir / f"{safe}_{effort}_{stages_key}_batch_input.jsonl"
 
 
 def prepare_batch_jsonl(
@@ -68,14 +73,18 @@ def prepare_batch_jsonl(
     effort: str,
     max_completion_tokens: int = 32768,
     skip_cached: bool = False,
+    stages: str = "1,3,4,5,6",
 ) -> Path:
     pdir = REPO_ROOT / "outputs" / "prompts"
-    out_path = get_batch_input_path(model, effort)
+    skeys = [s.strip() for s in stages.split(",") if s.strip()]
+    stage_files = [STAGE_ID_MAP[k] for k in skeys]
+    stages_tag = "".join(skeys)
+    out_path = get_batch_input_path(model, effort, stages_tag)
     tb = EFFORT_TO_TAG_BUDGET.get(effort, 4096)
     runner = UnifiedLLMRunner()
     lines: List[str] = []
     skipped = 0
-    for stage_sfx, fn in LOCAL_STAGE_FILES:
+    for stage_sfx, fn in stage_files:
         for ln in (pdir / fn).read_text(encoding="utf-8").splitlines():
             if not ln.strip():
                 continue
@@ -113,10 +122,11 @@ def _api_key() -> str:
     return key
 
 
-def submit_batch(model: str, effort: str) -> Dict[str, Any]:
-    in_path = get_batch_input_path(model, effort)
+def submit_batch(model: str, effort: str, stages: str = "1,3,4,5,6") -> Dict[str, Any]:
+    skeys = [s.strip() for s in stages.split(",") if s.strip()]
+    in_path = get_batch_input_path(model, effort, "".join(skeys))
     if not in_path.exists():
-        in_path = prepare_batch_jsonl(model, effort)
+        in_path = prepare_batch_jsonl(model, effort, stages=stages)
 
     key = _api_key()
     headers = {"Authorization": f"Bearer {key}"}
@@ -213,7 +223,7 @@ def collect_batch(batch_id: str, model_override: str | None = None, effort_overr
     # Map prompt metadata (task, length) for full compatibility with `evaluate_local_13456.py`
     pdir = REPO_ROOT / "outputs" / "prompts"
     prompt_info: Dict[str, Dict[str, Any]] = {}
-    for stage_sfx, fn in LOCAL_STAGE_FILES:
+    for stage_sfx, fn in ALL_STAGE_FILES:
         for ln in (pdir / fn).read_text(encoding="utf-8").splitlines():
             if ln.strip():
                 o = json.loads(ln)
@@ -270,7 +280,9 @@ def collect_batch(batch_id: str, model_override: str | None = None, effort_overr
     odir.mkdir(parents=True, exist_ok=True)
     runner = UnifiedLLMRunner()
 
-    for stage_sfx, fn in LOCAL_STAGE_FILES:
+    for stage_sfx, fn in ALL_STAGE_FILES:
+        if stage_sfx not in by_stage:
+            continue
         items_by_tid = {x["target_id"]: x for x in by_stage.get(stage_sfx, [])}
         # Fill any previously cached live items so partial/skip-cached batches produce complete stage files
         merged_items: List[Dict[str, Any]] = []
@@ -313,15 +325,16 @@ def main() -> None:
     parser.add_argument("--wait", action="store_true", help="Poll every 60s until completed, then auto-collect")
     parser.add_argument("--model", default="gpt-6.2-astra")
     parser.add_argument("--effort", default="high", choices=["low", "medium", "high", "xhigh"])
+    parser.add_argument("--stages", default="1,3,4,5,6", help="Comma-separated test IDs, e.g. 2,7")
     parser.add_argument("--batch-id", help="Batch ID (defaults to latest in outputs/batches/active_batches.json)")
     args = parser.parse_args()
 
     if args.prepare:
-        prepare_batch_jsonl(args.model, args.effort, skip_cached=args.skip_cached)
+        prepare_batch_jsonl(args.model, args.effort, skip_cached=args.skip_cached, stages=args.stages)
         return
 
     if args.submit:
-        submit_batch(args.model, args.effort)
+        submit_batch(args.model, args.effort, stages=args.stages)
         return
 
     bid = args.batch_id
