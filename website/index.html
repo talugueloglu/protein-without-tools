@@ -69,6 +69,31 @@
   .affils{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;
     justify-content:center;gap:4px 22px;margin-bottom:6px;}
   .note-sm{font-size:13px;color:var(--muted);}
+  details.disc{border:1px solid var(--rule);border-radius:10px;margin:0;}
+  details.disc>summary{list-style:none;cursor:pointer;position:relative;padding:15px 46px 15px 18px;border-radius:9px;}
+  details.disc>summary::-webkit-details-marker{display:none;}
+  details.disc>summary::after{content:'';position:absolute;right:20px;top:50%;width:7px;height:7px;
+    border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);
+    transform:translateY(-75%) rotate(45deg);transition:transform .16s ease;}
+  details.disc[open]>summary::after{transform:translateY(-25%) rotate(-135deg);}
+  details.disc[open]>summary{border-radius:9px 9px 0 0;}
+  details.disc>summary:hover{background:var(--soft);border-radius:9px;}
+  details.disc[open]>summary:hover{border-radius:9px 9px 0 0;}
+  .disc-t{display:block;font-family:var(--serif);font-size:18.5px;color:var(--ink);}
+  .disc-s{display:block;font-size:13.5px;color:var(--muted);margin-top:3px;}
+  .disc-b{padding:2px 18px 20px;border-top:1px solid var(--rule2);}
+  .disc-blk{scroll-margin-top:86px;border-radius:6px;padding:4px 10px 6px;margin:0 -10px;}
+  .disc-blk p:last-child{margin-bottom:2px;}
+  .disc-h{font-family:var(--sans);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:24px 0 10px;scroll-margin-top:86px;
+    padding-bottom:7px;border-bottom:1px solid var(--rule2);}
+  .disc-blk:first-of-type .disc-h,.disc-b>.disc-h:first-of-type{margin-top:16px;}
+  .disc-intro{margin-top:16px;}
+  a.star{color:var(--link);text-decoration:none;font-size:13px;vertical-align:super;
+    line-height:0;padding:0 1px 0 3px;}
+  a.star:hover{text-decoration:underline;}
+  .prep-flash{animation:prepflash 1.1s ease;}
+  @keyframes prepflash{0%,55%{background:rgba(27,75,143,.07);}100%{background:transparent;}}
   header.hero .blurb{max-width:62ch;margin:14px auto 18px;color:var(--body);font-size:17.5px;line-height:1.6;}
   header.hero .authors{margin:0 0 28px;}
 
@@ -87,7 +112,8 @@
   .muted{color:var(--muted);}
 
   /* tables */
-  table.plain{width:100%;border-collapse:collapse;font-size:14.5px;}
+  table.plain{width:100%;border-collapse:collapse;font-size:15px;}
+  .disc-b table.plain{font-size:14px;}
   table.plain th{text-align:left;font-weight:600;color:var(--ink);padding:8px 12px 8px 0;
     border-bottom:1px solid var(--ink);white-space:nowrap;}
   table.plain td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule2);vertical-align:top;}
@@ -250,7 +276,8 @@
   .ds-table .mono{font-family:var(--mono);font-size:11.5px;color:var(--ink);}
   .ds-table .num{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;}
   .strat{font-size:12.5px;color:var(--muted);}
-  .ds-key{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:10px;}
+  .ds-key{font-family:var(--mono);font-size:11.5px;color:var(--muted);}
+  .ds-field .ds-key{font-size:11px;margin-left:10px;}
   .ds-detail{border:1px solid var(--rule);border-radius:4px;padding:16px;
     max-height:560px;overflow:auto;background:#fff;}
   .ds-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
@@ -290,7 +317,7 @@
     <span class="navlinks">
       <a href="#abstract">Abstract</a>
       <a href="#explorer">Tasks</a>
-      <a href="#novelty">Novelty</a>
+      <a href="#prep">Data</a>
       <a href="#results">Results</a>
       <a href="#dataset">Datapoints</a>
       <a href="#code">Code</a>
@@ -330,7 +357,7 @@
   <section id="abstract">
     <h2>Abstract</h2>
     <p>A protein is a linear chain of amino acids that folds without help into one particular three-dimensional shape, and nearly everything it does — catalysing a reaction, recognising a partner, carrying a signal — follows from that shape. Three questions sit at the centre of the field: what structure does a given chain adopt, what chain would produce a structure you want, and how much does changing a single residue cost in stability or in binding. All three are physics problems about packing, hydrogen bonding and burial of hydrophobic surface, and none of them is answerable by reading the amino-acid letters one at a time.</p>
-    <p>Language models are trained on protein sequences together with the literature and databases that describe them, so a model can produce a correct-looking answer either by reasoning about that physics or by recalling a structure it has already read. ProteinBench is built to tell those apart. It is an eight-task suite of 522 targets covering forward folding, inverse folding on backbones stripped to bare coordinates, twilight-zone remote homology below 15% sequence identity, function prediction against 2026 experimental annotations, alanine-scan ranking in monomers and across interfaces, <em>de novo</em> fold and motif design, and sixteen-round closed-loop binder design against an AlphaFold2 oracle.</p>
+    <p>Language models are trained on protein sequences together with the literature and databases that describe them, so a model can produce a correct-looking answer either by reasoning about that physics or by recalling a structure it has already read. ProteinBench is built to tell those apart. It is an eight-task suite of 522 targets covering forward folding, inverse folding on backbones stripped to bare coordinates, twilight-zone remote homology below 15% sequence identity, function prediction against experimentally evidenced annotation, alanine-scan ranking in monomers and across interfaces, <em>de novo</em> fold and motif design, and sixteen-round closed-loop binder design against an AlphaFold2 oracle.</p>
     <p>Two devices do the separating. Targets are stratified by how far each one sits from anything that existed before the training cutoff, measured structurally rather than assumed from a deposition date. And every ranking panel pairs each true hotspot with a neutral decoy of the same amino acid, which holds any method reading only the residue letter to a 50% win rate. Models run in a no-code track — weights and chain-of-thought only — and a with-code track with air-gapped NumPy and SciPy, which separates arithmetic limits from missing biophysics.</p>
   </section>
 
@@ -340,23 +367,109 @@
     <div id="task-panel"></div>
   </section>
 
-  <section id="novelty">
-    <h2>How folding targets are stratified</h2>
-    <p>Tasks 1 and 2 share the same 100 proteins, and the entire argument of this benchmark rests on how those 100 are split. A deposition date alone is not enough: a structure released in September 2026 can be a routine variant of something solved in 2004, in which case predicting it needs no new physics at all. So novelty is measured structurally.</p>
-    <p>Every candidate was searched against the whole pre-May-2026 PDB, and the best TM-score to any chain in it becomes that target's novelty coordinate. TM-score runs from 0 to 1 and is length-normalised; above roughly 0.5 two chains are held to share a fold, below about 0.3 the similarity is no better than two random chains of the same size. Targets are then binned along that coordinate, except that designed proteins are separated first by provenance, because they have no natural ancestry whatever their coordinate says.</p>
+  <section id="prep">
+    <details class="disc" id="prep-d">
+    <summary><span class="disc-t">How the data is prepared</span><span class="disc-s">Target selection, how novelty is measured, and the holdout split behind every figure</span></summary>
+    <div class="disc-b">
+    <p class="disc-intro">Each task was built and split separately. What they share: every prompt is stripped of PDB identifiers, gene symbols, organism names and multiple-sequence alignments, so nothing in the input names the protein, and every stratum below is a filter in the datapoint browser. 522 targets, 702 model calls per track.</p>
+
+    <div class="disc-blk" id="prep-t1">
+    <h3 class="disc-h">Task 1 &middot; Forward folding &mdash; 100 targets</h3>
+    <p>A deposition date alone is not enough to call a target novel: a structure released in September 2026 can be a routine variant of something solved in 2004, in which case predicting it needs no new physics. So novelty is measured structurally. Every candidate was searched against the whole pre-May-2026 PDB, and the best TM-score to any chain in it becomes that target's novelty coordinate. TM-score runs from 0 to 1 and is length-normalised; above roughly 0.5 two chains are held to share a fold, below about 0.3 the similarity is no better than two random chains of the same size. Targets are binned along that coordinate, except that designed proteins are separated first by provenance, because they have no natural ancestry whatever their coordinate says.</p>
     <div style="overflow-x:auto">
     <table class="plain">
       <thead><tr><th>Stratum</th><th class="r">n</th><th>Deposited</th><th>Best pre-cutoff match</th><th>What it tests</th></tr></thead>
       <tbody>
-        <tr><td><b>Known</b> (pre-2026)</td><td class="r">15</td><td>1987 – 2020</td><td>TM 0.87 – 1.00</td><td>The positive control. These structures were public for years and almost certainly sit in the training data; the entry itself is usually its own best match. If a model is recalling rather than folding, this column rises above the others.</td></tr>
-        <tr><td><b>Homolog gradient</b></td><td class="r">12</td><td>2026</td><td>TM 0.65 – 0.94</td><td>New entries with a close relative already solved before the cutoff. The fold is reachable by analogy, so this measures how well a model transfers a template it has seen to a sequence it has not.</td></tr>
-        <tr><td><b>PDB-novel</b></td><td class="r">27</td><td>2026</td><td>TM 0.53 – 0.81</td><td>Natural proteins new to the PDB with only partial structural precedent — a familiar architecture assembled in an unfamiliar way. The commonest real-world case.</td></tr>
-        <tr><td><b><em>De novo</em></b></td><td class="r">28</td><td>2026</td><td>TM 0.45 – 0.91</td><td>Computationally designed proteins with no evolutionary history at all. Their coordinates can still resemble natural folds, because designers build from idealised helices and sheets, but there is no homolog to recall and no literature describing them.</td></tr>
-        <tr><td><b>Truly novel</b></td><td class="r">18</td><td>2026</td><td>TM 0.33 – 0.53</td><td>Nothing in the pre-cutoff PDB reaches the same-fold line. Getting these right cannot be explained by retrieval, which makes this the stratum that actually tests folding.</td></tr>
+        <tr><td><b>Known</b> (pre-2026)</td><td class="r">15</td><td>1987 &ndash; 2020</td><td>TM 0.87 &ndash; 1.00</td><td>The positive control. These structures were public for years and almost certainly sit in the training data; the entry itself is usually its own best match. If a model is recalling rather than folding, this column rises above the others.</td></tr>
+        <tr><td><b>Homolog gradient</b></td><td class="r">12</td><td>2026</td><td>TM 0.65 &ndash; 0.94</td><td>New entries with a close relative already solved before the cutoff. The fold is reachable by analogy, so this measures how well a model transfers a template it has seen to a sequence it has not.</td></tr>
+        <tr><td><b>PDB-novel</b></td><td class="r">27</td><td>2026</td><td>TM 0.53 &ndash; 0.81</td><td>Natural proteins new to the PDB with only partial structural precedent, a familiar architecture assembled in an unfamiliar way. The commonest real-world case.</td></tr>
+        <tr><td><b><em>De novo</em></b></td><td class="r">28</td><td>2026</td><td>TM 0.45 &ndash; 0.91</td><td>Computationally designed proteins with no evolutionary history at all. Their coordinates can still resemble natural folds, because designers build from idealised helices and sheets, but there is no homolog to recall and no literature describing them.</td></tr>
+        <tr><td><b>Truly novel</b></td><td class="r">18</td><td>2026</td><td>TM 0.33 &ndash; 0.53</td><td>Nothing in the pre-cutoff PDB reaches the same-fold line. Getting these right cannot be explained by retrieval, which makes this the stratum that actually tests folding.</td></tr>
       </tbody>
     </table>
     </div>
-    <p class="small muted">The other six tasks carry their own holdout logic: remote homology is split by which search method fails, function prediction by annotation date, interface ranking by whether the complex predates 2026, and binder design by whether the epitope has a published binder. Each is shown on its own figure below and is filterable in the datapoint browser.</p>
+    </div>
+
+    <div class="disc-blk" id="prep-t2">
+    <h3 class="disc-h">Task 2 &middot; Inverse folding &mdash; 100 targets</h3>
+    <p>Deliberately the same 100 proteins as task 1, in the same five strata, so the two directions can be compared on identical material. The preparation step is destructive rather than selective: every side chain is deleted, every residue is relabelled UNK, and only the C&alpha; trace survives into the prompt, along with backbone dihedrals and a per-residue burial value computed from the coordinates. Because the grader refolds the designed sequence with ESMFold-2, the wild-type sequence was put through the identical pipeline first; its score is the ceiling drawn on the figure, and it is well below 1.0.</p>
+    </div>
+
+    <div class="disc-blk" id="prep-t3">
+    <h3 class="disc-h">Task 3 &middot; Remote homology &mdash; 120 pairs</h3>
+    <p>Pairs come from SCOPe, and difficulty was defined by <em>which search method fails</em>, not by sequence identity. That distinction matters: rungs 2 and 3 sit at the same identity, around 11%, and are separated only by whether structure search still finds the relationship. Thirty pairs per rung, with a fourth rung of negatives matched on structural class and identity so the decision cannot be made on either. One caveat on provenance: each pair ships with its SCOPe families, sequence identity and Smith&ndash;Waterman bit score, but the Foldseek E-values that drew the line between rungs 2 and 3 are not carried in the released records, so that boundary has to be taken from the construction rather than re-derived from the file.</p>
+    <div style="overflow-x:auto">
+    <table class="plain">
+      <thead><tr><th>Rung</th><th class="r">n</th><th>Sequence identity</th><th>Selection rule</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 &middot; Sequence-easy</b></td><td class="r">30</td><td>18 &ndash; 38%, median 23%</td><td>Same SCOPe superfamily, and a Smith&ndash;Waterman alignment already finds it. Everything saturates here; the rung exists to prove the panel is answerable.</td></tr>
+        <tr><td><b>2 &middot; Structure-caught</b></td><td class="r">30</td><td>9 &ndash; 14%, median 11%</td><td>Same superfamily, sequence alignment fails, but Foldseek's 3Di structural alphabet still recovers the link.</td></tr>
+        <tr><td><b>3 &middot; Deep twilight</b></td><td class="r">30</td><td>8 &ndash; 16%, median 11%</td><td>Same superfamily and both methods fail. Only fold topology is left, which is what the task is actually for.</td></tr>
+        <tr><td><b>4 &middot; Matched decoy</b></td><td class="r">30</td><td>9 &ndash; 14%, median 11%</td><td>Different superfamilies, same structural class, same identity range as rungs 2 and 3. Answering &ldquo;related&rdquo; to everything scores nothing.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+
+    <div class="disc-blk" id="prep-t4">
+    <h3 class="disc-h">Task 4 &middot; Function prediction &mdash; 60 proteins</h3>
+    <p>Here the holdout is an annotation date rather than a structure. Proteins were taken from QuickGO on the condition that the Gene Ontology terms grading them carry experimental evidence codes rather than electronic inference, and each target records the date its annotation was released.</p>
+    <p><b>Those dates do not line up with the stratum names, and the gap is worth stating plainly.</b> The stratum called <span class="ds-key">post_may_2026</span> holds 11 targets, but only 7 of them are dated after May 2026, all on 2026-07-25; the other four are dated 2025-11-19 and 2026-03-31, which is before the cutoff. The <span class="ds-key">early_2026_uniprot</span> stratum holds 49, spanning 2022-02-03 to 2026-01-08, and 47 of those share the single date 2025-10-27, which looks like one bulk annotation release rather than 47 independent events.</p>
+    <p>So the genuine post-cutoff holdout on this task is <b>7 proteins, not 11</b>, and the two-column split in figure 4 is a weaker instrument than its labels suggest. The right reading of that figure is that the difference between its columns is not evidence of much either way; the task is included for the information-content-weighted scoring and the experimental-evidence requirement, not as a memorisation probe.</p>
+    </div>
+
+    <div class="disc-blk" id="prep-t5">
+    <h3 class="disc-h">Task 5 &middot; Monomer alanine ranking &mdash; 52 panels</h3>
+    <p>Each protein contributes an 18-candidate panel drawn from its full set of positions, built so that six are true hotspots, six are moderate and six are decoys chosen to share an amino acid with a hotspot. That pairing, a buried leucine against a surface leucine, is what pins any method reading only the residue letter to a 50% win rate. The 52 panels come from four sources, and they are not graded on the same quantity, which is worth knowing before comparing them.</p>
+    <div style="overflow-x:auto">
+    <table class="plain">
+      <thead><tr><th>Source</th><th class="r">n</th><th>Measured quantity</th></tr></thead>
+      <tbody>
+        <tr><td><b><em>De novo</em> miniproteins</b></td><td class="r">24</td><td>&Delta;&Delta;G of folding, MegaScale. Designed sequences with no natural homolog and no literature.</td></tr>
+        <tr><td><b>Natural proteins</b></td><td class="r">14</td><td>&Delta;&Delta;G of folding on well-studied natural folds, where the effects are larger and the proteins are described in print.</td></tr>
+        <tr><td><b>MaveDB deep scans</b></td><td class="r">12</td><td>Activity from deep mutational scanning published after the cutoff, not free energy. A functional readout, so a residue can matter for catalysis without mattering for stability.</td></tr>
+        <tr><td><b>Stability and function</b></td><td class="r">2</td><td>Both quantities measured on the same protein, which is the only place the two can be told apart directly.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+
+    <div class="disc-blk" id="prep-t6">
+    <h3 class="disc-h">Task 6 &middot; Interface binding ranking &mdash; 38 complexes</h3>
+    <p>Candidates are interface positions with measured &Delta;&Delta;G of binding. Before a panel is built, any mutation that also destabilises the monomer is filtered out, so a model cannot score by predicting folding instead of recognition. The split is by whether a structure of that complex was in the PDB before 2026: 31 were, 7 were not. The second group is small, and the figure should be read accordingly; it is an indication rather than a measurement, and widening it depends on new complexes being solved.</p>
+    </div>
+
+    <div class="disc-blk" id="prep-t7">
+    <h3 class="disc-h">Task 7 &middot; De novo and motif design &mdash; 40 specifications</h3>
+    <p>Specifications were written rather than sampled, which means there is no ground-truth structure to compare against, only a request and a set of gates. All 40 pass the same five gates, and a design counts only if it clears every one, so the lowest gate decides the score. Two kinds of specification, graded on different final criteria.</p>
+    <div style="overflow-x:auto">
+    <table class="plain">
+      <thead><tr><th>Kind</th><th class="r">n</th><th>Requested length</th><th>Final gate</th></tr></thead>
+      <tbody>
+        <tr><td><b>Fold-conditioned</b></td><td class="r">24</td><td>64 &ndash; 136 residues</td><td>A topology and secondary-structure string to realise; the refolded design must reach TM &ge; 0.50 against the requested fold.</td></tr>
+        <tr><td><b>Motif scaffolding</b></td><td class="r">16</td><td>70 &ndash; 128 residues</td><td>A crystal motif whose geometry must be held while the rest is invented; motif RMSD must stay &le; 1.5 &Aring;.</td></tr>
+      </tbody>
+    </table>
+    <p class="small muted" style="margin-top:10px">The shared gates are sequence hygiene, novelty against known proteins, agreement with the requested secondary structure, and refolding confidence at pLDDT &ge; 80, scored with ESMFold-2 and OpenFold3.</p>
+    </div>
+    </div>
+
+    <div class="disc-blk" id="prep-t8">
+    <h3 class="disc-h">Task 8 &middot; Closed-loop binder design &mdash; 12 epitopes</h3>
+    <p>Each epitope is a target chain with five hotspot residues named, and the model gets sixteen attempts at a 55&ndash;85 residue binder, with an AlphaFold2 interface score returned after each one. The twelve were drawn from three different places, and only the third is a date-based holdout; for the first two, what distinguishes them is which existing design benchmark they come from.</p>
+    <div style="overflow-x:auto">
+    <table class="plain">
+      <thead><tr><th>Group</th><th class="r">n</th><th>Target structures</th><th>Why it is in the set</th></tr></thead>
+      <tbody>
+        <tr><td><b>ProtDBench classic</b></td><td class="r">4</td><td style="white-space:nowrap">PD-L1, TrkA, IL-7R&alpha;, PDGFR&beta;<br><span class="muted">PDB 5O45, 1WWW, 3DI3, 3MJG &middot; 2001&ndash;2017</span></td><td>Standard targets from an existing protein-design benchmark. Long solved and much worked on, so this group is the one where prior art is most likely to help.</td></tr>
+        <tr><td><b>BoltzProt1 novel</b></td><td class="r">5</td><td style="white-space:nowrap">AMBP, GM2A, HNMT, MZB1, RFK<br><span class="muted">PDB 3QKG, 1G13, 1JQD, 7AAH, 1NB0 &middot; 2001&ndash;2021</span></td><td>Long-solved structures selected as novel binder targets. The fold is familiar; the design problem is not a standard one.</td></tr>
+        <tr><td><b>Post-May-2026 crystal</b></td><td class="r">3</td><td style="white-space:nowrap">LEDGF PWWP, Aurora A, MCL1<br><span class="muted">PDB 9S83, 9RVK, 9TLV &middot; all 2026</span></td><td>The only true holdout of the three. Deposited after the cutoff, so neither the complex nor its binder could have been read.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </details>
   </section>
 
   <section id="results">
@@ -388,7 +501,7 @@
     <div class="ds-split">
       <div class="ds-tablewrap">
         <table class="ds-table">
-          <thead><tr><th data-sort="t">Task</th><th data-sort="id">Target ID</th><th data-sort="src">Source</th><th data-sort="st">Holdout stratum</th><th data-sort="len">Length</th></tr></thead>
+          <thead><tr><th data-sort="t">Task</th><th data-sort="id">Target ID</th><th data-sort="src">Source</th><th data-sort="st">Holdout stratum<a class="star" href="#prep" title="How the data is prepared">*</a></th><th data-sort="len">Length</th></tr></thead>
           <tbody id="ds-body"></tbody>
         </table>
       </div>
@@ -1222,10 +1335,34 @@ function legend(items) {
   }).join('') + '</div>';
 }
 
+function star(t) {
+  var id = t ? 'prep-t' + t : 'prep';
+  return '<a class="star" href="#' + id + '" title="How this task\'s data is prepared">*</a>';
+}
+var STAR = star(0);
+function openPrep(ev, href) {
+  if (ev) ev.preventDefault();
+  var d = document.getElementById('prep-d');
+  if (!d) return;
+  d.open = true;
+  var id = (href || '#prep').replace('#', '');
+  var go = function(){
+    var t = (id === 'prep' ? d : document.getElementById(id)) || d;
+    if (!t) return;
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 86, behavior: 'smooth' });
+    t.classList.remove('prep-flash'); void t.offsetWidth; t.classList.add('prep-flash');
+  };
+  if (window.requestAnimationFrame) window.requestAnimationFrame(go); else go();
+}
+if (document.addEventListener) document.addEventListener('click', function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest('a.star') : null;
+  if (a) openPrep(ev, a.getAttribute('href'));
+});
+
 function metaHtml(rows) {
   if (!rows || !rows.length) return '';
   return '<div class="xp-meta">' + rows.filter(function(r){ return r && r[1] !== undefined && r[1] !== null && r[1] !== ''; })
-    .map(function(r){ return '<div><span>' + esc(r[0]) + '</span><b>' + esc(r[1]) + '</b></div>'; })
+    .map(function(r){ return '<div><span>' + esc(r[0]) + (r[2] ? star(r[2]) : '') + '</span><b>' + esc(r[1]) + '</b></div>'; })
     .join('') + '</div>';
 }
 function isoDate(d) {
@@ -1255,7 +1392,7 @@ var TASK_BLURB = {
   '1':'One anonymised sequence goes in — no PDB code, no gene name, no organism, no alignment. The model predicts which residue pairs touch in space and which stretches are helix, strand or loop; those two predictions are folded into coordinates and superposed on the real structure. The example below is coloured by predicted secondary structure, with its contact map beside it.',
   '2':'The same problem run backwards. The backbone arrives as bare Cα coordinates with every side chain removed and every residue relabelled UNK, and the model writes a sequence it believes would fold into that shape. ESMFold-2 folds the design and the result is compared back to the input. Colour here is burial: exposed surface through to buried core, which is the signal a designer has to read.',
   '3':'Two sequences, frequently below 15% identical, and one question: do they descend from the same fold? At this depth the alignment itself carries almost no signal, as the example shows — matching residues are scattered and the shared ancestry is visible only in topology.',
-  '4':'One sequence with the organism and gene name stripped out. The model predicts Gene Ontology terms, graded against experimental annotation released during 2026, after the training data ends. Scoring is weighted by information content, so a specific term is worth many times a vague one.',
+  '4':'One sequence with the organism and gene name stripped out. The model predicts Gene Ontology terms, graded only against annotation carrying experimental evidence codes rather than electronic inference. Scoring is weighted by information content, so a specific term is worth many times a vague one. Note that only 7 of these 60 targets are annotated after the training cutoff.',
   '5':'Eighteen candidate mutations to alanine in a single protein, ranked by how much each destabilises the fold. Half the panel is decoys chosen to share an amino acid with a true hotspot, so reading the residue letter alone cannot beat chance. The structure is coloured by measured destabilisation.',
   '6':'The same ranking exercise across a protein–protein interface, scored on measured binding free energy. Mutations that merely unfold the monomer are filtered out first, so what is left tests recognition between two chains rather than the stability of one.',
   '7':'A specification to realise: either a fold described in words and secondary structure, or a crystal motif whose geometry must be held exactly while the rest of the protein is invented around it. Five independent gates decide whether a design counts.',
@@ -1429,7 +1566,7 @@ function renderExplorer() {
 
   panelEl.innerHTML =
     '<div class="xp-head">' +
-      '<h3>' + activeTask + '. ' + esc(meta.short.replace(/^\d+\.\s*/, '')) + '</h3>' +
+      '<h3>' + activeTask + '. ' + esc(meta.short.replace(/^\d+\.\s*/, '')) + star(activeTask) + '</h3>' +
       '<button class="xp-link" id="xp-all">' + TASK_N[activeTask] + ' targets →</button>' +
     '</div>' +
     '<p class="xp-blurb">' + TASK_BLURB[activeTask] + '</p>' +
@@ -2198,8 +2335,8 @@ function modelSeriesWithBase(baseName, baseKey, valsFor) {
 }
 
 var FIGS = [
- { id:'f1', t:'1. Forward folding',
-   p:['One anonymised sequence goes in. Reasoning models predict residue contacts and secondary structure that are reconstructed to 3D coordinates and superposed on the native fold; ESMFold-2 (drawn in grey) folds the identical single sequence directly with no multiple-sequence alignment. The five clusters are the novelty strata described above.',
+ { id:'f1', t:'1. Forward folding', star:1,
+   p:['One anonymised sequence goes in. Reasoning models predict residue contacts and secondary structure that are reconstructed to 3D coordinates and superposed on the native fold; ESMFold-2 (drawn in grey) folds the identical single sequence directly with no multiple-sequence alignment. The five clusters are the novelty strata set out under How the data is prepared.',
       'ESMFold-2 clears 0.88 TM-score on four of the five strata and dips modestly to 0.82 on truly novel post-cutoff folds. Among the language models, the known pre-2026 column does not stand clear of the post-cutoff strata, and no language-model bar reaches the 0.50 fold-match threshold.'],
    build:function(){
      var ns=stratumN(1);
@@ -2210,7 +2347,7 @@ var FIGS = [
        refs:[{v:0.5,l:'fold match 0.50'}],
        fmt:function(v){return v.toFixed(3);}, aria:'TM-score by novelty stratum with ESMFold-2 baseline' });
    } },
- { id:'f2', t:'2. Inverse folding',
+ { id:'f2', t:'2. Inverse folding', star:2,
    p:['Here the structure is given and the sequence withheld. Every side chain is stripped from the backbone and every residue relabelled UNK, and each method writes a sequence to fold back to that shape; ESMFold-2 refolds every design through the same single-sequence pipeline and superposes the result on the input backbone.',
       'ProteinMPNN (drawn in grey) clears 0.88–0.94 scTM across all five novelty strata — slightly exceeding the 0.885 native wild-type refolding ceiling because it idealises core packing without evolutionary active-site trade-offs. Frontier reasoning models reach 0.43–0.46 mean scTM overall, crossing 0.50 chiefly on idealised de novo backbones.'],
    build:function(){
@@ -2222,7 +2359,7 @@ var FIGS = [
        refs:[{v:0.5,l:'fold match 0.50'}].concat(ref?[{v:ref.v,l:ref.n+' '+ref.v}]:[]),
        fmt:function(v){return v.toFixed(3);}, aria:'Refolding scTM by novelty stratum with ProteinMPNN baseline' });
    } },
- { id:'f3', t:'3. Remote homology',
+ { id:'f3', t:'3. Remote homology', star:3,
    p:['Two sequences, sometimes below 15% identity: do they descend from the same fold? Difficulty runs along the x-axis and every rung is paired against decoys matched for length and structural class, with recall measured at a fixed 10% false-positive rate.',
       'Rung 1 is solvable from sequence similarity and all methods approach saturation there. ESM-2 (650M) embedding cosine similarity (drawn in grey, AUROC 0.756) provides a modern protein language model sequence baseline; the methods separate most sharply at Rung 2 and Rung 3, the deep twilight zone where standard sequence and structure search fail.'],
    build:function(){
@@ -2232,7 +2369,7 @@ var FIGS = [
      return groupedBars({ ylabel:'Recall @ 10% FPR', cats:FIGDATA.t3.rungs,
        series:S, fmt:function(v){return v.toFixed(2);}, aria:'Recall at 10% FPR by rung' });
    } },
- { id:'f4', t:'4. Function prediction',
+ { id:'f4', t:'4. Function prediction', star:4,
    p:['One sequence with the organism and gene name removed; each method predicts Gene Ontology terms, graded against experimental annotations released during 2026 across Molecular Function, Biological Process, and Cellular Component using information-content-weighted wFₘₐₓ.',
       'Smith–Waterman sequence-homology transfer against the pre-2025 Swiss-Prot reference bank (drawn in grey, macro wFₘₐₓ 0.251) is the canonical CAFA BLAST-equivalent baseline; all three frontier reasoning models outperform it across Molecular Function, Biological Process, and Cellular Component.'],
    build:function(){
@@ -2243,7 +2380,7 @@ var FIGS = [
        cats:['Molecular\nfunction','Biological\nprocess','Cellular\ncomponent'],
        series:S, fmt:function(v){return v.toFixed(3);}, aria:'IC-weighted wFmax by GO aspect' });
    } },
- { id:'f5', t:'5. Monomer alanine ranking',
+ { id:'f5', t:'5. Monomer alanine ranking', star:5,
    p:['Eighteen alanine mutations per protein, ranked by how much each destabilises the fold across four experimental regimes: synthetic de novo miniproteins, natural proteins, dual stability-and-function scans, and post-cutoff MaveDB deep mutational scans. Half of each panel consists of same-amino-acid decoys that pin any 1D residue lookup table to 0.50.',
       'ESM-2 (650M) masked marginals, drawn in grey from the identical single sequence, reveal a sharp split by origin: strong on natural evolved folds (NDCG@5 0.707) where homologous families populate UniRef, but dropping to 0.548 on synthetic de novo miniproteins with zero evolutionary history — the one regime where reasoning models pull ahead of the sequence language model.'],
    build:function(){
@@ -2255,7 +2392,7 @@ var FIGS = [
        refs:[{v:0.5,l:'decoy floor 0.50'}], fmt:function(v){return v.toFixed(3);},
        aria:'Monomer alanine ranking NDCG@5 by protein type with ESM-2 650M baseline' });
    } },
- { id:'f6', t:'6. Interface binding ranking',
+ { id:'f6', t:'6. Interface binding ranking', star:6,
    p:['The same ranking exercise across a protein–protein interface, scored against measured changes in binding free energy with monomer-destabilising mutations filtered out beforehand. Spearman ρ compares the predicted ordering of the 18-mutation panel against experiment.',
       'ESM-2 (650M) complex marginals, drawn in grey, stay completely flat between pre-2026 PDB complexes (ρ = 0.162, n=31) and unseen or post-2026 complexes (ρ = 0.159, n=7). By contrast, all three reasoning models score 0.44–0.52 on pre-2026 PDB interfaces and drop back to the ESM-2 baseline (0.10–0.16) when no prior structure exists.'],
    build:function(){
@@ -2270,7 +2407,7 @@ var FIGS = [
        series:S, fmt:function(v){return v===null?'—':v.toFixed(3);},
        aria:'Spearman rho by memorisation stratum with ESM-2 650M baseline' });
    } },
- { id:'f7', t:'7. De novo and motif design',
+ { id:'f7', t:'7. De novo and motif design', star:7,
    p:['Forty design specifications — 24 fold-conditioned monomers and 16 functional motif scaffolds — each put through five independent gates under a strict single-shot budget (one unscreened sequence per task): sequence hygiene, <30% sequence identity to natural parents, cross-oracle agreement between ESMFold-2 and OpenFold3 (scRMSD ≤ 2 Å), fold or motif geometric adherence, and refolding confidence (pLDDT ≥ 80).',
       'Even restricted to a single unscreened sample rather than standard multi-sample filtering, RFdiffusion3 + ProteinMPNN (drawn in grey) hits 48% on fold and sub-1.5 Å motif adherence (mean motif RMSD 1.45 Å vs 12.5% for text models) and reaches 5% single-shot pLDDT ≥ 80 pass rate (mean pLDDT 62.6), whereas all three text reasoning models remain at 0% on refolding confidence.'],
    build:function(){
@@ -2279,7 +2416,7 @@ var FIGS = [
        series:FIGDATA.t7.series.map(function(se){ return {n:MNAME[se.n]||se.n,c:se.base?GRAY1:MCOL[se.n],v:se.v}; }),
        fmt:function(v){return (v*100).toFixed(0)+'%';}, aria:'Design gate pass fractions with RFdiffusion3 + ProteinMPNN baseline' });
    } },
- { id:'f8', t:'8. Closed-loop binder design',
+ { id:'f8', t:'8. Closed-loop binder design', star:8,
    p:['Twelve epitopes, sixteen proposals each, scored by the identical AlphaFold2 initial-guess and ESMFold-2 monomer oracle. Reasoning models propose iteratively using prior-round oracle feedback; BoltzGen (drawn in grey) generates 16 all-atom binder designs against the same target sequence and epitope hotspots, plotted as its unbiased k=1…16 accumulation curve.',
       'All three language-model curves climb across the sixteen feedback rounds, showing genuine in-context refinement from negative oracle evidence, while BoltzGen rises from 0.22 on a single draw to 0.54 across sixteen samples (Hit@16 = 8.3%).'],
    build:function(){
@@ -2295,7 +2432,7 @@ var FIGS = [
        }),
        refs:[{v:0.75,l:'hit threshold 0.75'}], aria:'Closed-loop optimisation trajectory with BoltzGen baseline' });
    } },
- { id:'f9', t:'8b. First shot versus best of sixteen',
+ { id:'f9', t:'8b. First shot versus best of sixteen', star:8,
    p:['The same sixteen-proposal campaigns read as a before-and-after on the AlphaFold2 composite interface score: a single unfiltered proposal (shot 1) against the best design found across all sixteen shots.',
       'Across all three language models and the BoltzGen 3D diffusion baseline, sixteen shots substantially lift interface quality over a single blind draw, while illustrating how stringent the multi-gate on-epitope AlphaFold2 hit threshold (0.75) remains on hard targets.'],
    build:function(){
@@ -2316,7 +2453,7 @@ function renderFigures() {
   host.innerHTML = FIGS.map(function(f){
     var svg='';
     try { svg=f.build(); } catch(e){ svg='<p class="muted small">This figure could not be drawn.</p>'; }
-    return '<figure class="fig" id="'+f.id+'"><h3>'+esc(f.t)+'</h3>'+
+    return '<figure class="fig" id="'+f.id+'"><h3>'+esc(f.t)+(f.star ? star(f.star) : '')+'</h3>'+
            f.p.map(function(x){ return '<p class="fig-p">'+x+'</p>'; }).join('')+
            '<div class="fig-plot">'+svg+'</div></figure>';
   }).join('');
@@ -2406,7 +2543,8 @@ function initDataset() {
     qt = setTimeout(function(){ dsQuery = q.value; dsSel = null; dsRenderTable(); }, 140);
   });
   document.querySelectorAll('.ds-table thead th').forEach(function(th){
-    th.addEventListener('click', function(){
+    th.addEventListener('click', function(ev){
+      if (ev && ev.target && ev.target.closest && ev.target.closest('a.star')) return;
       var k = th.getAttribute('data-sort');
       if (!k) return;
       if (dsSort === k) dsAsc = !dsAsc; else { dsSort = k; dsAsc = true; }

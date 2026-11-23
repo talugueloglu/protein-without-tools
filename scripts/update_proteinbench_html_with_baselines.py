@@ -436,8 +436,8 @@ function modelSeriesWithBase(baseName, baseKey, valsFor) {
 }
 
 var FIGS = [
- { id:'f1', t:'1. Forward folding',
-   p:['One anonymised sequence goes in. Reasoning models predict residue contacts and secondary structure that are reconstructed to 3D coordinates and superposed on the native fold; ESMFold-2 (drawn in grey) folds the identical single sequence directly with no multiple-sequence alignment. The five clusters are the novelty strata described above.',
+ { id:'f1', t:'1. Forward folding', star:1,
+   p:['One anonymised sequence goes in. Reasoning models predict residue contacts and secondary structure that are reconstructed to 3D coordinates and superposed on the native fold; ESMFold-2 (drawn in grey) folds the identical single sequence directly with no multiple-sequence alignment. The five clusters are the novelty strata set out under How the data is prepared.',
       'ESMFold-2 clears 0.88 TM-score on four of the five strata and dips modestly to 0.82 on truly novel post-cutoff folds. Among the language models, the known pre-2026 column does not stand clear of the post-cutoff strata, and no language-model bar reaches the 0.50 fold-match threshold.'],
    build:function(){
      var ns=stratumN(1);
@@ -448,7 +448,7 @@ var FIGS = [
        refs:[{v:0.5,l:'fold match 0.50'}],
        fmt:function(v){return v.toFixed(3);}, aria:'TM-score by novelty stratum with ESMFold-2 baseline' });
    } },
- { id:'f2', t:'2. Inverse folding',
+ { id:'f2', t:'2. Inverse folding', star:2,
    p:['Here the structure is given and the sequence withheld. Every side chain is stripped from the backbone and every residue relabelled UNK, and each method writes a sequence to fold back to that shape; ESMFold-2 refolds every design through the same single-sequence pipeline and superposes the result on the input backbone.',
       'ProteinMPNN (drawn in grey) clears 0.88–0.94 scTM across all five novelty strata — slightly exceeding the 0.885 native wild-type refolding ceiling because it idealises core packing without evolutionary active-site trade-offs. Frontier reasoning models reach 0.43–0.46 mean scTM overall, crossing 0.50 chiefly on idealised de novo backbones.'],
    build:function(){
@@ -460,7 +460,7 @@ var FIGS = [
        refs:[{v:0.5,l:'fold match 0.50'}].concat(ref?[{v:ref.v,l:ref.n+' '+ref.v}]:[]),
        fmt:function(v){return v.toFixed(3);}, aria:'Refolding scTM by novelty stratum with ProteinMPNN baseline' });
    } },
- { id:'f3', t:'3. Remote homology',
+ { id:'f3', t:'3. Remote homology', star:3,
    p:['Two sequences, sometimes below 15% identity: do they descend from the same fold? Difficulty runs along the x-axis and every rung is paired against decoys matched for length and structural class, with recall measured at a fixed 10% false-positive rate.',
       '__T3_PROSE__'],
    build:function(){
@@ -470,7 +470,7 @@ var FIGS = [
      return groupedBars({ ylabel:'Recall @ 10% FPR', cats:FIGDATA.t3.rungs,
        series:S, fmt:function(v){return v.toFixed(2);}, aria:'Recall at 10% FPR by rung' });
    } },
- { id:'f4', t:'4. Function prediction',
+ { id:'f4', t:'4. Function prediction', star:4,
    p:['One sequence with the organism and gene name removed; each method predicts Gene Ontology terms, graded against experimental annotations released during 2026 across Molecular Function, Biological Process, and Cellular Component using information-content-weighted wFₘₐₓ.',
       '__T4_PROSE__'],
    build:function(){
@@ -481,7 +481,7 @@ var FIGS = [
        cats:['Molecular\nfunction','Biological\nprocess','Cellular\ncomponent'],
        series:S, fmt:function(v){return v.toFixed(3);}, aria:'IC-weighted wFmax by GO aspect' });
    } },
- { id:'f5', t:'5. Monomer alanine ranking',
+ { id:'f5', t:'5. Monomer alanine ranking', star:5,
    p:['Eighteen alanine mutations per protein, ranked by how much each destabilises the fold across four experimental regimes: synthetic de novo miniproteins, natural proteins, dual stability-and-function scans, and post-cutoff MaveDB deep mutational scans. Half of each panel consists of same-amino-acid decoys that pin any 1D residue lookup table to 0.50.',
       'ESM-2 (650M) masked marginals, drawn in grey from the identical single sequence, reveal a sharp split by origin: strong on natural evolved folds (NDCG@5 0.707) where homologous families populate UniRef, but dropping to 0.548 on synthetic de novo miniproteins with zero evolutionary history — the one regime where reasoning models pull ahead of the sequence language model.'],
    build:function(){
@@ -493,7 +493,7 @@ var FIGS = [
        refs:[{v:0.5,l:'decoy floor 0.50'}], fmt:function(v){return v.toFixed(3);},
        aria:'Monomer alanine ranking NDCG@5 by protein type with ESM-2 650M baseline' });
    } },
- { id:'f6', t:'6. Interface binding ranking',
+ { id:'f6', t:'6. Interface binding ranking', star:6,
    p:['The same ranking exercise across a protein–protein interface, scored against measured changes in binding free energy with monomer-destabilising mutations filtered out beforehand. Spearman ρ compares the predicted ordering of the 18-mutation panel against experiment.',
       'ESM-2 (650M) complex marginals, drawn in grey, stay completely flat between pre-2026 PDB complexes (ρ = 0.162, n=31) and unseen or post-2026 complexes (ρ = 0.159, n=7). By contrast, all three reasoning models score 0.44–0.52 on pre-2026 PDB interfaces and drop back to the ESM-2 baseline (0.10–0.16) when no prior structure exists.'],
    build:function(){
@@ -508,7 +508,7 @@ var FIGS = [
        series:S, fmt:function(v){return v===null?'—':v.toFixed(3);},
        aria:'Spearman rho by memorisation stratum with ESM-2 650M baseline' });
    } },
- { id:'f7', t:'7. De novo and motif design',
+ { id:'f7', t:'7. De novo and motif design', star:7,
    p:['Forty design specifications — 24 fold-conditioned monomers and 16 functional motif scaffolds — each put through five independent gates under a strict single-shot budget (one unscreened sequence per task): sequence hygiene, <30% sequence identity to natural parents, cross-oracle agreement between ESMFold-2 and OpenFold3 (scRMSD ≤ 2 Å), fold or motif geometric adherence, and refolding confidence (pLDDT ≥ 80).',
       'Even restricted to a single unscreened sample rather than standard multi-sample filtering, RFdiffusion3 + ProteinMPNN (drawn in grey) hits 48% on fold and sub-1.5 Å motif adherence (mean motif RMSD 1.45 Å vs 12.5% for text models) and reaches 5% single-shot pLDDT ≥ 80 pass rate (mean pLDDT 62.6), whereas all three text reasoning models remain at 0% on refolding confidence.'],
    build:function(){
@@ -517,7 +517,7 @@ var FIGS = [
        series:FIGDATA.t7.series.map(function(se){ return {n:MNAME[se.n]||se.n,c:se.base?GRAY1:MCOL[se.n],v:se.v}; }),
        fmt:function(v){return (v*100).toFixed(0)+'%';}, aria:'Design gate pass fractions with RFdiffusion3 + ProteinMPNN baseline' });
    } },
- { id:'f8', t:'8. Closed-loop binder design',
+ { id:'f8', t:'8. Closed-loop binder design', star:8,
    p:['Twelve epitopes, sixteen proposals each, scored by the identical AlphaFold2 initial-guess and ESMFold-2 monomer oracle. Reasoning models propose iteratively using prior-round oracle feedback; BoltzGen (drawn in grey) generates 16 all-atom binder designs against the same target sequence and epitope hotspots, plotted as its unbiased k=1…16 accumulation curve.',
       '__T8_PROSE__'],
    build:function(){
@@ -533,7 +533,7 @@ var FIGS = [
        }),
        refs:[{v:0.75,l:'hit threshold 0.75'}], aria:'Closed-loop optimisation trajectory with BoltzGen baseline' });
    } },
- { id:'f9', t:'8b. First shot versus best of sixteen',
+ { id:'f9', t:'8b. First shot versus best of sixteen', star:8,
    p:['The same sixteen-proposal campaigns read as a before-and-after on the AlphaFold2 composite interface score: a single unfiltered proposal (shot 1) against the best design found across all sixteen shots.',
       'Across all three language models and the BoltzGen 3D diffusion baseline, sixteen shots substantially lift interface quality over a single blind draw, while illustrating how stringent the multi-gate on-epitope AlphaFold2 hit threshold (0.75) remains on hard targets.'],
    build:function(){
@@ -554,7 +554,7 @@ function renderFigures() {
   host.innerHTML = FIGS.map(function(f){
     var svg='';
     try { svg=f.build(); } catch(e){ svg='<p class="muted small">This figure could not be drawn.</p>'; }
-    return '<figure class="fig" id="'+f.id+'"><h3>'+esc(f.t)+'</h3>'+
+    return '<figure class="fig" id="'+f.id+'"><h3>'+esc(f.t)+(f.star ? star(f.star) : '')+'</h3>'+
            f.p.map(function(x){ return '<p class="fig-p">'+x+'</p>'; }).join('')+
            '<div class="fig-plot">'+svg+'</div></figure>';
   }).join('');
@@ -644,7 +644,8 @@ function initDataset() {
     qt = setTimeout(function(){ dsQuery = q.value; dsSel = null; dsRenderTable(); }, 140);
   });
   document.querySelectorAll('.ds-table thead th').forEach(function(th){
-    th.addEventListener('click', function(){
+    th.addEventListener('click', function(ev){
+      if (ev && ev.target && ev.target.closest && ev.target.closest('a.star')) return;
       var k = th.getAttribute('data-sort');
       if (!k) return;
       if (dsSort === k) dsAsc = !dsAsc; else { dsSort = k; dsAsc = true; }
@@ -681,13 +682,116 @@ window.addEventListener('resize', () => {
 </html>"""
 
 
+def _apply_redesign_polish(raw_html: str) -> str:
+    """Apply the exact CSS, per-task block wrappers, Task 8 PDB rows, and star-link scroll/flash polish."""
+    import re
+
+    # 1. Card summary radius flattening when open + block wrapper CSS
+    old_disc_css = """  details.disc>summary{list-style:none;cursor:pointer;position:relative;padding:15px 46px 15px 18px;}
+  details.disc>summary::-webkit-details-marker{display:none;}
+  details.disc>summary::after{content:'';position:absolute;right:20px;top:50%;width:7px;height:7px;
+    border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);
+    transform:translateY(-75%) rotate(45deg);transition:transform .16s ease;}
+  details.disc[open]>summary::after{transform:translateY(-25%) rotate(-135deg);}
+  details.disc>summary:hover{background:var(--soft);border-radius:9px;}
+  details.disc[open]>summary:hover{border-radius:9px 9px 0 0;}
+  .disc-t{display:block;font-family:var(--serif);font-size:18.5px;color:var(--ink);}
+  .disc-s{display:block;font-size:13.5px;color:var(--muted);margin-top:3px;}
+  .disc-b{padding:2px 18px 20px;border-top:1px solid var(--rule2);}
+  .disc-h{font-family:var(--sans);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:30px 0 10px;scroll-margin-top:90px;
+    padding-bottom:7px;border-bottom:1px solid var(--rule2);}
+  .disc-b>.disc-h:first-of-type{margin-top:20px;}
+  .disc-intro{margin-top:16px;}
+  .disc-b table.plain{font-size:14px;}"""
+    new_disc_css = """  details.disc>summary{list-style:none;cursor:pointer;position:relative;padding:15px 46px 15px 18px;border-radius:9px;}
+  details.disc>summary::-webkit-details-marker{display:none;}
+  details.disc>summary::after{content:'';position:absolute;right:20px;top:50%;width:7px;height:7px;
+    border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);
+    transform:translateY(-75%) rotate(45deg);transition:transform .16s ease;}
+  details.disc[open]>summary::after{transform:translateY(-25%) rotate(-135deg);}
+  details.disc[open]>summary{border-radius:9px 9px 0 0;}
+  details.disc>summary:hover{background:var(--soft);border-radius:9px;}
+  details.disc[open]>summary:hover{border-radius:9px 9px 0 0;}
+  .disc-t{display:block;font-family:var(--serif);font-size:18.5px;color:var(--ink);}
+  .disc-s{display:block;font-size:13.5px;color:var(--muted);margin-top:3px;}
+  .disc-b{padding:2px 18px 20px;border-top:1px solid var(--rule2);}
+  .disc-blk{scroll-margin-top:86px;border-radius:6px;padding:4px 10px 6px;margin:0 -10px;}
+  .disc-blk p:last-child{margin-bottom:2px;}
+  .disc-h{font-family:var(--sans);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:24px 0 10px;scroll-margin-top:86px;
+    padding-bottom:7px;border-bottom:1px solid var(--rule2);}
+  .disc-blk:first-of-type .disc-h,.disc-b>.disc-h:first-of-type{margin-top:16px;}
+  .disc-intro{margin-top:16px;}"""
+    assert old_disc_css in raw_html, "Expected details.disc CSS block not found"
+    raw_html = raw_html.replace(old_disc_css, new_disc_css, 1)
+
+    # 2. Page tables 15px, panel tables 14px
+    old_tbl_css = "  table.plain{width:100%;border-collapse:collapse;font-size:14.5px;}"
+    new_tbl_css = "  table.plain{width:100%;border-collapse:collapse;font-size:15px;}\n  .disc-b table.plain{font-size:14px;}"
+    assert old_tbl_css in raw_html, "Expected table.plain CSS line not found"
+    raw_html = raw_html.replace(old_tbl_css, new_tbl_css, 1)
+
+    # 3. Inline mono-grey .ds-key in prose vs spaced .ds-field .ds-key in browser
+    old_key_css = "  .ds-key{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:10px;}"
+    new_key_css = "  .ds-key{font-family:var(--mono);font-size:11.5px;color:var(--muted);}\n  .ds-field .ds-key{font-size:11px;margin-left:10px;}"
+    assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
+    raw_html = raw_html.replace(old_key_css, new_key_css, 1)
+
+    # 4. Task 8 table: target names on one single line with PDB codes in muted grey beneath
+    old_t8_rows = """        <tr><td><b>ProtDBench classic</b></td><td class="r">4</td><td>PD-L1, TrkA, IL-7R&alpha;, PDGFR&beta;<br><span class="muted">PDB 2001 &ndash; 2017</span></td><td>Standard targets from an existing protein-design benchmark. Long solved and much worked on, so this group is the one where prior art is most likely to help.</td></tr>
+        <tr><td><b>BoltzProt1 novel</b></td><td class="r">5</td><td>AMBP, GM2A, HNMT, MZB1, RFK<br><span class="muted">PDB 2001 &ndash; 2021</span></td><td>Long-solved structures selected as novel binder targets. The fold is familiar; the design problem is not a standard one.</td></tr>
+        <tr><td><b>Post-May-2026 crystal</b></td><td class="r">3</td><td>LEDGF PWWP, Aurora A, MCL1<br><span class="muted">PDB 9S83, 9RVK, 9TLV, all 2026</span></td><td>The only true holdout of the three. Deposited after the cutoff, so neither the complex nor its binder could have been read.</td></tr>"""
+    new_t8_rows = """        <tr><td><b>ProtDBench classic</b></td><td class="r">4</td><td style="white-space:nowrap">PD-L1, TrkA, IL-7R&alpha;, PDGFR&beta;<br><span class="muted">PDB 5O45, 1WWW, 3DI3, 3MJG &middot; 2001&ndash;2017</span></td><td>Standard targets from an existing protein-design benchmark. Long solved and much worked on, so this group is the one where prior art is most likely to help.</td></tr>
+        <tr><td><b>BoltzProt1 novel</b></td><td class="r">5</td><td style="white-space:nowrap">AMBP, GM2A, HNMT, MZB1, RFK<br><span class="muted">PDB 3QKG, 1G13, 1JQD, 7AAH, 1NB0 &middot; 2001&ndash;2021</span></td><td>Long-solved structures selected as novel binder targets. The fold is familiar; the design problem is not a standard one.</td></tr>
+        <tr><td><b>Post-May-2026 crystal</b></td><td class="r">3</td><td style="white-space:nowrap">LEDGF PWWP, Aurora A, MCL1<br><span class="muted">PDB 9S83, 9RVK, 9TLV &middot; all 2026</span></td><td>The only true holdout of the three. Deposited after the cutoff, so neither the complex nor its binder could have been read.</td></tr>"""
+    assert old_t8_rows in raw_html, "Expected Task 8 table rows not found"
+    raw_html = raw_html.replace(old_t8_rows, new_t8_rows, 1)
+
+    # 5. Wrap each task block (#prep-t1 .. #prep-t8) inside .disc-b in <div class="disc-blk" id="prep-tK">...</div>
+    # so clicking a star link washes the entire matching task block (or #prep-d for #prep).
+    disc_b_pattern = re.compile(
+        r'(<p class="disc-intro">.*?</p>\n\n)(.*?)(\n    </div>\n    </details>)',
+        re.DOTALL,
+    )
+    m = disc_b_pattern.search(raw_html)
+    assert m is not None, "Expected .disc-b body not found"
+    body = m.group(2)
+    parts = re.split(r'(?=    <h3 class="disc-h" id="prep-t\d+">)', body)
+    wrapped_parts: List[str] = []
+    for part in parts:
+        if not part.strip():
+            continue
+        pm = re.match(r'    <h3 class="disc-h" id="(prep-t\d+)">', part)
+        assert pm is not None, f"Unexpected block start: {part[:60]}"
+        blk_id = pm.group(1)
+        part_clean = part.replace(f' id="{blk_id}"', "", 1).rstrip()
+        wrapped_parts.append(f'    <div class="disc-blk" id="{blk_id}">\n{part_clean}\n    </div>')
+    assert len(wrapped_parts) == 8, f"Expected 8 task blocks in #prep, got {len(wrapped_parts)}"
+    raw_html = (
+        raw_html[: m.start()]
+        + m.group(1)
+        + "\n\n".join(wrapped_parts)
+        + m.group(3)
+        + raw_html[m.end() :]
+    )
+
+    # 6. Flash #prep-d cleanly when clicking #prep (browser column header *) and #prep-tK when clicking task *
+    old_open_prep = "    var t = document.getElementById(id) || document.getElementById('prep');"
+    new_open_prep = "    var t = (id === 'prep' ? d : document.getElementById(id)) || d;"
+    assert old_open_prep in raw_html, "Expected openPrep target lookup not found"
+    raw_html = raw_html.replace(old_open_prep, new_open_prep, 1)
+
+    return raw_html
+
+
 def main() -> None:
-    backup_html = REPO / "website" / "proteinbench_original_backup.html"
+    backup_html = REPO / "website" / "proteinbench_redesign_backup.html"
     src_html = REPO / "website" / "proteinbench_redesign.html"
     if not backup_html.exists():
         shutil.copyfile(src_html, backup_html)
 
-    raw_html = backup_html.read_text(encoding="utf-8")
+    raw_html = _apply_redesign_polish(backup_html.read_text(encoding="utf-8"))
     lines = raw_html.splitlines()
 
     # Locate DS and FIGDATA lines
