@@ -757,8 +757,19 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
     raw_html = raw_html.replace(old_key_css, new_key_css, 1)
 
+    # 3b. Replace verbose abstract with concise, accurate summary matching the evaluated models and baselines
+    concise_abstract = """  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>Frontier language models are trained on protein sequences alongside the structural biology literature, making it difficult to tell whether a correct answer reflects physical reasoning or retrieval of a known entry. ProteinBench is an eight-task benchmark evaluating reasoning models on anonymised protein prompts &mdash; without alignments, databases, or external structure predictors &mdash; across forward folding, stripped-backbone inverse folding, remote homology into the &lt;15% identity twilight zone, experimentally evidenced Gene Ontology function prediction, monomer and interface alanine-scan ranking, single-shot <em>de novo</em> and motif design, and 16-round closed-loop binder design against an AlphaFold2/ESMFold-2 oracle.</p>
+    <p>To separate memorisation from generalisation, folding targets are stratified by structural similarity (TM-score) to the pre-May-2026 PDB, ranking panels pair each hotspot with a same-amino-acid neutral decoy (pinning residue-letter heuristics to 50%), and remaining tasks use task-specific holdouts including zero-homolog synthetic designs and post-cutoff experimental releases. Each task is paired with an established domain baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, Smith&ndash;Waterman, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
+    <p>Across three frontier reasoning models, performance exceeds sequence-only baselines on remote homology, function prediction, and <em>de novo</em> monomer mutational ranking, and improves consistently over 16 rounds of oracle feedback. However, reasoning models remain far below structural specialists on 3D forward folding, inverse folding, and single-shot design, and drop back to sequence-baseline accuracy on interface binding panels lacking pre-2026 PDB complexes.</p>
+  </section>"""
+    abs_pattern = re.compile(r'  <section id="abstract">.*?</section>', re.DOTALL)
+    assert abs_pattern.search(raw_html) is not None, "Expected #abstract section not found"
+    raw_html = abs_pattern.sub(lambda _: concise_abstract, raw_html, count=1)
+
     # 4. Replace verbose #prep body with concise, accurate descriptions (keeping all 8 blocks, tables, Task 8 PDB codes, and mono-grey stratum keys)
-    concise_prep_inner = """    <p class="disc-intro">Every prompt strips PDB IDs, gene symbols, organism names, and alignments. All 522 targets (702 calls per track) are filterable by stratum in the datapoint browser.</p>
+    concise_prep_inner = """    <p class="disc-intro">Every prompt strips PDB IDs, gene symbols, organism names, and alignments. All targets are filterable by stratum in the datapoint browser.</p>
 
     <div class="disc-blk" id="prep-t1">
     <h3 class="disc-h">Task 1 &middot; Forward folding &mdash; 100 targets</h3>
