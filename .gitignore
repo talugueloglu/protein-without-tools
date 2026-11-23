@@ -24,3 +24,5 @@ outputs/results/reconstructed_pdbs/
 outputs/figures/stage1_interactive_3d.html
 website/proteinbench_artifact.html
 website/proteinbench_redesign.html
+website/*_backup*.html
+website/*_before_redesign_*.html
