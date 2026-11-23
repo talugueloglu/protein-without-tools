@@ -31,8 +31,8 @@ var TASK_BASELINE = {
   2: { k: 'baseline_proteinmpnn',              n: 'ProteinMPNN' },
   3: { k: 'baseline_t3',                       n: '__T3_BASE_NAME__' },
   4: { k: 'baseline_t4',                       n: '__T4_BASE_NAME__' },
-  5: { k: 'baseline_esm2_650m',                n: 'ESM-2 (650M)' },
-  6: { k: 'baseline_esm2_650m',                n: 'ESM-2 (650M)' },
+  5: { k: 'baseline_saprot_650m',              n: 'SaProt (650M)' },
+  6: { k: 'baseline_stabddg',                  n: 'Boltz-2 + StaB-ddG' },
   7: { k: 'baseline_rfd3_mpnn',                n: 'RFdiffusion3 + ProteinMPNN' },
   8: { k: 'baseline_boltzgen_closed_loop_af2', n: 'BoltzGen', trajKey: 'baseline_boltzgen' }
 };
@@ -42,7 +42,8 @@ var SCORE_LABEL = {
   'baseline_proteinmpnn':              'ProteinMPNN (baseline)',
   'baseline_t3':                       '__T3_BASE_NAME__ (baseline)',
   'baseline_t4':                       '__T4_BASE_NAME__ (baseline)',
-  'baseline_esm2_650m':                'ESM-2 650M (baseline)',
+  'baseline_saprot_650m':              'ESMFold-2 → SaProt 650M (baseline)',
+  'baseline_stabddg':                  'Boltz-2 → StaB-ddG (baseline)',
   'baseline_rfd3_mpnn':                'RFdiffusion3 + ProteinMPNN (baseline)',
   'baseline_boltzgen_closed_loop_af2': 'BoltzGen (baseline)',
   'gpt-6.1-sol_think4096':             'GPT-6.1 Sol',
@@ -125,11 +126,11 @@ var RESULT_SPEC = [
           ['MF',           function(S,m){ return fmt(cafaAspect(m,0),3); }],
           ['BP',           function(S,m){ return fmt(cafaAspect(m,1),3); }],
           ['CC',           function(S,m){ return fmt(cafaAspect(m,2),3); }]] },
-  { t:5, name:'5. Monomer alanine ranking', note:'Same-AA decoys hold a 1D lookup table at 50% (baseline: ESM-2 650M).',
+  { t:5, name:'5. Monomer alanine ranking', note:'Same-AA decoys hold a 1D lookup table at 50% (baseline: ESMFold-2 → SaProt 650M).',
     cols:[['NDCG@5',       function(S){ return fmt(rMean(S.map(function(s){return s.ndcg_at_5;})),3); }],
           ['Same-AA win',  function(S){ return fmt(rMean(S.map(function(s){return s.same_aa_win_rate;})),3); }],
           ['Spearman ρ',   function(S){ return fmt(rMean(S.map(function(s){return s.spearman_rho;})),3); }]] },
-  { t:6, name:'6. Binding alanine ranking', note:'Monomer-destabilising mutations excluded (baseline: ESM-2 650M).',
+  { t:6, name:'6. Binding alanine ranking', note:'Monomer-destabilising mutations excluded (baseline: Boltz-2 → StaB-ddG, zero SKEMPI training).',
     cols:[['NDCG@5',       function(S){ return fmt(rMean(S.map(function(s){return s.ndcg_at_5;})),3); }],
           ['Same-AA win',  function(S){ return fmt(rMean(S.map(function(s){return s.same_aa_win_rate;})),3); }],
           ['Spearman ρ',   function(S){ return fmt(rMean(S.map(function(s){return s.spearman_rho;})),3); }]] },
@@ -183,11 +184,11 @@ var DETAIL_SPEC = [
       { label:'MF wFₘₐₓ', max:1,    get:function(S,m){ return cafaAspect(m,0); } },
       { label:'BP wFₘₐₓ', max:1,    get:function(S,m){ return cafaAspect(m,1); } },
       { label:'CC wFₘₐₓ', max:1,    get:function(S,m){ return cafaAspect(m,2); } } ] },
-  { t:5, name:'5. Monomer alanine ranking (baseline: ESM-2 650M)', metrics:[
+  { t:5, name:'5. Monomer alanine ranking (baseline: ESMFold-2 → SaProt 650M)', metrics:[
       { label:'NDCG@5', max:1,     get:function(S){ return rMean(S.map(function(s){return s.ndcg_at_5;})); } },
       { label:'Same-AA win', max:1, floor:0.5, get:function(S){ return rMean(S.map(function(s){return s.same_aa_win_rate;})); } },
       { label:'Spearman ρ', max:1, get:function(S){ return rMean(S.map(function(s){return s.spearman_rho;})); } } ] },
-  { t:6, name:'6. Binding alanine ranking (baseline: ESM-2 650M)', metrics:[
+  { t:6, name:'6. Binding alanine ranking (baseline: Boltz-2 → StaB-ddG)', metrics:[
       { label:'NDCG@5', max:1,     get:function(S){ return rMean(S.map(function(s){return s.ndcg_at_5;})); } },
       { label:'Same-AA win', max:1, floor:0.5, get:function(S){ return rMean(S.map(function(s){return s.same_aa_win_rate;})); } },
       { label:'Spearman ρ', max:1, get:function(S){ return rMean(S.map(function(s){return s.spearman_rho;})); } } ] },
@@ -506,18 +507,18 @@ var FIGS = [
        series:S, fmt:function(v){return v.toFixed(3);}, aria:'IC-weighted wFmax by GO aspect' });
    } },
  { id:'f5', t:'5. Monomer alanine ranking', star:5,
-   p:['NDCG@5 on 18-mutation X→Ala panels with same-AA decoys (0.50 floor) across four experimental regimes. ESM-2 (650M) masked marginals (grey) score 0.707 on natural folds but drop to 0.548 on zero-homolog de novo miniproteins, where reasoning models pull ahead.'],
+   p:['NDCG@5 on 18-mutation X→Ala panels with same-AA decoys (0.50 floor) across four experimental regimes. ESMFold-2 → SaProt (650M) (grey, Foldseek 3Di tokens from predicted structures, zero MegaScale training) scores 0.830 on natural folds and 0.995 on dual scans, while reasoning models lead on zero-homolog de novo miniproteins (0.74–0.76 vs 0.632).'],
    build:function(){
      var ns=stratumNList(T5_STRATA, 5);
      return groupedBars({ ylabel:'NDCG@5 across strata',
        cats:T5_STRATA.map(function(s){return s.l;}),
        subCats:ns.map(function(n){return 'n='+n;}),
-       series:modelSeriesWithBase('ESM-2 (650M)', 'baseline_esm2_650m', function(m){ return byStratumList(T5_STRATA,5,m,'ndcg_at_5'); }),
+       series:modelSeriesWithBase('SaProt (650M)', 'baseline_saprot_650m', function(m){ return byStratumList(T5_STRATA,5,m,'ndcg_at_5'); }),
        refs:[{v:0.5,l:'decoy floor 0.50'}], fmt:function(v){return v.toFixed(3);},
-       aria:'Monomer alanine ranking NDCG@5 by protein type with ESM-2 650M baseline' });
+       aria:'Monomer alanine ranking NDCG@5 by protein type with ESMFold-2 SaProt 650M baseline' });
    } },
  { id:'f6', t:'6. Interface binding ranking', star:6,
-   p:['Spearman ρ for ranking 18 interface X→Ala mutations (monomer-destabilising sites excluded), split by pre-2026 PDB presence (n=31 vs n=7). ESM-2 (650M) stays flat at ρ ≈ 0.16 on both splits, while reasoning models drop from 0.44–0.52 on known complexes to 0.10–0.16 on unseen/post-2026 ones.'],
+   p:['Spearman ρ for ranking 18 interface X→Ala mutations (monomer-destabilising sites excluded), split by pre-2026 PDB presence (n=31 vs n=7). Boltz-2 → StaB-ddG (grey, stability-pretrained checkpoint with zero SKEMPI training) matches reasoning models on pre-2026 PDB complexes (ρ = 0.430 vs 0.44–0.52), and both drop sharply on unseen/post-2026 complexes (0.045 vs 0.10–0.16).'],
    build:function(){
      var S=FIGDATA.t6.series.map(function(se){
        var memo=se.memo||{};
@@ -528,7 +529,7 @@ var FIGS = [
        cats:['Known complex\n(pre-2026 PDB)','Unseen /\npost-2026'],
        subCats:['n=31','n=7'],
        series:S, fmt:function(v){return v===null?'—':v.toFixed(3);},
-       aria:'Spearman rho by memorisation stratum with ESM-2 650M baseline' });
+       aria:'Spearman rho by memorisation stratum with Boltz-2 StaB-ddG baseline' });
    } },
  { id:'f7', t:'7. De novo and motif design', star:7,
    p:['Single-shot pass rates across five gates on 40 specifications (24 fold-conditioned, 16 motif scaffolds). With one unscreened sample per task, RFdiffusion3 + ProteinMPNN (grey) reaches 48% fold/motif adherence (mean motif RMSD 1.45 Å) and 5% pLDDT ≥ 80; text models remain at 0% on pLDDT ≥ 80.'],
@@ -757,12 +758,12 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
     raw_html = raw_html.replace(old_key_css, new_key_css, 1)
 
-    # 3b. Replace verbose abstract with concise, accurate summary matching the evaluated models and baselines
+    # 3b. Replace verbose abstract with concise, accurate summary matching the evaluated models and SOTA baselines
     concise_abstract = """  <section id="abstract">
     <h2>Abstract</h2>
     <p>Frontier language models are trained on protein sequences alongside the structural biology literature, making it difficult to tell whether a correct answer reflects physical reasoning or retrieval of a known entry. ProteinBench is an eight-task benchmark evaluating reasoning models on anonymised protein prompts &mdash; without alignments, databases, or external structure predictors &mdash; across forward folding, stripped-backbone inverse folding, remote homology into the &lt;15% identity twilight zone, experimentally evidenced Gene Ontology function prediction, monomer and interface alanine-scan ranking, single-shot <em>de novo</em> and motif design, and 16-round closed-loop binder design against an AlphaFold2/ESMFold-2 oracle.</p>
-    <p>To separate memorisation from generalisation, folding targets are stratified by structural similarity (TM-score) to the pre-May-2026 PDB, ranking panels pair each hotspot with a same-amino-acid neutral decoy (pinning residue-letter heuristics to 50%), and remaining tasks use task-specific holdouts including zero-homolog synthetic designs and post-cutoff experimental releases. Each task is paired with an established domain baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, Smith&ndash;Waterman, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
-    <p>Across three frontier reasoning models, performance exceeds sequence-only baselines on remote homology, function prediction, and <em>de novo</em> monomer mutational ranking, and improves consistently over 16 rounds of oracle feedback. However, reasoning models remain far below structural specialists on 3D forward folding, inverse folding, and single-shot design, and drop back to sequence-baseline accuracy on interface binding panels lacking pre-2026 PDB complexes.</p>
+    <p>To separate memorisation from generalisation, folding targets are stratified by structural similarity (TM-score) to the pre-May-2026 PDB, ranking panels pair each hotspot with a same-amino-acid neutral decoy (pinning residue-letter heuristics to 50%), and remaining tasks use task-specific holdouts including zero-homolog synthetic designs and post-cutoff experimental releases. Each task is paired with an established domain baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, NetGO 4.0, ESMFold-2 &rarr; SaProt 650M, Boltz-2 &rarr; StaB-ddG, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
+    <p>Across three frontier reasoning models, performance exceeds the sequence-embedding baseline on twilight-zone remote homology, leads even structure-aware SaProt on zero-homolog <em>de novo</em> monomer mutational ranking, and improves consistently over 16 rounds of oracle feedback. However, reasoning models remain far below specialist models on 3D forward folding, inverse folding, GO function prediction, and single-shot design, and drop sharply on interface binding panels lacking pre-2026 PDB complexes.</p>
   </section>"""
     abs_pattern = re.compile(r'  <section id="abstract">.*?</section>', re.DOTALL)
     assert abs_pattern.search(raw_html) is not None, "Expected #abstract section not found"
@@ -966,31 +967,22 @@ def main() -> None:
         ],
     }
 
-    # Task 4: Official CAFA Smith-Waterman sequence-homology transfer baseline
-    t4_sw = t34_res["t4_models"]["baseline_sw_homology"]
-    t4_esm2 = t34_res["t4_models"].get("baseline_esm2_650m_knn")
-    if t4_esm2 and t4_esm2["macro_wfmax"] >= t4_sw["macro_wfmax"]:
-        t4_base_name = "ESM-2 (650M) k-NN"
-        t4_chosen = t4_esm2
-        t4_prose = (
-            f"IC-weighted CAFA wFₘₐₓ across MF, BP, and CC on experimentally evidenced GO annotations. "
-            f"ESM-2 (650M) k-NN transfer against pre-2025 Swiss-Prot (grey, macro {t4_chosen['macro_wfmax']:.3f}) is the baseline."
-        )
-    else:
-        t4_base_name = "Smith–Waterman"
-        t4_chosen = t4_sw
-        t4_prose = (
-            f"IC-weighted CAFA wFₘₐₓ across MF, BP, and CC on experimentally evidenced GO annotations. "
-            f"Smith–Waterman homology transfer against pre-2025 Swiss-Prot (grey, macro {t4_chosen['macro_wfmax']:.3f}) "
-            f"is the baseline; all three reasoning models score 0.337–0.392 macro wFₘₐₓ."
-        )
+    # Task 4: Official NetGO 4.0 (GOCurator, CAFA 5 1st-place server)
+    t4_netgo = json.loads((REPO / "outputs" / "results" / "baseline_t4_netgo4.json").read_text(encoding="utf-8"))
+    t4_base_name = "NetGO 4.0"
+    t4_chosen = t4_netgo
+    t4_prose = (
+        f"IC-weighted CAFA wFₘₐₓ across MF, BP, and CC on experimentally evidenced GO annotations. "
+        f"NetGO 4.0 (grey, official CAFA 5 winning server, macro {t4_chosen['macro_wfmax']:.3f}) sets the specialist bar, "
+        f"leading all three reasoning models (0.337–0.392) across MF and BP while GPT-6.2 Astra matches it on CC."
+    )
 
-    # 5. Task 5: ESM-2 (650M) Monomer Alanine Marginals
-    t5_res = json.loads((REPO / "outputs" / "results" / "baseline_t5_esm2_650m.json").read_text(encoding="utf-8"))
+    # 5. Task 5: ESMFold-2 -> SaProt (650M, AF2)
+    t5_res = json.loads((REPO / "outputs" / "results" / "baseline_t5_saprot_650m.json").read_text(encoding="utf-8"))
     t5_per = {g["target_id"]: g for g in t5_res["per_target"]}
 
-    # 6. Task 6: ESM-2 (650M) Interface Binding Marginals
-    t6_res = json.loads((REPO / "outputs" / "results" / "baseline_t6_esm2_650m.json").read_text(encoding="utf-8"))
+    # 6. Task 6: Boltz-2 -> StaB-ddG (stability_finetuned.pt, ZERO SKEMPI fine-tuning)
+    t6_res = json.loads((REPO / "outputs" / "results" / "baseline_t6_stabddg.json").read_text(encoding="utf-8"))
     t6_per = {g["target_id"]: g for g in t6_res["per_target"]}
 
     # 7. Task 7: RFdiffusion3 + ProteinMPNN
@@ -1035,14 +1027,14 @@ def main() -> None:
                     sc[mk].update(t34_res["t4_models"][mk]["per_target"][tid])
         elif t == 5 and tid in t5_per:
             r = t5_per[tid]
-            sc["baseline_esm2_650m"] = {
+            sc["baseline_saprot_650m"] = {
                 "ndcg_at_5": round(float(r["ndcg_at_5"]), 3),
                 "same_aa_win_rate": round(float(r["same_aa_win_rate"]), 3),
                 "spearman_rho": round(float(r["spearman_rho"]), 3),
             }
         elif t == 6 and tid in t6_per:
             r = t6_per[tid]
-            sc["baseline_esm2_650m"] = {
+            sc["baseline_stabddg"] = {
                 "ndcg_at_5": round(float(r["ndcg_at_5"]), 3),
                 "same_aa_win_rate": round(float(r["same_aa_win_rate"]), 3),
                 "spearman_rho": round(float(r["spearman_rho"]), 3),
@@ -1095,7 +1087,7 @@ def main() -> None:
 
     fd["t5_base"] = [
         {
-            "n": "ESM-2 (650M)",
+            "n": "SaProt (650M)",
             "ndcg": round(float(t5_res["overall"]["ndcg_at_5"]), 3),
             "win": round(float(t5_res["overall"]["same_aa_win_rate"]), 3),
         }
@@ -1104,7 +1096,7 @@ def main() -> None:
     llm_t6 = [s for s in fd["t6"]["series"] if not s.get("base")]
     fd["t6"]["series"] = [
         {
-            "n": "ESM-2 (650M)",
+            "n": "Boltz-2 + StaB-ddG",
             "base": True,
             "overall": round(float(t6_res["overall"]["spearman_rho"]), 3),
             "memo": {
@@ -1198,8 +1190,8 @@ def main() -> None:
     print(f"  Task 2 (ProteinMPNN)               : scTM={np.mean(sc_tms):.3f} | scRMSD<2A={np.mean(sc_2a)*100:.1f}% | NSR={np.mean([r['nsr_overall'] for r in t2_rows.values()]):.3f}", flush=True)
     print(f"  Task 3 ({t3_base_name:<25s}) : AUROC={t3_base_series['auroc']:.3f} | Rungs={t3_base_series['v']}", flush=True)
     print(f"  Task 4 ({t4_base_name:<25s}) : Macro wFmax={t4_chosen['macro_wfmax']:.3f} | MF/BP/CC={t4_chosen['aspects']}", flush=True)
-    print(f"  Task 5 (ESM-2 650M)                : NDCG@5={t5_res['overall']['ndcg_at_5']:.3f} | SameAA={t5_res['overall']['same_aa_win_rate']:.3f} | Rho={t5_res['overall']['spearman_rho']:.3f}", flush=True)
-    print(f"  Task 6 (ESM-2 650M)                : Rho={t6_res['overall']['spearman_rho']:.3f} | Known={t6_res['by_memorization_stratum']['known_pdb_pre2026']['spearman_rho']:.3f} | Unseen={t6_res['by_memorization_stratum']['unseen_or_post2026']['spearman_rho']:.3f}", flush=True)
+    print(f"  Task 5 (ESMFold-2 -> SaProt 650M)  : NDCG@5={t5_res['overall']['ndcg_at_5']:.3f} | SameAA={t5_res['overall']['same_aa_win_rate']:.3f} | Rho={t5_res['overall']['spearman_rho']:.3f}", flush=True)
+    print(f"  Task 6 (Boltz-2 -> StaB-ddG)       : Rho={t6_res['overall']['spearman_rho']:.3f} | Known={t6_res['by_memorization_stratum']['known_pdb_pre2026']['spearman_rho']:.3f} | Unseen={t6_res['by_memorization_stratum']['unseen_or_post2026']['spearman_rho']:.3f}", flush=True)
     print(f"  Task 7 (RFdiffusion3 + ProteinMPNN): 4-Gate={t7_b['esmfold2_4gate_success_rate']*100:.1f}% | 5-Gate={t7_b['design_success_rate_5gate']*100:.1f}% | pLDDT>=80={t7_b['gate2_foldable_rate']*100:.1f}% | pLDDT={t7_b['mean_plddt']:.1f}", flush=True)
     print(f"  Task 8 (BoltzGen)                  : Hit@16={t8_sum['hit_rate']*100:.1f}% | AF2 Composite={bgen_s0:.3f} -> {bgen_s16:.3f} | On-Epitope ipTM={t8_sum['mean_best_iptm']:.3f}", flush=True)
 
