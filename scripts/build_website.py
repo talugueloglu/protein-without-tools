@@ -1624,6 +1624,54 @@ def main() -> None:
         if "return '<div class=\"ds-score\"><span class=\"m\">' + esc(m) + '</span>" in ln:
             head_lines[i] = ln.replace("esc(m)", "esc((typeof SCORE_LABEL!=='undefined'&&SCORE_LABEL[m])||m)")
 
+    # Update Task 4 Explorer example & prompt inside `const DATA = ...` to match the live CAFA-6 2x3 Post-cutoff NK set (s2b_t061)
+    data_line_idx = next(i for i, ln in enumerate(head_lines) if ln.startswith("const DATA = "))
+    data_obj = json.loads(head_lines[data_line_idx][len("const DATA = ") :].rstrip(";"))
+    ex4_t = next((t for t in t4_manifest if t["target_id"] == "s2b_t061"), t4_manifest[0])
+    ex4_prompt = t4_prompts.get(ex4_t["target_id"], "")
+    if ex4_prompt:
+        data_obj["prompts"]["4"] = ex4_prompt
+    import sys as _sys
+    if str(REPO / "src") not in _sys.path:
+        _sys.path.insert(0, str(REPO / "src"))
+    from protein_without_tools.stage2b_cafa import (
+        ROOT_GO_TERMS as _ROOT_GO,
+        compute_term_information_accretion as _compute_ia,
+        parse_go_obo as _parse_obo,
+    )
+    _dag = _parse_obo((REPO / "data" / "stage2b_cafa" / "go_subdag.obo").read_text(encoding="utf-8"))
+    _ref_bg = json.loads((REPO / "data" / "stage2b_cafa" / "reference_swissprot_go.json").read_text(encoding="utf-8"))
+    _bg_sets = [
+        set(v) if isinstance(v, list) else set(v.get("go_terms", []))
+        for v in (_ref_bg.values() if isinstance(_ref_bg, dict) else _ref_bg)
+    ]
+    _ia = _compute_ia(_dag, _bg_sets)
+    _top_terms = []
+    for _asp, _key in (("MF", "true_terms_mf"), ("BP", "true_terms_bp"), ("CC", "true_terms_cc")):
+        _cands = [g for g in ex4_t.get(_key, []) if g not in _ROOT_GO and g in _dag.term_name]
+        _cands.sort(key=lambda g: -_ia.get(g, 0.0))
+        for _g in _cands[:2]:
+            _top_terms.append({
+                "id": _g,
+                "aspect": _asp,
+                "name": _dag.term_name[_g],
+                "ic": round(float(_ia.get(_g, 0.0)), 1),
+            })
+    data_obj["atlas"]["s2b_examples"] = [{
+        "tid": ex4_t["target_id"],
+        "tier_label": "Post-cutoff NK: First experimental GOA May–Oct 2026 (n = 20)",
+        "organism": ex4_t["organism"],
+        "len": int(ex4_t["length"]),
+        "uniprot_date": ex4_t.get("uniprot_first_public_date", ""),
+        "qgo_date": ex4_t.get("quickgo_max_exp_date", ""),
+        "seq_snip": ex4_t["sequence"][:56] + "...",
+        "n_mf": len(ex4_t.get("true_terms_mf", [])),
+        "n_bp": len(ex4_t.get("true_terms_bp", [])),
+        "n_cc": len(ex4_t.get("true_terms_cc", [])),
+        "top_terms": _top_terms,
+    }]
+    head_lines[data_line_idx] = "const DATA = " + json.dumps(data_obj, separators=(",", ":")) + ";"
+
     head_lines[ds_line_idx] = "const DS = " + json.dumps(ds, separators=(",", ":")) + ";"
     head_lines[fd_line_idx] = "const FIGDATA = " + json.dumps(fd, separators=(",", ":")) + ";"
 
