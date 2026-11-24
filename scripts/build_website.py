@@ -1636,26 +1636,32 @@ def main() -> None:
         _sys.path.insert(0, str(REPO / "src"))
     from protein_without_tools.stage2b_cafa import (
         ROOT_GO_TERMS as _ROOT_GO,
-        compute_term_information_accretion as _compute_ia,
+        compute_term_information_content as _compute_ic,
         parse_go_obo as _parse_obo,
     )
     _dag = _parse_obo((REPO / "data" / "stage2b_cafa" / "go_subdag.obo").read_text(encoding="utf-8"))
     _ref_bg = json.loads((REPO / "data" / "stage2b_cafa" / "reference_swissprot_go.json").read_text(encoding="utf-8"))
     _bg_sets = [
-        set(v) if isinstance(v, list) else set(v.get("go_terms", []))
+        _dag.propagate_set(set(v) if isinstance(v, list) else set(v.get("go_terms", [])))
         for v in (_ref_bg.values() if isinstance(_ref_bg, dict) else _ref_bg)
     ]
-    _ia = _compute_ia(_dag, _bg_sets)
+    _ic = _compute_ic(_dag, _bg_sets)
     _top_terms = []
     for _asp, _key in (("MF", "true_terms_mf"), ("BP", "true_terms_bp"), ("CC", "true_terms_cc")):
-        _cands = [g for g in ex4_t.get(_key, []) if g not in _ROOT_GO and g in _dag.term_name]
-        _cands.sort(key=lambda g: -_ia.get(g, 0.0))
-        for _g in _cands[:2]:
+        _tset = set(ex4_t.get(_key, []))
+        _strict_anc = set()
+        for _g in _tset:
+            _strict_anc.update(_dag.ancestors(_g) - {_g})
+        _leaves = [g for g in _tset if g not in _strict_anc and g not in _ROOT_GO and g in _dag.term_name]
+        _leaves.sort(key=lambda g: -_ic.get(g, 0.0))
+        _rest = [g for g in _tset if g not in _leaves and g not in _ROOT_GO and g in _dag.term_name]
+        _rest.sort(key=lambda g: -_ic.get(g, 0.0))
+        for _g in (_leaves + _rest)[:2]:
             _top_terms.append({
                 "id": _g,
                 "aspect": _asp,
                 "name": _dag.term_name[_g],
-                "ic": round(float(_ia.get(_g, 0.0)), 1),
+                "ic": round(float(_ic.get(_g, 0.0)), 1),
             })
     data_obj["atlas"]["s2b_examples"] = [{
         "tid": ex4_t["target_id"],
