@@ -1086,6 +1086,36 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert abs_pattern.search(raw_html) is not None, "Expected #abstract section not found"
     raw_html = abs_pattern.sub(lambda _: concise_abstract, raw_html, count=1)
 
+    # 3d. Update #code shell block to match actual evaluated models, thinking-budget 4096, and current scripts
+    old_code_block = """  <section id="code">
+    <h2>Running the benchmark</h2>
+    <pre class="shell"><span class="c"># unit, anti-cheat and leakage tests</span>
+.venv/bin/pytest -v
+
+<span class="c"># CPU-graded tasks 1, 3, 4, 5, 6</span>
+.venv/bin/python scripts/run_benchmark_llms.py --provider openai --model gpt-6.2-sol --stages 1,3,4,5,6 --thinking-budget 4000
+
+<span class="c"># closed-loop AlphaFold2 binder campaigns</span>
+.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider anthropic --model claude-fable-5-2 --mode closed_loop --oracle modal_af2</pre>
+  </section>"""
+    new_code_block = """  <section id="code">
+    <h2>Running the benchmark</h2>
+    <pre class="shell"><span class="c"># unit, anti-cheat and leakage tests</span>
+.venv/bin/pytest -v
+
+<span class="c"># single-shot tasks 1&ndash;7 (gpt-6.1-sol, gpt-6.2-sol, gpt-6.2-astra)</span>
+.venv/bin/python scripts/run_benchmark_llms.py --provider openai --model gpt-6.2-astra --stages 1,2,3,4,5,6,7 --thinking-budget 4096
+
+<span class="c"># task 8: 16-round closed-loop AlphaFold2 binder campaigns</span>
+.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider openai --model gpt-6.2-astra --mode closed_loop --oracle modal_af2 --shots 16 --thinking-budget 4096
+
+<span class="c"># score Task 4 (CAFA-6 2x3 split) and rebuild the report</span>
+.venv/bin/python scripts/eval_t4_cafa6_6cell.py
+.venv/bin/python scripts/update_proteinbench_html_with_baselines.py</pre>
+  </section>"""
+    assert old_code_block in raw_html, "Expected #code section not found"
+    raw_html = raw_html.replace(old_code_block, new_code_block, 1)
+
     # 4. Remove standalone #prep section & nav link (each task's data-prep card now renders directly beneath its figure in #results)
     old_nav_data = '      <a href="#prep">Data</a>\n'
     assert old_nav_data in raw_html, "Expected Data nav link not found"
