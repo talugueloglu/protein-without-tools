@@ -15,7 +15,7 @@ if str(REPO / "scripts") not in sys.path:
     sys.path.insert(0, str(REPO / "scripts"))
 
 from build_and_evaluate_stage3b import parse_cif_all_protein_chains, write_backbone_pdb
-from fable_bench.pdb_utils import load_structure
+from protein_without_tools.pdb_utils import load_structure
 
 
 def main() -> None:

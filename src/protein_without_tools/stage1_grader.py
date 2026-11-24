@@ -8,13 +8,13 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
-from fable_bench.pdb_utils import ProteinStructure, write_ca_trace_pdb
-from fable_bench.reconstruct_3d import reconstruct_ca_from_contacts
-from fable_bench.stage1_prompts_and_parsers import (
+from protein_without_tools.pdb_utils import ProteinStructure, write_ca_trace_pdb
+from protein_without_tools.reconstruct_3d import reconstruct_ca_from_contacts
+from protein_without_tools.stage1_prompts_and_parsers import (
     ForwardPredictionParsed,
     InversePredictionParsed,
 )
-from fable_bench.tmscore import evaluate_3d_superposition
+from protein_without_tools.tmscore import evaluate_3d_superposition
 
 PHYSICOCHEMICAL_GROUP: Dict[str, str] = {
     "A": "hydrophobic",

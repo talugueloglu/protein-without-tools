@@ -9,7 +9,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from fable_bench.tmscore import evaluate_3d_superposition
+from protein_without_tools.tmscore import evaluate_3d_superposition
 
 
 def parse_ca(pdb_path: Path) -> np.ndarray:
@@ -30,10 +30,10 @@ def project_pca_2d(ca: np.ndarray, other: np.ndarray) -> tuple[np.ndarray, np.nd
 
 
 def main() -> None:
-    root = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    root = Path(__file__).resolve().parents[1]
     data_dir = root / "data" / "stage1_benchmark"
     res_dir = root / "outputs" / "results"
-    out_png = Path("/Users/taluguloglu/.gemini/antigravity/brain/4775d422-bdcb-488c-afa6-e25f2cd600e6/stage1_4strata_calibration_and_3d.png")
+    out_png = root / "outputs/figures/stage1_4strata_calibration_and_3d.png"
 
     manifest = json.loads((data_dir / "manifest.json").read_text(encoding="utf-8"))
     rep = json.loads((res_dir / "stage1_evaluation_report.json").read_text(encoding="utf-8"))

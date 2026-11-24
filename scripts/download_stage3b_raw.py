@@ -25,7 +25,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 import numpy as np
 
-from fable_bench.pdb_utils import AA3_TO_1, CANONICAL_AA_SET
+from protein_without_tools.pdb_utils import AA3_TO_1, CANONICAL_AA_SET
 
 
 def compute_virtual_cb(n: np.ndarray, ca: np.ndarray, c: np.ndarray) -> np.ndarray:
@@ -225,7 +225,7 @@ def check_precutoff_pdb_seqid(client: httpx.Client, seq: str, cutoff: str = "202
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     raw_dir = repo / "data" / "raw_stage3b_cache"
     cif_dir = raw_dir / "cifs"
     cfg_dir = raw_dir / "upstream_configs"

@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-stage3b-part1-monomer-motif",
+  "benchmark": "protein-without-tools-stage3b-part1-monomer-motif",
   "n_tasks": 40,
   "tasks": [
     {

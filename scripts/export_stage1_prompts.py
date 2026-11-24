@@ -17,8 +17,8 @@ import json
 from pathlib import Path
 import numpy as np
 
-from fable_bench.pdb_utils import ProteinStructure
-from fable_bench.stage1_prompts_and_parsers import (
+from protein_without_tools.pdb_utils import ProteinStructure
+from protein_without_tools.stage1_prompts_and_parsers import (
     build_forward_folding_prompt,
     build_inverse_folding_prompt,
 )

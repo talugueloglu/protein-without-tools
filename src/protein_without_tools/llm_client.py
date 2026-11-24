@@ -1,10 +1,10 @@
 """Unified multi-provider async HTTPX LLM client with caching, budget guard & fallback audit.
 
 Works with zero vendor SDK bloat (pure `httpx`), supports:
-  - `anthropic`: `claude-fable-5-2`, `claude-opus-5-5` (Direct & Extended Thinking + silent-fallback check)
-  - `openai`: `gpt-5.2` (with reasoning_effort support)
+  - `openai`: `gpt-6.1-sol`, `gpt-6.2-sol`, `gpt-6.2-astra` (with reasoning_effort support)
+  - `anthropic`: Claude models (Direct & Extended Thinking + silent-fallback check)
   - `gemini`: Google Generative Language REST API
-  - `openrouter`: Single-key access to Anthropic, OpenAI, Google, DeepSeek, Qwen
+  - `openrouter`: Single-key access to OpenAI, Anthropic, Google, DeepSeek, Qwen
   - `offline`: Zero-key mode for importing manual web-chat / Batch API JSONL responses
 """
 
@@ -26,11 +26,11 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # Approximate Nov 2026 per-million-token pricing for live cost tracking
 PRICING_USD_PER_MTOK: Dict[str, tuple[float, float]] = {
-    "claude-fable-5-2": (8.0, 40.0),
     "claude-opus-5-5": (5.0, 25.0),
     "claude-sonnet-4-6": (3.0, 15.0),
     "gpt-6.2-astra": (8.0, 40.0),
     "gpt-6.2-sol": (2.0, 10.0),
+    "gpt-6.1-sol": (2.0, 10.0),
     "gpt-6-astra": (8.0, 40.0),
     "gpt-6-sol": (2.0, 10.0),
     "gpt-6-luna": (0.5, 2.5),
@@ -243,9 +243,9 @@ class UnifiedLLMRunner:
         in_tok = int(usage.get("input_tokens", 0))
         out_tok = int(usage.get("output_tokens", 0))
 
-        # Audit silent fallback (e.g., claude-fable-5-2 silently routed to claude-opus-*)
+        # Audit silent fallback (requested model family differs from returned model)
         req_family = model.split("-")[1] if "-" in model else model
-        silent_fb = (req_family == "fable") and ("fable" not in returned_model.lower())
+        silent_fb = bool(returned_model) and (req_family.lower() not in returned_model.lower())
         refusal = stop_reason == "refusal"
 
         return LLMCallRecord(

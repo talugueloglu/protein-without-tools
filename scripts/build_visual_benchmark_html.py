@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a richly visual, illustrated HTML Atlas of Fable-Protein-Bench (`fable_protein_bench_summary.html`).
+"""Build a richly visual, illustrated HTML Atlas of Protein Structure Without Tools (`protein_without_tools_summary.html`).
 
 Visual-first design featuring:
   1. Visual SVG Architecture Diagrams of the Core Scientific Question (`No-Code Weights` vs
@@ -32,12 +32,12 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from fable_bench.pdb_utils import load_structure
-from fable_bench.stage2b_cafa import compute_term_information_content, parse_go_obo
+from protein_without_tools.pdb_utils import load_structure
+from protein_without_tools.stage2b_cafa import compute_term_information_content, parse_go_obo
 
 
 def load_ca_and_contacts(npz_path: Path, max_res: int = 160) -> Dict[str, Any]:
@@ -364,7 +364,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fable-Protein-Bench — Visual Atlas of Ideas, Tests &amp; Category Examples</title>
+  <title>Protein Structure Without Tools — Visual Atlas of Ideas, Tests &amp; Category Examples</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     canvas { touch-action: none; }
@@ -389,7 +389,7 @@ VISUAL_HTML = r"""<!DOCTYPE html>
             Does Raw Protein Pretraining Teach Folding &amp; Binding Physics—Or Just Sequence Patterns?
           </h1>
           <p class="text-sm text-[var(--muted-foreground)] max-w-4xl">
-            Auditing <strong>Claude Fable 5.2</strong> (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-fable-5-2</code>) against general reasoning LLMs (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Opus 5.5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">GPT-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Gemini 3.1 Pro</code>) and specialist structural biology models across <strong>No-Code (Weights Only)</strong> vs. <strong>With-Code (Air-Gapped NumPy)</strong>.
+            Auditing <strong>Frontier Reasoning LLMs</strong> (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gpt-6.2-astra</code>) against general reasoning LLMs (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Opus 5.5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">GPT-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Gemini 3.1 Pro</code>) and specialist structural biology models across <strong>No-Code (Weights Only)</strong> vs. <strong>With-Code (Air-Gapped NumPy)</strong>.
           </p>
         </div>
         <div class="flex flex-wrap gap-1.5 text-xs">
@@ -1202,7 +1202,7 @@ Seq B: ${ex.snip_b}...</pre>
 def main() -> None:
     atlas_data = compile_visual_atlas_data()
     html = VISUAL_HTML.replace("__ATLAS_JSON__", json.dumps(atlas_data, separators=(",", ":")))
-    out_repo = REPO / "outputs/figures/fable_protein_bench_summary.html"
+    out_repo = REPO / "outputs/figures/protein_without_tools_summary.html"
     out_repo.write_text(html, encoding="utf-8")
     print(f"Built visual benchmark atlas -> {out_repo} ({out_repo.stat().st_size / 1024:.1f} KB)")
 

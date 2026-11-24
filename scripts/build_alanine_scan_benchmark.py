@@ -26,12 +26,12 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 import pyarrow.parquet as pq
 
-from fable_bench.alanine_scan import (
+from protein_without_tools.alanine_scan import (
     AlanineScanTarget,
     build_alanine_scan_prompt,
     select_balanced_alanine_panel,
 )
-from fable_bench.pdb_utils import AA3_TO_1, CANONICAL_AA_SET, load_structure
+from protein_without_tools.pdb_utils import AA3_TO_1, CANONICAL_AA_SET, load_structure
 
 MUT_ALA_RE = re.compile(r"^([ACDEFGHIKLMNPQRSTVWY])(\d+)A$")
 HGVS_PRO_RE = re.compile(r"^(?:[^:]+:)?p\.\(?([A-Z][a-z]{2})(\d+)([A-Z][a-z]{2}|Ter|=)\)?$")
@@ -334,7 +334,7 @@ def extract_mavedb_targets(mave_dir: Path) -> List[Dict[str, Any]]:
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     cache_dir = repo / "data" / "raw_alanine_cache"
     out_dir = repo / "data" / "alanine_scan_benchmark"
     targets_dir = out_dir / "targets"
@@ -451,7 +451,7 @@ def main() -> None:
     cat_counts = dict(Counter(m["category"] for m in manifest_targets))
     total_muts = sum(m["n_assayed_positions"] for m in manifest_targets)
     manifest = {
-        "benchmark": "fable-protein-bench-test5-monomer-alanine-ranking",
+        "benchmark": "protein-without-tools-test5-monomer-alanine-ranking",
         "total_targets": len(manifest_targets),
         "total_panel_candidates": total_muts,
         "total_alanine_mutations": total_muts,

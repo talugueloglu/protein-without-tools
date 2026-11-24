@@ -27,7 +27,7 @@ import sys
 import tarfile
 from typing import Any, Dict, List
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _md_cell(text: str) -> Dict[str, Any]:
@@ -87,7 +87,7 @@ WORK = Path("/content/proteinbench")
 CKPT = Path("/content/colab_af2_checkpoints")
 CKPT.mkdir(parents=True, exist_ok=True)
 
-if not (WORK / "src" / "fable_bench").exists():
+if not (WORK / "src" / "protein_without_tools").exists():
     print("Upload `proteinbench_colab_bundle.tar.gz` (from `outputs/colab/` on your Mac):")
     uploaded = files.upload()
     tar_name = next(iter(uploaded.keys()))
@@ -109,9 +109,9 @@ print("Found Stage 3B (Test 7) files:", [p.name for p in sorted(pred_dir.glob("*
         ),
         _code_cell(
             """# === CELL 3: Test 2 — Inverse Folding (`N = 100`) + `ProteinMPNN` Specialist Baseline ===
-from fable_bench.stage1_prompts_and_parsers import parse_inverse_folding_response
-from fable_bench.stage1_grader import tm_score_kabsch
-from fable_bench.stage3b_design import kabsch_rmsd
+from protein_without_tools.stage1_prompts_and_parsers import parse_inverse_folding_response
+from protein_without_tools.stage1_grader import tm_score_kabsch
+from protein_without_tools.stage3b_design import kabsch_rmsd
 
 s1_dir = WORK / "data" / "stage1_benchmark"
 m1 = json.loads((s1_dir / "manifest.json").read_text())["targets"]
@@ -179,10 +179,10 @@ for jf in sorted(pred_dir.glob("*_stage1b.jsonl")):
         ),
         _code_cell(
             """# === CELL 4: Test 7 — De Novo Monomer & Motif Scaffolding (`N = 40`) 5-Gate AF2 + MPNN ===
-from fable_bench.stage3b_design import (
+from protein_without_tools.stage3b_design import (
     DesignTaskSpec, MotifSegmentSpec, parse_designed_sequence, grade_monomer_design, kabsch_rmsd
 )
-from fable_bench.pdb_utils import assign_q3_from_backbone
+from protein_without_tools.pdb_utils import assign_q3_from_backbone
 
 s3b_dir = WORK / "data" / "stage3b_design"
 raw_t7 = json.loads((s3b_dir / "monomer_motif_manifest.json").read_text())["tasks"]
@@ -249,7 +249,7 @@ for jf in sorted(pred_dir.glob("*_stage3b.jsonl")):
 # and set OPENAI_MODELS_FOR_TEST8 = ["gpt-6.2-sol"] (or ["gpt-6.2-sol", "gpt-6.2-astra"])!
 import httpx
 from google.colab import userdata
-from fable_bench.stage3b_design import (
+from protein_without_tools.stage3b_design import (
     EpitopeTarget, build_binder_initial_prompt, build_binder_refinement_prompt,
     parse_designed_sequence, score_3d_complex_geometry, evaluate_binder_campaign
 )
@@ -347,7 +347,7 @@ for oai_model in OPENAI_MODELS_FOR_TEST8:
             sq, _rat, _ok = parse_designed_sequence(txt)
             ev = eval_binder_seq_af2(ep, pdb_p, sq, b_cache, af_mono_global)
             if ev is None:
-                from fable_bench.stage3b_design import SurrogatePhysicsBinderOracle
+                from protein_without_tools.stage3b_design import SurrogatePhysicsBinderOracle
                 fb = SurrogatePhysicsBinderOracle().evaluate_binder(ep, "", round_idx=shot)
             else:
                 fb = score_3d_complex_geometry(
@@ -394,7 +394,7 @@ files.download(out_tar)"""
 def export_colab_bundle(out_tar: Path) -> None:
     out_tar.parent.mkdir(parents=True, exist_ok=True)
     include_paths = [
-        REPO / "src" / "fable_bench",
+        REPO / "src" / "protein_without_tools",
         REPO / "data" / "stage1_benchmark",
         REPO / "data" / "stage3b_design",
     ]

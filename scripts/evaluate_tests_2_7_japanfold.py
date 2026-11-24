@@ -17,17 +17,17 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.japanfold_client import JapanFoldClient, find_pdb_for_target, parse_pdb_chain_with_bfactor
-from fable_bench.pdb_utils import CANONICAL_AA_SET, load_structure
-from fable_bench.stage1_prompts_and_parsers import parse_inverse_folding_response
-from fable_bench.stage3b_design import (
+from protein_without_tools.japanfold_client import JapanFoldClient, find_pdb_for_target, parse_pdb_chain_with_bfactor
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET, load_structure
+from protein_without_tools.stage1_prompts_and_parsers import parse_inverse_folding_response
+from protein_without_tools.stage3b_design import (
     DesignTaskSpec,
     MotifSegmentSpec,
     grade_monomer_design,
     kabsch_rmsd,
     parse_designed_sequence,
 )
-from fable_bench.tmscore import evaluate_3d_superposition, tm_align_ca
+from protein_without_tools.tmscore import evaluate_3d_superposition, tm_align_ca
 
 
 def _seq_hash(model_name: str, seq: str) -> str:

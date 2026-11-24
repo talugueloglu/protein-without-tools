@@ -17,7 +17,7 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-from fable_bench.tmscore import evaluate_3d_superposition, kabsch_superpose
+from protein_without_tools.tmscore import evaluate_3d_superposition, kabsch_superpose
 
 
 def parse_ca_from_pdb(pdb_path: Path) -> np.ndarray:

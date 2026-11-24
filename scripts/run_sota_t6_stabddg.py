@@ -36,7 +36,7 @@ for p in (REPO / "src", REPO / "scripts", STAB_DIR):
         sys.path.insert(0, str(p))
 
 from evaluate_binding_alanine import load_binding_targets, summarize_grades
-from fable_bench.binding_alanine_scan import grade_binding_alanine_target, parse_binding_alanine_response
+from protein_without_tools.binding_alanine_scan import grade_binding_alanine_target, parse_binding_alanine_response
 from stabddg.model import StaBddG
 from stabddg.mpnn_utils import ProteinMPNN, cat_neighbors_nodes, featurize, gather_nodes, parse_PDB
 from stabddg.utils import extract_chains

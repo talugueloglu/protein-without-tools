@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import numpy as np
 
-from fable_bench.alanine_scan import (
+from protein_without_tools.alanine_scan import (
     AA_TO_ALA_LOOKUP_DDG,
     AlanineScanTarget,
     build_alanine_scan_prompt,
@@ -16,7 +16,7 @@ from fable_bench.alanine_scan import (
     select_balanced_alanine_panel,
 )
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _make_synthetic_alanine_target() -> AlanineScanTarget:

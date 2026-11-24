@@ -12,11 +12,11 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.binding_alanine_scan import (
+from protein_without_tools.binding_alanine_scan import (
     BOGAN_THORN_BINDING_HOTSPOT_SCALE,
     BindingAlanineGrade,
     BindingAlanineParsed,

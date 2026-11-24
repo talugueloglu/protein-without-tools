@@ -60,7 +60,7 @@ Open `website/index.html` locally (e.g., `.venv/bin/python -m http.server 8765 -
 
 ## Repository Layout
 
-- `src/fable_bench/` — Core scoring modules (TM-score, contact reconstruction, SCOPe homology, CAFA-6 IA & NK/LK/PK evaluator, alanine-scan ranking, design & binder evaluators, unified LLM client).
+- `src/protein_without_tools/` — Core scoring modules (TM-score, contact reconstruction, SCOPe homology, CAFA-6 IA & NK/LK/PK evaluator, alanine-scan ranking, design & binder evaluators, unified LLM client).
 - `data/` — Curated benchmark manifests, holdout metadata, and compact `go_subdag.obo` (large raw PDB/GAF download caches are gitignored).
 - `outputs/prompts/` — Zero-leakage anonymised JSONL prompts for all tasks (`web_chat_spotcheck/` has ready-to-paste `.txt` examples).
 - `outputs/predictions/` & `outputs/results/` — Saved predictions and per-target evaluation JSONs for `gpt-6.1-sol`, `gpt-6.2-sol`, `gpt-6.2-astra`, and all 8 specialist baselines.

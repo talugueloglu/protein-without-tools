@@ -8,7 +8,7 @@ import re
 
 import numpy as np
 
-from fable_bench.binding_alanine_scan import (
+from protein_without_tools.binding_alanine_scan import (
     BOGAN_THORN_BINDING_HOTSPOT_SCALE,
     BindingAlanineTarget,
     build_binding_alanine_prompt,
@@ -16,7 +16,7 @@ from fable_bench.binding_alanine_scan import (
     parse_binding_alanine_response,
 )
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 SAFETY_BLOCKLIST = re.compile(
     r"(virus|viral|virion|capsid|phage|toxin|venom|ricin|abrin|"
     r"botulinum|anthrax|anthracis|ebola|marburg|variola|influenza|corona|sars|\bhiv\b|gp120|cov2)",

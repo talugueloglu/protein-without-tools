@@ -24,8 +24,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-stage1")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-stage1")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 stage1_image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -355,9 +355,9 @@ def refold_designed_sequences_gpu(seq_items: List[Dict[str, str]]) -> List[Dict[
 @app.local_entrypoint()
 def main(mode: str = "baselines", data_dir: str = "data/stage1_benchmark", pred_dir: str = "outputs/predictions") -> None:
     import numpy as np
-    from fable_bench.pdb_utils import compute_virtual_cb
-    from fable_bench.stage1_prompts_and_parsers import parse_inverse_folding_response
-    from fable_bench.tmscore import evaluate_3d_superposition
+    from protein_without_tools.pdb_utils import compute_virtual_cb
+    from protein_without_tools.stage1_prompts_and_parsers import parse_inverse_folding_response
+    from protein_without_tools.tmscore import evaluate_3d_superposition
 
     ddir = Path(data_dir)
     pdir = Path(pred_dir)

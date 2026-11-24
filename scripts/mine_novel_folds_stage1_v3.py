@@ -35,14 +35,14 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 import numpy as np
 
-from fable_bench.pdb_utils import (
+from protein_without_tools.pdb_utils import (
     AA3_TO_1,
     ProteinStructure,
     load_structure,
     write_backbone_only_pdb,
     write_ca_trace_pdb,
 )
-from fable_bench.tmscore import kabsch_superpose, tm_d0
+from protein_without_tools.tmscore import kabsch_superpose, tm_d0
 
 CUTOFF_DATE = "2026-05-01"
 CUTOFF_ISO = "2026-05-01T00:00:00Z"
@@ -591,7 +591,7 @@ def batch_fetch_entry_dates(pdb_ids: List[str]) -> Dict[str, str]:
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     data_dir = repo / "data" / "stage1_benchmark"
     raw_cache = repo / "data" / "raw_pdb_cache"
     sim_cache = raw_cache / "similarity_cache"

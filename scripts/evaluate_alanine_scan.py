@@ -27,7 +27,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from fable_bench.alanine_scan import (
+from protein_without_tools.alanine_scan import (
     AA_TO_ALA_LOOKUP_DDG,
     AlanineScanGrade,
     AlanineScanParsed,

@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 import httpx
 import numpy as np
 
-from fable_bench.pdb_utils import AA3_TO_1, compute_kabsch_sander_q3, compute_virtual_cb
+from protein_without_tools.pdb_utils import AA3_TO_1, compute_kabsch_sander_q3, compute_virtual_cb
 
 
 def parse_pdb_chain_with_bfactor(

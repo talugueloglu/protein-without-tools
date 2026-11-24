@@ -19,8 +19,8 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
-from fable_bench.alanine_scan import binary_auroc
-from fable_bench.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.alanine_scan import binary_auroc
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
 
 AA_ORDER = "ARNDCQEGHILKMFPSTWYV"
 AA_TO_IDX = {c: i for i, c in enumerate(AA_ORDER)}

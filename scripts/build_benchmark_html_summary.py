@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Compile real benchmark manifests, 3D coordinates, calibration scores & prompts into a
-self-contained interactive HTML Benchmark Explorer (`fable_protein_bench_summary.html`).
+self-contained interactive HTML Benchmark Explorer (`protein_without_tools_summary.html`).
 """
 
 from __future__ import annotations
@@ -12,11 +12,11 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from fable_bench.pdb_utils import load_structure
+from protein_without_tools.pdb_utils import load_structure
 
 
 def extract_ca_pdb_simple(pdb_path: Path) -> List[List[float]]:
@@ -170,7 +170,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fable-Protein-Bench — Complete 6-Stage Benchmark Architecture</title>
+  <title>Protein Structure Without Tools — Complete 6-Stage Benchmark Architecture</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     .tab-btn-active {
@@ -194,11 +194,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             <span>All 6 Stages Calibrated &amp; Tested (11/11 Passing)</span>
           </div>
           <h1 class="text-2xl lg:text-3xl font-bold tracking-tight text-[var(--foreground)]">
-            Fable-Protein-Bench: Auditing Claude Fable 5.2 vs. Specialist Bio-Tools
+            Protein Structure Without Tools: Auditing Frontier Reasoning LLMs vs. Specialist Bio-Tools
           </h1>
           <p class="text-sm text-[var(--muted-foreground)] max-w-4xl">
             From sequence memorization to folding physics: a reproducible 6-stage benchmark comparing frontier reasoning LLMs
-            (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-fable-5-2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-opus-5-5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gpt-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gemini-3.1-pro</code>)
+            (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gpt-6.2-astra</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">claude-opus-5-5</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gpt-5.2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">gemini-3.1-pro</code>)
             head-to-head against specialist structural biology models (<code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">ESMFold</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">Boltz-2</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">ProteinMPNN</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">PickyBinders/tea</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">ThermoMPNN</code>, <code class="px-1.5 py-0.5 rounded bg-[var(--secondary)] text-xs">BindCraft AF2</code>).
           </p>
         </div>
@@ -323,7 +323,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
       <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
         <div>
           <h2 class="text-lg font-bold">6 Subtle Protein Benchmark Pitfalls We Caught &amp; Engineered Out</h2>
-          <p class="text-xs text-[var(--muted-foreground)]">Why naive LLM biology benchmarks overestimate reasoning—and how Fable-Protein-Bench closes every loophole.</p>
+          <p class="text-xs text-[var(--muted-foreground)]">Why naive LLM biology benchmarks overestimate reasoning—and how Protein Structure Without Tools closes every loophole.</p>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
@@ -554,11 +554,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
             <div>
               <div class="font-semibold mb-1">3. Frontier LLMs (Single-Turn Stages 1A–3B.1 + Closed-Loop 3B.2)</div>
               <pre class="p-3 rounded-lg bg-[var(--background)] border border-[var(--border)] font-mono overflow-x-auto">.venv/bin/python scripts/run_benchmark_llms.py \
-  --provider anthropic --model claude-fable-5-2 \
+  --provider openai --model gpt-6.2-astra \
   --stages all --thinking-budget 8000
 
 .venv/bin/python scripts/run_stage3b_closed_loop_llms.py \
-  --provider anthropic --model claude-fable-5-2 \
+  --provider openai --model gpt-6.2-astra \
   --mode closed_loop --oracle modal_af2 --shots 16</pre>
             </div>
           </div>
@@ -1069,7 +1069,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 def main() -> None:
     payload = build_data_payload()
     html_out = HTML_TEMPLATE.replace("__BENCHMARK_DATA_JSON__", json.dumps(payload, separators=(",", ":")))
-    out_repo = REPO / "outputs/figures/fable_protein_bench_summary.html"
+    out_repo = REPO / "outputs/figures/protein_without_tools_summary.html"
     out_repo.parent.mkdir(parents=True, exist_ok=True)
     out_repo.write_text(html_out, encoding="utf-8")
     print(f"Built {out_repo} ({out_repo.stat().st_size / 1024:.1f} KB)")

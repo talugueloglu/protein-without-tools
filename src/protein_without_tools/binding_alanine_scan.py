@@ -1,6 +1,6 @@
 """Test 6: Interface Binding Alanine Scan Ranking (`Chain A + Partner B -> Rank X->Ala Binding Hotspots`).
 
-Evaluates whether frontier LLMs (`claude-fable-5-2`, `opus-5-5`, `gpt-6.2`, `gemini-3.1-pro`)
+Evaluates whether frontier LLMs (`gpt-6.2-astra`, `opus-5-5`, `gpt-6.2`, `gemini-3.1-pro`)
 can **rank** a balanced `15–20` residue candidate panel of `X -> Ala` mutations on Protein A from
 **#1 (most critical binding hotspot — largest loss of binding affinity to Partner B)** down to
 **#K (most neutral non-interface site)** directly from the two anonymized sequences.
@@ -20,7 +20,7 @@ from typing import Any, Dict, List, Optional, Sequence
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
 
-from fable_bench.alanine_scan import (
+from protein_without_tools.alanine_scan import (
     binary_auroc,
     compute_aa_demeaned_spearman,
     compute_ndcg_at_k,
@@ -28,7 +28,7 @@ from fable_bench.alanine_scan import (
     compute_topk_hotspot_precision,
     parse_ranking_items_to_scores,
 )
-from fable_bench.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
 
 BOGAN_THORN_BINDING_HOTSPOT_SCALE: Dict[str, float] = {
     "W": 2.40,

@@ -1092,17 +1092,6 @@ def _apply_redesign_polish(raw_html: str) -> str:
         '<a class="btn" href="https://github.com/talugueloglu/protein-without-tools" target="_blank" rel="noopener">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>\n        GitHub\n      </a>',
         1,
     )
-    old_code_block = """  <section id="code">
-    <h2>Running the benchmark</h2>
-    <pre class="shell"><span class="c"># unit, anti-cheat and leakage tests</span>
-.venv/bin/pytest -v
-
-<span class="c"># CPU-graded tasks 1, 3, 4, 5, 6</span>
-.venv/bin/python scripts/run_benchmark_llms.py --provider openai --model gpt-6.2-sol --stages 1,3,4,5,6 --thinking-budget 4000
-
-<span class="c"># closed-loop AlphaFold2 binder campaigns</span>
-.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider anthropic --model claude-fable-5-2 --mode closed_loop --oracle modal_af2</pre>
-  </section>"""
     new_code_block = """  <section id="code">
     <h2>Running the benchmark</h2>
     <p class="lead">Repository: <a href="https://github.com/talugueloglu/protein-without-tools" target="_blank" rel="noopener">github.com/talugueloglu/protein-without-tools</a></p>
@@ -1124,8 +1113,9 @@ cp .env.example .env
 .venv/bin/python scripts/eval_t4_cafa6_6cell.py
 .venv/bin/python scripts/update_proteinbench_html_with_baselines.py</pre>
   </section>"""
-    assert old_code_block in raw_html, "Expected #code section not found"
-    raw_html = raw_html.replace(old_code_block, new_code_block, 1)
+    code_section_pattern = re.compile(r'  <section id="code">.*?</section>', re.DOTALL)
+    assert code_section_pattern.search(raw_html), "Expected #code section not found"
+    raw_html = code_section_pattern.sub(lambda _: new_code_block, raw_html, count=1)
 
     # 4. Remove standalone #prep section & nav link (each task's data-prep card now renders directly beneath its figure in #results)
     old_nav_data = '      <a href="#prep">Data</a>\n'

@@ -19,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from fable_bench.llm_client import UnifiedLLMRunner
+from protein_without_tools.llm_client import UnifiedLLMRunner
 
 STAGE_SPECS: Dict[str, Tuple[str, str, int]] = {
     # Clean sequential test numbers (1..7; Test 8 uses `run_stage3b_closed_loop_llms.py`)
@@ -148,7 +148,7 @@ async def run_stage_jsonl(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Execute Frontier LLM protein benchmark prompts across stages.")
     parser.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "openrouter"])
-    parser.add_argument("--model", required=True, help="e.g. claude-fable-5-2, claude-opus-5-5, gpt-5.2, gemini-3.1-pro")
+    parser.add_argument("--model", required=True, help="e.g. gpt-6.2-astra, claude-opus-5-5, gpt-5.2, gemini-3.1-pro")
     parser.add_argument("--stages", default="all", help="Comma-separated stages: 1a,1b,2a,2b,3a,3b or 'all'")
     parser.add_argument("--thinking-budget", type=int, default=0, help="Extended thinking token budget (0 = Direct)")
     parser.add_argument("--prompts-dir", default=str(REPO_ROOT / "outputs" / "prompts"))

@@ -11,11 +11,11 @@ import numpy as np
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     manifest = json.loads((repo / "data/stage1_benchmark/manifest.json").read_text(encoding="utf-8"))
     targets = manifest["targets"]
 
-    out_art = Path("/Users/taluguloglu/.gemini/antigravity/brain/4775d422-bdcb-488c-afa6-e25f2cd600e6/stage1_true_tm_landscape.png")
+    out_art = repo / "outputs/figures/stage1_true_tm_landscape.png"
     out_repo = repo / "outputs/figures/stage1_true_tm_landscape.png"
 
     plt.rcParams.update(

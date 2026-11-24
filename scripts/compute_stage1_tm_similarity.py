@@ -24,7 +24,7 @@ import httpx
 import matplotlib.pyplot as plt
 import numpy as np
 
-from fable_bench.tmscore import kabsch_superpose, tm_d0
+from protein_without_tools.tmscore import kabsch_superpose, tm_d0
 
 CUTOFF_DATE = "2026-05-01"
 
@@ -210,7 +210,7 @@ def batch_fetch_entry_dates(pdb_ids: List[str]) -> Dict[str, str]:
 
 
 async def run_all() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     data_dir = repo / "data" / "stage1_benchmark"
     bb_dir = repo / "data" / "raw_pdb_cache" / "native_backbones_for_foldseek"
     cache_dir = repo / "data" / "raw_pdb_cache" / "tmalign_cache"
@@ -221,7 +221,7 @@ async def run_all() -> None:
     targets = manifest["targets"]
 
     # Map each target to its native backbone PDB (or reconstruct from ground_truth npz if needed)
-    from fable_bench.pdb_utils import AA3_TO_1
+    from protein_without_tools.pdb_utils import AA3_TO_1
     aa1_to_3 = {v: k for k, v in AA3_TO_1.items() if k != "MSE"}
     pdb_files: Dict[str, Path] = {}
     ca_by_tid: Dict[str, np.ndarray] = {}

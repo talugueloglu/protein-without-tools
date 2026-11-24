@@ -40,7 +40,7 @@ SAFETY_BLOCKLIST = re.compile(
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     raw_dir = repo / "data" / "raw_binding_alanine_cache"
     skempi_cif_dir = raw_dir / "skempi_cifs"
     alphaseq_dir = raw_dir / "alphaseq"

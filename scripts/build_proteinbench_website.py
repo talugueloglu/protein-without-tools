@@ -19,7 +19,7 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 if str(REPO / "src") not in sys.path:
@@ -596,7 +596,7 @@ __STANDALONE_FALLBACK_VARS__
         <div class="pt-2 text-slate-400"># 2. Run any frontier model on CPU-graded Tasks 1, 3, 4, 5, 6 (cached + hard USD cap)</div>
         <div>.venv/bin/python scripts/run_benchmark_llms.py --provider openai --model gpt-6.1-sol --stages 1,3,4,5,6 --thinking-budget 4000</div>
         <div class="pt-2 text-slate-400"># 3. Launch 16-shot Closed-Loop AlphaFold2 Epitope Binder Campaigns &amp; Specialist GPU Baselines</div>
-        <div>.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider anthropic --model claude-fable-5-2 --mode closed_loop --oracle modal_af2</div>
+        <div>.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider openai --model gpt-6.2-astra --mode closed_loop --oracle modal_af2</div>
       </div>
     </section>
 

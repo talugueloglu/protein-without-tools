@@ -17,7 +17,7 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _load_jsonl_by_id(path: Path) -> Dict[str, Dict[str, Any]]:

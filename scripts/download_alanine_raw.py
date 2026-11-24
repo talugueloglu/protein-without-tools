@@ -26,7 +26,7 @@ SAFETY_BLOCKLIST = re.compile(
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     cache_dir = repo / "data" / "raw_alanine_cache"
     mave_cache = cache_dir / "mavedb"
     for d in (cache_dir, mave_cache):

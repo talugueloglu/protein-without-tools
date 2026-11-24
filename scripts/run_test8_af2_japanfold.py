@@ -24,15 +24,15 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.japanfold_client import (
+from protein_without_tools.japanfold_client import (
     JapanFoldClient,
     find_pdb_for_target,
     format_clean_two_chain_pdb,
     parse_pdb_chain_with_bfactor,
 )
-from fable_bench.llm_client import UnifiedLLMRunner
-from fable_bench.pdb_utils import CANONICAL_AA_SET
-from fable_bench.stage3b_design import (
+from protein_without_tools.llm_client import UnifiedLLMRunner
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.stage3b_design import (
     BinderShotFeedback,
     EpitopeTarget,
     build_binder_initial_prompt,
@@ -42,7 +42,7 @@ from fable_bench.stage3b_design import (
     parse_designed_sequence,
     score_3d_complex_geometry,
 )
-from fable_bench.tmscore import kabsch_superpose
+from protein_without_tools.tmscore import kabsch_superpose
 
 
 def _binder_cache_key(target_id: str, binder_seq: str) -> str:

@@ -17,8 +17,8 @@ for p in (REPO / "src", REPO / "scripts"):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
-from fable_bench.japanfold_client import JapanFoldClient
-from fable_bench.stage3b_design import EpitopeTarget, evaluate_binder_campaign
+from protein_without_tools.japanfold_client import JapanFoldClient
+from protein_without_tools.stage3b_design import EpitopeTarget, evaluate_binder_campaign
 from run_test8_af2_japanfold import evaluate_binders_af2_batch
 
 

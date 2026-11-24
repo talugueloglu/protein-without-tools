@@ -28,14 +28,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET, ProteinStructure
-from fable_bench.stage1_grader import (
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET, ProteinStructure
+from protein_without_tools.stage1_grader import (
     ForwardGradeResult,
     InverseGradeResult,
     grade_forward_prediction,
     grade_inverse_prediction,
 )
-from fable_bench.stage1_prompts_and_parsers import (
+from protein_without_tools.stage1_prompts_and_parsers import (
     ForwardPredictionParsed,
     InversePredictionParsed,
     parse_forward_folding_response,

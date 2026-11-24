@@ -14,7 +14,7 @@ from pathlib import Path
 import sys
 from typing import Any, Dict, List
 
-from fable_bench.llm_client import UnifiedLLMRunner
+from protein_without_tools.llm_client import UnifiedLLMRunner
 
 
 async def run_prompt_jsonl(
@@ -70,7 +70,7 @@ async def run_prompt_jsonl(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Execute Stage 1 LLM benchmark prompts.")
     parser.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "openrouter"])
-    parser.add_argument("--model", required=True, help="e.g. claude-fable-5-2, claude-opus-5-5, gpt-5.2")
+    parser.add_argument("--model", required=True, help="e.g. gpt-6.2-astra, claude-opus-5-5, gpt-5.2")
     parser.add_argument("--thinking-budget", type=int, default=0, help="Extended thinking token budget (0 = Direct)")
     parser.add_argument("--tasks", default="both", choices=["forward", "inverse", "both"])
     parser.add_argument("--prompts-dir", default="outputs/prompts")

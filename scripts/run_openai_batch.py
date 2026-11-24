@@ -29,7 +29,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT / "src") not in sys.path:
     sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from fable_bench.llm_client import UnifiedLLMRunner
+from protein_without_tools.llm_client import UnifiedLLMRunner
 
 STAGE_ID_MAP = {
     "1": ("stage1a", "stage1a_forward_prompts.jsonl"),

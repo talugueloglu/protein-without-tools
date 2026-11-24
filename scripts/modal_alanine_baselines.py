@@ -4,7 +4,7 @@
 Runs head-to-head specialist baselines on all Stage 3A Alanine Scan targets:
   1. `ESM-2 (650M & 3B)` (`facebook/esm2_t33_650M_UR50D`, `esm2_t36_3B_UR50D`):
      Exact zero-shot masked marginal log-odds `log P(WT_i | seq_{-i}) - log P(Ala | seq_{-i})`
-     from 1D sequence alone (same input modality as `Claude Fable 5.2`!).
+     from 1D sequence alone (same input modality as `Frontier Reasoning LLMs`!).
   2. `ThermoMPNN` (`Kuhlman-Lab/ThermoMPNN`):
      Dedicated 3D-structure-conditioned ΔΔG_fold (kcal/mol) predictor on targets with 3D PDBs!
 
@@ -20,8 +20,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-stage3a-alanine")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-stage3a-alanine")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 alanine_image = (
     modal.Image.debian_slim(python_version="3.11")

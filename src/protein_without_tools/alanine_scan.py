@@ -1,6 +1,6 @@
 """Test 5: Monomer In-Silico Alanine Scan Ranking (`X_i -> A`) Prompts, Parsers, and Ranking Grader.
 
-Evaluates whether frontier LLMs (`claude-fable-5-2`, `opus-5-5`, `gpt-6.2`, `gemini-3.1-pro`)
+Evaluates whether frontier LLMs (`gpt-6.2-astra`, `opus-5-5`, `gpt-6.2`, `gemini-3.1-pro`)
 can **rank** a balanced `15–20` residue candidate panel of `X -> Ala` mutations on an anonymized
 monomeric protein from **#1 (most destabilizing / deleterious core hotspot)** to **#K (most neutral /
 solvent-tolerated)**—including matched **same-amino-acid neutral decoys** (e.g., core `Leu` vs.
@@ -27,7 +27,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 import numpy as np
 from scipy.stats import pearsonr, rankdata, spearmanr
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
 
 AA_TO_ALA_LOOKUP_DDG: Dict[str, float] = {
     "W": 2.65,

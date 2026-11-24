@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Agentic Closed-Loop & Open-Loop (`Pass@K`) Epitope Binder Design Runner for Frontier LLMs.
 
-Evaluates `claude-fable-5-2`, `claude-opus-5-5`, `gpt-5.2`, `gemini-3.1-pro` on Stage 3B Part 2
+Evaluates `gpt-6.2-astra`, `claude-opus-5-5`, `gpt-5.2`, `gemini-3.1-pro` on Stage 3B Part 2
 (`N = 8` epitopes x `K = 16` shots) using either:
   - `--oracle modal_af2`: Live `ColabDesign` `AlphaFold2` (`ipTM`, `iPAE`, `monomer_RMSD`, hotspots) on Modal `L40S`
   - `--oracle surrogate`: Offline CPU surrogate oracle for $0 smoke-testing of prompts & parsers
@@ -23,12 +23,12 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-REPO_ROOT = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from fable_bench.llm_client import UnifiedLLMRunner
-from fable_bench.stage3b_design import (
+from protein_without_tools.llm_client import UnifiedLLMRunner
+from protein_without_tools.stage3b_design import (
     BinderShotFeedback,
     EpitopeTarget,
     SurrogatePhysicsBinderOracle,
@@ -43,7 +43,7 @@ from fable_bench.stage3b_design import (
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run Stage 3B Closed-Loop / Open-Loop Epitope Binder LLM Campaigns.")
     parser.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "openrouter"])
-    parser.add_argument("--model", required=True, help="e.g. claude-fable-5-2, claude-opus-5-5, gpt-5.2")
+    parser.add_argument("--model", required=True, help="e.g. gpt-6.2-astra, claude-opus-5-5, gpt-5.2")
     parser.add_argument("--mode", default="closed_loop", choices=["closed_loop", "open_loop"])
     parser.add_argument("--oracle", default="modal_af2", choices=["modal_af2", "surrogate"])
     parser.add_argument("--shots", type=int, default=16, help="AF2 oracle budget K per epitope")
@@ -67,7 +67,7 @@ def main() -> None:
     af2_fn = None
     if args.oracle == "modal_af2":
         import modal
-        af2_fn = modal.Function.from_name("fable-protein-bench-stage3b-af2", "evaluate_binder_batch_af2_gpu")
+        af2_fn = modal.Function.from_name("protein-without-tools-stage3b-af2", "evaluate_binder_batch_af2_gpu")
 
     async def _run_campaign() -> Dict[str, Any]:
         camps = []

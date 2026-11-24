@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-stage2b-cafa",
+  "benchmark": "protein-without-tools-stage2b-cafa",
   "version": "3.0",
   "source": "CAFA-6 2x3 Experimental GOA Benchmark (EBI GOA 2026-11-03; Pre 2025-05..11 vs Post 2026-05..11; NK/LK/PK)",
   "windows": {

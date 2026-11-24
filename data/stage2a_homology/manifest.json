@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-stage2a-remote-homology",
+  "benchmark": "protein-without-tools-stage2a-remote-homology",
   "version": "1.0",
   "source": "SCOPe 2.08 (40% ASTRAL) + Foldseek pdb100 + PickyBinders/tea split",
   "n_pairs": 120,

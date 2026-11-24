@@ -17,8 +17,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-bindcraft-t8")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-bindcraft-t8")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 bindcraft_image = (
     modal.Image.debian_slim(python_version="3.11")

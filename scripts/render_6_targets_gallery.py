@@ -166,10 +166,10 @@ def render_single_card(rec: Dict[str, Any], npz: Any, out_png: Path) -> None:
 
 
 def main() -> None:
-    repo_root = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo_root = Path(__file__).resolve().parents[1]
     data_dir = repo_root / "data" / "stage1_benchmark"
     repo_fig_dir = repo_root / "outputs" / "figures" / "showcase_6"
-    artifact_dir = Path("/Users/taluguloglu/.gemini/antigravity/brain/4775d422-bdcb-488c-afa6-e25f2cd600e6")
+    artifact_dir = repo_root / "outputs/figures"
     repo_fig_dir.mkdir(parents=True, exist_ok=True)
 
     manifest = json.loads((data_dir / "manifest.json").read_text(encoding="utf-8"))

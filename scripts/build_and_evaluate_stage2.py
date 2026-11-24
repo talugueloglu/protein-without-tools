@@ -40,8 +40,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET
-from fable_bench.stage2a_homology import (
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.stage2a_homology import (
     AA_ORDER,
     HomologyPair,
     build_remote_homology_prompt,
@@ -49,7 +49,7 @@ from fable_bench.stage2a_homology import (
     parse_remote_homology_response,
     smith_waterman_affine,
 )
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     GeneOntologyDAG,
     build_cafa_prompt,
@@ -270,7 +270,7 @@ def build_stage2a(
         manifest_rows.append(d)
 
     manifest = {
-        "benchmark": "fable-protein-bench-stage2a-remote-homology",
+        "benchmark": "protein-without-tools-stage2a-remote-homology",
         "version": "1.0",
         "source": "SCOPe 2.08 (40% ASTRAL) + Foldseek pdb100 + PickyBinders/tea split",
         "n_pairs": len(pairs),
@@ -462,7 +462,7 @@ def build_stage2b(
     (out_s2b_dir / "reference_swissprot_go.json").write_text(json.dumps(ref_bank, indent=2), encoding="utf-8")
 
     manifest = {
-        "benchmark": "fable-protein-bench-stage2b-cafa",
+        "benchmark": "protein-without-tools-stage2b-cafa",
         "version": "1.0",
         "source": "2026 UniProtKB + EBI QuickGO Experimental GOA (ECO:0000269 descendants)",
         "n_targets": len(targets),
@@ -865,7 +865,7 @@ def main() -> None:
     parser.add_argument("--plot-only", action="store_true", help="Re-render overview figure from saved evaluation report")
     args = parser.parse_args()
 
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     raw_root = repo / "data" / "raw_stage2_cache"
     s2a_dir = repo / "data" / "stage2a_homology"
     s2b_dir = repo / "data" / "stage2b_cafa"

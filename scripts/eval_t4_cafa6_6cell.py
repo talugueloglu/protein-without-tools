@@ -27,7 +27,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     compute_cafa_fmax,
     compute_term_information_accretion,

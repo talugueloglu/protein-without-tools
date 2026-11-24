@@ -5,10 +5,10 @@ into `outputs/predictions/` so `evaluate_stage1.py`, `plot_stage1.py`, and
 
 Example usage:
   1. Copy prompt from `outputs/prompts/web_chat_spotcheck/s1_t011_forward.txt`
-  2. Paste into Claude.ai (Fable 5.2) and save its reply to `my_reply.txt`
+  2. Paste into a frontier chat UI and save its reply to `my_reply.txt`
   3. Run:
      .venv/bin/python scripts/import_manual_response.py \
-         --model claude_fable_5_2_webui \
+         --model gpt_6_2_astra_webui \
          --target-id s1_t011 \
          --task forward \
          --response-file my_reply.txt
@@ -27,7 +27,7 @@ import sys
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Import manual web-chat reply into Stage 1 predictions.")
-    parser.add_argument("--model", required=True, help="Model tag, e.g. claude_fable_5_2_webui")
+    parser.add_argument("--model", required=True, help="Model tag, e.g. gpt_6_2_astra_webui")
     parser.add_argument("--target-id", required=True, help="Anonymized target ID, e.g. s1_t001")
     parser.add_argument("--task", required=True, choices=["forward", "inverse"])
     parser.add_argument("--response-file", required=True, help="Path to text/JSON file containing model reply")

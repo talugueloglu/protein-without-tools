@@ -17,7 +17,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Fable-Protein-Bench — Stage 1 Interactive 3D Superposition Explorer</title>
+  <title>Protein Structure Without Tools — Stage 1 Interactive 3D Superposition Explorer</title>
   <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; background: #0f172a; color: #f8fafc; }
@@ -35,7 +35,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
   <header>
-    <h1>Fable-Protein-Bench: Stage 1 Structure Superposition (Crystal Grey vs. Model Rainbow)</h1>
+    <h1>Protein Structure Without Tools: Stage 1 Structure Superposition (Crystal Grey vs. Model Rainbow)</h1>
     <div class="controls">
       <label>Target:</label>
       <select id="targetSelect"></select>

@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-stage1-v3",
+  "benchmark": "protein-without-tools-stage1-v3",
   "cutoff_date": "2026-05-01",
   "total_targets": 100,
   "strata_counts": {

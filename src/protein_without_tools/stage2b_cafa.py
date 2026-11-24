@@ -18,7 +18,7 @@ from typing import Any, Dict, FrozenSet, Iterable, List, Optional, Sequence, Set
 
 import numpy as np
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
 
 ASPECT_MAP = {
     "molecular_function": "MF",

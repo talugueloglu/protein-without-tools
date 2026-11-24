@@ -35,7 +35,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 import numpy as np
 
-from fable_bench.pdb_utils import (
+from protein_without_tools.pdb_utils import (
     AA3_TO_1,
     ProteinStructure,
     load_structure,
@@ -763,7 +763,7 @@ def main() -> None:
         final_records.append(rec)
 
     manifest = {
-        "benchmark": "fable-protein-bench-stage1-v2",
+        "benchmark": "protein-without-tools-stage1-v2",
         "cutoff_date": CUTOFF_DATE,
         "total_targets": len(final_records),
         "strata_counts": {

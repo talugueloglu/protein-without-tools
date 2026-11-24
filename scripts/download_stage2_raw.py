@@ -29,8 +29,8 @@ from typing import Any, Dict, List, Set, Tuple
 
 import httpx
 
-from fable_bench.pdb_utils import AA3_TO_1, CANONICAL_AA_SET, load_structure
-from fable_bench.stage2a_homology import smith_waterman_affine
+from protein_without_tools.pdb_utils import AA3_TO_1, CANONICAL_AA_SET, load_structure
+from protein_without_tools.stage2a_homology import smith_waterman_affine
 
 SAFETY_BLOCKLIST = re.compile(
     r"\b(virus|viral|virion|capsid|phage|bacteriophage|toxin|venom|ricin|abrin|"
@@ -176,7 +176,7 @@ async def download_scope_pdbs_and_foldseek(
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     raw_root = repo / "data" / "raw_stage2_cache"
     tea_dir = raw_root / "tea_scope"
     scope_pdb_dir = tea_dir / "pdbs"

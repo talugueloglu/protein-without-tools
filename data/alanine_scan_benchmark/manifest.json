@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-test5-monomer-alanine-ranking",
+  "benchmark": "protein-without-tools-test5-monomer-alanine-ranking",
   "total_targets": 52,
   "total_panel_candidates": 936,
   "total_alanine_mutations": 936,

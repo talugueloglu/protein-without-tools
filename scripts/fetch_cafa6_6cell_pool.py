@@ -28,7 +28,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.stage2b_cafa import parse_go_obo
+from protein_without_tools.stage2b_cafa import parse_go_obo
 
 OUT_DIR = REPO / "data" / "raw_stage2_cache" / "cafa6_6cell"
 EXP_CODES = {"EXP", "IDA", "IPI", "IMP", "IGI", "IEP", "HTP", "HDA", "HMP", "HGI", "HEP"}

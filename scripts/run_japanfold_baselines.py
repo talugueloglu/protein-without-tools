@@ -32,10 +32,10 @@ if str(REPO / "outputs" / "proteinmpnn_cache") not in sys.path:
     sys.path.insert(0, str(REPO / "outputs" / "proteinmpnn_cache"))
 
 from evaluate_tests_2_7_japanfold import evaluate_test2, evaluate_test7
-from fable_bench.japanfold_client import JapanFoldClient, parse_pdb_chain_with_bfactor
-from fable_bench.pdb_utils import CANONICAL_AA_SET
-from fable_bench.stage2a_homology import smith_waterman_affine
-from fable_bench.stage3b_design import EpitopeTarget, evaluate_binder_campaign
+from protein_without_tools.japanfold_client import JapanFoldClient, parse_pdb_chain_with_bfactor
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.stage2a_homology import smith_waterman_affine
+from protein_without_tools.stage3b_design import EpitopeTarget, evaluate_binder_campaign
 from protein_mpnn_utils import ProteinMPNN, _S_to_seq, parse_PDB, tied_featurize
 from run_local_t1_t2_mpnn import load_proteinmpnn_model
 from run_test8_af2_japanfold import evaluate_binders_af2_batch
@@ -169,7 +169,7 @@ def _design_with_mpnn_on_pdb_text(
                     fixed_map[int(idx0)] = m_aa
 
     # Rewrite clean PDB with motif residues placed on fixed_0idx so S_true holds exact motif letters!
-    from fable_bench.japanfold_client import AA1_TO_3
+    from protein_without_tools.japanfold_client import AA1_TO_3
 
     lines = []
     serial = 1
@@ -246,7 +246,7 @@ def _design_with_mpnn_on_pdb_text(
             if is_motif
             else [(0.1, -2.5, 0.0), (0.1, -4.0, -0.35), (0.12, -5.0, -0.6), (0.15, -6.0, -0.9)]
         )
-        from fable_bench.stage3b_design import MotifSegmentSpec, evaluate_sequence_hygiene
+        from protein_without_tools.stage3b_design import MotifSegmentSpec, evaluate_sequence_hygiene
 
         segs_hyg = [
             MotifSegmentSpec(f"m{k}", ms, 0, L, [[0.0, 0.0, 0.0]] * len(ms))

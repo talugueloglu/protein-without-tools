@@ -21,8 +21,8 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.llm_client import UnifiedLLMRunner
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.llm_client import UnifiedLLMRunner
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     GeneOntologyDAG,
     build_cafa_prompt,
@@ -243,7 +243,7 @@ def main() -> None:
     }
 
     manifest = {
-        "benchmark": "fable-protein-bench-stage2b-cafa",
+        "benchmark": "protein-without-tools-stage2b-cafa",
         "version": "3.0",
         "source": "CAFA-6 2x3 Experimental GOA Benchmark (EBI GOA 2026-11-03; Pre 2025-05..11 vs Post 2026-05..11; NK/LK/PK)",
         "windows": {

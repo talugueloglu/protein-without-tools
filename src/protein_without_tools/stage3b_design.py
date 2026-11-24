@@ -34,8 +34,8 @@ from typing import Any, Dict, List, Optional, Protocol, Sequence, Tuple
 
 import numpy as np
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET
-from fable_bench.stage2a_homology import smith_waterman_affine
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.stage2a_homology import smith_waterman_affine
 
 KYTE_DOOLITTLE: Dict[str, float] = {
     "I": 4.5, "V": 4.2, "L": 3.8, "F": 2.8, "C": 2.5,

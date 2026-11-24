@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import numpy as np
 
-from fable_bench.stage3b_design import (
+from protein_without_tools.stage3b_design import (
     DesignTaskSpec,
     EpitopeTarget,
     MotifSegmentSpec,

@@ -8,23 +8,23 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from fable_bench.pdb_utils import (
+from protein_without_tools.pdb_utils import (
     load_structure,
     write_backbone_only_pdb,
 )
-from fable_bench.reconstruct_3d import reconstruct_ca_from_contacts
-from fable_bench.stage1_grader import (
+from protein_without_tools.reconstruct_3d import reconstruct_ca_from_contacts
+from protein_without_tools.stage1_grader import (
     grade_forward_prediction,
     grade_inverse_prediction,
 )
-from fable_bench.stage1_prompts_and_parsers import (
+from protein_without_tools.stage1_prompts_and_parsers import (
     ForwardPredictionParsed,
     build_forward_folding_prompt,
     build_inverse_folding_prompt,
     parse_forward_folding_response,
     parse_inverse_folding_response,
 )
-from fable_bench.tmscore import evaluate_3d_superposition
+from protein_without_tools.tmscore import evaluate_3d_superposition
 
 
 def _make_synthetic_two_helix_hairpin_pdb(tmp_path: Path) -> Path:

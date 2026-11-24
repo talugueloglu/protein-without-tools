@@ -27,8 +27,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-stage3b-af2")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-stage3b-af2")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 af2_bindcraft_image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -215,7 +215,7 @@ def main(
     budget_k: int = 16,
 ) -> None:
     import numpy as np
-    from fable_bench.stage3b_design import (
+    from protein_without_tools.stage3b_design import (
         BinderShotFeedback,
         EpitopeTarget,
         evaluate_binder_campaign,

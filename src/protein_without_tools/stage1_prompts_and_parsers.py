@@ -13,7 +13,7 @@ import math
 import re
 from typing import Any, List, Optional, Tuple
 
-from fable_bench.pdb_utils import CANONICAL_AA_SET, ProteinStructure
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET, ProteinStructure
 
 
 @dataclass

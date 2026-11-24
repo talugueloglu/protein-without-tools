@@ -40,12 +40,12 @@ import numpy as np
 import pyarrow.parquet as pq
 from scipy.stats import spearmanr
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from fable_bench.alanine_scan import select_balanced_alanine_panel
-from fable_bench.binding_alanine_scan import (
+from protein_without_tools.alanine_scan import select_balanced_alanine_panel
+from protein_without_tools.binding_alanine_scan import (
     BOGAN_THORN_BINDING_HOTSPOT_SCALE,
     BindingAlanineParsed,
     BindingAlanineTarget,
@@ -53,7 +53,7 @@ from fable_bench.binding_alanine_scan import (
     grade_binding_alanine_target,
     parse_binding_alanine_response,
 )
-from fable_bench.pdb_utils import CANONICAL_AA_SET
+from protein_without_tools.pdb_utils import CANONICAL_AA_SET
 
 AA3_TO_AA1: Dict[str, str] = {
     "ALA": "A", "CYS": "C", "ASP": "D", "GLU": "E", "PHE": "F",
@@ -744,7 +744,7 @@ def main() -> None:
     cat_counts = dict(Counter(r["category"] for r in manifest_rows))
     mem_counts = dict(Counter(r["memorization_stratum"] for r in manifest_rows))
     manifest_obj = {
-        "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
+        "benchmark": "Protein Structure Without Tools Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
         "n_targets": len(manifest_rows),
         "total_panel_candidates": total_panel_mutants,
         "total_assayed_alanine_mutants": total_panel_mutants,

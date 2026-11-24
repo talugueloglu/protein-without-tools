@@ -1,5 +1,5 @@
 {
-  "benchmark": "Fable-Protein-Bench Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
+  "benchmark": "Protein Structure Without Tools Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
   "n_targets": 38,
   "total_panel_candidates": 592,
   "total_assayed_alanine_mutants": 592,

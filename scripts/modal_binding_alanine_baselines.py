@@ -4,7 +4,7 @@
 Evaluates zero-shot sequence & structure specialist baselines on `data/binding_alanine_benchmark/`:
   1. `ESM-2 (650M & 3B) Complex Masked Marginals` (`seq_A + G*25 + seq_B`):
      Zero-shot `log P(WT_i | complex) - log P(Ala | complex)` from the exact same two-sequence
-     input given to `Claude Fable 5.2` (`No-Code` / `With-Code`).
+     input given to `Frontier Reasoning LLMs` (`No-Code` / `With-Code`).
   2. `ESM-2 (3B) Partner-Conditioned ΔLLR` (`LLR_complex - LLR_monomer`):
      Isolates partner-dependent evolutionary coupling across the `G*25` linker.
   3. `ESMFold Multimer + ProteinMPNN Interface Δlog P` (`complex - monomer` backbone log-odds):
@@ -23,8 +23,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-test6-binding-alanine")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-test6-binding-alanine")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 binding_alanine_image = (
     modal.Image.debian_slim(python_version="3.11")

@@ -24,7 +24,7 @@ from typing import Any, Dict, List, Tuple
 
 import numpy as np
 
-from fable_bench.pdb_utils import (
+from protein_without_tools.pdb_utils import (
     ProteinStructure,
     write_backbone_only_pdb,
     write_ca_trace_pdb,
@@ -56,7 +56,7 @@ def rehydrate_npz(npz_bytes_or_path: Path | Dict[str, Any], tid: str, pdb_id: st
 
 
 def main() -> None:
-    repo = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+    repo = Path(__file__).resolve().parents[1]
     data_dir = repo / "data" / "stage1_benchmark"
     mined_path = repo / "data" / "raw_pdb_cache" / "mined_novel_candidates_verified.json"
 
@@ -175,7 +175,7 @@ def main() -> None:
 
     strata_counts = dict(Counter(r["stratum"] for r in final_targets))
     out_manifest = {
-        "benchmark": "fable-protein-bench-stage1-v3",
+        "benchmark": "protein-without-tools-stage1-v3",
         "cutoff_date": "2026-05-01",
         "total_targets": len(final_targets),
         "strata_counts": strata_counts,

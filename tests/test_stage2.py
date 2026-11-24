@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from fable_bench.stage2a_homology import (
+from protein_without_tools.stage2a_homology import (
     HomologyPair,
     build_remote_homology_prompt,
     evaluate_homology_predictions,
@@ -12,7 +12,7 @@ from fable_bench.stage2a_homology import (
     parse_substitution_matrix_file,
     smith_waterman_affine,
 )
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     build_cafa_prompt,
     compute_cafa_fmax,

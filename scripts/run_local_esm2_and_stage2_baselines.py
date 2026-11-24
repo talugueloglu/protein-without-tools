@@ -35,10 +35,10 @@ if str(REPO / "outputs" / "proteinmpnn_cache" / "fair_esm_src") not in sys.path:
 
 from evaluate_alanine_scan import load_alanine_targets, summarize_model
 from evaluate_binding_alanine import load_binding_targets, summarize_grades
-from fable_bench.alanine_scan import grade_alanine_scan, parse_alanine_scan_response
-from fable_bench.binding_alanine_scan import grade_binding_alanine_target, parse_binding_alanine_response
-from fable_bench.stage2a_homology import HomologyPair, evaluate_homology_predictions, smith_waterman_affine
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.alanine_scan import grade_alanine_scan, parse_alanine_scan_response
+from protein_without_tools.binding_alanine_scan import grade_binding_alanine_target, parse_binding_alanine_response
+from protein_without_tools.stage2a_homology import HomologyPair, evaluate_homology_predictions, smith_waterman_affine
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     compute_cafa_fmax,
     compute_term_information_content,

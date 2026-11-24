@@ -33,8 +33,8 @@ if str(REPO / "scripts") not in sys.path:
     sys.path.insert(0, str(REPO / "scripts"))
 
 from evaluate_alanine_scan import load_alanine_targets, summarize_model
-from fable_bench.alanine_scan import grade_alanine_scan, parse_alanine_scan_response
-from fable_bench.japanfold_client import parse_pdb_chain_with_bfactor
+from protein_without_tools.alanine_scan import grade_alanine_scan, parse_alanine_scan_response
+from protein_without_tools.japanfold_client import parse_pdb_chain_with_bfactor
 
 
 AA_ALPHABET = "ACDEFGHIKLMNPQRSTVWY"

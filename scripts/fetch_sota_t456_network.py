@@ -24,7 +24,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.japanfold_client import JapanFoldClient, find_pdb_for_target
+from protein_without_tools.japanfold_client import JapanFoldClient, find_pdb_for_target
 
 
 def fetch_task5_esmfold2(jf: JapanFoldClient) -> None:

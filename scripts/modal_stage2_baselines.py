@@ -25,8 +25,8 @@ from typing import Any, Dict, List
 
 import modal
 
-app = modal.App("fable-protein-bench-stage2")
-weights_vol = modal.Volume.from_name("fable-bench-weights", create_if_missing=True)
+app = modal.App("protein-without-tools-stage2")
+weights_vol = modal.Volume.from_name("protein-without-tools-weights", create_if_missing=True)
 
 stage2_image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -144,7 +144,7 @@ def main(
     pred_dir: str = "outputs/predictions",
 ) -> None:
     import numpy as np
-    from fable_bench.stage2a_homology import parse_substitution_matrix_file, smith_waterman_affine
+    from protein_without_tools.stage2a_homology import parse_substitution_matrix_file, smith_waterman_affine
 
     s2a = Path(stage2a_dir)
     s2b = Path(stage2b_dir)

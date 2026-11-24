@@ -22,10 +22,10 @@ if str(REPO / "src") not in sys.path:
 if str(REPO / "outputs" / "proteinmpnn_cache") not in sys.path:
     sys.path.insert(0, str(REPO / "outputs" / "proteinmpnn_cache"))
 
-from fable_bench.pdb_utils import ProteinStructure
-from fable_bench.stage1_grader import _contact_precision_at_k, grade_inverse_prediction
-from fable_bench.stage1_prompts_and_parsers import parse_inverse_folding_response
-from fable_bench.tmscore import evaluate_3d_superposition
+from protein_without_tools.pdb_utils import ProteinStructure
+from protein_without_tools.stage1_grader import _contact_precision_at_k, grade_inverse_prediction
+from protein_without_tools.stage1_prompts_and_parsers import parse_inverse_folding_response
+from protein_without_tools.tmscore import evaluate_3d_superposition
 from protein_mpnn_utils import ProteinMPNN, _S_to_seq, parse_PDB, tied_featurize
 
 

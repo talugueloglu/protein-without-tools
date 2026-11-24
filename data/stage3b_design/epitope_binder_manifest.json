@@ -1,5 +1,5 @@
 {
-  "benchmark": "fable-protein-bench-stage3b-part2-closed-loop-binders",
+  "benchmark": "protein-without-tools-stage3b-part2-closed-loop-binders",
   "version": "2.0",
   "budget_shots_per_target": 16,
   "n_targets": 12,

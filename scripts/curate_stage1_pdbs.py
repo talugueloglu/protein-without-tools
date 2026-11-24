@@ -11,7 +11,7 @@ Builds a clean 2x2 factorial dataset in `data/stage1_benchmark/`:
 Every structure is checked for:
   - Contiguous resolved polypeptide chain (zero internal missing-loop breaks > 2.3 Å)
   - Canonical amino acids (50 <= L <= 220)
-  - Zero viral / phage / toxin / select-agent keywords (prevents Fable 5.2 silent fallbacks)
+  - Zero viral / phage / toxin / select-agent keywords (prevents frontier model silent fallbacks)
   - Non-redundant sequence diversity (< 30% global pairwise identity across targets)
 """
 
@@ -27,7 +27,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 import numpy as np
 
-from fable_bench.pdb_utils import (
+from protein_without_tools.pdb_utils import (
     ProteinStructure,
     load_structure,
     write_backbone_only_pdb,
@@ -388,7 +388,7 @@ def main() -> None:
 
     manifest_path = out_dir / "manifest.json"
     summary = {
-        "benchmark": "fable-protein-bench-stage1",
+        "benchmark": "protein-without-tools-stage1",
         "total_targets": len(selected_records),
         "n_pre_cutoff": sum(1 for r in selected_records if r["temporal_split"] == "pre_cutoff"),
         "n_post_cutoff": sum(1 for r in selected_records if r["temporal_split"] == "post_cutoff"),

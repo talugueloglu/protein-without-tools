@@ -9,7 +9,7 @@ import re
 import subprocess
 import tempfile
 
-REPO = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO = Path(__file__).resolve().parents[1]
 
 HTML_TEMPLATE = r"""<!DOCTYPE html>
 <html>

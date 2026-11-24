@@ -37,12 +37,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-REPO_ROOT = Path("/Users/taluguloglu/.gemini/antigravity/scratch/fable-protein-bench")
+REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from fable_bench.pdb_utils import AA3_TO_1, load_structure
-from fable_bench.stage3b_design import (
+from protein_without_tools.pdb_utils import AA3_TO_1, load_structure
+from protein_without_tools.stage3b_design import (
     BinderShotFeedback,
     DesignTaskSpec,
     EpitopeTarget,
@@ -315,7 +315,7 @@ def build_part1_monomer_and_motif(
     (out_dir / "monomer_motif_manifest.json").write_text(
         json.dumps(
             {
-                "benchmark": "fable-protein-bench-stage3b-part1-monomer-motif",
+                "benchmark": "protein-without-tools-stage3b-part1-monomer-motif",
                 "n_tasks": len(specs),
                 "tasks": [asdict(s) for s in specs],
             },
@@ -352,7 +352,7 @@ def build_part1_monomer_and_motif(
 
 def select_surface_hydrophobic_patch_hotspots(seq: str, ca: np.ndarray, cb: np.ndarray) -> List[int]:
     """Select 5 coherent, solvent-exposed hydrophobic/aromatic patch hotspot residues (1-indexed) for apo targets (`BoltzProt-1`)."""
-    from fable_bench.stage3b_design import AROMATIC_SET, KYTE_DOOLITTLE
+    from protein_without_tools.stage3b_design import AROMATIC_SET, KYTE_DOOLITTLE
 
     dmat = np.linalg.norm(cb[:, None, :] - cb[None, :, :], axis=-1)
     # Burial count (`Cbeta < 10.0 A`, excluding self & +/-1 neighbors)
@@ -607,7 +607,7 @@ def build_part2_epitope_binders(
     (out_dir / "epitope_binder_manifest.json").write_text(
         json.dumps(
             {
-                "benchmark": "fable-protein-bench-stage3b-part2-closed-loop-binders",
+                "benchmark": "protein-without-tools-stage3b-part2-closed-loop-binders",
                 "version": "2.0",
                 "budget_shots_per_target": 16,
                 "n_targets": len(epitope_targets),
