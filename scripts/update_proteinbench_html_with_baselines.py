@@ -1086,7 +1086,12 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert abs_pattern.search(raw_html) is not None, "Expected #abstract section not found"
     raw_html = abs_pattern.sub(lambda _: concise_abstract, raw_html, count=1)
 
-    # 3d. Update #code shell block to match actual evaluated models, thinking-budget 4096, and current scripts
+    # 3d. Wire GitHub repo link into hero Code button + update #code shell block with fresh-clone setup & actual flags
+    raw_html = raw_html.replace(
+        '<a class="btn" href="#code">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>\n        Code\n      </a>',
+        '<a class="btn" href="https://github.com/talugueloglu/protein-without-tools" target="_blank" rel="noopener">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>\n        GitHub\n      </a>',
+        1,
+    )
     old_code_block = """  <section id="code">
     <h2>Running the benchmark</h2>
     <pre class="shell"><span class="c"># unit, anti-cheat and leakage tests</span>
@@ -1100,7 +1105,13 @@ def _apply_redesign_polish(raw_html: str) -> str:
   </section>"""
     new_code_block = """  <section id="code">
     <h2>Running the benchmark</h2>
-    <pre class="shell"><span class="c"># unit, anti-cheat and leakage tests</span>
+    <p class="lead">Repository: <a href="https://github.com/talugueloglu/protein-without-tools" target="_blank" rel="noopener">github.com/talugueloglu/protein-without-tools</a></p>
+    <pre class="shell"><span class="c"># clone &amp; install (Python 3.11+)</span>
+git clone https://github.com/talugueloglu/protein-without-tools.git &amp;&amp; cd protein-without-tools
+uv venv &amp;&amp; uv pip install -e ".[dev,cloud]"
+cp .env.example .env
+
+<span class="c"># unit, anti-cheat, CAFA-6 masking, and leakage tests</span>
 .venv/bin/pytest -v
 
 <span class="c"># single-shot tasks 1&ndash;7 (gpt-6.1-sol, gpt-6.2-sol, gpt-6.2-astra)</span>
@@ -1109,7 +1120,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
 <span class="c"># task 8: 16-round closed-loop AlphaFold2 binder campaigns</span>
 .venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider openai --model gpt-6.2-astra --mode closed_loop --oracle modal_af2 --shots 16 --thinking-budget 4096
 
-<span class="c"># score Task 4 (CAFA-6 2x3 split) and rebuild the report</span>
+<span class="c"># score Task 4 (CAFA-6 2x3 split) and rebuild website/index.html</span>
 .venv/bin/python scripts/eval_t4_cafa6_6cell.py
 .venv/bin/python scripts/update_proteinbench_html_with_baselines.py</pre>
   </section>"""

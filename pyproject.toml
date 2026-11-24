@@ -8,7 +8,7 @@ packages = ["src/fable_bench"]
 [project]
 name = "fable-protein-bench"
 version = "0.1.0"
-description = "6-Benchmark Audit of Frontier Reasoning LLMs vs. Specialist Structural Biology Tools on Post-Cutoff Proteins"
+description = "Protein Structure Without Tools: 8-Task Structural Biology Benchmark for Frontier Reasoning Models"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

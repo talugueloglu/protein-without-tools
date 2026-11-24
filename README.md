@@ -1,59 +1,69 @@
-# Fable-Protein-Bench
+# Protein Structure Without Tools
 
-**From Sequence Memorization to Folding & Binding Physics? Auditing `Claude Fable 5.2` (`claude-fable-5-2`) & Frontier Reasoning LLMs Head-to-Head Against Specialist Structural Biology Tools (`ESMFold`, `Boltz-2`, `ProteinMPNN`, `PickyBinders/tea`, `ESM-2`, `ThermoMPNN`, `BindCraft` / `ColabDesign AF2`) Across 8 Zero-Leakage Benchmarks (`No-Code` vs. `With-Code`).**
+**Can frontier reasoning models solve real structural biology problems from weights and chain-of-thought alone — with no alignments, no databases, and no structure predictors?**
+
+This repository contains the complete 8-task benchmark (**582 targets**), zero-leakage anonymised prompts, automated evaluators, specialist baseline pipelines, and interactive HTML report (`website/index.html`).
 
 ---
 
-## Complete 8-Test Suite (`1.` to `8.` — All Ready Offline + Turnkey Live Runners)
+## Benchmark Overview (8 Tasks · 582 Targets)
 
-| # | Test | Curated Dataset (Leak-Free & Stratified) | Specialist GPU Baselines | Primary Metrics |
+| # | Task | Dataset & Holdout Design | Specialist Baseline | Primary Metrics |
 | :---: | :--- | :--- | :--- | :--- |
-| **1.** | **Forward Folding** | **`N = 100`** (`85` post-May-2026 PDB incl. **`18` true novel folds `TM < 0.52`** + `15` pre-cutoff controls) | `ESMFold`, `Boltz-2` (AF3-class), `ESM-2` | Exact `TM-score`, `Cα RMSD`, `lDDT-Cα`, `P@L` (`\|i-j\| ≥ 24`), `Q3` |
-| **2.** | **Inverse Folding** | **`N = 100`** stripped `UNK` 3D backbones (`N, Cα, C, O` only) | `ProteinMPNN` (`v_48_020`) + `ESMFold` | `NSR %` (All / Core / Surface), refolded `scTM` & `scRMSD < 2.0 Å` |
-| **3.** | **Remote Homology (`TEA`)** | **`N = 120`** `SCOPe 2.08` pairs (`Seq-Easy` $\to$ `Foldseek 3Di` $\to$ **`Deep TEA Zone`** $\to$ class-matched decoys) | `Foldseek 3Di`, `PickyBinders/tea`, `ESM-2` | Stratified `AUROC`, `AUPRC`, & Rung `Recall @ 10% FPR` |
-| **4.** | **Function (`CAFA`)** | **`N = 60`** 2026 experimental `QuickGO` holdouts vs. `1,728` pre-2025 Swiss-Prot ref bank | `Smith-Waterman`, `ESM-2` $k$-NN, `CAFA Naive` | Official `CAFA` `wF_max` & `F_max` (`MF`, `BP`, `CC`) |
-| **5.** | **Monomer Alanine Scan Ranking** | **`N = 52`** proteins × **`18`-candidate panels** (`936` ranked from `5,348` wet-lab `X -> A` mutants: `6` hotspots + `6` moderate + `6` same-AA decoys) | `ThermoMPNN`, `ESM-2` (650M & 3B) marginals | **`NDCG@5`**, `Top-K Precision`, **`Same-AA Win Rate`** (`1D = 50%`), `AA-Demeaned Rank ρ`, `Spearman ρ` |
-| **6.** | **Interface Binding Alanine Ranking** | **`N = 38`** PPI complexes × **`8–18` candidate panels** (`629` ranked from `2,767` wet-lab `X -> A` binding mutants: `SKEMPI`, `PD-1`/`TIGIT` `AlphaSeq`, `MaveDB` `KRAS × LZTR1`) | `ESM-2` Complex & Partner-$\Delta$ Marginals, `ProteinMPNN` $\Delta\log P$ | **`NDCG@5`**, `Top-K Precision`, **`Same-AA Win Rate`** (`Bogan–Thorn 1D = 50%`), `AA-Demeaned Rank ρ`, `Spearman ρ` |
-| **7.** | ***De Novo* Monomer & Motif** | **`N = 40`** tasks (`24` fold-conditioned across 4 topologies + `16` crystal-motif scaffolds) | `ESM3-open`, `ProGen2`, `ProteinMPNN` | 5-Gate `% Designable` (`pLDDT ≥ 80`, `scRMSD ≤ 2 Å`, `motif RMSD ≤ 1.5 Å`, `<30%` SeqID) |
-| **8.** | **Closed-Loop Epitope Binders** | **`N = 12` proven-bindable epitopes $\times$ `16` `AF2` shots** (`4` `RFD4`/`ProtDBench` + `5` `BoltzProt-1` hard novel + `3` 2026 *de novo* binder crystals) | `BindCraft` (`ColabDesign AF2`), `ProtDBench` (`RFD3`, `PXDesign`, `BoltzGen`) | Closed-Loop **`Shots-to-Hit`** (`Pass@1..16`, `ipTM ≥ 0.75`, `iPAE < 10 Å`) |
+| **1** | **Forward folding** | **`N = 100`** monomeric RCSB PDB structures stratified by Foldseek structural TM-score to pre-May-2026 PDB (`15` known, `12` homolog gradient, `27` PDB-novel, `28` *de novo*, `18` truly novel `TM < 0.53`) | `ESMFold-2` (single-seq) | `TM-score`, `P@L (|i−j| ≥ 24)`, `Q3` |
+| **2** | **Inverse folding** | **Same `N = 100`** structures stripped to bare `Cα` coordinates (`UNK` residues) + backbone angles & burial counts | `ProteinMPNN` (`v_48_020`) | `scTM` (ESMFold-2 refold), `scRMSD < 2 Å`, `NSR` |
+| **3** | **Remote homology** | **`N = 120`** SCOPe 2.08 domain pairs via TEA & Foldseek (`30` sequence-easy, `30` Foldseek 3Di, `30` deep twilight `<15%` ID, `30` class/ID-matched decoys) | `ESM-2 (650M)` cosine | `Recall @ 10% FPR`, `AUROC`, `Accuracy` |
+| **4** | **Function prediction** | **`N = 120`** UniProtKB / EBI GOA proteins in a CAFA-6 2×3 split (`Pre May–Oct 2025` vs `Post May–Oct 2026` × `NK / LK / PK`, `20` per cell; strict Post-NK double-verified via QuickGO) | `NetGO 4.0` (GOCurator) | CAFA-6 `IA`-weighted `wF_max` (`MF`, `BP`, `CC`; dual `-known` masking on PK) |
+| **5** | **Monomer alanine ranking** | **`N = 52`** 18-mutation `X→Ala` panels (`MegaScale` *de novo* `24`, natural `14`; `MaveDB` DMS `12`, dual `2`), pairing hotspots with same-AA neutral decoys (`50%` 1D floor) | `ESMFold-2 → SaProt (650M)` | `NDCG@5`, `Same-AA win`, `Spearman ρ` |
+| **6** | **Interface binding ranking** | **`N = 38`** PPI `X→Ala` panels (`SKEMPI v2.0` `28`, `Open-AlphaSeq` `3`, `MaveDB` PPI DMS `7`; `31` pre-2026 PDB vs `7` unseen/post-2026), monomer-destabilising sites removed | `Boltz-2 → StaB-ddG` *(zero SKEMPI training)* | `Spearman ρ`, `NDCG@5`, `Same-AA win` |
+| **7** | **De novo & motif design** | **`N = 40`** single-shot sequence prompts (`24` fold-conditioned + `16` crystal motif scaffolds), folded with ESMFold-2 & OpenFold3 | `RFdiffusion3 + ProteinMPNN` | Proteina-Complexa criteria: Fold `TM ≥ 0.50`, Motif `RMSD ≤ 1.0 Å`, `pLDDT ≥ 70`, `scRMSD ≤ 2 Å`, `<30%` SeqID |
+| **8** | **Closed-loop binder design** | **`N = 12`** RCSB PDB epitopes (`4` ProtDBench classic, `5` BoltzProt1 novel, `3` post-May-2026 crystals) × `16` AlphaFold2/ESMFold-2 feedback rounds | `BoltzGen` (16 all-atom designs) | `Hit@16` (`ipTM ≥ 0.75`, `iPAE < 10 Å`, `≥3/5` hotspots), running-best AF2 score |
 
 ---
 
-## Offline Verification & Calibration (100% Zero-Key Ready)
+## Quick Start
 
 ```bash
-# 1. Run full mathematical, parser, anti-cheat & zero-leakage test suite (13/13 in < 2s)
+git clone https://github.com/talugueloglu/protein-without-tools.git
+cd protein-without-tools
+
+# Install into a local virtualenv (Python 3.11+)
+uv venv && uv pip install -e ".[dev,cloud]"
+
+# Run unit, anti-cheat, CAFA-6 IA/masking, and zero-leakage tests (14/14 in < 2s)
 .venv/bin/pytest -v
-
-# 2. Re-evaluate offline baselines & regenerate figures for any test
-.venv/bin/python scripts/evaluate_stage1.py --run-calibration
-.venv/bin/python scripts/build_and_evaluate_stage2.py --eval-only
-.venv/bin/python scripts/evaluate_alanine_scan.py
-.venv/bin/python scripts/build_and_evaluate_binding_alanine.py
-.venv/bin/python scripts/build_and_evaluate_stage3b.py --eval-only
 ```
-
-* **Manual Web-UI Spotchecks (`$0` API spend):** Ready-to-paste zero-leakage `.txt` prompts across all tests live in `outputs/prompts/web_chat_spotcheck/`.
 
 ---
 
-## Running Live Frontier LLMs & Modal `L40S` Specialist Baselines
+## Running Models & Rebuilding the Report
 
 ```bash
-cp .env.example .env   # Add ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY
+cp .env.example .env   # add OPENAI_API_KEY (and ANTHROPIC_API_KEY / GEMINI_API_KEY as needed)
 
-# 1. Single-turn tests (1..7) — supports --pilot N & --max-usd
-.venv/bin/python scripts/run_benchmark_llms.py --provider anthropic --model claude-fable-5-2 --stages all --pilot 4
-.venv/bin/python scripts/run_benchmark_llms.py --provider anthropic --model claude-fable-5-2 --stages all --thinking-budget 8000
+# Single-shot tasks 1–7 (e.g. gpt-6.1-sol, gpt-6.2-sol, gpt-6.2-astra)
+.venv/bin/python scripts/run_benchmark_llms.py \
+  --provider openai --model gpt-6.2-astra --stages 1,2,3,4,5,6,7 --thinking-budget 4096
 
-# 2. Test 8 Closed-Loop vs Open-Loop Epitope Binder Campaigns (16 AF2 shots / epitope)
-.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider anthropic --model claude-fable-5-2 --mode closed_loop --oracle modal_af2 --shots 16
-.venv/bin/python scripts/run_stage3b_closed_loop_llms.py --provider anthropic --model claude-fable-5-2 --mode open_loop  --oracle modal_af2 --shots 16
+# Task 8: 16-round closed-loop AlphaFold2 binder campaigns
+.venv/bin/python scripts/run_stage3b_closed_loop_llms.py \
+  --provider openai --model gpt-6.2-astra --mode closed_loop --oracle modal_af2 --shots 16 --thinking-budget 4096
 
-# 3. Modal L40S Specialist Bio-Tools
-.venv/bin/modal run scripts/modal_stage1_baselines.py --mode baselines
-.venv/bin/modal run scripts/modal_stage2_baselines.py
-.venv/bin/modal run scripts/modal_alanine_baselines.py
-.venv/bin/modal run scripts/modal_binding_alanine_baselines.py
-.venv/bin/modal run scripts/modal_stage3b_af2_bindcraft.py --mode bindcraft-baseline
+# Re-score Task 4 (CAFA-6 2×3 IA-weighted wF_max) and rebuild website/index.html
+.venv/bin/python scripts/eval_t4_cafa6_6cell.py
+.venv/bin/python scripts/update_proteinbench_html_with_baselines.py
 ```
+
+Open `website/index.html` locally (e.g., `.venv/bin/python -m http.server 8765 --directory website`) to view all interactive charts, 3D Mol\* structures, and all 582 datapoints.
+
+---
+
+## Repository Layout
+
+- `src/fable_bench/` — Core scoring modules (TM-score, contact reconstruction, SCOPe homology, CAFA-6 IA & NK/LK/PK evaluator, alanine-scan ranking, design & binder evaluators, unified LLM client).
+- `data/` — Curated benchmark manifests, holdout metadata, and compact `go_subdag.obo` (large raw PDB/GAF download caches are gitignored).
+- `outputs/prompts/` — Zero-leakage anonymised JSONL prompts for all tasks (`web_chat_spotcheck/` has ready-to-paste `.txt` examples).
+- `outputs/predictions/` & `outputs/results/` — Saved predictions and per-target evaluation JSONs for `gpt-6.1-sol`, `gpt-6.2-sol`, `gpt-6.2-astra`, and all 8 specialist baselines.
+- `scripts/` — Dataset builders, model runners, specialist baseline scripts, and the single-file site compiler (`update_proteinbench_html_with_baselines.py`).
+- `tests/` — Pytest suite checking parsers, CAFA-6 `IA` and `-known` masking, anti-cheat decoy balance, and zero-leakage prompt guarantees.
+- `website/index.html` — Standalone interactive benchmark report.

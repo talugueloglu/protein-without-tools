@@ -16,12 +16,15 @@ data/raw_binding_alanine_cache/
 data/raw_stage2_cache/
 data/raw_stage3b_cache/
 outputs/api_cache/
+outputs/archive_t4_v1/
 outputs/batches/
 outputs/colab/
 outputs/japanfold_cache/
+outputs/predictions/netgo_raw/
 outputs/proteinmpnn_cache/
 outputs/results/reconstructed_pdbs/
 outputs/figures/stage1_interactive_3d.html
+scripts/probe_*.py
 website/proteinbench_artifact.html
 website/proteinbench_redesign.html
 website/*_backup*.html
