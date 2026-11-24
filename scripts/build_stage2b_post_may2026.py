@@ -30,7 +30,7 @@ REPO = Path(__file__).resolve().parents[1]
 if str(REPO / "src") not in sys.path:
     sys.path.insert(0, str(REPO / "src"))
 
-from fable_bench.stage2b_cafa import (
+from protein_without_tools.stage2b_cafa import (
     CAFATarget,
     GeneOntologyDAG,
     build_cafa_prompt,
@@ -228,7 +228,7 @@ def main() -> None:
     (out_s2b_dir / "reference_swissprot_go.json").write_text(json.dumps(ref_bank, indent=2), encoding="utf-8")
 
     manifest = {
-        "benchmark": "fable-protein-bench-stage2b-cafa",
+        "benchmark": "protein-without-tools-stage2b-cafa",
         "version": "2.0",
         "source": "Post-May-2026 Strict-NK EBI GOA (2026-11-03) + EBI QuickGO double-verified experimental GOA (non-IntAct)",
         "cutoff_date": "2026-05-01",
