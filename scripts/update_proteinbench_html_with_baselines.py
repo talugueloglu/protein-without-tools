@@ -532,7 +532,7 @@ var FIGS = [
        aria:'Spearman rho by memorisation stratum with Boltz-2 StaB-ddG baseline' });
    } },
  { id:'f7', t:'7. De novo and motif design', star:7,
-   p:['Single-shot sequences folded with ESMFold-2 and OpenFold3 and graded by Proteina-Complexa structural criteria across 40 prompts (24 fold-conditioned, 16 motif scaffolds; after sequence hygiene and <30% parent identity). RFdiffusion3 + ProteinMPNN (grey) hits 100% Fold TM ≥ 0.50, 63% Motif RMSD ≤ 1.0 Å, and 10% overall designable pass; reasoning models reach 0% on fold topology and 0% overall.'],
+   p:['Single-shot sequences folded with ESMFold-2 and OpenFold3 and graded by Proteina-Complexa structural criteria across 40 prompts (24 fold-conditioned, 16 motif scaffolds; after sequence hygiene and <30% parent identity). RFdiffusion3 + ProteinMPNN (grey) hits 100% Fold TM ≥ 0.50, 63% Motif RMSD ≤ 1.0 Å, and 5% overall designable pass; reasoning models reach 0% on fold topology and 0% overall.'],
    build:function(){
      return groupedBars({ ylabel:'pass fraction',
        cats:T7_GATE_LABELS,
