@@ -1070,8 +1070,13 @@ def _apply_redesign_polish(raw_html: str) -> str:
     raw_html = raw_html.replace('<span class="wordmark">ProteinBench</span>', '<span class="wordmark">Protein Structure Without Tools</span>', 1)
     raw_html = raw_html.replace("<h1>ProteinBench</h1>", "<h1>Protein Structure Without Tools</h1>", 1)
     raw_html = raw_html.replace(
-        "@article{proteinbench2026,\n  title   = {ProteinBench: From Sequence Memorization to Folding and Binding Physics in Frontier Reasoning Models},",
-        "@article{gueloglu2026proteinstructure,\n  title   = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},",
+        "@article{proteinbench2026,\n  title   = {ProteinBench: From Sequence Memorization to Folding and Binding Physics in Frontier Reasoning Models},\n  author  = {Gueloglu, Talu},\n  journal = {arXiv preprint},\n  year    = {2026}\n}",
+        "@misc{gueloglu2026proteinstructure,\n  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},\n  author = {Gueloglu, Talu},\n  year   = {2026},\n  url    = {https://github.com/talugueloglu/protein-without-tools}\n}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        '<a class="btn primary" href="#abstract">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>\n        Paper\n      </a>',
+        '<a class="btn primary" href="#abstract">\n        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>\n        Overview\n      </a>',
         1,
     )
 
@@ -1111,7 +1116,7 @@ cp .env.example .env
 
 <span class="c"># score Task 4 (CAFA-6 2x3 split) and rebuild website/index.html</span>
 .venv/bin/python scripts/eval_t4_cafa6_6cell.py
-.venv/bin/python scripts/update_proteinbench_html_with_baselines.py</pre>
+.venv/bin/python scripts/build_website.py</pre>
   </section>"""
     code_section_pattern = re.compile(r'  <section id="code">.*?</section>', re.DOTALL)
     assert code_section_pattern.search(raw_html), "Expected #code section not found"
@@ -1221,12 +1226,11 @@ function dsRenderDetail() {"""
 
 
 def main() -> None:
-    backup_html = REPO / "website" / "proteinbench_redesign_backup.html"
-    src_html = REPO / "website" / "proteinbench_redesign.html"
-    if not backup_html.exists():
-        shutil.copyfile(src_html, backup_html)
+    template_html = REPO / "website" / "template.html"
+    if not template_html.exists():
+        raise FileNotFoundError(f"Website template not found: {template_html}")
 
-    raw_html = _apply_redesign_polish(backup_html.read_text(encoding="utf-8"))
+    raw_html = _apply_redesign_polish(template_html.read_text(encoding="utf-8"))
     lines = raw_html.splitlines()
 
     # Locate DS and FIGDATA lines
@@ -1602,26 +1606,35 @@ def main() -> None:
 
     full_html = "\n".join(head_lines) + "\n" + js_tail + "\n"
 
-    # Validate the entire embedded <script> block with `node --check`!
-    s0 = full_html.index("<script>") + len("<script>")
-    s1 = full_html.rindex("</script>")
-    js_code = full_html[s0:s1]
-    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
-        tf.write(js_code)
-        tmp_js = Path(tf.name)
-    try:
-        subprocess.run(["node", "--check", str(tmp_js)], check=True)
-        print("[OK] Embedded JavaScript passed `node --check`!", flush=True)
-    finally:
-        tmp_js.unlink(missing_ok=True)
+    # Validate the entire embedded <script> block with `node --check` when Node.js is available
+    if shutil.which("node"):
+        s0 = full_html.index("<script>") + len("<script>")
+        s1 = full_html.rindex("</script>")
+        js_code = full_html[s0:s1]
+        with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
+            tf.write(js_code)
+            tmp_js = Path(tf.name)
+        try:
+            subprocess.run(["node", "--check", str(tmp_js)], check=True)
+            print("[OK] Embedded JavaScript passed `node --check`!", flush=True)
+        finally:
+            tmp_js.unlink(missing_ok=True)
+    else:
+        print("[INFO] `node` not found on PATH; skipping JS syntax check.", flush=True)
 
-    # Write updated HTML to workspace targets
-    for dst in (
-        REPO / "website" / "index.html",
-        REPO / "website" / "proteinbench_artifact.html",
-    ):
-        dst.write_text(full_html, encoding="utf-8")
-        print(f"Wrote {dst} ({len(full_html):,} bytes)", flush=True)
+    # Write standalone website and synced 582-datapoint JSONL export
+    index_dst = REPO / "website" / "index.html"
+    index_dst.write_text(full_html, encoding="utf-8")
+    print(f"Wrote {index_dst} ({len(full_html):,} bytes)", flush=True)
+
+    data_dir = REPO / "website" / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    jsonl_dst = data_dir / "datapoints_v1.jsonl"
+    jsonl_dst.write_text(
+        "\n".join(json.dumps(row, ensure_ascii=False) for row in ds) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Wrote {jsonl_dst} ({len(ds)} datapoints, {jsonl_dst.stat().st_size:,} bytes)", flush=True)
 
     print("\n=== SUMMARY OF ESTABLISHED BASELINES INJECTED ===", flush=True)
     print(f"  Task 1 (ESMFold-2)                 : TM={t1_res['overall']['tm_score']:.3f} | P@L={t1_res['overall']['p_at_l_sep24']:.3f} | Q3={t1_res['overall']['q3_accuracy']:.3f}", flush=True)

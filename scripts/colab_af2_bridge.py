@@ -9,7 +9,7 @@ Covers all three folding-oracle exercises on a free/standard Google Colab GPU (`
 Usage:
   1. Build notebook & export compact bundle (`< 2 MB`):
        .venv/bin/python scripts/colab_af2_bridge.py --build-notebook --export
-  2. Upload `notebooks/proteinbench_alphafold2_colab.ipynb` to Google Colab (`Runtime -> T4/L4 GPU`),
+  2. Upload `notebooks/alphafold2_colab.ipynb` to Google Colab (`Runtime -> T4/L4 GPU`),
      upload `outputs/colab/proteinbench_colab_bundle.tar.gz` when prompted in Cell 2, and Run All!
   3. Import downloaded `proteinbench_colab_af2_outputs.tar.gz` back on your Mac:
        .venv/bin/python scripts/colab_af2_bridge.py --import ~/Downloads/proteinbench_colab_af2_outputs.tar.gz
@@ -57,7 +57,7 @@ def _code_cell(code: str) -> Dict[str, Any]:
 def build_colab_notebook(out_ipynb: Path) -> None:
     cells: List[Dict[str, Any]] = [
         _md_cell(
-            """# ProteinBench — Google Colab `AlphaFold2` & `ProteinMPNN` GPU Evaluator (Tests 2, 7, and 8)
+            """# Protein Structure Without Tools — Google Colab `AlphaFold2` & `ProteinMPNN` GPU Evaluator (Tests 2, 7, and 8)
 
 Make sure **Runtime → Change runtime type → Hardware accelerator** is set to **`T4 GPU`** (or **`L4` / `A100`**).
 
@@ -429,7 +429,7 @@ def import_colab_outputs(in_tar: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build & sync Google Colab AlphaFold2 bundle for Tests 2, 7, 8.")
-    parser.add_argument("--build-notebook", action="store_true", help="Write notebooks/proteinbench_alphafold2_colab.ipynb")
+    parser.add_argument("--build-notebook", action="store_true", help="Write notebooks/alphafold2_colab.ipynb")
     parser.add_argument("--export", action="store_true", help="Write outputs/colab/proteinbench_colab_bundle.tar.gz")
     parser.add_argument("--import-tar", help="Import downloaded proteinbench_colab_af2_outputs.tar.gz")
     args = parser.parse_args()

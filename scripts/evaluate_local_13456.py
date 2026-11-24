@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unified Offline CPU Grader & Visual Dashboard for Local ProteinBench Tests 1, 3, 4, 5, 6.
+"""Unified Offline CPU Grader & Visual Dashboard for Local Protein Structure Without Tools Tests 1, 3, 4, 5, 6.
 
 Executes all local graders end-to-end (zero network/GPU needed):
   1. Forward Folding (N=100, Chiral L-BFGS 3D reconstruction + 5 novelty strata)
@@ -315,7 +315,7 @@ def plot_dashboard(summary: Dict[str, Any], out_png: Path) -> None:
     ax.grid(True, axis="y", alpha=0.2)
 
     fig.suptitle(
-        "ProteinBench Local Suite (Tests 1, 3, 4, 5, 6 — 370 Tasks): Live Frontier Reasoning Evaluation",
+        "Protein Structure Without Tools Local Suite (Tests 1, 3, 4, 5, 6 — 370 Tasks): Live Frontier Reasoning Evaluation",
         fontsize=14,
         fontweight="bold",
         y=0.985,

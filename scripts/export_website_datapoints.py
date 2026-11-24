@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Export all 622 ProteinBench datapoints (across Tests 1..8) for the website & public release.
+"""Export all 622 Protein Structure Without Tools datapoints (across Tests 1..8) for the website & public release.
 
 Outputs:
-  1. `website/data/proteinbench_v1_all_datapoints.jsonl`: Complete self-contained JSONL with
+  1. `website/data/datapoints_v1.jsonl`: Complete self-contained JSONL with
      full sequences, provenance metadata, novelty/memorization strata, prompts, ground-truth
      summaries, and per-datapoint live LLM scores/outputs when available.
-  2. `website/data/proteinbench_v1_explorer.json`: Compact browser-ready JSON index (~350 KB)
+  2. `website/data/explorer_v1.json`: Compact browser-ready JSON index (~350 KB)
      powering the interactive "Browse All 622 Datapoints" table & inspector on `website/index.html`.
 """
 
@@ -472,10 +472,10 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     full_rows, compact_rows = build_all_datapoints()
 
-    full_jsonl = out_dir / "proteinbench_v1_all_datapoints.jsonl"
+    full_jsonl = out_dir / "datapoints_v1.jsonl"
     full_jsonl.write_text("\n".join(json.dumps(r) for r in full_rows) + "\n", encoding="utf-8")
 
-    comp_json = out_dir / "proteinbench_v1_explorer.json"
+    comp_json = out_dir / "explorer_v1.json"
     comp_json.write_text(json.dumps(compact_rows, separators=(",", ":")), encoding="utf-8")
 
     print(f"Exported {len(full_rows)} total datapoints:")

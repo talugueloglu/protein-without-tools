@@ -351,7 +351,7 @@
     <div class="actions">
       <a class="btn primary" href="#abstract">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Paper
+        Overview
       </a>
       <a class="btn" href="#results">Results</a>
       <a class="btn" href="#explorer">
@@ -440,17 +440,17 @@ cp .env.example .env
 
 <span class="c"># score Task 4 (CAFA-6 2x3 split) and rebuild website/index.html</span>
 .venv/bin/python scripts/eval_t4_cafa6_6cell.py
-.venv/bin/python scripts/update_proteinbench_html_with_baselines.py</pre>
+.venv/bin/python scripts/build_website.py</pre>
   </section>
 
   <section id="cite">
     <h2>Citation</h2>
     <p><button id="copy-bib-btn" class="btn-ghost">Copy BibTeX</button></p>
-    <pre class="bib" id="bibtex-block">@article{gueloglu2026proteinstructure,
-  title   = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
-  author  = {Gueloglu, Talu},
-  journal = {arXiv preprint},
-  year    = {2026}
+    <pre class="bib" id="bibtex-block">@misc{gueloglu2026proteinstructure,
+  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
+  author = {Gueloglu, Talu},
+  year   = {2026},
+  url    = {https://github.com/talugueloglu/protein-without-tools}
 }</pre>
   </section>
 

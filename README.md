@@ -51,7 +51,7 @@ cp .env.example .env   # add OPENAI_API_KEY (and ANTHROPIC_API_KEY / GEMINI_API_
 
 # Re-score Task 4 (CAFA-6 2×3 IA-weighted wF_max) and rebuild website/index.html
 .venv/bin/python scripts/eval_t4_cafa6_6cell.py
-.venv/bin/python scripts/update_proteinbench_html_with_baselines.py
+.venv/bin/python scripts/build_website.py
 ```
 
 Open `website/index.html` locally (e.g., `.venv/bin/python -m http.server 8765 --directory website`) to view all interactive charts, 3D Mol\* structures, and all 582 datapoints.
@@ -64,6 +64,21 @@ Open `website/index.html` locally (e.g., `.venv/bin/python -m http.server 8765 -
 - `data/` — Curated benchmark manifests, holdout metadata, and compact `go_subdag.obo` (large raw PDB/GAF download caches are gitignored).
 - `outputs/prompts/` — Zero-leakage anonymised JSONL prompts for all tasks (`web_chat_spotcheck/` has ready-to-paste `.txt` examples).
 - `outputs/predictions/` & `outputs/results/` — Saved predictions and per-target evaluation JSONs for `gpt-6.1-sol`, `gpt-6.2-sol`, `gpt-6.2-astra`, and all 8 specialist baselines.
-- `scripts/` — Dataset builders, model runners, specialist baseline scripts, and the single-file site compiler (`update_proteinbench_html_with_baselines.py`).
+- `scripts/` — Dataset builders, model runners, specialist baseline scripts, and the single-file site compiler (`build_website.py`).
 - `tests/` — Pytest suite checking parsers, CAFA-6 `IA` and `-known` masking, anti-cheat decoy balance, and zero-leakage prompt guarantees.
-- `website/index.html` — Standalone interactive benchmark report.
+- `website/` — Standalone interactive report (`website/index.html`), source template (`website/template.html`), and flat 582-datapoint export (`website/data/datapoints_v1.jsonl`).
+
+## License
+
+Code is released under the [MIT License](LICENSE). Benchmark inputs derived from public databases (PDB, SCOPe, EBI GOA / UniProt, MegaScale, SKEMPI v2) remain subject to their respective upstream licenses.
+
+## Citation
+
+```bibtex
+@misc{gueloglu2026proteinstructure,
+  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
+  author = {Gueloglu, Talu},
+  year   = {2026},
+  url    = {https://github.com/talugueloglu/protein-without-tools}
+}
+```

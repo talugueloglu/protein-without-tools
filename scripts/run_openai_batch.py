@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""OpenAI 50%-Off Batch API Submitter, Monitor & Collector for ProteinBench (Tests 1,3,4,5,6).
+"""OpenAI 50%-Off Batch API Submitter, Monitor & Collector for Protein Structure Without Tools (Tests 1,3,4,5,6).
 
 Workflow:
   1. Prepare JSONL locally (sandbox-safe):
@@ -153,7 +153,7 @@ def submit_batch(model: str, effort: str, stages: str = "1,3,4,5,6") -> Dict[str
                 "endpoint": "/v1/chat/completions",
                 "completion_window": "24h",
                 "metadata": {
-                    "benchmark": "ProteinBench_local_13456",
+                    "benchmark": "protein_without_tools_local_13456",
                     "model": model,
                     "reasoning_effort": effort,
                 },
@@ -316,7 +316,7 @@ def collect_batch(batch_id: str, model_override: str | None = None, effort_overr
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="OpenAI 50%-Off Batch API runner for ProteinBench.")
+    parser = argparse.ArgumentParser(description="OpenAI 50%-Off Batch API runner for Protein Structure Without Tools.")
     parser.add_argument("--prepare", action="store_true", help="Build batch input JSONL offline")
     parser.add_argument("--skip-cached", action="store_true", help="Exclude prompts already in outputs/api_cache/")
     parser.add_argument("--submit", action="store_true", help="Upload JSONL & create OpenAI Batch")

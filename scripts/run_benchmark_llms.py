@@ -149,7 +149,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Execute Frontier LLM protein benchmark prompts across stages.")
     parser.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "openrouter"])
     parser.add_argument("--model", required=True, help="e.g. gpt-6.2-astra, claude-opus-5-5, gpt-5.2, gemini-3.1-pro")
-    parser.add_argument("--stages", default="all", help="Comma-separated stages: 1a,1b,2a,2b,3a,3b or 'all'")
+    parser.add_argument("--stages", default="all", help="Comma-separated tasks: 1,2,3,4,5,6,7 (or legacy 1a,1b,2a,2b,3a,3a_bind,3b) or 'all'")
     parser.add_argument("--thinking-budget", type=int, default=0, help="Extended thinking token budget (0 = Direct)")
     parser.add_argument("--prompts-dir", default=str(REPO_ROOT / "outputs" / "prompts"))
     parser.add_argument("--out-dir", default=str(REPO_ROOT / "outputs" / "predictions"))
