@@ -1,5 +1,7 @@
 # Proteins Without Tools
 
+**[Interactive Report & 582-Datapoint Explorer →](https://talugueloglu.github.io/protein-without-tools/)**
+
 **Can frontier reasoning models solve real structural biology problems from weights and chain-of-thought alone — with no alignments, no databases, and no structure predictors?**
 
 This repository contains the complete 8-task benchmark (**582 targets**), zero-leakage anonymised prompts, automated evaluators, specialist baseline pipelines, and interactive HTML report (`website/index.html`).

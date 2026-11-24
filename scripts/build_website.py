@@ -1057,8 +1057,33 @@ def _apply_redesign_polish(raw_html: str) -> str:
         1,
     )
     raw_html = raw_html.replace(
-        "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>",
-        "<title>Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>",
+        "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>\n"
+        '<meta name="description" content="An eight-task structural biology benchmark: 522 targets, held-out experimental data, per-datapoint structures and results." />',
+        "<title>Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>\n"
+        '<meta name="description" content="Can frontier reasoning models solve real structural biology problems from weights and reasoning alone? Eight tasks, 582 targets, and specialist baselines." />\n'
+        '<meta name="author" content="Talu Güloğlu" />\n'
+        '<meta property="og:type" content="article" />\n'
+        '<meta property="og:title" content="Proteins Without Tools" />\n'
+        '<meta property="og:description" content="An 8-task, 582-target structural biology benchmark testing frontier reasoning models without external tools against specialist baselines." />\n'
+        '<meta property="og:url" content="https://talugueloglu.github.io/protein-without-tools/" />\n'
+        '<meta name="twitter:card" content="summary_large_image" />\n'
+        '<meta name="twitter:site" content="@gueloglut" />',
+        1,
+    )
+    raw_html = raw_html.replace(
+        '<p class="authors">Talu Gueloglu</p>',
+        '<p class="authors"><a href="https://talugueloglu.github.io/homepage/" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--hair);">Talu Güloğlu</a> &middot; <a href="https://talugueloglu.github.io/homepage/blogs/" style="color:var(--ink-3);text-decoration:none;">Writing</a></p>',
+        1,
+    )
+    raw_html = raw_html.replace(
+        "    </div>\n\n  </header>",
+        "    </div>\n\n"
+        '    <figure class="hero-video" style="max-width:740px;margin:28px auto 0;background:#fff;border:1px solid var(--hair);border-radius:8px;overflow:hidden;box-shadow:0 10px 28px -18px rgba(15,23,42,.24);">\n'
+        '      <video controls playsinline muted preload="metadata" style="display:block;width:100%;height:auto;background:#0f172a;">\n'
+        '        <source src="demo.mp4" type="video/mp4" />\n'
+        "      </video>\n"
+        "    </figure>\n\n"
+        "  </header>",
         1,
     )
     raw_html = raw_html.replace(
