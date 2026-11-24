@@ -1066,8 +1066,13 @@ def _apply_redesign_polish(raw_html: str) -> str:
         '<meta property="og:title" content="Proteins Without Tools" />\n'
         '<meta property="og:description" content="An 8-task, 582-target structural biology benchmark testing frontier reasoning models without external tools against specialist baselines." />\n'
         '<meta property="og:url" content="https://talugueloglu.github.io/protein-without-tools/" />\n'
+        '<meta property="og:image" content="https://talugueloglu.github.io/protein-without-tools/social-preview.png" />\n'
+        '<meta property="og:image:width" content="1280" />\n'
+        '<meta property="og:image:height" content="640" />\n'
         '<meta name="twitter:card" content="summary_large_image" />\n'
-        '<meta name="twitter:site" content="@gueloglut" />',
+        '<meta name="twitter:site" content="@gueloglut" />\n'
+        '<meta name="twitter:image" content="https://talugueloglu.github.io/protein-without-tools/social-preview.png" />\n'
+        '<link rel="icon" href="favicon.png" type="image/png" />',
         1,
     )
     raw_html = raw_html.replace(

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.jpg" alt="Proteins Without Tools — amino-acid text tokens folding into a 3D protein structure" width="100%" />
+</p>
+
 # Proteins Without Tools
 
 **[Interactive Report & 582-Datapoint Explorer →](https://talugueloglu.github.io/protein-without-tools/)**
