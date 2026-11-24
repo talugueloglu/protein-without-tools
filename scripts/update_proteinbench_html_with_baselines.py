@@ -134,10 +134,10 @@ var RESULT_SPEC = [
     cols:[['NDCG@5',       function(S){ return fmt(rMean(S.map(function(s){return s.ndcg_at_5;})),3); }],
           ['Same-AA win',  function(S){ return fmt(rMean(S.map(function(s){return s.same_aa_win_rate;})),3); }],
           ['Spearman ρ',   function(S){ return fmt(rMean(S.map(function(s){return s.spearman_rho;})),3); }]] },
-  { t:7, name:'7. Monomer & motif design', note:'Graded by ESMFold-2 + OpenFold3 gates (baseline: RFdiffusion3 + ProteinMPNN).',
-    cols:[['4-gate pass',  function(S){ return fmt(rPct(S.map(function(s){return s.esmfold2_4gate_pass;}), function(x){return !!x;}),1,'%'); }],
+  { t:7, name:'7. Monomer & motif design', note:'Proteina-Complexa structural criteria on ESMFold-2 / OpenFold3 refolds (baseline: RFdiffusion3 + ProteinMPNN).',
+    cols:[['Designable pass',  function(S){ return fmt(rPct(S.map(function(s){return s.designable_pass;}), function(x){return !!x;}),1,'%'); }],
           ['pLDDT',        function(S){ return fmt(rMean(S.map(function(s){return s.plddt_mean;})),1); }],
-          ['Cross-oracle ≤2Å', function(S){ return fmt(rPct(S.map(function(s){return s.cross_oracle_sc_rmsd;}), function(x){return isNum(x)&&x<=2.0;}),1,'%'); }]] },
+          ['scRMSD ≤ 2 Å', function(S){ return fmt(rPct(S.map(function(s){return s.cross_oracle_sc_rmsd;}), function(x){return isNum(x)&&x<=2.0;}),1,'%'); }]] },
   { t:8, name:'8. Closed-loop epitope binders', note:'16 AlphaFold2 shots per epitope (baseline: BoltzGen).', suffix:'_closed_loop_af2',
     cols:[['Hit@16',       function(S){ return fmt(rPct(S.map(function(s){return s.hit_achieved;}), function(x){return !!x;}),1,'%'); }],
           ['Best AF2 score', function(S){ return fmt(rMean(S.map(function(s){return s.best_composite_score;})),3); }],
@@ -193,9 +193,9 @@ var DETAIL_SPEC = [
       { label:'Same-AA win', max:1, floor:0.5, get:function(S){ return rMean(S.map(function(s){return s.same_aa_win_rate;})); } },
       { label:'Spearman ρ', max:1, get:function(S){ return rMean(S.map(function(s){return s.spearman_rho;})); } } ] },
   { t:7, name:'7. Monomer & motif design (baseline: RFdiffusion3 + ProteinMPNN)', metrics:[
-      { label:'4-gate pass', max:100, pct:true, get:function(S){ return rPct(S.map(function(s){return s.esmfold2_4gate_pass;}), function(x){return !!x;}); } },
+      { label:'Designable pass', max:100, pct:true, get:function(S){ return rPct(S.map(function(s){return s.designable_pass;}), function(x){return !!x;}); } },
       { label:'pLDDT', max:100,    get:function(S){ return rMean(S.map(function(s){return s.plddt_mean;})); } },
-      { label:'Cross-oracle ≤ 2 Å', max:100, pct:true, get:function(S){ return rPct(S.map(function(s){return s.cross_oracle_sc_rmsd;}), function(x){return isNum(x)&&x<=2.0;}); } } ] },
+      { label:'scRMSD ≤ 2 Å', max:100, pct:true, get:function(S){ return rPct(S.map(function(s){return s.cross_oracle_sc_rmsd;}), function(x){return isNum(x)&&x<=2.0;}); } } ] },
   { t:8, name:'8. Closed-loop epitope binders (baseline: BoltzGen)', suffix:'_closed_loop_af2', metrics:[
       { label:'Hit@16', max:100, pct:true, get:function(S){ return rPct(S.map(function(s){return s.hit_achieved;}), function(x){return !!x;}); } },
       { label:'Best AF2 score', max:1, floor:0.75, get:function(S){ return rMean(S.map(function(s){return s.best_composite_score;})); } },
@@ -457,11 +457,11 @@ function modelSeriesWithBase(baseName, baseKey, valsFor) {
 }
 
 var T7_GATE_LABELS = [
-  'Gate 1\nHygiene',
-  'Gate 5\n<30% identity',
-  'Gate 3\nscRMSD ≤ 2 Å',
-  'Gate 4\nFold / motif',
-  'Gate 2\npLDDT ≥ 80'
+  'Fold fidelity\nTM ≥ 0.50',
+  'Motif fidelity\nRMSD ≤ 1.0 Å',
+  'Confidence\npLDDT ≥ 70',
+  'Self-consistency\nscRMSD ≤ 2 Å',
+  'Designable\nall criteria'
 ];
 
 var FIGS = [
@@ -532,12 +532,13 @@ var FIGS = [
        aria:'Spearman rho by memorisation stratum with Boltz-2 StaB-ddG baseline' });
    } },
  { id:'f7', t:'7. De novo and motif design', star:7,
-   p:['Single-shot pass rates across five gates on 40 specifications (24 fold-conditioned, 16 motif scaffolds). With one unscreened sample per task, RFdiffusion3 + ProteinMPNN (grey) reaches 48% fold/motif adherence (mean motif RMSD 1.45 Å) and 5% pLDDT ≥ 80; text models remain at 0% on pLDDT ≥ 80.'],
+   p:['Single-shot sequences folded with ESMFold-2 and OpenFold3 and graded by Proteina-Complexa structural criteria across 40 prompts (24 fold-conditioned, 16 motif scaffolds; after sequence hygiene and <30% parent identity). RFdiffusion3 + ProteinMPNN (grey) hits 100% Fold TM ≥ 0.50, 63% Motif RMSD ≤ 1.0 Å, and 10% overall designable pass; reasoning models reach 0% on fold topology and 0% overall.'],
    build:function(){
-     return groupedBars({ ylabel:'pass fraction (n=40)',
+     return groupedBars({ ylabel:'pass fraction',
        cats:T7_GATE_LABELS,
+       subCats:['n=24','n=16','n=40','n=40','n=40'],
        series:FIGDATA.t7.series.map(function(se){ return {n:MNAME[se.n]||se.n,c:se.base?GRAY1:MCOL[se.n],v:se.v}; }),
-       fmt:function(v){return (v*100).toFixed(0)+'%';}, aria:'Design gate pass fractions with RFdiffusion3 + ProteinMPNN baseline' });
+       fmt:function(v){return (v*100).toFixed(0)+'%';}, aria:'Proteina-Complexa structural design metrics with RFdiffusion3 + ProteinMPNN baseline' });
    } },
  { id:'f8', t:'8. Closed-loop binder design', star:8,
    p:['__T8_PROSE__'],
@@ -838,13 +839,13 @@ def _apply_redesign_polish(raw_html: str) -> str:
 
     <div class="disc-blk" id="prep-t7">
     <h3 class="disc-h">Task 7 &middot; De novo and motif design &mdash; 40 specifications</h3>
-    <p>Forty written specs graded on five single-shot gates: sequence hygiene, &lt;30% identity to natural parents, ESMFold-2/OpenFold3 agreement (scRMSD &le; 2 &Aring;), pLDDT &ge; 80, and the structural gate below.</p>
+    <p>Models output a 1D sequence only; we fold each single-shot sequence with ESMFold-2 and OpenFold3 and grade it by Proteina-Complexa structural criteria: fold/motif geometry below, ESMFold-2 confidence pLDDT &ge; 70, cross-oracle scRMSD &le; 2.0 &Aring;, plus sequence hygiene and &lt;30% identity to natural parents.</p>
     <div style="overflow-x:auto">
     <table class="plain">
-      <thead><tr><th>Kind</th><th class="r">n</th><th>Length</th><th>Structural gate</th></tr></thead>
+      <thead><tr><th>Kind</th><th class="r">n</th><th>Length</th><th>Structural fidelity</th></tr></thead>
       <tbody>
         <tr><td><b>Fold-conditioned</b></td><td class="r">24</td><td>64 &ndash; 136 AA</td><td>Refolded design reaches TM &ge; 0.50 against the target fold.</td></tr>
-        <tr><td><b>Motif scaffolding</b></td><td class="r">16</td><td>70 &ndash; 128 AA</td><td>Held crystal motif stays within C&alpha; RMSD &le; 1.5 &Aring;.</td></tr>
+        <tr><td><b>Motif scaffolding</b></td><td class="r">16</td><td>70 &ndash; 128 AA</td><td>Held crystal motif stays within C&alpha; RMSD &le; 1.0 &Aring;.</td></tr>
       </tbody>
     </table>
     </div>
@@ -880,7 +881,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
   '4':'Input: one anonymised sequence. Models predict Gene Ontology terms across MF, BP, and CC, graded by IC-weighted wFmax against experimentally evidenced annotations.',
   '5':'Input: one sequence and 18 X→Ala mutations (6 hotspots, 6 moderate, 6 same-AA decoys). Models rank candidates by measured fold destabilisation (ΔΔG or DMS activity).',
   '6':'Input: two interacting chains and 18 interface X→Ala mutations (monomer-destabilising sites excluded). Models rank candidates by measured binding loss.',
-  '7':'Input: a fold topology spec or a crystal motif to scaffold. Each single-shot sequence is graded on five gates: hygiene, <30% identity, cross-oracle agreement, geometry, and pLDDT ≥ 80.',
+  '7':'Input: a fold topology spec or a crystal motif to scaffold. Models output a 1D sequence only, which we fold with ESMFold-2 and OpenFold3 and grade on Proteina-Complexa criteria: pLDDT ≥ 70, scRMSD ≤ 2 Å, and Fold TM ≥ 0.50 or Motif RMSD ≤ 1.0 Å.',
   '8':'Input: a target chain and five epitope hotspots. Over 16 rounds, models propose 55–85 AA binders and receive AlphaFold2 interface scores after each attempt.'
 };"""
     blurb_pattern = re.compile(r"var TASK_BLURB = \{.*?\};", re.DOTALL)
@@ -1039,15 +1040,31 @@ def main() -> None:
                 "same_aa_win_rate": round(float(r["same_aa_win_rate"]), 3),
                 "spearman_rho": round(float(r["spearman_rho"]), 3),
             }
-        elif t == 7 and tid in t7_per:
-            r = t7_per[tid]
-            sc["baseline_rfd3_mpnn"] = {
-                "plddt_mean": round(float(r["plddt_mean"] or 0.0), 2),
-                "tm_to_target_fold": round(float(r["tm_to_target_fold"]), 4) if r.get("tm_to_target_fold") is not None else None,
-                "motif_ca_rmsd": r.get("motif_ca_rmsd"),
-                "cross_oracle_sc_rmsd": r.get("cross_oracle_sc_rmsd"),
-                "esmfold2_4gate_pass": bool(r["esmfold2_4gate_pass"]),
-            }
+        elif t == 7:
+            def _t7_pc_pass(rec: Dict[str, Any]) -> bool:
+                sc_ok = rec.get("cross_oracle_sc_rmsd") is not None and float(rec["cross_oracle_sc_rmsd"]) <= 2.0
+                pl_ok = rec.get("plddt_mean") is not None and float(rec["plddt_mean"]) >= 70.0
+                hyg_ok = bool(rec.get("gate1_hygiene")) and bool(rec.get("gate5_novelty_lt30"))
+                if rec.get("category") == "fold_conditioned":
+                    geom_ok = rec.get("tm_to_target_fold") is not None and float(rec["tm_to_target_fold"]) >= 0.50
+                else:
+                    geom_ok = rec.get("motif_ca_rmsd") is not None and float(rec["motif_ca_rmsd"]) <= 1.0
+                return bool(hyg_ok and sc_ok and pl_ok and geom_ok)
+
+            if tid in t7_per:
+                r = t7_per[tid]
+                sc["baseline_rfd3_mpnn"] = {
+                    "plddt_mean": round(float(r["plddt_mean"] or 0.0), 2),
+                    "tm_to_target_fold": round(float(r["tm_to_target_fold"]), 4) if r.get("tm_to_target_fold") is not None else None,
+                    "motif_ca_rmsd": r.get("motif_ca_rmsd"),
+                    "cross_oracle_sc_rmsd": r.get("cross_oracle_sc_rmsd"),
+                    "esmfold2_4gate_pass": bool(r["esmfold2_4gate_pass"]),
+                    "designable_pass": _t7_pc_pass(r),
+                }
+            for mk in ("gpt-6.1-sol_think4096", "gpt-6.2-sol_think4096", "gpt-6.2-astra_think4096"):
+                m_pt = {g["task_id"]: g for g in t7_rep["models"][mk]["per_task"]}
+                if mk in sc and tid in m_pt:
+                    sc[mk]["designable_pass"] = _t7_pc_pass(m_pt[tid])
         elif t == 8 and tid in t8_per:
             r = t8_per[tid]
             sc["baseline_boltzgen_closed_loop_af2"] = {
@@ -1106,22 +1123,45 @@ def main() -> None:
         }
     ] + llm_t6
 
-    # Task 7 gate order in FIGDATA.t7.gates:
-    # [Gate 1 hygiene, Gate 5 <30% identity, Gate 3 cross-oracle scRMSD<=2A, Gate 4 fold/motif adherence, Gate 2 pLDDT>=80]
-    llm_t7 = [s for s in fd["t7"]["series"] if not s.get("base")]
+    # Task 7 Proteina-Complexa structural metrics:
+    # [Fold TM >= 0.50 (n=24), Motif RMSD <= 1.0A (n=16), pLDDT >= 70 (n=40), scRMSD <= 2.0A (n=40), Designable pass (n=40)]
+    def _t7_pc_vec(mkey: str) -> List[float]:
+        pt = t7_rep["models"][mkey]["per_task"]
+        folds = [x for x in pt if x["category"] == "fold_conditioned"]
+        motifs = [x for x in pt if x["category"] == "motif_scaffolding"]
+        fold_ok = sum(1 for x in folds if (x.get("tm_to_target_fold") or 0.0) >= 0.50) / float(len(folds))
+        motif_ok = sum(1 for x in motifs if x.get("motif_ca_rmsd") is not None and float(x["motif_ca_rmsd"]) <= 1.0) / float(len(motifs))
+        pl70_ok = sum(1 for x in pt if (x.get("plddt_mean") or 0.0) >= 70.0) / float(len(pt))
+        sc2_ok = sum(1 for x in pt if x.get("cross_oracle_sc_rmsd") is not None and float(x["cross_oracle_sc_rmsd"]) <= 2.0) / float(len(pt))
+        all_ok = sum(
+            1
+            for x in pt
+            if bool(x.get("gate1_hygiene"))
+            and bool(x.get("gate5_novelty_lt30"))
+            and (x.get("plddt_mean") or 0.0) >= 70.0
+            and x.get("cross_oracle_sc_rmsd") is not None
+            and float(x["cross_oracle_sc_rmsd"]) <= 2.0
+            and (
+                ((x.get("tm_to_target_fold") or 0.0) >= 0.50)
+                if x["category"] == "fold_conditioned"
+                else (x.get("motif_ca_rmsd") is not None and float(x["motif_ca_rmsd"]) <= 1.0)
+            )
+        ) / float(len(pt))
+        return [round(v, 3) for v in (fold_ok, motif_ok, pl70_ok, sc2_ok, all_ok)]
+
+    fd["t7"]["gates"] = [
+        "Fold fidelity · TM ≥ 0.50",
+        "Motif fidelity · RMSD ≤ 1.0 Å",
+        "Confidence · pLDDT ≥ 70",
+        "Self-consistency · scRMSD ≤ 2 Å",
+        "Designable · all criteria",
+    ]
     fd["t7"]["series"] = [
-        {
-            "n": "RFdiffusion3 + ProteinMPNN",
-            "base": True,
-            "v": [
-                round(float(t7_b["gate1_hygiene_rate"]), 3),
-                round(float(t7_b["gate5_novelty_rate"]), 3),
-                round(float(t7_b["gate3_cross_oracle_sc_rate"]), 3),
-                round(float(t7_b["gate4_adherence_rate"]), 3),
-                round(float(t7_b["gate2_foldable_rate"]), 3),
-            ],
-        }
-    ] + llm_t7
+        {"n": "RFdiffusion3 + ProteinMPNN", "base": True, "v": _t7_pc_vec("baseline_rfd3_mpnn")},
+        {"n": "gpt-6.1-sol_think4096", "base": False, "v": _t7_pc_vec("gpt-6.1-sol_think4096")},
+        {"n": "gpt-6.2-sol_think4096", "base": False, "v": _t7_pc_vec("gpt-6.2-sol_think4096")},
+        {"n": "gpt-6.2-astra_think4096", "base": False, "v": _t7_pc_vec("gpt-6.2-astra_think4096")},
+    ]
 
     # Task 8: Add BoltzGen trajectory and ensure `.best` is `mean[-1]` (best-of-16 composite AF2 score) across all series!
     for mk, tr_obj in fd["t8"]["traj"].items():
