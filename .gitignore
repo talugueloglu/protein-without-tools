@@ -20,10 +20,11 @@ outputs/archive_t4_v1/
 outputs/batches/
 outputs/colab/
 outputs/japanfold_cache/
-outputs/predictions/netgo_raw/
+outputs/predictions/netgo_raw/*
+!outputs/predictions/netgo_raw/ng4.0_results.txt
 outputs/proteinmpnn_cache/
 outputs/results/reconstructed_pdbs/
-outputs/figures/stage1_interactive_3d.html
+outputs/figures/
 scripts/probe_*.py
 website/proteinbench_artifact.html
 website/proteinbench_redesign.html
