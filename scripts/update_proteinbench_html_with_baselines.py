@@ -746,18 +746,6 @@ var FIGS = [
                   c:isB?GRAY1:MCOL[m], v:d.mean, band:d.sem, dash:isB };
        }),
        refs:[{v:0.75,l:'hit threshold 0.75'}], aria:'Closed-loop optimisation trajectory with BoltzGen baseline' });
-   } },
- { id:'f9', t:'8b. First shot versus best of sixteen', star:8,
-   p:['Comparing each method’s first blind binder proposal against its best of 16 attempts. Sixteen rounds roughly double the average AlphaFold2 interface score across every method, though group averages stay below the 0.75 on-epitope hit threshold.'],
-   build:function(){
-     var tr=FIGDATA.t8.traj;
-     var ks=['baseline_boltzgen'].concat(MODEL_KEYS).filter(function(m){return tr[m];});
-     return groupedBars({ ylabel:'AF2 interface score',
-       cats:ks.map(function(m){ return m==='baseline_boltzgen'?'BoltzGen':MNAME[m]; }),
-       series:[{n:'first shot (blind)',c:GRAY1,v:ks.map(function(m){return tr[m].mean[0];})},
-               {n:'best of 16',c:'#2a78d6',v:ks.map(function(m){return tr[m].best;})}],
-       refs:[{v:0.75,l:'hit threshold 0.75'}], fmt:function(v){return v.toFixed(3);},
-       aria:'First shot versus best of sixteen with BoltzGen baseline' });
    } }
 ];
 
