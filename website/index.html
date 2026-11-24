@@ -371,11 +371,11 @@
     <details class="disc" id="prep-d">
     <summary><span class="disc-t">How the data is prepared</span><span class="disc-s">Target selection, how novelty is measured, and the holdout split behind every figure</span></summary>
     <div class="disc-b">
-    <p class="disc-intro">Every prompt strips PDB IDs, gene symbols, organism names, and alignments. All targets are filterable by stratum in the datapoint browser.</p>
+    <p class="disc-intro">Every prompt strips PDB IDs, gene symbols, organism names, and alignments. All targets are filterable by stratum in the datapoint browser, with direct links to each upstream record.</p>
 
     <div class="disc-blk" id="prep-t1">
     <h3 class="disc-h">Task 1 &middot; Forward folding &mdash; 100 targets</h3>
-    <p>Each candidate was structurally searched against the pre-May-2026 PDB; its highest TM-score to any prior chain sets its structural novelty (TM &gt; 0.5 shares a fold; &lt; 0.3 is random). Designed proteins are grouped separately by provenance.</p>
+    <p>Monomeric structures from the <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> searched structurally against the pre-May-2026 PDB with <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>; each target's highest TM-score to any prior chain sets its structural novelty (TM &gt; 0.5 shares a fold; &lt; 0.3 is random). Designed proteins are grouped separately by provenance.</p>
     <div style="overflow-x:auto">
     <table class="plain">
       <thead><tr><th>Stratum</th><th class="r">n</th><th>Deposited</th><th>Best pre-cutoff match</th><th>Definition</th></tr></thead>
@@ -392,12 +392,12 @@
 
     <div class="disc-blk" id="prep-t2">
     <h3 class="disc-h">Task 2 &middot; Inverse folding &mdash; 100 targets</h3>
-    <p>Same 100 proteins and five strata as Task 1. Inputs keep only C&alpha; coordinates (every residue relabelled UNK), backbone dihedrals, and C&alpha; burial counts. Wild-type sequences were refolded through the same ESMFold-2 pipeline to set the 0.885 ceiling.</p>
+    <p>Same 100 <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> structures and five strata as Task 1. Inputs keep only C&alpha; coordinates (every residue relabelled UNK), backbone dihedrals, and C&alpha; burial counts. Wild-type sequences were refolded through the same ESMFold-2 pipeline to set the 0.885 ceiling.</p>
     </div>
 
     <div class="disc-blk" id="prep-t3">
     <h3 class="disc-h">Task 3 &middot; Remote homology &mdash; 120 pairs</h3>
-    <p>SCOPe domain pairs split by which search method fails (30 pairs per rung; rungs 2&ndash;4 matched near 11% identity). Released files carry SCOPe families, sequence identity, and Smith&ndash;Waterman scores; the Foldseek E-values separating rungs 2 and 3 are not stored in the file.</p>
+    <p><a href="https://scop.berkeley.edu/" target="_blank" rel="noopener">SCOPe</a> domain pairs curated via <a href="https://github.com/PickyBinders/tea" target="_blank" rel="noopener">TEA</a> and <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>, split by which search method fails (30 pairs per rung; rungs 2&ndash;4 matched near 11% identity). Released files carry SCOPe families, sequence identity, and Smith&ndash;Waterman scores; the Foldseek E-values separating rungs 2 and 3 are not stored in the file.</p>
     <div style="overflow-x:auto">
     <table class="plain">
       <thead><tr><th>Rung</th><th class="r">n</th><th>Sequence identity</th><th>Selection rule</th></tr></thead>
@@ -413,20 +413,20 @@
 
     <div class="disc-blk" id="prep-t4">
     <h3 class="disc-h">Task 4 &middot; Function prediction &mdash; 60 proteins</h3>
-    <p>QuickGO targets graded strictly on experimentally evidenced Gene Ontology terms. Date caveat: <span class="ds-key">post_may_2026</span> (n=11) has 7 entries dated 2026-07-25 and 4 pre-cutoff entries (2025-11-19 / 2026-03-31); <span class="ds-key">early_2026_uniprot</span> (n=49) spans 2022-02-03 to 2026-01-08 with 47 sharing the bulk date 2025-10-27. The true post-cutoff holdout is <b>7 proteins</b>.</p>
+    <p><a href="https://www.uniprot.org/" target="_blank" rel="noopener">UniProtKB</a> sequences graded on experimentally evidenced <a href="https://geneontology.org/" target="_blank" rel="noopener">Gene Ontology</a> annotations from <a href="https://www.ebi.ac.uk/QuickGO/" target="_blank" rel="noopener">EBI QuickGO</a>. Date caveat: <span class="ds-key">post_may_2026</span> (n=11) has 7 entries dated 2026-07-25 and 4 pre-cutoff entries (2025-11-19 / 2026-03-31); <span class="ds-key">early_2026_uniprot</span> (n=49) spans 2022-02-03 to 2026-01-08 with 47 sharing the bulk date 2025-10-27. The true post-cutoff holdout is <b>7 proteins</b>.</p>
     </div>
 
     <div class="disc-blk" id="prep-t5">
     <h3 class="disc-h">Task 5 &middot; Monomer alanine ranking &mdash; 52 panels</h3>
-    <p>Each 18-candidate panel pairs 6 hotspots, 6 moderate sites, and 6 same-AA decoys (holding residue-letter lookup to 50%), drawn across four experimental readouts.</p>
+    <p>Each 18-candidate panel pairs 6 hotspots, 6 moderate sites, and 6 same-AA decoys (holding residue-letter lookup to 50%), combining <a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a> (<a href="https://zenodo.org/records/7992926" target="_blank" rel="noopener">Zenodo</a>) and <a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a> across four experimental regimes.</p>
     <div style="overflow-x:auto">
     <table class="plain">
-      <thead><tr><th>Source</th><th class="r">n</th><th>Measured quantity</th></tr></thead>
+      <thead><tr><th>Source dataset</th><th class="r">n</th><th>Measured quantity</th></tr></thead>
       <tbody>
-        <tr><td><b><em>De novo</em> miniproteins</b></td><td class="r">24</td><td>Folding &Delta;&Delta;G (MegaScale); designed folds with no natural homologs.</td></tr>
-        <tr><td><b>Natural proteins</b></td><td class="r">14</td><td>Folding &Delta;&Delta;G on natural folds.</td></tr>
-        <tr><td><b>MaveDB deep scans</b></td><td class="r">12</td><td>Post-cutoff deep mutational scanning activity.</td></tr>
-        <tr><td><b>Stability and function</b></td><td class="r">2</td><td>Paired stability and activity on the same protein.</td></tr>
+        <tr><td><b><em>De novo</em> miniproteins</b> (<a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a>)</td><td class="r">24</td><td>Folding &Delta;&Delta;G (cDNA proteolysis); designed folds with no natural homologs.</td></tr>
+        <tr><td><b>Natural proteins</b> (<a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a>)</td><td class="r">14</td><td>Folding &Delta;&Delta;G on natural folds.</td></tr>
+        <tr><td><b>Deep mutational scans</b> (<a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a>)</td><td class="r">12</td><td>Post-cutoff deep mutational scanning activity.</td></tr>
+        <tr><td><b>Stability and function</b> (<a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a>)</td><td class="r">2</td><td>Paired abundance/stability and activity on the same protein.</td></tr>
       </tbody>
     </table>
     </div>
@@ -434,12 +434,22 @@
 
     <div class="disc-blk" id="prep-t6">
     <h3 class="disc-h">Task 6 &middot; Interface binding ranking &mdash; 38 complexes</h3>
-    <p>Interface X&rarr;Ala panels graded on measured binding &Delta;&Delta;G after removing monomer-destabilising mutations. Split by pre-2026 PDB presence: 31 in <span class="ds-key">known_pdb_pre2026</span> and 7 in <span class="ds-key">unseen_or_post2026</span>.</p>
+    <p>Interface X&rarr;Ala panels graded on measured binding loss after removing monomer-destabilising mutations, combining three experimental sources split into 31 pre-2026 PDB complexes (<span class="ds-key">known_pdb_pre2026</span>) and 7 unseen or post-2026 complexes (<span class="ds-key">unseen_or_post2026</span>).</p>
+    <div style="overflow-x:auto">
+    <table class="plain">
+      <thead><tr><th>Source dataset</th><th class="r">n</th><th>Readout &amp; holdout</th></tr></thead>
+      <tbody>
+        <tr><td><b><a href="https://life.bsc.es/pid/skempi2/" target="_blank" rel="noopener">SKEMPI v2.0</a></b></td><td class="r">28</td><td>Purified SPR/ITC binding &Delta;&Delta;G across pre-2026 PDB complexes.</td></tr>
+        <tr><td><b><a href="https://huggingface.co/datasets/aalphabio/open-alphaseq" target="_blank" rel="noopener">Open-AlphaSeq</a></b></td><td class="r">3</td><td>Oncology checkpoint scFv&ndash;target binding <em>K</em><sub>d</sub> (CDR/surface-filtered; zero-PDB holdouts).</td></tr>
+        <tr><td><b><a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a> PPI binding DMS</b></td><td class="r">7</td><td>Abundance-controlled PPI binding DMS (3 pre-cutoff + 4 post-May-2026 releases).</td></tr>
+      </tbody>
+    </table>
+    </div>
     </div>
 
     <div class="disc-blk" id="prep-t7">
     <h3 class="disc-h">Task 7 &middot; De novo and motif design &mdash; 40 specifications</h3>
-    <p>Models output a 1D sequence only; we fold each single-shot sequence with ESMFold-2 and OpenFold3 and grade it by Proteina-Complexa structural criteria: fold/motif geometry below, ESMFold-2 confidence pLDDT &ge; 70, cross-oracle scRMSD &le; 2.0 &Aring;, plus sequence hygiene and &lt;30% identity to natural parents.</p>
+    <p>Models output a 1D sequence only; we fold each single-shot sequence with ESMFold-2 and OpenFold3 and grade it by Proteina-Complexa structural criteria: fold/motif geometry below (native motifs and fold templates from <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a>), ESMFold-2 confidence pLDDT &ge; 70, cross-oracle scRMSD &le; 2.0 &Aring;, plus sequence hygiene and &lt;30% identity to natural parents.</p>
     <div style="overflow-x:auto">
     <table class="plain">
       <thead><tr><th>Kind</th><th class="r">n</th><th>Length</th><th>Structural fidelity</th></tr></thead>
@@ -453,14 +463,14 @@
 
     <div class="disc-blk" id="prep-t8">
     <h3 class="disc-h">Task 8 &middot; Closed-loop binder design &mdash; 12 epitopes</h3>
-    <p>Twelve target chains with five hotspot residues each; methods get 16 binder proposals (55&ndash;85 AA) scored by AlphaFold2 and ESMFold-2. Only the third group is a post-cutoff crystal holdout.</p>
+    <p>Twelve <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> target chains with five hotspot residues each; methods get 16 binder proposals (55&ndash;85 AA) scored by AlphaFold2 and ESMFold-2. Only the third group is a post-cutoff crystal holdout.</p>
     <div style="overflow-x:auto">
     <table class="plain">
       <thead><tr><th>Group</th><th class="r">n</th><th>Targets &amp; PDB codes</th><th>Role</th></tr></thead>
       <tbody>
-        <tr><td><b>ProtDBench classic</b></td><td class="r">4</td><td><span style="white-space:nowrap">PD-L1, TrkA, IL-7R&alpha;, PDGFR&beta;</span><br><span class="muted">PDB 5O45, 1WWW, 3DI3, 3MJG</span></td><td>Standard prior-art binder targets (2001&ndash;2017).</td></tr>
-        <tr><td><b>BoltzProt1 novel</b></td><td class="r">5</td><td><span style="white-space:nowrap">AMBP, GM2A, HNMT, MZB1, RFK</span><br><span class="muted">PDB 3QKG, 1G13, 1JQD, 7AAH, 1NB0</span></td><td>Solved folds repurposed as non-standard binder targets (2001&ndash;2021).</td></tr>
-        <tr><td><b>Post-May-2026 crystal</b></td><td class="r">3</td><td><span style="white-space:nowrap">LEDGF PWWP, Aurora A, MCL1</span><br><span class="muted">PDB 9S83, 9RVK, 9TLV</span></td><td>Post-cutoff 2026 crystal complexes with held-out binders.</td></tr>
+        <tr><td><b>ProtDBench classic</b></td><td class="r">4</td><td><span style="white-space:nowrap">PD-L1, TrkA, IL-7R&alpha;, PDGFR&beta;</span><br><span class="muted">PDB <a href="https://www.rcsb.org/structure/5O45" target="_blank" rel="noopener">5O45</a>, <a href="https://www.rcsb.org/structure/1WWW" target="_blank" rel="noopener">1WWW</a>, <a href="https://www.rcsb.org/structure/3DI3" target="_blank" rel="noopener">3DI3</a>, <a href="https://www.rcsb.org/structure/3MJG" target="_blank" rel="noopener">3MJG</a></span></td><td>Standard prior-art binder targets (2001&ndash;2017).</td></tr>
+        <tr><td><b>BoltzProt1 novel</b></td><td class="r">5</td><td><span style="white-space:nowrap">AMBP, GM2A, HNMT, MZB1, RFK</span><br><span class="muted">PDB <a href="https://www.rcsb.org/structure/3QKG" target="_blank" rel="noopener">3QKG</a>, <a href="https://www.rcsb.org/structure/1G13" target="_blank" rel="noopener">1G13</a>, <a href="https://www.rcsb.org/structure/1JQD" target="_blank" rel="noopener">1JQD</a>, <a href="https://www.rcsb.org/structure/7AAH" target="_blank" rel="noopener">7AAH</a>, <a href="https://www.rcsb.org/structure/1NB0" target="_blank" rel="noopener">1NB0</a></span></td><td>Solved folds repurposed as non-standard binder targets (2001&ndash;2021).</td></tr>
+        <tr><td><b>Post-May-2026 crystal</b></td><td class="r">3</td><td><span style="white-space:nowrap">LEDGF PWWP, Aurora A, MCL1</span><br><span class="muted">PDB <a href="https://www.rcsb.org/structure/9S83" target="_blank" rel="noopener">9S83</a>, <a href="https://www.rcsb.org/structure/9RVK" target="_blank" rel="noopener">9RVK</a>, <a href="https://www.rcsb.org/structure/9TLV" target="_blank" rel="noopener">9TLV</a></span></td><td>Post-cutoff 2026 crystal complexes with held-out binders.</td></tr>
       </tbody>
     </table>
     </div>
@@ -1736,6 +1746,23 @@ function dsRenderTable() {
   if (!dsSel && rows.length) { dsSel = dsKey(rows[0]); dsRenderDetail(); }
 }
 
+function linkifySource(raw, d) {
+  var s = esc(raw || '—');
+  s = s.replace(/\b(urn:mavedb:[0-9a-zA-Z-]+)\b/g, '<a href="https://www.mavedb.org/score-sets/$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\bUniProt\s+([A-Z0-9]{6,10})\b/g, 'UniProt <a href="https://www.uniprot.org/uniprotkb/$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\bPDB\s+([0-9][A-Za-z0-9]{3})\b/g, 'PDB <a href="https://www.rcsb.org/structure/$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\(([0-9][A-Z0-9]{3})\)/g, '(<a href="https://www.rcsb.org/structure/$1" target="_blank" rel="noopener">$1</a>)');
+  s = s.replace(/\b(d[0-9][a-z0-9]{3}[a-z0-9_\.]{2})\b/g, '<a href="https://scop.berkeley.edu/sid=$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/Open-AlphaSeq/g, '<a href="https://huggingface.co/datasets/aalphabio/open-alphaseq" target="_blank" rel="noopener">Open-AlphaSeq</a>');
+  s = s.replace(/SKEMPI(?:\s+v2\.0)?/g, '<a href="https://life.bsc.es/pid/skempi2/" target="_blank" rel="noopener">$&</a>');
+  if (d && d.t === 5 && (d.st === 'de_novo_ddg' || d.st === 'natural_ddg')) {
+    s += ' · <a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a>';
+  }
+  if (d && d.t === 6 && d.st === 'known_pdb_pre2026' && s.indexOf('skempi2') === -1 && s.indexOf('mavedb') === -1) {
+    s += ' · <a href="https://life.bsc.es/pid/skempi2/" target="_blank" rel="noopener">SKEMPI v2.0</a>';
+  }
+  return s;
+}
 function dsRenderDetail() {
   var el = document.getElementById('ds-detail');
   var d = DS.filter(function(x){ return dsKey(x) === dsSel; })[0];
@@ -1756,7 +1783,7 @@ function dsRenderDetail() {
       '<button class="btn-ghost" id="ds-copy">Copy Prompt</button>' +
     '</div>' +
     dsStructHtml(d) +
-    '<div class="ds-field"><b>Source</b><span>' + esc(d.src || '—') + (d.desc ? ' · ' + esc(d.desc) : '') + '</span></div>' +
+    '<div class="ds-field"><b>Source</b><span>' + linkifySource(d.src || '—', d) + (d.desc ? ' · ' + esc(d.desc) : '') + '</span></div>' +
     '<div class="ds-field"><b>Holdout stratum</b><span>' + esc(stratLabel(d.st)) + '</span>' +
       '<span class="ds-key">' + esc(d.st) + '</span></div>' +
     '<div class="ds-field"><b>Chain length</b><span>' + (d.len ? d.len + ' residues' : '—') + '</span></div>' +
