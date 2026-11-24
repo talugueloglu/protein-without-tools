@@ -1,12 +1,20 @@
 <p align="center">
-  <img src="assets/banner.jpg" alt="Proteins Without Tools — amino-acid text tokens folding into a 3D protein structure" width="100%" />
+  <img src="assets/logo.png" alt="Proteins Without Tools logo" width="96" />
 </p>
 
-# Proteins Without Tools
+<h1 align="center">Proteins Without Tools</h1>
 
-**[Interactive Report & 582-Datapoint Explorer →](https://talugueloglu.github.io/protein-without-tools/)**
+<p align="center">
+  <strong>Can frontier reasoning models solve real structural biology problems from weights and chain-of-thought alone — with no alignments, no databases, and no structure predictors?</strong>
+</p>
 
-**Can frontier reasoning models solve real structural biology problems from weights and chain-of-thought alone — with no alignments, no databases, and no structure predictors?**
+<p align="center">
+  <a href="https://talugueloglu.github.io/protein-without-tools/"><strong>Interactive Report &amp; 582-Datapoint Explorer &rarr;</strong></a>
+</p>
+
+<p align="center">
+  <img src="assets/banner.jpg" alt="Proteins Without Tools — amino-acid text tokens folding into a 3D protein structure" width="100%" />
+</p>
 
 This repository contains the complete 8-task benchmark (**582 targets**), zero-leakage anonymised prompts, automated evaluators, specialist baseline pipelines, and interactive HTML report (`website/index.html`).
 

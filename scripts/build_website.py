@@ -1099,7 +1099,11 @@ def _apply_redesign_polish(raw_html: str) -> str:
         1,
     )
     raw_html = raw_html.replace("margin:0 auto 14px;max-width:17ch;}", "margin:0 auto 14px;max-width:26ch;}", 1)
-    raw_html = raw_html.replace('<span class="wordmark">ProteinBench</span>', '<span class="wordmark">Proteins Without Tools</span>', 1)
+    raw_html = raw_html.replace(
+        '<span class="wordmark">ProteinBench</span>',
+        '<span class="wordmark" style="display:inline-flex;align-items:center;gap:9px;border-bottom:0;padding-bottom:0;"><img src="favicon.png" alt="" width="24" height="24" style="width:24px;height:24px;border-radius:5px;display:block;" /><span style="border-bottom:2px solid var(--navy);padding-bottom:1px;">Proteins Without Tools</span></span>',
+        1,
+    )
     raw_html = raw_html.replace("<h1>ProteinBench</h1>", "<h1>Proteins Without Tools</h1>", 1)
     raw_html = raw_html.replace(
         "@article{proteinbench2026,\n  title   = {ProteinBench: From Sequence Memorization to Folding and Binding Physics in Frontier Reasoning Models},\n  author  = {Gueloglu, Talu},\n  journal = {arXiv preprint},\n  year    = {2026}\n}",
