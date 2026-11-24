@@ -863,7 +863,7 @@ function initDataset() {
 
 function boot(label, fn) {
   try { fn(); } catch (e) {
-    try { console.error('Protein Structure Without Tools: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
+    try { console.error('Proteins Without Tools: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
   }
 }
 boot('figures', renderFigures);
@@ -1046,7 +1046,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
     raw_html = raw_html.replace(old_key_css, new_key_css, 1)
 
-    # 3b. Rename title/wordmark/hero/BibTeX from ProteinBench -> "Protein Structure Without Tools" & update 522 -> 582 datapoints
+    # 3b. Rename title/wordmark/hero/BibTeX from ProteinBench -> "Proteins Without Tools" & update 522 -> 582 datapoints
     raw_html = raw_html.replace("522 targets, held-out experimental data", "582 targets, held-out experimental data", 1)
     raw_html = raw_html.replace("All 522 datapoints", "All 582 datapoints")
     raw_html = raw_html.replace("All 522 prompts audited", "All 582 prompts audited", 1)
@@ -1058,7 +1058,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
     )
     raw_html = raw_html.replace(
         "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>",
-        "<title>Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>",
+        "<title>Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>",
         1,
     )
     raw_html = raw_html.replace(
@@ -1067,11 +1067,11 @@ def _apply_redesign_polish(raw_html: str) -> str:
         1,
     )
     raw_html = raw_html.replace("margin:0 auto 14px;max-width:17ch;}", "margin:0 auto 14px;max-width:26ch;}", 1)
-    raw_html = raw_html.replace('<span class="wordmark">ProteinBench</span>', '<span class="wordmark">Protein Structure Without Tools</span>', 1)
-    raw_html = raw_html.replace("<h1>ProteinBench</h1>", "<h1>Protein Structure Without Tools</h1>", 1)
+    raw_html = raw_html.replace('<span class="wordmark">ProteinBench</span>', '<span class="wordmark">Proteins Without Tools</span>', 1)
+    raw_html = raw_html.replace("<h1>ProteinBench</h1>", "<h1>Proteins Without Tools</h1>", 1)
     raw_html = raw_html.replace(
         "@article{proteinbench2026,\n  title   = {ProteinBench: From Sequence Memorization to Folding and Binding Physics in Frontier Reasoning Models},\n  author  = {Gueloglu, Talu},\n  journal = {arXiv preprint},\n  year    = {2026}\n}",
-        "@misc{gueloglu2026proteinstructure,\n  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},\n  author = {Gueloglu, Talu},\n  year   = {2026},\n  url    = {https://github.com/talugueloglu/protein-without-tools}\n}",
+        "@misc{gueloglu2026proteinswithouttools,\n  title  = {Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models},\n  author = {Gueloglu, Talu},\n  year   = {2026},\n  url    = {https://github.com/talugueloglu/protein-without-tools}\n}",
         1,
     )
     raw_html = raw_html.replace(

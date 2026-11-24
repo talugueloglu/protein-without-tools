@@ -57,7 +57,7 @@ def _code_cell(code: str) -> Dict[str, Any]:
 def build_colab_notebook(out_ipynb: Path) -> None:
     cells: List[Dict[str, Any]] = [
         _md_cell(
-            """# Protein Structure Without Tools — Google Colab `AlphaFold2` & `ProteinMPNN` GPU Evaluator (Tests 2, 7, and 8)
+            """# Proteins Without Tools — Google Colab `AlphaFold2` & `ProteinMPNN` GPU Evaluator (Tests 2, 7, and 8)
 
 Make sure **Runtime → Change runtime type → Hardware accelerator** is set to **`T4 GPU`** (or **`L4` / `A100`**).
 

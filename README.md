@@ -1,4 +1,4 @@
-# Protein Structure Without Tools
+# Proteins Without Tools
 
 **Can frontier reasoning models solve real structural biology problems from weights and chain-of-thought alone — with no alignments, no databases, and no structure predictors?**
 
@@ -75,8 +75,8 @@ Code is released under the [MIT License](LICENSE). Benchmark inputs derived from
 ## Citation
 
 ```bibtex
-@misc{gueloglu2026proteinstructure,
-  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
+@misc{gueloglu2026proteinswithouttools,
+  title  = {Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
   author = {Gueloglu, Talu},
   year   = {2026},
   url    = {https://github.com/talugueloglu/protein-without-tools}

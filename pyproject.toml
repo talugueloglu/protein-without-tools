@@ -8,7 +8,7 @@ packages = ["src/protein_without_tools"]
 [project]
 name = "protein-without-tools"
 version = "0.1.0"
-description = "Protein Structure Without Tools: 8-Task Structural Biology Benchmark for Frontier Reasoning Models"
+description = "Proteins Without Tools: 8-Task Structural Biology Benchmark for Frontier Reasoning Models"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

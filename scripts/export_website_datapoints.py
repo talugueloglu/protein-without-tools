@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export all 622 Protein Structure Without Tools datapoints (across Tests 1..8) for the website & public release.
+"""Export all 622 Proteins Without Tools datapoints (across Tests 1..8) for the website & public release.
 
 Outputs:
   1. `website/data/datapoints_v1.jsonl`: Complete self-contained JSONL with

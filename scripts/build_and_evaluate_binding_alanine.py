@@ -744,7 +744,7 @@ def main() -> None:
     cat_counts = dict(Counter(r["category"] for r in manifest_rows))
     mem_counts = dict(Counter(r["memorization_stratum"] for r in manifest_rows))
     manifest_obj = {
-        "benchmark": "Protein Structure Without Tools Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
+        "benchmark": "Proteins Without Tools Test 6: Interface Binding Alanine Scan Ranking (X -> Ala, Monomer-Stability Filtered)",
         "n_targets": len(manifest_rows),
         "total_panel_candidates": total_panel_mutants,
         "total_assayed_alanine_mutants": total_panel_mutants,

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>
+<title>Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>
 <meta name="description" content="An eight-task structural biology benchmark: 582 targets, held-out experimental data, per-datapoint structures and results." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -327,7 +327,7 @@
 
 <nav class="top">
   <div class="in">
-    <span class="wordmark">Protein Structure Without Tools</span>
+    <span class="wordmark">Proteins Without Tools</span>
     <span class="navlinks">
       <a href="#abstract">Abstract</a>
       <a href="#explorer">Tasks</a>
@@ -343,7 +343,7 @@
 <main>
 <div class="wrap">
   <header class="hero">
-    <h1>Protein Structure Without Tools</h1>
+    <h1>Proteins Without Tools</h1>
 
     <p class="blurb">Can frontier reasoning models solve real structural biology problems from weights and reasoning alone, with no alignments, no structure predictors and no databases?</p>
     <p class="authors">Talu Gueloglu</p>
@@ -446,8 +446,8 @@ cp .env.example .env
   <section id="cite">
     <h2>Citation</h2>
     <p><button id="copy-bib-btn" class="btn-ghost">Copy BibTeX</button></p>
-    <pre class="bib" id="bibtex-block">@misc{gueloglu2026proteinstructure,
-  title  = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
+    <pre class="bib" id="bibtex-block">@misc{gueloglu2026proteinswithouttools,
+  title  = {Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models},
   author = {Gueloglu, Talu},
   year   = {2026},
   url    = {https://github.com/talugueloglu/protein-without-tools}
@@ -2704,7 +2704,7 @@ function initDataset() {
 
 function boot(label, fn) {
   try { fn(); } catch (e) {
-    try { console.error('Protein Structure Without Tools: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
+    try { console.error('Proteins Without Tools: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
   }
 }
 boot('figures', renderFigures);
