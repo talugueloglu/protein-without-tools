@@ -1058,7 +1058,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
     )
     raw_html = raw_html.replace(
         "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>\n"
-        '<meta name="description" content="An eight-task structural biology benchmark: 522 targets, held-out experimental data, per-datapoint structures and results." />',
+        '<meta name="description" content="An eight-task structural biology benchmark: 582 targets, held-out experimental data, per-datapoint structures and results." />',
         "<title>Proteins Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>\n"
         '<meta name="description" content="Can frontier reasoning models solve real structural biology problems from weights and reasoning alone? Eight tasks, 582 targets, and specialist baselines." />\n'
         '<meta name="author" content="Talu Güloğlu" />\n'
