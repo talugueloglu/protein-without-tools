@@ -677,7 +677,7 @@ function initDataset() {
 
 function boot(label, fn) {
   try { fn(); } catch (e) {
-    try { console.error('ProteinBench: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
+    try { console.error('Protein Structure Without Tools: ' + label + ' failed —', e && (e.stack || e.message)); } catch (_) {}
   }
 }
 boot('figures', renderFigures);
@@ -759,10 +759,30 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
     raw_html = raw_html.replace(old_key_css, new_key_css, 1)
 
-    # 3b. Replace verbose abstract with concise, accurate summary matching the evaluated models and SOTA baselines
+    # 3b. Rename title/wordmark/hero/BibTeX from ProteinBench -> "Protein Structure Without Tools"
+    raw_html = raw_html.replace(
+        "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>",
+        "<title>Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>",
+        1,
+    )
+    raw_html = raw_html.replace(
+        ".wordmark{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);\n    letter-spacing:.01em;border-bottom:2px solid var(--navy);padding-bottom:1px;}",
+        ".wordmark{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);\n    letter-spacing:.01em;border-bottom:2px solid var(--navy);padding-bottom:1px;white-space:nowrap;}",
+        1,
+    )
+    raw_html = raw_html.replace("margin:0 auto 14px;max-width:17ch;}", "margin:0 auto 14px;max-width:26ch;}", 1)
+    raw_html = raw_html.replace('<span class="wordmark">ProteinBench</span>', '<span class="wordmark">Protein Structure Without Tools</span>', 1)
+    raw_html = raw_html.replace("<h1>ProteinBench</h1>", "<h1>Protein Structure Without Tools</h1>", 1)
+    raw_html = raw_html.replace(
+        "@article{proteinbench2026,\n  title   = {ProteinBench: From Sequence Memorization to Folding and Binding Physics in Frontier Reasoning Models},",
+        "@article{gueloglu2026proteinstructure,\n  title   = {Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models},",
+        1,
+    )
+
+    # 3c. Replace verbose abstract with concise, accurate summary matching the evaluated models and SOTA baselines
     concise_abstract = """  <section id="abstract">
     <h2>Abstract</h2>
-    <p>Frontier language models are trained on protein sequences alongside the structural biology literature, making it difficult to tell whether a correct answer reflects physical reasoning or retrieval of a known entry. ProteinBench is an eight-task benchmark evaluating reasoning models on anonymised protein prompts &mdash; without alignments, databases, or external structure predictors &mdash; across forward folding, stripped-backbone inverse folding, remote homology into the &lt;15% identity twilight zone, experimentally evidenced Gene Ontology function prediction, monomer and interface alanine-scan ranking, single-shot <em>de novo</em> and motif design, and 16-round closed-loop binder design against an AlphaFold2/ESMFold-2 oracle.</p>
+    <p>Frontier language models are trained on protein sequences alongside the structural biology literature, making it difficult to tell whether a correct answer reflects physical reasoning or retrieval of a known entry. We introduce an eight-task benchmark evaluating reasoning models on anonymised protein prompts &mdash; without alignments, databases, or external structure predictors &mdash; across forward folding, stripped-backbone inverse folding, remote homology into the &lt;15% identity twilight zone, experimentally evidenced Gene Ontology function prediction, monomer and interface alanine-scan ranking, single-shot <em>de novo</em> and motif design, and 16-round closed-loop binder design against an AlphaFold2/ESMFold-2 oracle.</p>
     <p>To separate memorisation from generalisation, folding targets are stratified by structural similarity (TM-score) to the pre-May-2026 PDB, ranking panels pair each hotspot with a same-amino-acid neutral decoy (pinning residue-letter heuristics to 50%), and remaining tasks use task-specific holdouts including zero-homolog synthetic designs and post-cutoff experimental releases. Each task is paired with an established domain baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, NetGO 4.0, ESMFold-2 &rarr; SaProt 650M, Boltz-2 &rarr; StaB-ddG, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
     <p>Across three frontier reasoning models, performance exceeds the sequence-embedding baseline on twilight-zone remote homology, leads even structure-aware SaProt on zero-homolog <em>de novo</em> monomer mutational ranking, and improves consistently over 16 rounds of oracle feedback. However, reasoning models remain far below specialist models on 3D forward folding, inverse folding, GO function prediction, and single-shot design, and drop sharply on interface binding panels lacking pre-2026 PDB complexes.</p>
   </section>"""
