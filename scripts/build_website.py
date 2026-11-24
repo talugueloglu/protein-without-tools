@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Inject the 8 established baselines (1 clean domain baseline per task) into proteinbench.html,
-updating DS (all 522 datapoints), FIGDATA, FIGS (f1..f9), RESULT_SPEC, and DETAIL_SPEC."""
+updating DS (all 582 datapoints), FIGDATA, FIGS (f1..f8 + f4b), RESULT_SPEC, and DETAIL_SPEC."""
 
 from __future__ import annotations
 
@@ -1050,6 +1050,8 @@ def _apply_redesign_polish(raw_html: str) -> str:
     raw_html = raw_html.replace("522 targets, held-out experimental data", "582 targets, held-out experimental data", 1)
     raw_html = raw_html.replace("All 522 datapoints", "All 582 datapoints")
     raw_html = raw_html.replace("All 522 prompts audited", "All 582 prompts audited", 1)
+    raw_html = raw_html.replace("label:'All 522'", "label:'All 582'", 1)
+    raw_html = raw_html.replace("Full 522-datapoint browser", "Full 582-datapoint browser", 1)
     raw_html = raw_html.replace("badge: 'N = 60 2026 QuickGO Holdouts'", "badge: 'N = 120 CAFA-6 Pre/Post × NK/LK/PK'", 1)
     raw_html = raw_html.replace(
         "  post_may_2026:'Post-May-2026 annotation',\n  early_2026_uniprot:'Early-2026 UniProt',",
