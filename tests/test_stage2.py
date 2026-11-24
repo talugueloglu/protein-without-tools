@@ -16,6 +16,7 @@ from fable_bench.stage2b_cafa import (
     CAFATarget,
     build_cafa_prompt,
     compute_cafa_fmax,
+    compute_term_information_accretion,
     compute_term_information_content,
     parse_cafa_response,
     parse_go_obo,
@@ -142,6 +143,47 @@ is_a: GO:0016740 ! transferase activity
     assert 0.5 < res_partial["fmax"] < 0.95
     assert res_partial["wfmax"] < res_partial["fmax"]
 
+    # CAFA-6 conditional Information Accretion (IA)
+    ia_map = compute_term_information_accretion(
+        dag,
+        [{"GO:0003824", "GO:0016740"}, {"GO:0003824", "GO:0016740"}, {"GO:0003824"}],
+    )
+    assert ia_map["GO:0003674"] == 0.0
+    assert ia_map["GO:0004672"] > ia_map["GO:0016740"] > 0.0
+
+    # CAFA-6 PK dual `-known` masking: known T0 = {GO:0003824, GO:0016740}, newly gained T1\T0 = {GO:0004672}
+    t_pk = CAFATarget(
+        target_id="s2b_pk",
+        sequence="MKLAVILGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLD",
+        length=52,
+        true_terms_mf=["GO:0003824", "GO:0016740", "GO:0004672"],
+        true_terms_bp=[],
+        true_terms_cc=[],
+        knowledge_type="PK",
+        known_terms_mf=["GO:0003824", "GO:0016740"],
+        eval_aspects=["MF"],
+    )
+    # Regurgitating ONLY known T0 terms scores 0.0 under CAFA-6 PK dual masking!
+    res_pk_known_only = compute_cafa_fmax(dag, [t_pk], {"s2b_pk": {"GO:0016740": 0.95}}, aspect="MF", ic_map=ia_map)
+    assert res_pk_known_only["fmax"] == 0.0 and res_pk_known_only["wfmax"] == 0.0
+    # Predicting the novel leaf GO:0004672 (which propagates up to known parents) scores 1.0 without FP penalty for known parents!
+    res_pk_novel = compute_cafa_fmax(dag, [t_pk], {"s2b_pk": {"GO:0004672": 0.9}}, aspect="MF", ic_map=ia_map)
+    assert res_pk_novel["fmax"] == 1.0 and res_pk_novel["wfmax"] == 1.0
+
+    # CAFA-6 LK gained-aspect-only evaluation: eval_aspects=['MF'] ignores pre-existing CC terms
+    t_lk = CAFATarget(
+        target_id="s2b_lk",
+        sequence="MKLAVILGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLD",
+        length=52,
+        true_terms_mf=["GO:0003824"],
+        true_terms_bp=[],
+        true_terms_cc=["GO:0005634"],
+        knowledge_type="LK",
+        eval_aspects=["MF"],
+    )
+    assert compute_cafa_fmax(dag, [t_lk], {"s2b_lk": {"GO:0003824": 0.9}}, aspect="MF", ic_map=ia_map)["n_targets"] == 1
+    assert compute_cafa_fmax(dag, [t_lk], {"s2b_lk": {"GO:0005634": 0.9}}, aspect="CC", ic_map=ia_map)["n_targets"] == 0
+
 
 def test_built_stage2_manifests_and_zero_leakage() -> None:
     from pathlib import Path
@@ -172,12 +214,20 @@ def test_built_stage2_manifests_and_zero_leakage() -> None:
         assert row_meta["scop_a"] not in pr_txt
 
     m2b = json.loads(m2b_path.read_text(encoding="utf-8"))
-    assert m2b["n_targets"] == 60
+    assert m2b["n_targets"] == 120
+    assert m2b["temporal_tier_counts"] == {
+        "pre_nk": 20,
+        "pre_lk": 20,
+        "pre_pk": 20,
+        "post_nk": 20,
+        "post_lk": 20,
+        "post_pk": 20,
+    }
     sub_dag = parse_go_obo(str(repo / "data" / "stage2b_cafa" / "go_subdag.obo"))
     assert len(sub_dag.term_aspect) > 500
 
     p2b_lines = (repo / "outputs" / "prompts" / "stage2b_cafa_prompts.jsonl").read_text().splitlines()
-    assert len(p2b_lines) == 60
+    assert len(p2b_lines) == 120
     for row_meta, pline in zip(m2b["targets"], p2b_lines):
         pr_txt = json.loads(pline)["prompt"]
         assert row_meta["uniprot_accession"] not in pr_txt

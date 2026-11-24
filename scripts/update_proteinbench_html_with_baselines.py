@@ -121,7 +121,7 @@ var RESULT_SPEC = [
   { t:3, name:'3. Remote homology', note:'Graded against stored SCOPe superfamily label (baseline: __T3_BASE_NAME__).',
     cols:[['Accuracy',     function(S,m){ return fmt(homologyStats(m).acc,1,'%'); }],
           ['AUROC',        function(S,m){ return fmt(homologyStats(m).auroc,3); }]] },
-  { t:4, name:'4. Function prediction', note:'IC-weighted CAFA wFₘₐₓ on 2026 experimental GO holdouts (baseline: __T4_BASE_NAME__).',
+  { t:4, name:'4. Function prediction', note:'CAFA-6 IA-weighted wFₘₐₓ on strict Post-cutoff NK holdouts (baseline: __T4_BASE_NAME__).',
     cols:[['Macro wFₘₐₓ',  function(S,m){ return fmt(cafaAspect(m,'macro'),3); }],
           ['MF',           function(S,m){ return fmt(cafaAspect(m,0),3); }],
           ['BP',           function(S,m){ return fmt(cafaAspect(m,1),3); }],
@@ -450,6 +450,91 @@ function lineChart(o) {
   return s+'</svg>';
 }
 
+function spreadYs(items, minGap, yMin, yMax) {
+  var arr = items.slice().sort(function(a, b){ return a.y - b.y; });
+  for (var iter = 0; iter < 8; iter++) {
+    for (var i = 1; i < arr.length; i++) {
+      var diff = arr[i].y - arr[i - 1].y;
+      if (diff < minGap) {
+        var push = (minGap - diff) / 2;
+        arr[i - 1].y -= push;
+        arr[i].y += push;
+      }
+    }
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[j].y < yMin) arr[j].y = yMin;
+      if (arr[j].y > yMax) arr[j].y = yMax;
+    }
+  }
+  return arr;
+}
+
+function slopePanels(o) {
+  var W = 880, mL = 66, mR = 24, mT = 68, mB = 46;
+  var lg = legendRows(o.series, mL, W - mR, 20);
+  if (lg.rows > 1) mT += (lg.rows - 1) * lg.rowGap;
+  var H = o.h || Math.max(338, mT + 206 + mB);
+  var allVals = [];
+  o.series.forEach(function(se){
+    (se.pairs || []).forEach(function(pr){ allVals.push(pr[0], pr[1]); });
+  });
+  var max = o.maxFixed || fitMax([{ v: allVals }], [], o.floorMax || 0.7);
+  var pw = W - mL - mR, ph = H - mT - mB, y0 = mT + ph;
+  var yOf = function(v){ return y0 - (Math.max(0, Math.min(v, max)) / max) * ph; };
+  var fmt = o.fmt || function(v){ return v.toFixed(3); };
+
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + esc(o.aria || 'slope comparison') + '">';
+  s += lg.svg;
+
+  var ticks = niceTicks(max);
+  for (var i = 0; i <= ticks; i++) {
+    var v = max * i / ticks, y = yOf(v);
+    s += '<line x1="' + mL + '" y1="' + y + '" x2="' + (W - mR) + '" y2="' + y + '" class="cl-grid"/>';
+    s += '<text x="' + (mL - 9) + '" y="' + (y + 4) + '" class="cl-tick" text-anchor="end">' + tickLabel(v, max, ticks) + '</text>';
+  }
+
+  var nP = o.panels.length, gap = 36, pW = (pw - (nP - 1) * gap) / nP, padX = 50;
+  o.panels.forEach(function(pan, pi){
+    var px0 = mL + pi * (pW + gap), px1 = px0 + pW, pcx = (px0 + px1) / 2;
+    var xPre = px0 + padX, xPost = px1 - padX;
+    // Panel title & subtitle above plot area
+    s += '<text x="' + pcx + '" y="' + (mT - 24) + '" class="cl-val" text-anchor="middle">' + esc(pan.t) + '</text>';
+    if (pan.s) s += '<text x="' + pcx + '" y="' + (mT - 9) + '" class="cl-metric" text-anchor="middle">' + esc(pan.s) + '</text>';
+    // Vertical guides & baseline
+    s += '<line x1="' + xPre + '" y1="' + mT + '" x2="' + xPre + '" y2="' + y0 + '" class="cl-axisline" stroke-dasharray="2 3"/>';
+    s += '<line x1="' + xPost + '" y1="' + mT + '" x2="' + xPost + '" y2="' + y0 + '" class="cl-axisline" stroke-dasharray="2 3"/>';
+    s += '<line x1="' + px0 + '" y1="' + y0 + '" x2="' + px1 + '" y2="' + y0 + '" class="cl-axisline"/>';
+    s += '<text x="' + xPre + '" y="' + (y0 + 18) + '" class="cl-cat" text-anchor="middle">' + esc(pan.l0 || 'Pre 2025') + '</text>';
+    s += '<text x="' + xPost + '" y="' + (y0 + 18) + '" class="cl-cat" text-anchor="middle">' + esc(pan.l1 || 'Post 2026') + '</text>';
+
+    var leftLabels = [], rightLabels = [];
+    o.series.forEach(function(se){
+      var pr = se.pairs[pi];
+      if (!pr || pr[0] === null || pr[1] === null) return;
+      var y1 = yOf(pr[0]), y2 = yOf(pr[1]);
+      var dash = se.base ? ' stroke-dasharray="5 3"' : '';
+      var delta = pr[1] - pr[0];
+      var dStr = (delta >= 0 ? '+' : '−') + Math.abs(delta).toFixed(3);
+      var tip = se.n + ' · ' + pan.t + ': ' + fmt(pr[0]) + ' → ' + fmt(pr[1]) + ' (Δ ' + dStr + ')';
+      s += '<line x1="' + xPre + '" y1="' + y1 + '" x2="' + xPost + '" y2="' + y2 + '" stroke="' + se.c + '" stroke-width="' + (se.base ? '2.2' : '2.3') + '"' + dash + ' stroke-linecap="round"/>';
+      s += '<circle cx="' + xPre + '" cy="' + y1 + '" r="4.3" fill="' + se.c + '" stroke="#fff" stroke-width="1.8" class="cl-bar" data-tip="' + esc(tip) + '"><title>' + esc(tip) + '</title></circle>';
+      s += '<circle cx="' + xPost + '" cy="' + y2 + '" r="4.3" fill="' + se.c + '" stroke="#fff" stroke-width="1.8" class="cl-bar" data-tip="' + esc(tip) + '"><title>' + esc(tip) + '</title></circle>';
+      leftLabels.push({ y: y1, txt: pr[0].toFixed(2), c: se.c, base: se.base });
+      rightLabels.push({ y: y2, txt: pr[1].toFixed(2), c: se.c, base: se.base });
+    });
+
+    spreadYs(leftLabels, 13, mT + 8, y0 - 4).forEach(function(lb){
+      s += '<text x="' + (xPre - 8) + '" y="' + (lb.y + 3.5) + '" class="cl-metric" text-anchor="end" style="fill:' + (lb.base ? '#5f6773' : lb.c) + ';font-weight:600">' + lb.txt + '</text>';
+    });
+    spreadYs(rightLabels, 13, mT + 8, y0 - 4).forEach(function(lb){
+      s += '<text x="' + (xPost + 8) + '" y="' + (lb.y + 3.5) + '" class="cl-metric" text-anchor="start" style="fill:' + (lb.base ? '#5f6773' : lb.c) + ';font-weight:600">' + lb.txt + '</text>';
+    });
+  });
+
+  s += '<text class="cl-axis" transform="translate(15,' + (mT + ph / 2) + ') rotate(-90)" text-anchor="middle">' + esc(o.ylabel || '') + '</text>';
+  return s + '</svg>';
+}
+
 function modelSeriesWithBase(baseName, baseKey, valsFor) {
   return [{ n:baseName, c:GRAY1, v:valsFor(baseKey) }].concat(
     MODEL_KEYS.map(function(m){ return { n:MNAME[m], c:MCOL[m], v:valsFor(m) }; })
@@ -467,7 +552,7 @@ var T7_GATE_LABELS = [
 var PREP_CARDS = {
   1: {
     sub: '100 RCSB PDB monomers · Foldseek structural novelty strata',
-    body: '<p>Monomeric structures from the <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> searched structurally against the pre-May-2026 PDB with <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>; each target\'s highest TM-score to any prior chain sets its structural novelty (TM &gt; 0.5 shares a fold; &lt; 0.3 is random). Designed proteins are grouped separately by provenance.</p>' +
+    body: '<p>We pull 100 monomeric structures from the <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> and search each one against the pre-May-2026 PDB with <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>. A target\'s highest TM-score to any older chain sets its novelty bin (above 0.5 shares a fold; below 0.3 is random), with computationally designed proteins separated first.</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Stratum</th><th class="r">n</th><th>Deposited</th><th>Best pre-cutoff match</th><th>Definition</th></tr></thead>' +
       '<tbody>' +
@@ -480,27 +565,37 @@ var PREP_CARDS = {
   },
   2: {
     sub: 'Same 100 RCSB PDB folds · stripped Cα backbones (all UNK)',
-    body: '<p>Same 100 <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> structures and five strata as Task 1. Inputs keep only C&alpha; coordinates (every residue relabelled UNK), backbone dihedrals, and C&alpha; burial counts. Wild-type sequences were refolded through the same ESMFold-2 pipeline to set the 0.885 ceiling.</p>'
+    body: '<p>We reuse the exact 100 <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> structures and five strata from Task 1, deleting every side chain (all residues relabelled UNK) so only C&alpha; coordinates, backbone angles, and burial counts remain. Refolding the native wild-type sequences through ESMFold-2 sets the 0.885 ceiling.</p>'
   },
   3: {
     sub: '120 SCOPe domain pairs · TEA & Foldseek difficulty rungs',
-    body: '<p><a href="https://scop.berkeley.edu/" target="_blank" rel="noopener">SCOPe</a> domain pairs curated via <a href="https://github.com/PickyBinders/tea" target="_blank" rel="noopener">TEA</a> and <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>, split by which search method fails (30 pairs per rung; rungs 2&ndash;4 matched near 11% identity). Released files carry SCOPe families, sequence identity, and Smith&ndash;Waterman scores; the Foldseek E-values separating rungs 2 and 3 are not stored in the file.</p>' +
+    body: '<p>We draw 120 <a href="https://scop.berkeley.edu/" target="_blank" rel="noopener">SCOPe</a> domain pairs via <a href="https://github.com/PickyBinders/tea" target="_blank" rel="noopener">TEA</a> and <a href="https://search.foldseek.com/" target="_blank" rel="noopener">Foldseek</a>, grouped by which search method fails (30 pairs per rung; Rungs 2&ndash;4 sit near 11% sequence identity). Rung 4 provides the 30 negative decoys used to set the 10% FPR cutoff and AUROC.</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Rung</th><th class="r">n</th><th>Sequence identity</th><th>Selection rule</th></tr></thead>' +
       '<tbody>' +
       '<tr><td><b>1 &middot; Sequence-easy</b></td><td class="r">30</td><td>18 &ndash; 38% (med. 23%)</td><td>Same SCOPe superfamily; recovered by Smith&ndash;Waterman.</td></tr>' +
       '<tr><td><b>2 &middot; Structure-caught</b></td><td class="r">30</td><td>9 &ndash; 14% (med. 11%)</td><td>Same superfamily; sequence alignment fails, Foldseek 3Di hits.</td></tr>' +
       '<tr><td><b>3 &middot; Deep twilight</b></td><td class="r">30</td><td>8 &ndash; 16% (med. 11%)</td><td>Same superfamily; both sequence and Foldseek search fail.</td></tr>' +
-      '<tr><td><b>4 &middot; Matched decoy</b></td><td class="r">30</td><td>9 &ndash; 14% (med. 11%)</td><td>Different superfamilies matched on structural class and identity.</td></tr>' +
+      '<tr><td><b>4 &middot; Matched decoy</b></td><td class="r">30</td><td>9 &ndash; 14% (med. 11%)</td><td>Different superfamilies matched on structural class and identity (negative class).</td></tr>' +
       '</tbody></table></div>'
   },
   4: {
-    sub: '60 UniProtKB proteins · EBI QuickGO experimental GO annotations',
-    body: '<p><a href="https://www.uniprot.org/" target="_blank" rel="noopener">UniProtKB</a> sequences graded on experimentally evidenced <a href="https://geneontology.org/" target="_blank" rel="noopener">Gene Ontology</a> annotations from <a href="https://www.ebi.ac.uk/QuickGO/" target="_blank" rel="noopener">EBI QuickGO</a>. Date caveat: <span class="ds-key">post_may_2026</span> (n=11) has 7 entries dated 2026-07-25 and 4 pre-cutoff entries (2025-11-19 / 2026-03-31); <span class="ds-key">early_2026_uniprot</span> (n=49) spans 2022-02-03 to 2026-01-08 with 47 sharing the bulk date 2025-10-27. The true post-cutoff holdout is <b>7 proteins</b>.</p>'
+    sub: '120 UniProtKB proteins · EBI GOA 2×3 CAFA-6 split (Pre vs. Post × NK/LK/PK)',
+    body: '<p>We pull 120 non-redundant <a href="https://www.uniprot.org/" target="_blank" rel="noopener">UniProtKB</a> proteins (3-mer Jaccard &le; 0.28) with curated non-IntAct experimental <a href="https://geneontology.org/" target="_blank" rel="noopener">Gene Ontology</a> annotations from <a href="https://www.ebi.ac.uk/GOA" target="_blank" rel="noopener">EBI GOA</a> (<a href="https://www.ebi.ac.uk/QuickGO/" target="_blank" rel="noopener">QuickGO</a> double-verified for Post-NK, excluding trivial <span class="ds-key">GO:0005515</span>-only). We grade every model with CAFA-6 conditional Information Accretion (IA) in <code>full</code> mode across matched Pre-cutoff (May&ndash;Oct 2025) and Post-cutoff (May&ndash;Oct 2026) windows.</p>' +
+      '<div style="overflow-x:auto"><table class="plain">' +
+      '<thead><tr><th>Cell</th><th class="r">n</th><th>Window</th><th>CAFA-6 track &amp; grading rule</th></tr></thead>' +
+      '<tbody>' +
+      '<tr><td><b>Pre-cutoff NK</b> (<span class="ds-key">pre_nk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2025</td><td>Zero experimental GO before 2025-05-01; graded on all gained aspects (pre-training control).</td></tr>' +
+      '<tr><td><b>Pre-cutoff LK</b> (<span class="ds-key">pre_lk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2025</td><td>Had 1&ndash;2 aspects before 2025-05-01; graded only on the newly added aspect.</td></tr>' +
+      '<tr><td><b>Pre-cutoff PK</b> (<span class="ds-key">pre_pk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2025</td><td>Pre-2025-05-01 terms masked out of both truth and predictions (<code>-known</code>).</td></tr>' +
+      '<tr><td><b>Post-cutoff NK</b> (<span class="ds-key">post_nk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2026</td><td>Zero experimental GO before 2026-05-01 and post-May-2026 papers; clean blind test.</td></tr>' +
+      '<tr><td><b>Post-cutoff LK</b> (<span class="ds-key">post_lk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2026</td><td>Had 1&ndash;2 aspects before 2026-05-01; graded only on the newly added aspect.</td></tr>' +
+      '<tr><td><b>Post-cutoff PK</b> (<span class="ds-key">post_pk</span>)</td><td class="r">20</td><td>May &ndash; Oct 2026</td><td>Pre-2026-05-01 terms masked out of both truth and predictions (<code>-known</code>).</td></tr>' +
+      '</tbody></table></div>'
   },
   5: {
     sub: '52 panels (18 mutations each) · MegaScale & MaveDB',
-    body: '<p>Each 18-candidate panel pairs 6 hotspots, 6 moderate sites, and 6 same-AA decoys (holding residue-letter lookup to 50%), combining <a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a> (<a href="https://zenodo.org/records/7992926" target="_blank" rel="noopener">Zenodo</a>) and <a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a> across four experimental regimes.</p>' +
+    body: '<p>Each panel picks 18 X&rarr;Ala mutations from <a href="https://huggingface.co/datasets/RosettaCommons/MegaScale" target="_blank" rel="noopener">MegaScale</a> (<a href="https://zenodo.org/records/7992926" target="_blank" rel="noopener">Zenodo</a>) or <a href="https://www.mavedb.org/" target="_blank" rel="noopener">MaveDB</a>: 6 strong hotspots, 6 moderate sites, and 6 neutral decoys sharing the exact same wild-type amino acids so residue-letter lookup stays at 50%.</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Source dataset</th><th class="r">n</th><th>Measured quantity</th></tr></thead>' +
       '<tbody>' +
@@ -512,7 +607,7 @@ var PREP_CARDS = {
   },
   6: {
     sub: '38 complexes · SKEMPI v2.0, Open-AlphaSeq & MaveDB PPI DMS',
-    body: '<p>Interface X&rarr;Ala panels graded on measured binding loss after removing monomer-destabilising mutations, combining three experimental sources split into 31 pre-2026 PDB complexes (<span class="ds-key">known_pdb_pre2026</span>) and 7 unseen or post-2026 complexes (<span class="ds-key">unseen_or_post2026</span>).</p>' +
+    body: '<p>We remove monomer-destabilising mutations first so every panel isolates binding affinity, combining three datasets split into 31 complexes already in the pre-2026 PDB (<span class="ds-key">known_pdb_pre2026</span>) and 7 unseen or post-2026 complexes (<span class="ds-key">unseen_or_post2026</span>).</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Source dataset</th><th class="r">n</th><th>Readout &amp; holdout</th></tr></thead>' +
       '<tbody>' +
@@ -523,7 +618,7 @@ var PREP_CARDS = {
   },
   7: {
     sub: '40 specifications · RCSB PDB fold templates & crystal motifs',
-    body: '<p>Models output a 1D sequence only; we fold each single-shot sequence with ESMFold-2 and OpenFold3 and grade it by Proteina-Complexa structural criteria: fold/motif geometry below (native motifs and fold templates from <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a>), ESMFold-2 confidence pLDDT &ge; 70, cross-oracle scRMSD &le; 2.0 &Aring;, plus sequence hygiene and &lt;30% identity to natural parents.</p>' +
+    body: '<p>Each prompt specifies a fold template or crystal motif from the <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> and asks for a single 1D sequence. We fold every sequence with ESMFold-2 and OpenFold3 and require fold/motif geometry below, ESMFold-2 pLDDT &ge; 70, cross-oracle scRMSD &le; 2.0 &Aring;, clean sequence hygiene, and &lt;30% identity to natural parents.</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Kind</th><th class="r">n</th><th>Length</th><th>Structural fidelity</th></tr></thead>' +
       '<tbody>' +
@@ -533,7 +628,7 @@ var PREP_CARDS = {
   },
   8: {
     sub: '12 RCSB PDB epitopes · ProtDBench, BoltzProt1 & post-May-2026 crystals',
-    body: '<p>Twelve <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> target chains with five hotspot residues each; methods get 16 binder proposals (55&ndash;85 AA) scored by AlphaFold2 and ESMFold-2. Only the third group is a post-cutoff crystal holdout.</p>' +
+    body: '<p>We pick 12 <a href="https://www.rcsb.org/" target="_blank" rel="noopener">RCSB PDB</a> target chains with five hotspot residues each and give every method 16 binder proposals (55&ndash;85 AA) scored by AlphaFold2 and ESMFold-2. Only the third group is a post-cutoff crystal holdout.</p>' +
       '<div style="overflow-x:auto"><table class="plain">' +
       '<thead><tr><th>Group</th><th class="r">n</th><th>Targets &amp; PDB codes</th><th>Role</th></tr></thead>' +
       '<tbody>' +
@@ -546,7 +641,7 @@ var PREP_CARDS = {
 
 var FIGS = [
  { id:'f1', t:'1. Forward folding', star:1, prep:1,
-   p:['Models predict contacts and secondary structure from one anonymised sequence, reconstructed to 3D and scored by TM-score across the five novelty strata; single-sequence ESMFold-2 (grey) is the baseline. ESMFold-2 reaches 0.88–0.91 TM on four strata (0.82 on truly novel), while reasoning models remain below the 0.50 fold-match line.'],
+   p:['We give each model one protein sequence with no IDs or alignments and ask it to predict residue contacts and secondary structure, then fold those predictions into 3D and score them by TM-score against the native structure. Single-sequence ESMFold-2 (grey) solves almost every target (0.88–0.91 TM, and 0.82 on truly novel folds), while all three reasoning models stay below the 0.50 fold-match line.'],
    build:function(){
      var ns=stratumN(1);
      return groupedBars({ ylabel:'TM-score vs native',
@@ -557,7 +652,7 @@ var FIGS = [
        fmt:function(v){return v.toFixed(3);}, aria:'TM-score by novelty stratum with ESMFold-2 baseline' });
    } },
  { id:'f2', t:'2. Inverse folding', star:2, prep:2,
-   p:['Each method designs a sequence for a stripped Cα-only backbone (all residues UNK), refolded with single-sequence ESMFold-2 and scored by scTM. ProteinMPNN (grey) reaches 0.88–0.94 scTM across all strata (above the 0.885 native refolding ceiling); reasoning models average 0.43–0.46 scTM.'],
+   p:['We strip every side chain off the same 100 backbones (leaving only Cα coordinates), ask each model to write a sequence that folds into that shape, and refold the output with ESMFold-2. ProteinMPNN (grey) recovers the fold across all five strata (0.88–0.94 scTM, above the 0.885 wild-type refolding ceiling), while reasoning models average 0.43–0.46 scTM.'],
    build:function(){
      var ns=stratumN(2), ref=(FIGDATA.t2_base||[])[0];
      return groupedBars({ ylabel:'ESMFold-2 refolding scTM',
@@ -576,18 +671,35 @@ var FIGS = [
      return groupedBars({ ylabel:'Recall @ 10% FPR', cats:FIGDATA.t3.rungs,
        series:S, fmt:function(v){return v.toFixed(2);}, aria:'Recall at 10% FPR by rung' });
    } },
- { id:'f4', t:'4. Function prediction', star:4, prep:4,
+ { id:'f4', t:'4. Function prediction (Post-cutoff No-Knowledge)', star:4,
    p:['__T4_PROSE__'],
    build:function(){
      var S=FIGDATA.t4.series.map(function(se){
        return { n:(MNAME[se.n]||se.n)+' ('+se.macro+')', c:se.base?GRAY1:MCOL[se.n], v:se.v };
      });
-     return groupedBars({ ylabel:'IC-weighted wFₘₐₓ',
+     return groupedBars({ ylabel:'CAFA-6 IA-weighted wFₘₐₓ',
        cats:['Molecular\nfunction','Biological\nprocess','Cellular\ncomponent'],
-       series:S, fmt:function(v){return v.toFixed(3);}, aria:'IC-weighted wFmax by GO aspect' });
+       subCats:FIGDATA.t4.aspect_ns || ['n=13','n=14','n=14'],
+       series:S, fmt:function(v){return v.toFixed(3);}, aria:'Post-cutoff No-Knowledge CAFA-6 IA-weighted wFmax by GO aspect' });
+   } },
+ { id:'f4b', t:'4b. Pre- vs. Post-cutoff across CAFA-6 knowledge tracks (NK, LK, PK)', star:4, prep:4,
+   p:['__T4B_PROSE__'],
+   build:function(){
+     var S=FIGDATA.t4.series.map(function(se){
+       var cv = se.cells_v || [0,0,0,0,0,0];
+       return { n:(MNAME[se.n]||se.n), c:se.base?GRAY1:MCOL[se.n], base:!!se.base,
+                pairs:[[cv[0],cv[3]],[cv[1],cv[4]],[cv[2],cv[5]]] };
+     });
+     return slopePanels({ ylabel:'CAFA-6 IA-weighted macro wFₘₐₓ',
+       panels:[
+         { t:'No-Knowledge (NK)', s:'zero prior GOA · n=20 / 20', l0:'Pre 2025', l1:'Post 2026' },
+         { t:'Limited-Knowledge (LK)', s:'new aspect only · n=20 / 20', l0:'Pre 2025', l1:'Post 2026' },
+         { t:'Partial-Knowledge (PK)', s:'-known masked · n=20 / 20', l0:'Pre 2025', l1:'Post 2026' }
+       ],
+       series:S, floorMax:0.7, aria:'Pre-cutoff vs Post-cutoff CAFA-6 wFmax across NK, LK, and PK tracks' });
    } },
  { id:'f5', t:'5. Monomer alanine ranking', star:5, prep:5,
-   p:['NDCG@5 on 18-mutation X→Ala panels with same-AA decoys (0.50 floor) across four experimental regimes. ESMFold-2 → SaProt (650M) (grey, Foldseek 3Di tokens from predicted structures, zero MegaScale training) scores 0.830 on natural folds and 0.995 on dual scans, while reasoning models lead on zero-homolog de novo miniproteins (0.74–0.76 vs 0.632).'],
+   p:['We give each model a protein sequence and 18 single-site X→Ala mutations—mixing true destabilising hotspots with neutral decoys of the exact same amino acid so guessing by residue letter scores 0.50—and ask it to rank them from most to least damaging. ESMFold-2 + SaProt (grey, zero MegaScale training) wins on natural proteins (0.830) and paired stability/function scans (0.995), while reasoning models lead on synthetic <em>de novo</em> miniproteins with no natural homologs (0.74–0.76 vs 0.632).'],
    build:function(){
      var ns=stratumNList(T5_STRATA, 5);
      return groupedBars({ ylabel:'NDCG@5 across strata',
@@ -598,7 +710,7 @@ var FIGS = [
        aria:'Monomer alanine ranking NDCG@5 by protein type with ESMFold-2 SaProt 650M baseline' });
    } },
  { id:'f6', t:'6. Interface binding ranking', star:6, prep:6,
-   p:['Spearman ρ for ranking 18 interface X→Ala mutations (monomer-destabilising sites excluded), split by pre-2026 PDB presence (n=31 vs n=7). Boltz-2 → StaB-ddG (grey, stability-pretrained checkpoint with zero SKEMPI training) matches reasoning models on pre-2026 PDB complexes (ρ = 0.430 vs 0.44–0.52), and both drop sharply on unseen/post-2026 complexes (0.045 vs 0.10–0.16).'],
+   p:['We give each model two interacting protein chains and 18 X→Ala mutations (with monomer-unfolding sites already removed) and ask it to rank which mutations weaken binding most. On complexes already in the pre-2026 PDB (n=31), Boltz-2 + StaB-ddG (grey, zero SKEMPI training) and the reasoning models score similarly (ρ = 0.43 vs 0.44–0.52); both collapse on complexes missing from the pre-2026 PDB (n=7; 0.045 vs 0.10–0.16).'],
    build:function(){
      var S=FIGDATA.t6.series.map(function(se){
        var memo=se.memo||{};
@@ -612,7 +724,7 @@ var FIGS = [
        aria:'Spearman rho by memorisation stratum with Boltz-2 StaB-ddG baseline' });
    } },
  { id:'f7', t:'7. De novo and motif design', star:7, prep:7,
-   p:['Single-shot sequences folded with ESMFold-2 and OpenFold3 and graded by Proteina-Complexa structural criteria across 40 prompts (24 fold-conditioned, 16 motif scaffolds; after sequence hygiene and <30% parent identity). RFdiffusion3 + ProteinMPNN (grey) hits 100% Fold TM ≥ 0.50, 63% Motif RMSD ≤ 1.0 Å, and 5% overall designable pass; reasoning models reach 0% on fold topology and 0% overall.'],
+   p:['We ask each model to write a new sequence in one shot that either adopts a requested fold (n=24) or scaffolds a fixed crystal motif (n=16), then fold it with ESMFold-2 and OpenFold3 and check five criteria (fold TM ≥ 0.50, motif RMSD ≤ 1.0 Å, pLDDT ≥ 70, cross-oracle scRMSD ≤ 2 Å, and <30% identity to natural proteins). RFdiffusion3 + ProteinMPNN (grey) hits 100% fold fidelity, 63% motif fidelity, and 5% overall pass; reasoning models hit 0% on fold topology and 0% overall.'],
    build:function(){
      return groupedBars({ ylabel:'pass fraction',
        cats:T7_GATE_LABELS,
@@ -636,7 +748,7 @@ var FIGS = [
        refs:[{v:0.75,l:'hit threshold 0.75'}], aria:'Closed-loop optimisation trajectory with BoltzGen baseline' });
    } },
  { id:'f9', t:'8b. First shot versus best of sixteen', star:8,
-   p:['Mean AlphaFold2 composite score on shot 1 (blind) versus the best of 16 proposals. Sixteen shots roughly double scores across all methods, though averages remain below the 0.75 on-epitope hit threshold.'],
+   p:['Comparing each method’s first blind binder proposal against its best of 16 attempts. Sixteen rounds roughly double the average AlphaFold2 interface score across every method, though group averages stay below the 0.75 on-epitope hit threshold.'],
    build:function(){
      var tr=FIGDATA.t8.traj;
      var ks=['baseline_boltzgen'].concat(MODEL_KEYS).filter(function(m){return tr[m];});
@@ -790,8 +902,101 @@ window.addEventListener('resize', () => {
 
 
 def _apply_redesign_polish(raw_html: str) -> str:
-    """Apply the exact CSS, per-task block wrappers, Task 8 PDB rows, and star-link scroll/flash polish."""
+    """Apply Works-in-Progress editorial typography (Lora + Spectral), subtle cool-blue paper palette,
+    per-figure data-prep cards, Task 8 PDB rows, and star-link scroll/flash polish."""
     import re
+
+    # 0. Editorial typography (Lora headings + Spectral body prose + Inter UI) & subtle cool-blue paper background
+    old_gfonts = '<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+    new_gfonts = '<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
+    assert old_gfonts in raw_html, "Expected Google Fonts link not found"
+    raw_html = raw_html.replace(old_gfonts, new_gfonts, 1)
+
+    old_root_body = """  :root{
+    --ink:#1a1f2b;
+    --body:rgba(26,31,43,.84);
+    --muted:rgba(26,31,43,.55);
+    --rule:#e4e7eb;
+    --rule2:#f0f2f4;
+    --navy:#1e293b;
+    --link:#1b4b8f;
+    --soft:#f7f8fa;
+    --serif:"Source Serif 4",Charter,Georgia,Cambria,"Times New Roman",serif;
+    --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --rose:#b4324a; --amber:#a8750f; --sky:#2d7d9a; --emerald:#2f7a5b; --gold:#b8860b;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{margin:0;background:#fff;color:var(--body);font-family:var(--sans);
+    font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}"""
+    new_root_body = """  :root{
+    --bg:#f4f7fb;
+    --surface:#ffffff;
+    --ink:#0f172a;
+    --body:rgba(15,23,42,.86);
+    --muted:rgba(15,23,42,.56);
+    --rule:#d9e2ee;
+    --rule2:#e6edf6;
+    --navy:#0f172a;
+    --link:#1b4b8f;
+    --soft:#eaf0f8;
+    --serif:"Lora",Georgia,Cambria,"Times New Roman",serif;
+    --body-serif:"Spectral",Georgia,Cambria,"Times New Roman",serif;
+    --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --rose:#b4324a; --amber:#a8750f; --sky:#2d7d9a; --emerald:#2f7a5b; --gold:#b8860b;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--body-serif);
+    font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  nav.top,button,.btn,.btn-ghost,.tabs,.tab,.actions,.xp-meta,.xp-link,.xp-foot,.legend,
+  table.plain,.ds-counts,.ds-controls,.ds-table,.ds-detail,.sm-legend,.mt-row,.disc-s,
+  details.tblview summary,.rnote,.figcap,.cl-tooltip,footer{font-family:var(--sans);}"""
+    assert old_root_body in raw_html, "Expected :root/body CSS block not found"
+    raw_html = raw_html.replace(old_root_body, new_root_body, 1)
+
+    raw_html = raw_html.replace(
+        "nav.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.93);",
+        "nav.top{position:sticky;top:0;z-index:50;background:rgba(244,247,251,.92);",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "details.disc{border:1px solid var(--rule);border-radius:10px;margin:0;}",
+        "details.disc{border:1px solid var(--rule);border-radius:10px;margin:0;background:rgba(255,255,255,.82);}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  .cl-grid{stroke:#eceef1;stroke-width:1;}\n  .cl-axisline{stroke:#d7dbe0;stroke-width:1;}",
+        "  .cl-grid{stroke:#dde5f0;stroke-width:1;}\n  .cl-axisline{stroke:#c6d2e2;stroke-width:1;}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  .ds-tablewrap{border:1px solid var(--rule);border-radius:4px;max-height:560px;overflow:auto;}",
+        "  .ds-tablewrap{border:1px solid var(--rule);border-radius:6px;max-height:560px;overflow:auto;background:#fff;}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  .fig-p{font-size:15.5px;line-height:1.72;color:var(--body);margin:0 0 13px;}",
+        "  .fig-p{font-size:17px;line-height:1.72;color:var(--body);margin:0 0 13px;}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  .xp-blurb{font-size:15.5px;line-height:1.72;color:var(--body);margin:0 0 18px;}",
+        "  .xp-blurb{font-size:17px;line-height:1.72;color:var(--body);margin:0 0 18px;}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  header.hero .blurb{max-width:62ch;margin:14px auto 18px;color:var(--body);font-size:17.5px;line-height:1.6;}",
+        "  header.hero .blurb{max-width:62ch;margin:14px auto 18px;color:var(--body);font-size:19px;line-height:1.6;}",
+        1,
+    )
+    raw_html = raw_html.replace(
+        "  .lead{font-size:16px;color:var(--muted);margin:-4px 0 18px;}",
+        "  .lead{font-size:17px;color:var(--muted);margin:-4px 0 18px;}",
+        1,
+    )
 
     # 1. Card summary radius flattening when open + block wrapper CSS
     old_disc_css = """  details.disc>summary{list-style:none;cursor:pointer;position:relative;padding:15px 46px 15px 18px;}
@@ -829,7 +1034,7 @@ def _apply_redesign_polish(raw_html: str) -> str:
   details.disc.fig-prep .disc-t{font-size:15.5px;font-weight:500;}
   details.disc.fig-prep .disc-s{font-size:13px;margin-top:1px;}
   details.disc.fig-prep .disc-b{padding:14px 16px 16px;}
-  details.disc.fig-prep .disc-b p{font-size:14.5px;line-height:1.65;margin:0 0 12px;}
+  details.disc.fig-prep .disc-b p{font-size:15.5px;line-height:1.68;margin:0 0 12px;}
   details.disc.fig-prep .disc-b p:last-child{margin-bottom:0;}
   .disc-blk{scroll-margin-top:86px;border-radius:6px;padding:4px 10px 6px;margin:0 -10px;}
   .disc-blk p:last-child{margin-bottom:2px;}
@@ -853,7 +1058,16 @@ def _apply_redesign_polish(raw_html: str) -> str:
     assert old_key_css in raw_html, "Expected .ds-key CSS line not found"
     raw_html = raw_html.replace(old_key_css, new_key_css, 1)
 
-    # 3b. Rename title/wordmark/hero/BibTeX from ProteinBench -> "Protein Structure Without Tools"
+    # 3b. Rename title/wordmark/hero/BibTeX from ProteinBench -> "Protein Structure Without Tools" & update 522 -> 582 datapoints
+    raw_html = raw_html.replace("522 targets, held-out experimental data", "582 targets, held-out experimental data", 1)
+    raw_html = raw_html.replace("All 522 datapoints", "All 582 datapoints")
+    raw_html = raw_html.replace("All 522 prompts audited", "All 582 prompts audited", 1)
+    raw_html = raw_html.replace("badge: 'N = 60 2026 QuickGO Holdouts'", "badge: 'N = 120 CAFA-6 Pre/Post × NK/LK/PK'", 1)
+    raw_html = raw_html.replace(
+        "  post_may_2026:'Post-May-2026 annotation',\n  early_2026_uniprot:'Early-2026 UniProt',",
+        "  pre_nk:'Pre-cutoff NK',\n  pre_lk:'Pre-cutoff LK',\n  pre_pk:'Pre-cutoff PK',\n  post_nk:'Post-cutoff NK',\n  post_lk:'Post-cutoff LK',\n  post_pk:'Post-cutoff PK',",
+        1,
+    )
     raw_html = raw_html.replace(
         "<title>ProteinBench: Folding and Binding Physics in Frontier Reasoning Models</title>",
         "<title>Protein Structure Without Tools: Folding and Binding Physics in Frontier Reasoning Models</title>",
@@ -873,12 +1087,12 @@ def _apply_redesign_polish(raw_html: str) -> str:
         1,
     )
 
-    # 3c. Replace verbose abstract with concise, accurate summary matching the evaluated models and SOTA baselines
+    # 3c. Crisp, direct abstract describing what we test and what happens
     concise_abstract = """  <section id="abstract">
     <h2>Abstract</h2>
-    <p>Frontier language models are trained on protein sequences alongside the structural biology literature, making it difficult to tell whether a correct answer reflects physical reasoning or retrieval of a known entry. We introduce an eight-task benchmark evaluating reasoning models on anonymised protein prompts &mdash; without alignments, databases, or external structure predictors &mdash; across forward folding, stripped-backbone inverse folding, remote homology into the &lt;15% identity twilight zone, experimentally evidenced Gene Ontology function prediction, monomer and interface alanine-scan ranking, single-shot <em>de novo</em> and motif design, and 16-round closed-loop binder design against an AlphaFold2/ESMFold-2 oracle.</p>
-    <p>To separate memorisation from generalisation, folding targets are stratified by structural similarity (TM-score) to the pre-May-2026 PDB, ranking panels pair each hotspot with a same-amino-acid neutral decoy (pinning residue-letter heuristics to 50%), and remaining tasks use task-specific holdouts including zero-homolog synthetic designs and post-cutoff experimental releases. Each task is paired with an established domain baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, NetGO 4.0, ESMFold-2 &rarr; SaProt 650M, Boltz-2 &rarr; StaB-ddG, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
-    <p>Across three frontier reasoning models, performance exceeds the sequence-embedding baseline on twilight-zone remote homology, leads even structure-aware SaProt on zero-homolog <em>de novo</em> monomer mutational ranking, and improves consistently over 16 rounds of oracle feedback. However, reasoning models remain far below specialist models on 3D forward folding, inverse folding, GO function prediction, and single-shot design, and drop sharply on interface binding panels lacking pre-2026 PDB complexes.</p>
+    <p>Frontier language models read protein sequences alongside the structural biology literature during pre-training, so a right answer can come from reciting a known entry instead of reasoning about physics. We test three frontier reasoning models on eight protein tasks with every identifier stripped and no external tools &mdash; no alignments, no databases, and no structure predictors &mdash; covering forward folding, inverse folding, remote homology, function prediction, monomer and interface mutational ranking, single-shot design, and 16-round closed-loop binder design.</p>
+    <p>To separate recall from generalisation, we group folding targets by structural distance (TM-score) to the pre-May-2026 PDB, pair every mutational hotspot with a same-amino-acid neutral decoy (holding residue-letter guessing to 50%), and test function prediction across matched pre- and post-cutoff CAFA-6 windows. Every task runs alongside a specialist baseline (ESMFold-2, ProteinMPNN, ESM-2 650M, NetGO 4.0, ESMFold-2 + SaProt 650M, Boltz-2 + StaB-ddG, RFdiffusion3 + ProteinMPNN, and BoltzGen).</p>
+    <p>Without tools, reasoning models beat sequence embeddings on twilight-zone remote homology, beat structure-aware SaProt on synthetic <em>de novo</em> monomer scans, and climb steadily across 16 rounds of binder feedback. They still fall far behind specialists on 3D forward folding, inverse folding, unseen post-cutoff function prediction, and single-shot design, and collapse on binding interfaces missing from the pre-2026 PDB.</p>
   </section>"""
     abs_pattern = re.compile(r'  <section id="abstract">.*?</section>', re.DOTALL)
     assert abs_pattern.search(raw_html) is not None, "Expected #abstract section not found"
@@ -897,22 +1111,22 @@ def _apply_redesign_polish(raw_html: str) -> str:
     new_results_head = (
         '  <section id="results">\n'
         '    <h2>Results</h2>\n'
-        '    <p class="lead">Every prompt strips PDB IDs, gene symbols, organism names, and alignments. '
-        'Expand the data-preparation card beneath each figure for dataset links, target selection, and holdout splits.</p>'
+        '    <p class="lead">Every prompt strips PDB IDs, gene names, organism labels, and sequence alignments. '
+        'Open the card under any figure for datasets, target selection, and holdout rules.</p>'
     )
     assert old_results_head in raw_html, "Expected #results heading not found"
     raw_html = raw_html.replace(old_results_head, new_results_head, 1)
 
-    # 5. Trim TASK_BLURB in Task Explorer to concise, accurate task descriptions
+    # 5. Trim TASK_BLURB in Task Explorer to active, plain-English descriptions
     concise_task_blurb = """var TASK_BLURB = {
-  '1':'Input: one anonymised sequence (no IDs or alignments). Models predict residue contacts and secondary structure, reconstructed to 3D and superposed on the native fold.',
-  '2':'Input: a stripped Cα backbone (all residues UNK) with dihedrals and burial counts. Models design a sequence, which ESMFold-2 refolds and superposes back onto the input.',
-  '3':'Input: two sequences, often below 15% identity. Models predict whether they share a SCOPe superfamily, graded against class- and identity-matched decoys.',
-  '4':'Input: one anonymised sequence. Models predict Gene Ontology terms across MF, BP, and CC, graded by IC-weighted wFmax against experimentally evidenced annotations.',
-  '5':'Input: one sequence and 18 X→Ala mutations (6 hotspots, 6 moderate, 6 same-AA decoys). Models rank candidates by measured fold destabilisation (ΔΔG or DMS activity).',
-  '6':'Input: two interacting chains and 18 interface X→Ala mutations (monomer-destabilising sites excluded). Models rank candidates by measured binding loss.',
-  '7':'Input: a fold topology spec or a crystal motif to scaffold. Models output a 1D sequence only, which we fold with ESMFold-2 and OpenFold3 and grade on Proteina-Complexa criteria: pLDDT ≥ 70, scRMSD ≤ 2 Å, and Fold TM ≥ 0.50 or Motif RMSD ≤ 1.0 Å.',
-  '8':'Input: a target chain and five epitope hotspots. Over 16 rounds, models propose 55–85 AA binders and receive AlphaFold2 interface scores after each attempt.'
+  '1':'We give the model one sequence with no IDs or alignments. It predicts residue contacts and secondary structure, which we fold into 3D and align to the native structure.',
+  '2':'We strip a backbone to bare Cα coordinates (every residue marked UNK), plus backbone angles and burial counts. The model writes a sequence, and ESMFold-2 refolds it to check if it recovers the shape.',
+  '3':'We give the model two sequences — often below 15% identity — and ask whether they share a SCOPe superfamily, graded against class- and identity-matched decoys.',
+  '4':'We give the model one sequence and ask for experimental Gene Ontology terms across MF, BP, and CC, graded by CAFA-6 IA-weighted wFmax across pre- and post-cutoff NK, LK, and PK splits.',
+  '5':'We give the model one sequence and 18 X→Ala mutations (6 hotspots, 6 moderate, 6 same-AA decoys) and ask it to rank them by measured folding stability loss (ΔΔG or DMS activity).',
+  '6':'We give the model two interacting chains and 18 interface X→Ala mutations (with monomer-unfolding sites removed) and ask it to rank which mutations weaken binding most.',
+  '7':'We give the model a target fold or a fixed crystal motif and ask for a single 1D sequence. We fold it with ESMFold-2 and OpenFold3 and grade it on fold/motif accuracy, pLDDT ≥ 70, and cross-oracle scRMSD ≤ 2 Å.',
+  '8':'We give the model a target chain and five hotspot residues. Across 16 rounds, it proposes 55–85 AA binders and receives AlphaFold2 interface scores after each attempt.'
 };"""
     blurb_pattern = re.compile(r"var TASK_BLURB = \{.*?\};", re.DOTALL)
     assert blurb_pattern.search(raw_html) is not None, "Expected TASK_BLURB block not found"
@@ -1029,9 +1243,10 @@ def main() -> None:
         t3_per_raw = t34_res["t3_esm2_rows"]
         t3_chosen = t3_esm2
         t3_prose = (
-            f"Recall at 10% FPR across three SCOPe superfamily difficulty rungs paired with matched decoys. "
-            f"All methods saturate on Rung 1; ESM-2 (650M) cosine similarity (grey, AUROC {t3_chosen['overall_auroc']:.3f}) "
-            f"provides the sequence embedding baseline, while reasoning models separate on Rungs 2–3."
+            f"We give each model two protein sequences and ask whether they belong to the same SCOPe superfamily, "
+            f"scoring recall at 10% false-positive rate against 30 class- and identity-matched decoys. "
+            f"Everyone solves the easy pairs, but below 15% sequence identity (Rungs 2 and 3) GPT-6.2 Sol and "
+            f"GPT-6.2 Astra pull ahead of ESM-2 (650M) (grey, AUROC {t3_chosen['overall_auroc']:.3f})."
         )
     else:
         t3_base_name = "BLOSUM62 SW"
@@ -1052,14 +1267,32 @@ def main() -> None:
         ],
     }
 
-    # Task 4: Official NetGO 4.0 (GOCurator, CAFA 5 1st-place server)
-    t4_netgo = json.loads((REPO / "outputs" / "results" / "baseline_t4_netgo4.json").read_text(encoding="utf-8"))
+    # Task 4: CAFA-6 2x3 (Pre/Post x NK/LK/PK, N=120) — Official NetGO 4.0 + 3 reasoning models
+    t4_cafa6 = json.loads((REPO / "outputs" / "results" / "t4_cafa6_6cell_results.json").read_text(encoding="utf-8"))
     t4_base_name = "NetGO 4.0"
-    t4_chosen = t4_netgo
+    t4_chosen = t4_cafa6["models"]["baseline_t4"]
+    t4_astra = t4_cafa6["models"]["gpt-6.2-astra_think4096"]
+    t4_sol2 = t4_cafa6["models"]["gpt-6.2-sol_think4096"]
+    t4_sol1 = t4_cafa6["models"]["gpt-6.1-sol_think4096"]
+    pnk_netgo = t4_chosen["by_cell"]["post_nk"]
+    pnk_llms = [m["by_cell"]["post_nk"]["macro_wfmax"] for m in (t4_sol1, t4_sol2, t4_astra)]
     t4_prose = (
-        f"IC-weighted CAFA wFₘₐₓ across MF, BP, and CC on experimentally evidenced GO annotations. "
-        f"NetGO 4.0 (grey, official CAFA 5 winning server, macro {t4_chosen['macro_wfmax']:.3f}) sets the specialist bar, "
-        f"leading all three reasoning models (0.337–0.392) across MF and BP while GPT-6.2 Astra matches it on CC."
+        f"We give each model one sequence and ask it to predict Gene Ontology terms for 20 proteins that had zero "
+        f"experimental annotations before May 2026 and whose papers came out between May and October 2026. "
+        f"NetGO 4.0 (grey, macro {pnk_netgo['macro_wfmax']:.3f}) beats all three reasoning models "
+        f"({min(pnk_llms):.3f}–{max(pnk_llms):.3f}) across Molecular Function, Biological Process, and Cellular Component."
+    )
+    t4b_prose = (
+        f"To separate recall from blind prediction, we compare matched 6-month windows before the cutoff (May–Oct 2025) "
+        f"and after it (May–Oct 2026) across No-Knowledge (NK), Limited-Knowledge (LK, graded only on the newly added "
+        f"ontology), and Partial-Knowledge (PK, pre-cutoff terms masked out of both truth and predictions). "
+        f"On NK, GPT-6.2 Astra beats NetGO 4.0 before the cutoff ({t4_astra['by_cell']['pre_nk']['macro_wfmax']:.3f} vs "
+        f"{t4_chosen['by_cell']['pre_nk']['macro_wfmax']:.3f}) but drops −"
+        f"{(t4_astra['by_cell']['pre_nk']['macro_wfmax'] - t4_astra['by_cell']['post_nk']['macro_wfmax']):.3f} afterward "
+        f"({t4_astra['by_cell']['post_nk']['macro_wfmax']:.3f} vs {pnk_netgo['macro_wfmax']:.3f}). "
+        f"<b>Caveat on LK and PK:</b> most targets there are well-known 1990–2007 human, mouse, and rat genes "
+        f"(such as LMAN1, GTPBP6, and Prion) whose biology was published decades ago and only received a new GOA stamp "
+        f"in 2026, so Post-cutoff NK above is the only clean blind test."
     )
 
     # 5. Task 5: ESMFold-2 -> SaProt (650M, AF2)
@@ -1082,7 +1315,59 @@ def main() -> None:
     t8_sum = t8_b["summary"]
     t8_per = {c["target_id"]: c for c in t8_sum["per_target"]}
 
-    # --- Inject into DS (all 522 datapoints) ---
+    # --- Rebuild Task 4 rows in DS from the 120-target CAFA-6 2x3 manifest + predictions ---
+    t4_manifest = json.loads((REPO / "data" / "stage2b_cafa" / "manifest.json").read_text(encoding="utf-8"))["targets"]
+    t4_prompts = {
+        json.loads(ln)["target_id"]: json.loads(ln)["prompt"]
+        for ln in (REPO / "outputs" / "prompts" / "stage2b_cafa_prompts.jsonl").read_text(encoding="utf-8").splitlines()
+        if ln.strip()
+    }
+    t4_raw_llms: Dict[str, Dict[str, str]] = {}
+    for mk in ("gpt-6.1-sol_think4096", "gpt-6.2-sol_think4096", "gpt-6.2-astra_think4096"):
+        p_f = REPO / "outputs" / "predictions" / f"{mk}_stage2b.jsonl"
+        t4_raw_llms[mk] = {
+            json.loads(ln)["target_id"]: str(json.loads(ln).get("text") or "")
+            for ln in p_f.read_text(encoding="utf-8").splitlines()
+            if ln.strip()
+        }
+
+    new_t4_ds: List[Dict[str, Any]] = []
+    for row in t4_manifest:
+        tid = row["target_id"]
+        parts_gt = []
+        for asp, k in (("MF", "delta_terms_mf"), ("BP", "delta_terms_bp"), ("CC", "delta_terms_cc")):
+            if asp in row.get("eval_aspects", []):
+                terms = row.get(k) or row.get(f"true_terms_{asp.lower()}", [])
+                if terms:
+                    parts_gt.append(f"{asp} ({len(terms)}): " + ", ".join(terms[:5]))
+        sc_t4: Dict[str, Any] = {}
+        if tid in t4_chosen["per_target"]:
+            sc_t4["baseline_t4"] = t4_chosen["per_target"][tid]
+        for mk in ("gpt-6.1-sol_think4096", "gpt-6.2-sol_think4096", "gpt-6.2-astra_think4096"):
+            rec_m = dict(t4_cafa6["models"][mk]["per_target"].get(tid, {}))
+            if tid in t4_raw_llms[mk]:
+                rec_m["raw"] = t4_raw_llms[mk][tid]
+            sc_t4[mk] = rec_m
+        new_t4_ds.append(
+            {
+                "t": 4,
+                "id": tid,
+                "src": f"UniProt {row['uniprot_accession']}",
+                "desc": f"{row['organism']} ({row['knowledge_type']}, {', '.join(row.get('eval_aspects', []))})",
+                "st": row["temporal_tier"],
+                "len": int(row["length"]),
+                "seq": row["sequence"],
+                "gt": " | ".join(parts_gt),
+                "pr": t4_prompts.get(tid, ""),
+                "sc": sc_t4,
+            }
+        )
+
+    # Replace old Task 4 entries in DS in-place (preserving task ordering 1..8)
+    first_t4_idx = next(i for i, d in enumerate(ds) if d["t"] == 4)
+    ds = [d for d in ds[:first_t4_idx] if d["t"] != 4] + new_t4_ds + [d for d in ds[first_t4_idx:] if d["t"] != 4]
+
+    # --- Inject into DS (all 582 datapoints) ---
     for d in ds:
         t = d["t"]
         tid = d["id"]
@@ -1105,11 +1390,7 @@ def main() -> None:
         elif t == 3 and tid in t3_per_raw:
             sc["baseline_t3"] = {"raw": t3_per_raw[tid]}
         elif t == 4:
-            if tid in t4_chosen["per_target"]:
-                sc["baseline_t4"] = t4_chosen["per_target"][tid]
-            for mk in ("gpt-6.1-sol_think4096", "gpt-6.2-sol_think4096", "gpt-6.2-astra_think4096"):
-                if mk in sc and tid in t34_res["t4_models"][mk]["per_target"]:
-                    sc[mk].update(t34_res["t4_models"][mk]["per_target"][tid])
+            pass
         elif t == 5 and tid in t5_per:
             r = t5_per[tid]
             sc["baseline_saprot_650m"] = {
@@ -1166,25 +1447,39 @@ def main() -> None:
     llm_t3 = [s for s in fd["t3"]["series"] if not s.get("base")]
     fd["t3"]["series"] = [t3_base_series] + llm_t3
 
-    llm_t4 = []
-    for s in fd["t4"]["series"]:
-        if not s.get("base"):
-            s_copy = dict(s)
-            s_copy["k"] = s["n"]
-            llm_t4.append(s_copy)
-    fd["t4"]["series"] = [
-        {
-            "k": "baseline_t4",
-            "n": t4_base_name,
-            "base": True,
-            "macro": round(float(t4_chosen["macro_wfmax"]), 3),
-            "v": [
-                round(float(t4_chosen["aspects"]["MF"]), 3),
-                round(float(t4_chosen["aspects"]["BP"]), 3),
-                round(float(t4_chosen["aspects"]["CC"]), 3),
-            ],
-        }
-    ] + llm_t4
+    cell_keys = ["pre_nk", "pre_lk", "pre_pk", "post_nk", "post_lk", "post_pk"]
+    pnk_n_by_asp = t4_chosen["by_cell"]["post_nk"]["n_by_aspect"]
+    fd["t4"] = {
+        "aspect_ns": [f"n={pnk_n_by_asp['MF']}", f"n={pnk_n_by_asp['BP']}", f"n={pnk_n_by_asp['CC']}"],
+        "cells": [
+            "Pre-cutoff\nNK",
+            "Pre-cutoff\nLK",
+            "Pre-cutoff\nPK",
+            "Post-cutoff\nNK",
+            "Post-cutoff\nLK",
+            "Post-cutoff\nPK",
+        ],
+        "ns": ["n=20"] * 6,
+        "series": [
+            {
+                "k": mk,
+                "n": t4_base_name if mk == "baseline_t4" else mk,
+                "base": (mk == "baseline_t4"),
+                # Headline macro & MF/BP/CC reflect strict Post-cutoff NK (uncontaminated blind test)
+                "macro": round(float(t4_cafa6["models"][mk]["by_cell"]["post_nk"]["macro_wfmax"]), 3),
+                "v": [
+                    round(float(t4_cafa6["models"][mk]["by_cell"]["post_nk"]["aspects"]["MF"]), 3),
+                    round(float(t4_cafa6["models"][mk]["by_cell"]["post_nk"]["aspects"]["BP"]), 3),
+                    round(float(t4_cafa6["models"][mk]["by_cell"]["post_nk"]["aspects"]["CC"]), 3),
+                ],
+                "cells_v": [
+                    round(float(t4_cafa6["models"][mk]["by_cell"][ck]["macro_wfmax"]), 3)
+                    for ck in cell_keys
+                ],
+            }
+            for mk in ("baseline_t4", "gpt-6.1-sol_think4096", "gpt-6.2-sol_think4096", "gpt-6.2-astra_think4096")
+        ],
+    }
 
     fd["t5_base"] = [
         {
@@ -1262,9 +1557,10 @@ def main() -> None:
     bgen_s0 = t8_sum["trajectory_mean"][0]
     bgen_s16 = t8_sum["trajectory_mean"][-1]
     t8_prose = (
-        f"Running-best AlphaFold2 composite score (± SEM) over 16 proposals across 12 epitopes. "
-        f"Reasoning models iterate on prior-round oracle feedback, while BoltzGen (grey) generates 16 all-atom designs "
-        f"per epitope (rising from {bgen_s0:.2f} to {bgen_s16:.2f}; Hit@16 = {bgen_hit_pct:.1f}%)."
+        f"We give each model a target protein and five surface hotspots, let it propose a 55–85 AA binder, and feed back "
+        f"AlphaFold2 interface scores over 16 rounds across 12 epitopes (while BoltzGen in grey generates 16 independent "
+        f"all-atom designs). Reasoning models use the feedback to climb steadily, though BoltzGen reaches a higher mean "
+        f"score ({bgen_s0:.2f} → {bgen_s16:.2f}; Hit@16 = {bgen_hit_pct:.1f}%)."
     )
 
     # Update dsRenderDetail label display so score keys render with clean display names
@@ -1281,6 +1577,7 @@ def main() -> None:
         .replace("__T4_BASE_NAME__", t4_base_name)
         .replace("__T3_PROSE__", t3_prose)
         .replace("__T4_PROSE__", t4_prose)
+        .replace("__T4B_PROSE__", t4b_prose)
         .replace("__T8_PROSE__", t8_prose)
     )
 

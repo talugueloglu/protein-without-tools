@@ -160,19 +160,70 @@ def compute_term_information_content(
     return ic_map
 
 
+def compute_term_information_accretion(
+    dag: GeneOntologyDAG,
+    reference_propagated_sets: Sequence[Set[str]],
+) -> Dict[str, float]:
+    """Official CAFA-5/6 conditional Information Accretion:
+    `IA(v) = -log2((count(v) + 1) / (count(all direct parents of v) + 1))`
+    computed over the reference experimental GO corpus per ontology aspect.
+    Root terms carry IA = 0.0."""
+    aspect_totals: Dict[str, int] = {"MF": 0, "BP": 0, "CC": 0}
+    term_prots: Dict[str, Set[int]] = {}
+    for idx, tset in enumerate(reference_propagated_sets):
+        seen_asp: Set[str] = set()
+        for t in tset:
+            asp = dag.term_aspect.get(t)
+            if asp:
+                seen_asp.add(asp)
+                term_prots.setdefault(t, set()).add(idx)
+        for asp in seen_asp:
+            aspect_totals[asp] += 1
+
+    ia_map: Dict[str, float] = {}
+    for tid, asp in dag.term_aspect.items():
+        if tid in ROOT_GO_TERMS:
+            ia_map[tid] = 0.0
+            continue
+        c_v = len(term_prots.get(tid, ()))
+        parents = [p for p in dag.parents.get(tid, ()) if p not in ROOT_GO_TERMS and dag.term_aspect.get(p) == asp]
+        if not parents:
+            c_par = max(aspect_totals.get(asp, 0), c_v)
+        else:
+            inter: Optional[Set[int]] = None
+            for p in parents:
+                ps = term_prots.get(p, set())
+                inter = set(ps) if inter is None else (inter & ps)
+                if not inter:
+                    break
+            c_par = max(len(inter or ()), c_v)
+        ia = max(0.0, -math.log2((c_v + 1.0) / float(c_par + 1.0)))
+        ia_map[tid] = round(ia, 4)
+
+    # Fallback IA for any unseen leaf term
+    ia_map["__default__"] = 1.0
+    return ia_map
+
+
 @dataclass
 class CAFATarget:
-    """Single post-cutoff experimentally GOA-annotated target protein."""
+    """Single experimentally GOA-annotated CAFA target protein (NK, LK, or PK)."""
 
     target_id: str
     sequence: str
     length: int
-    # Propagated ground-truth GO term IDs (excluding trivial roots)
+    # Propagated ground-truth GO term IDs at t1 (excluding trivial roots)
     true_terms_mf: List[str]
     true_terms_bp: List[str]
     true_terms_cc: List[str]
-    # Knowledge type per CAFA convention: "NK" (No-Knowledge prior to cutoff) or "LK" (Limited-Knowledge)
+    # Knowledge type per CAFA-6 convention: "NK" (No-Knowledge), "LK" (Limited-Knowledge), "PK" (Partial-Knowledge)
     knowledge_type: str = "NK"
+    # Pre-cutoff propagated experimental GO terms at t0 (used for CAFA-6 `-known` dual masking in PK)
+    known_terms_mf: List[str] = field(default_factory=list)
+    known_terms_bp: List[str] = field(default_factory=list)
+    known_terms_cc: List[str] = field(default_factory=list)
+    # Optional explicit aspects eligible for evaluation (e.g. newly gained aspect(s) for LK/PK)
+    eval_aspects: Optional[List[str]] = None
 
 
 def build_cafa_prompt(target: CAFATarget) -> str:
@@ -247,27 +298,55 @@ def compute_cafa_fmax(
     pred_raw_by_tid: Dict[str, Dict[str, float]],
     aspect: str,  # "MF" | "BP" | "CC"
     ic_map: Optional[Dict[str, float]] = None,
+    exclude_known: bool = True,
 ) -> Dict[str, float]:
-    """Official CAFA protein-centric `F_max` and IC-weighted `wF_max` for a single GO aspect."""
+    """Official CAFA-6 protein-centric `F_max` and IA/IC-weighted `wF_max` (`full` mode) for a single GO aspect.
+
+    Supports exact CAFA-6 track semantics:
+      - NK: evaluates full `T1[aspect]` (`known_terms` empty).
+      - LK: restricts to targets with `aspect in eval_aspects` (newly gained ontology only).
+      - PK: when `exclude_known=True`, applies `cafaeval -known` dual masking, removing `T0[aspect]`
+            from BOTH ground truth (`T1 \\ T0`) and DAG-propagated predictions (`Y_hat \\ T0`).
+    """
     attr = {"MF": "true_terms_mf", "BP": "true_terms_bp", "CC": "true_terms_cc"}[aspect]
-    eval_targets = [t for t in targets if len(getattr(t, attr)) > 0]
-    if not eval_targets:
-        return {"n_targets": 0, "fmax": 0.0, "wfmax": 0.0, "best_threshold": 0.5, "coverage": 0.0}
+    k_attr = {"MF": "known_terms_mf", "BP": "known_terms_bp", "CC": "known_terms_cc"}[aspect]
 
     true_sets: List[Set[str]] = []
     prop_preds: List[Dict[str, float]] = []
-    default_ic = (ic_map or {}).get("__default__", 5.0)
+    default_ic = (ic_map or {}).get("__default__", 1.0)
 
-    for t in eval_targets:
-        t_true = {g for g in getattr(t, attr) if dag.term_aspect.get(g) == aspect}
-        true_sets.append(t_true)
+    for t in targets:
+        if t.eval_aspects is not None and aspect not in t.eval_aspects:
+            continue
+        raw_true = getattr(t, attr)
+        if not raw_true:
+            continue
+        t_true = {g for g in raw_true if dag.term_aspect.get(g) == aspect and g not in ROOT_GO_TERMS}
+        t_known = (
+            {g for g in getattr(t, k_attr) if dag.term_aspect.get(g) == aspect and g not in ROOT_GO_TERMS}
+            if exclude_known
+            else set()
+        )
+        if t_known:
+            t_true = t_true - t_known
+        if not t_true:
+            continue
+
         raw_p = pred_raw_by_tid.get(t.target_id, {})
         prop_all = dag.propagate_scores(raw_p)
-        prop_asp = {g: sc for g, sc in prop_all.items() if dag.term_aspect.get(g) == aspect}
+        prop_asp = {
+            g: sc
+            for g, sc in prop_all.items()
+            if dag.term_aspect.get(g) == aspect and g not in ROOT_GO_TERMS and g not in t_known
+        }
+        true_sets.append(t_true)
         prop_preds.append(prop_asp)
 
-    n_total = len(eval_targets)
-    thresholds = np.linspace(0.02, 0.98, 49)
+    if not true_sets:
+        return {"n_targets": 0, "fmax": 0.0, "wfmax": 0.0, "best_threshold": 0.5, "coverage": 0.0}
+
+    n_total = len(true_sets)
+    thresholds = np.linspace(0.01, 1.00, 100)
     best_f = 0.0
     best_tau = 0.5
     best_wf = 0.0

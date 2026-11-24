@@ -84,11 +84,25 @@ def main() -> None:
         row_t["wfmax"] = round(float(np.mean(t_wfs)) if t_wfs else 0.0, 4)
         per_t[t.target_id] = row_t
 
+    # Split by strict-NK temporal strata (post_may2026_paper vs post_may2026_go_curated)
+    by_stratum: Dict[str, Any] = {}
+    for st in ("post_may2026_paper", "post_may2026_go_curated"):
+        st_ids = {t["target_id"] for t in m2b if t.get("temporal_tier") == st}
+        st_targets = [t for t in cafa_targets if t.target_id in st_ids]
+        if st_targets:
+            st_asp = {a: round(float(compute_cafa_fmax(dag, st_targets, pred_map, aspect=a, ic_map=ic_map)["wfmax"]), 4) for a in ("MF", "BP", "CC")}
+            by_stratum[st] = {
+                "n": len(st_targets),
+                "macro_wfmax": round(float(np.mean(list(st_asp.values()))), 4),
+                "aspects": st_asp,
+            }
+
     out = {
         "model": "baseline_netgo4",
         "display_name": "NetGO 4.0",
         "macro_wfmax": macro_wf,
         "aspects": {a: round(float(asp_res[a]["wfmax"]), 4) for a in ("MF", "BP", "CC")},
+        "by_stratum": by_stratum,
         "aspect_details": {
             a: {k: (round(float(v), 4) if isinstance(v, (int, float)) else v) for k, v in asp_res[a].items()}
             for a in ("MF", "BP", "CC")
@@ -98,19 +112,10 @@ def main() -> None:
     out_p = REPO / "outputs" / "results" / "baseline_t4_netgo4.json"
     out_p.write_text(json.dumps(out, indent=2), encoding="utf-8")
 
-    # Check true post-May-2026 7 targets vs pre-May-2026 53 targets
-    post7 = [t for t in m2b if str(t.get("qgo_date", "")) > "20260501"]
-    post7_ids = {t["target_id"] for t in post7}
-    post7_targets = [t for t in cafa_targets if t.target_id in post7_ids]
-    post7_asp = {a: compute_cafa_fmax(dag, post7_targets, pred_map, aspect=a, ic_map=ic_map)["wfmax"] for a in ("MF", "BP", "CC")}
-
-    print("\n=== TASK 4 SOTA: Official NetGO 4.0 (GOCurator) ===", flush=True)
-    print(f"  Overall (N=60)   : Macro wF_max = {macro_wf:.3f} | Aspects = {out['aspects']}", flush=True)
-    print(
-        f"  Post-May-2026 (7): Macro wF_max = {np.mean(list(post7_asp.values())):.3f} | "
-        f"Aspects = { {k: round(v, 3) for k, v in post7_asp.items()} }",
-        flush=True,
-    )
+    print("\n=== TASK 4 SOTA: Official NetGO 4.0 (GOCurator, v2.0 Strict Post-May-2026 NK) ===", flush=True)
+    print(f"  Overall (N=60) : Macro wF_max = {macro_wf:.3f} | Aspects = {out['aspects']}", flush=True)
+    for st, info in by_stratum.items():
+        print(f"  {st:<24s} (n={info['n']}): Macro wF_max = {info['macro_wfmax']:.3f} | Aspects = {info['aspects']}", flush=True)
 
 
 if __name__ == "__main__":

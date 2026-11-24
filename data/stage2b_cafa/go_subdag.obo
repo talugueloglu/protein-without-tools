@@ -454,6 +454,13 @@ namespace: molecular_function
 is_a: GO:1990837
 
 [Term]
+id: GO:0000183
+name: rDNA heterochromatin formation
+namespace: biological_process
+is_a: GO:0140718
+is_a: GO:1990700
+
+[Term]
 id: GO:0000209
 name: protein polyubiquitination
 namespace: biological_process
@@ -519,6 +526,12 @@ id: GO:0000247
 name: C-8 sterol isomerase activity
 namespace: molecular_function
 is_a: GO:0016863
+
+[Term]
+id: GO:0000250
+name: lanosterol synthase activity
+namespace: molecular_function
+is_a: GO:0031559
 
 [Term]
 id: GO:0000252
@@ -1099,6 +1112,13 @@ is_a: GO:0006259
 is_a: GO:0006302
 
 [Term]
+id: GO:0000731
+name: DNA synthesis involved in DNA repair
+namespace: biological_process
+is_a: GO:0006281
+is_a: GO:0071897
+
+[Term]
 id: GO:0000747
 name: conjugation with cellular fusion
 namespace: biological_process
@@ -1527,6 +1547,20 @@ namespace: biological_process
 is_a: GO:0042221
 
 [Term]
+id: GO:0001109
+name: promoter clearance during DNA-templated transcription
+namespace: biological_process
+is_a: GO:0006351
+is_a: GO:0032774
+
+[Term]
+id: GO:0001111
+name: RNA polymerase II promoter clearance
+namespace: biological_process
+is_a: GO:0001109
+is_a: GO:0006366
+
+[Term]
 id: GO:0001192
 name: maintenance of transcriptional fidelity during transcription elongation
 namespace: biological_process
@@ -1633,6 +1667,14 @@ is_a: GO:0048731
 is_a: GO:0160108
 
 [Term]
+id: GO:0001502
+name: cartilage condensation
+namespace: biological_process
+is_a: GO:0048705
+is_a: GO:0051216
+is_a: GO:0098743
+
+[Term]
 id: GO:0001503
 name: ossification
 namespace: biological_process
@@ -1659,6 +1701,12 @@ is_a: GO:0009451
 is_a: GO:0043414
 
 [Term]
+id: GO:0001514
+name: selenocysteine incorporation
+namespace: biological_process
+is_a: GO:0006451
+
+[Term]
 id: GO:0001522
 name: pseudouridine synthesis
 namespace: biological_process
@@ -1676,6 +1724,12 @@ name: angiogenesis
 namespace: biological_process
 is_a: GO:0048514
 is_a: GO:0048646
+
+[Term]
+id: GO:0001533
+name: cornified envelope
+namespace: cellular_component
+is_a: GO:0005886
 
 [Term]
 id: GO:0001539
@@ -1816,6 +1870,12 @@ namespace: biological_process
 is_a: GO:0016477
 
 [Term]
+id: GO:0001669
+name: acrosomal vesicle
+namespace: cellular_component
+is_a: GO:0030141
+
+[Term]
 id: GO:0001671
 name: ATPase activator activity
 namespace: molecular_function
@@ -1841,10 +1901,16 @@ namespace: biological_process
 is_a: GO:0099116
 
 [Term]
-id: GO:0001700
-name: embryonic development via the syncytial blastoderm
+id: GO:0001701
+name: in utero embryonic development
 namespace: biological_process
-is_a: GO:0009792
+is_a: GO:0043009
+
+[Term]
+id: GO:0001703
+name: gastrulation with mouth forming first
+namespace: biological_process
+is_a: GO:0007369
 
 [Term]
 id: GO:0001704
@@ -1868,13 +1934,6 @@ is_a: GO:0001704
 is_a: GO:0048332
 
 [Term]
-id: GO:0001708
-name: cell fate specification
-namespace: biological_process
-is_a: GO:0045165
-is_a: GO:0048869
-
-[Term]
 id: GO:0001709
 name: cell fate determination
 namespace: biological_process
@@ -1887,6 +1946,19 @@ name: mesodermal cell fate commitment
 namespace: biological_process
 is_a: GO:0048333
 is_a: GO:0060795
+
+[Term]
+id: GO:0001717
+name: conversion of seryl-tRNAsec to selenocys-tRNAsec
+namespace: biological_process
+is_a: GO:0019988
+
+[Term]
+id: GO:0001725
+name: stress fiber
+namespace: cellular_component
+is_a: GO:0042641
+is_a: GO:0097517
 
 [Term]
 id: GO:0001726
@@ -1928,25 +2000,11 @@ is_a: GO:0000228
 is_a: GO:0000805
 
 [Term]
-id: GO:0001745
-name: compound eye morphogenesis
-namespace: biological_process
-is_a: GO:0048592
-is_a: GO:0048749
-
-[Term]
-id: GO:0001751
-name: compound eye photoreceptor cell differentiation
-namespace: biological_process
-is_a: GO:0001745
-is_a: GO:0001754
-
-[Term]
-id: GO:0001752
-name: compound eye photoreceptor fate commitment
-namespace: biological_process
-is_a: GO:0001751
-is_a: GO:0042706
+id: GO:0001750
+name: photoreceptor outer segment
+namespace: cellular_component
+is_a: GO:0097733
+is_a: GO:0110165
 
 [Term]
 id: GO:0001754
@@ -1968,6 +2026,13 @@ name: morphogenesis of a branching structure
 namespace: biological_process
 is_a: GO:0009653
 is_a: GO:0032501
+
+[Term]
+id: GO:0001764
+name: neuron migration
+namespace: biological_process
+is_a: GO:0016477
+is_a: GO:0048699
 
 [Term]
 id: GO:0001772
@@ -2092,6 +2157,28 @@ namespace: biological_process
 is_a: GO:0008152
 
 [Term]
+id: GO:0001889
+name: liver development
+namespace: biological_process
+is_a: GO:0048732
+is_a: GO:0061008
+
+[Term]
+id: GO:0001890
+name: placenta development
+namespace: biological_process
+is_a: GO:0048513
+
+[Term]
+id: GO:0001893
+name: maternal placenta development
+namespace: biological_process
+is_a: GO:0001890
+is_a: GO:0003006
+is_a: GO:0060135
+is_a: GO:0160108
+
+[Term]
 id: GO:0001896
 name: autolysis
 namespace: biological_process
@@ -2109,6 +2196,12 @@ name: leukocyte mediated cytotoxicity
 namespace: biological_process
 is_a: GO:0001906
 is_a: GO:0002443
+
+[Term]
+id: GO:0001917
+name: photoreceptor inner segment
+namespace: cellular_component
+is_a: GO:0110165
 
 [Term]
 id: GO:0001931
@@ -2232,6 +2325,12 @@ is_a: GO:0009967
 is_a: GO:0060760
 
 [Term]
+id: GO:0001968
+name: fibronectin binding
+namespace: molecular_function
+is_a: GO:0005515
+
+[Term]
 id: GO:0001969
 name: regulation of activation of membrane attack complex
 namespace: biological_process
@@ -2243,6 +2342,19 @@ name: negative regulation of activation of membrane attack complex
 namespace: biological_process
 is_a: GO:0001969
 is_a: GO:0045916
+
+[Term]
+id: GO:0001993
+name: regulation of systemic arterial blood pressure by norepinephrine-epinephrine
+namespace: biological_process
+is_a: GO:0003044
+
+[Term]
+id: GO:0001996
+name: positive regulation of heart rate by epinephrine-norepinephrine
+namespace: biological_process
+is_a: GO:0003321
+is_a: GO:0010460
 
 [Term]
 id: GO:0002009
@@ -2277,6 +2389,19 @@ namespace: biological_process
 is_a: GO:0010959
 
 [Term]
+id: GO:0002029
+name: desensitization of G protein-coupled receptor signaling pathway
+namespace: biological_process
+is_a: GO:0022401
+is_a: GO:0045744
+
+[Term]
+id: GO:0002039
+name: p53 binding
+namespace: molecular_function
+is_a: GO:0005515
+
+[Term]
 id: GO:0002040
 name: sprouting angiogenesis
 namespace: biological_process
@@ -2288,14 +2413,6 @@ name: cell migration involved in sprouting angiogenesis
 namespace: biological_process
 is_a: GO:0002040
 is_a: GO:0043534
-
-[Term]
-id: GO:0002052
-name: positive regulation of neuroblast proliferation
-namespace: biological_process
-is_a: GO:0050769
-is_a: GO:1902692
-is_a: GO:2000179
 
 [Term]
 id: GO:0002062
@@ -2337,6 +2454,13 @@ name: negative regulation of receptor internalization
 namespace: biological_process
 is_a: GO:0002090
 is_a: GO:0048261
+
+[Term]
+id: GO:0002092
+name: positive regulation of receptor internalization
+namespace: biological_process
+is_a: GO:0002090
+is_a: GO:0048260
 
 [Term]
 id: GO:0002097
@@ -2389,14 +2513,6 @@ namespace: molecular_function
 is_a: GO:0052689
 is_a: GO:0140101
 is_a: GO:0160215
-
-[Term]
-id: GO:0002165
-name: instar larval or pupal development
-namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0009791
-is_a: GO:0160108
 
 [Term]
 id: GO:0002172
@@ -2686,6 +2802,12 @@ namespace: biological_process
 is_a: GO:0002443
 
 [Term]
+id: GO:0002446
+name: neutrophil mediated immunity
+namespace: biological_process
+is_a: GO:0002444
+
+[Term]
 id: GO:0002448
 name: mast cell mediated immunity
 namespace: biological_process
@@ -2780,6 +2902,13 @@ namespace: biological_process
 is_a: GO:0002200
 
 [Term]
+id: GO:0002573
+name: myeloid leukocyte differentiation
+namespace: biological_process
+is_a: GO:0002521
+is_a: GO:0030099
+
+[Term]
 id: GO:0002637
 name: regulation of immunoglobulin production
 namespace: biological_process
@@ -2791,6 +2920,12 @@ name: positive regulation of immunoglobulin production
 namespace: biological_process
 is_a: GO:0002637
 is_a: GO:0002702
+
+[Term]
+id: GO:0002673
+name: regulation of acute inflammatory response
+namespace: biological_process
+is_a: GO:0050727
 
 [Term]
 id: GO:0002679
@@ -2917,6 +3052,47 @@ is_a: GO:0002700
 is_a: GO:0010628
 
 [Term]
+id: GO:0002703
+name: regulation of leukocyte mediated immunity
+namespace: biological_process
+is_a: GO:0002697
+
+[Term]
+id: GO:0002704
+name: negative regulation of leukocyte mediated immunity
+namespace: biological_process
+is_a: GO:0002698
+is_a: GO:0002703
+
+[Term]
+id: GO:0002706
+name: regulation of lymphocyte mediated immunity
+namespace: biological_process
+is_a: GO:0002703
+
+[Term]
+id: GO:0002707
+name: negative regulation of lymphocyte mediated immunity
+namespace: biological_process
+is_a: GO:0002704
+is_a: GO:0002706
+
+[Term]
+id: GO:0002709
+name: regulation of T cell mediated immunity
+namespace: biological_process
+is_a: GO:0002706
+is_a: GO:0002822
+
+[Term]
+id: GO:0002710
+name: negative regulation of T cell mediated immunity
+namespace: biological_process
+is_a: GO:0002707
+is_a: GO:0002709
+is_a: GO:0002823
+
+[Term]
 id: GO:0002752
 name: cell surface pattern recognition receptor signaling pathway
 namespace: biological_process
@@ -2982,6 +3158,13 @@ is_a: GO:0002764
 is_a: GO:0007166
 
 [Term]
+id: GO:0002790
+name: peptide secretion
+namespace: biological_process
+is_a: GO:0015833
+is_a: GO:0046903
+
+[Term]
 id: GO:0002791
 name: regulation of peptide secretion
 namespace: biological_process
@@ -2994,6 +3177,32 @@ name: positive regulation of peptide secretion
 namespace: biological_process
 is_a: GO:0002791
 is_a: GO:0051047
+
+[Term]
+id: GO:0002819
+name: regulation of adaptive immune response
+namespace: biological_process
+is_a: GO:0050776
+
+[Term]
+id: GO:0002820
+name: negative regulation of adaptive immune response
+namespace: biological_process
+is_a: GO:0002819
+is_a: GO:0050777
+
+[Term]
+id: GO:0002822
+name: regulation of adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains
+namespace: biological_process
+is_a: GO:0002819
+
+[Term]
+id: GO:0002823
+name: negative regulation of adaptive immune response based on somatic recombination of immune receptors built from immunoglobulin superfamily domains
+namespace: biological_process
+is_a: GO:0002820
+is_a: GO:0002822
 
 [Term]
 id: GO:0002831
@@ -3014,6 +3223,49 @@ name: positive regulation of response to biotic stimulus
 namespace: biological_process
 is_a: GO:0002831
 is_a: GO:0048584
+
+[Term]
+id: GO:0002834
+name: regulation of response to tumor cell
+namespace: biological_process
+is_a: GO:0002831
+
+[Term]
+id: GO:0002835
+name: negative regulation of response to tumor cell
+namespace: biological_process
+is_a: GO:0002832
+is_a: GO:0002834
+
+[Term]
+id: GO:0002837
+name: regulation of immune response to tumor cell
+namespace: biological_process
+is_a: GO:0002834
+is_a: GO:0050776
+
+[Term]
+id: GO:0002838
+name: negative regulation of immune response to tumor cell
+namespace: biological_process
+is_a: GO:0002835
+is_a: GO:0002837
+is_a: GO:0050777
+
+[Term]
+id: GO:0002840
+name: regulation of T cell mediated immune response to tumor cell
+namespace: biological_process
+is_a: GO:0002709
+is_a: GO:0002837
+
+[Term]
+id: GO:0002841
+name: negative regulation of T cell mediated immune response to tumor cell
+namespace: biological_process
+is_a: GO:0002710
+is_a: GO:0002838
+is_a: GO:0002840
 
 [Term]
 id: GO:0002902
@@ -3046,6 +3298,12 @@ id: GO:0002926
 name: tRNA wobble base 5-methoxycarbonylmethyl-2-thiouridinylation
 namespace: biological_process
 is_a: GO:0002098
+
+[Term]
+id: GO:0002931
+name: response to ischemia
+namespace: biological_process
+is_a: GO:0006950
 
 [Term]
 id: GO:0002933
@@ -3134,6 +3392,25 @@ is_a: GO:0009593
 is_a: GO:0070482
 
 [Term]
+id: GO:0003044
+name: regulation of systemic arterial blood pressure mediated by a chemical signal
+namespace: biological_process
+is_a: GO:0003073
+
+[Term]
+id: GO:0003056
+name: regulation of vascular associated smooth muscle contraction
+namespace: biological_process
+is_a: GO:0006940
+is_a: GO:0019229
+
+[Term]
+id: GO:0003073
+name: regulation of systemic arterial blood pressure
+namespace: biological_process
+is_a: GO:0008217
+
+[Term]
 id: GO:0003091
 name: renal water homeostasis
 namespace: biological_process
@@ -3167,11 +3444,37 @@ is_a: GO:0042391
 is_a: GO:0050794
 
 [Term]
+id: GO:0003309
+name: type B pancreatic cell differentiation
+namespace: biological_process
+is_a: GO:0031018
+is_a: GO:0035883
+
+[Term]
+id: GO:0003321
+name: positive regulation of blood pressure by epinephrine-norepinephrine
+namespace: biological_process
+is_a: GO:0001993
+is_a: GO:0045777
+
+[Term]
 id: GO:0003333
 name: amino acid transmembrane transport
 namespace: biological_process
 is_a: GO:0006865
 is_a: GO:0055085
+
+[Term]
+id: GO:0003352
+name: regulation of cilium movement
+namespace: biological_process
+is_a: GO:0060632
+
+[Term]
+id: GO:0003356
+name: regulation of cilium beat frequency
+namespace: biological_process
+is_a: GO:0003352
 
 [Term]
 id: GO:0003357
@@ -3467,6 +3770,12 @@ namespace: molecular_function
 is_a: GO:0017169
 
 [Term]
+id: GO:0003883
+name: CTP synthase activity
+namespace: molecular_function
+is_a: GO:0016879
+
+[Term]
 id: GO:0003884
 name: D-amino-acid oxidase activity
 namespace: molecular_function
@@ -3503,6 +3812,19 @@ name: DNA ligase activity
 namespace: molecular_function
 is_a: GO:0016886
 is_a: GO:0140097
+
+[Term]
+id: GO:0003916
+name: DNA topoisomerase activity
+namespace: molecular_function
+is_a: GO:0120545
+is_a: GO:0140097
+
+[Term]
+id: GO:0003917
+name: DNA topoisomerase type I (single strand cut, ATP-independent) activity
+namespace: molecular_function
+is_a: GO:0003916
 
 [Term]
 id: GO:0003919
@@ -3675,6 +3997,12 @@ id: GO:0004044
 name: amidophosphoribosyltransferase activity
 namespace: molecular_function
 is_a: GO:0016763
+
+[Term]
+id: GO:0004050
+name: apyrase activity
+namespace: molecular_function
+is_a: GO:0016462
 
 [Term]
 id: GO:0004059
@@ -3940,12 +4268,6 @@ namespace: molecular_function
 is_a: GO:0016881
 
 [Term]
-id: GO:0004328
-name: formamidase activity
-namespace: molecular_function
-is_a: GO:0004040
-
-[Term]
 id: GO:0004332
 name: fructose-bisphosphate aldolase activity
 namespace: molecular_function
@@ -3956,12 +4278,6 @@ id: GO:0004333
 name: fumarate hydratase activity
 namespace: molecular_function
 is_a: GO:0016836
-
-[Term]
-id: GO:0004337
-name: (2E,6E)-farnesyl diphosphate synthase activity
-namespace: molecular_function
-is_a: GO:0120531
 
 [Term]
 id: GO:0004338
@@ -4195,6 +4511,13 @@ namespace: molecular_function
 is_a: GO:0016712
 
 [Term]
+id: GO:0004509
+name: steroid 21-monooxygenase activity
+namespace: molecular_function
+is_a: GO:0008395
+is_a: GO:0016712
+
+[Term]
 id: GO:0004512
 name: inositol-3-phosphate synthase activity
 namespace: molecular_function
@@ -4325,6 +4648,12 @@ id: GO:0004553
 name: hydrolase activity, hydrolyzing O-glycosyl compounds
 namespace: molecular_function
 is_a: GO:0016798
+
+[Term]
+id: GO:0004557
+name: alpha-galactosidase activity
+namespace: molecular_function
+is_a: GO:0015925
 
 [Term]
 id: GO:0004567
@@ -4536,6 +4865,12 @@ is_a: GO:0004674
 is_a: GO:0097472
 
 [Term]
+id: GO:0004703
+name: G protein-coupled receptor kinase activity
+namespace: molecular_function
+is_a: GO:0004674
+
+[Term]
 id: GO:0004707
 name: MAP kinase activity
 namespace: molecular_function
@@ -4564,6 +4899,13 @@ id: GO:0004713
 name: protein tyrosine kinase activity
 namespace: molecular_function
 is_a: GO:0004672
+
+[Term]
+id: GO:0004714
+name: transmembrane receptor protein tyrosine kinase activity
+namespace: molecular_function
+is_a: GO:0004713
+is_a: GO:0019199
 
 [Term]
 id: GO:0004715
@@ -4894,10 +5236,28 @@ is_a: GO:0004888
 is_a: GO:0140375
 
 [Term]
+id: GO:0004897
+name: ciliary neurotrophic factor receptor activity
+namespace: molecular_function
+is_a: GO:0004896
+
+[Term]
 id: GO:0004930
 name: G protein-coupled receptor activity
 namespace: molecular_function
 is_a: GO:0004888
+
+[Term]
+id: GO:0004935
+name: adrenergic receptor activity
+namespace: molecular_function
+is_a: GO:0008227
+
+[Term]
+id: GO:0004939
+name: beta-adrenergic receptor activity
+namespace: molecular_function
+is_a: GO:0004935
 
 [Term]
 id: GO:0004950
@@ -4918,9 +5278,22 @@ name: signal sequence receptor activity
 namespace: molecular_function
 
 [Term]
+id: GO:0005080
+name: protein kinase C binding
+namespace: molecular_function
+is_a: GO:0019901
+
+[Term]
 id: GO:0005085
 name: guanyl-nucleotide exchange factor activity
 namespace: molecular_function
+is_a: GO:0030695
+
+[Term]
+id: GO:0005095
+name: GTPase inhibitor activity
+namespace: molecular_function
+is_a: GO:0004857
 is_a: GO:0030695
 
 [Term]
@@ -5086,6 +5459,13 @@ is_a: GO:0005261
 is_a: GO:0015079
 
 [Term]
+id: GO:0005272
+name: sodium channel activity
+namespace: molecular_function
+is_a: GO:0005261
+is_a: GO:0015081
+
+[Term]
 id: GO:0005275
 name: amine transmembrane transporter activity
 namespace: molecular_function
@@ -5127,6 +5507,14 @@ id: GO:0005310
 name: dicarboxylic acid transmembrane transporter activity
 namespace: molecular_function
 is_a: GO:0046943
+
+[Term]
+id: GO:0005313
+name: L-glutamate transmembrane transporter activity
+namespace: molecular_function
+is_a: GO:0005310
+is_a: GO:0015172
+is_a: GO:0015179
 
 [Term]
 id: GO:0005315
@@ -5387,6 +5775,18 @@ namespace: molecular_function
 is_a: GO:0005515
 
 [Term]
+id: GO:0005518
+name: collagen binding
+namespace: molecular_function
+is_a: GO:0044877
+
+[Term]
+id: GO:0005521
+name: lamin binding
+namespace: molecular_function
+is_a: GO:0005515
+
+[Term]
 id: GO:0005522
 name: profilin binding
 namespace: molecular_function
@@ -5568,6 +5968,14 @@ is_a: GO:0005635
 is_a: GO:0140513
 
 [Term]
+id: GO:0005652
+name: nuclear lamina
+namespace: cellular_component
+is_a: GO:0005635
+is_a: GO:0034399
+is_a: GO:0110165
+
+[Term]
 id: GO:0005654
 name: nucleoplasm
 namespace: cellular_component
@@ -5624,6 +6032,12 @@ name: transcription factor TFIID complex
 namespace: cellular_component
 is_a: GO:0016591
 is_a: GO:0090575
+
+[Term]
+id: GO:0005677
+name: chromatin silencing complex
+namespace: cellular_component
+is_a: GO:0140513
 
 [Term]
 id: GO:0005680
@@ -6151,6 +6565,13 @@ is_a: GO:0005819
 is_a: GO:0005874
 
 [Term]
+id: GO:0005879
+name: axonemal microtubule
+namespace: cellular_component
+is_a: GO:0005881
+is_a: GO:0005930
+
+[Term]
 id: GO:0005881
 name: cytoplasmic microtubule
 namespace: cellular_component
@@ -6236,6 +6657,14 @@ name: cilium
 namespace: cellular_component
 is_a: GO:0043227
 is_a: GO:0120025
+
+[Term]
+id: GO:0005930
+name: axoneme
+namespace: cellular_component
+is_a: GO:0005856
+is_a: GO:0097014
+is_a: GO:0110165
 
 [Term]
 id: GO:0005933
@@ -6368,13 +6797,6 @@ name: glycogen catabolic process
 namespace: biological_process
 is_a: GO:0005977
 is_a: GO:0009251
-
-[Term]
-id: GO:0005981
-name: regulation of glycogen catabolic process
-namespace: biological_process
-is_a: GO:0043470
-is_a: GO:0070873
 
 [Term]
 id: GO:0005982
@@ -6928,6 +7350,23 @@ is_a: GO:0009165
 is_a: GO:0072528
 
 [Term]
+id: GO:0006231
+name: dTMP biosynthetic process
+namespace: biological_process
+is_a: GO:0009177
+is_a: GO:0009221
+is_a: GO:0046073
+
+[Term]
+id: GO:0006241
+name: CTP biosynthetic process
+namespace: biological_process
+is_a: GO:0009142
+is_a: GO:0009209
+is_a: GO:0009220
+is_a: GO:0046036
+
+[Term]
 id: GO:0006244
 name: pyrimidine nucleotide catabolic process
 namespace: biological_process
@@ -7012,6 +7451,13 @@ id: GO:0006278
 name: RNA-templated DNA biosynthetic process
 namespace: biological_process
 is_a: GO:0071897
+
+[Term]
+id: GO:0006279
+name: premeiotic DNA replication
+namespace: biological_process
+is_a: GO:0033260
+is_a: GO:1903046
 
 [Term]
 id: GO:0006281
@@ -8038,6 +8484,13 @@ is_a: GO:0046337
 is_a: GO:0046474
 
 [Term]
+id: GO:0006649
+name: phospholipid transfer to membrane
+namespace: biological_process
+is_a: GO:0015914
+is_a: GO:0061024
+
+[Term]
 id: GO:0006650
 name: glycerophospholipid metabolic process
 namespace: biological_process
@@ -8241,6 +8694,21 @@ id: GO:0006703
 name: estrogen biosynthetic process
 namespace: biological_process
 is_a: GO:0008210
+is_a: GO:0042446
+is_a: GO:0120178
+
+[Term]
+id: GO:0006704
+name: glucocorticoid biosynthetic process
+namespace: biological_process
+is_a: GO:0008211
+is_a: GO:0120178
+
+[Term]
+id: GO:0006705
+name: mineralocorticoid biosynthetic process
+namespace: biological_process
+is_a: GO:0008212
 is_a: GO:0042446
 is_a: GO:0120178
 
@@ -8734,6 +9202,13 @@ is_a: GO:0030003
 is_a: GO:0098771
 
 [Term]
+id: GO:0006883
+name: intracellular sodium ion homeostasis
+namespace: biological_process
+is_a: GO:0030003
+is_a: GO:0055078
+
+[Term]
 id: GO:0006884
 name: cell volume homeostasis
 namespace: biological_process
@@ -8916,6 +9391,12 @@ is_a: GO:0006936
 [Term]
 id: GO:0006940
 name: regulation of smooth muscle contraction
+namespace: biological_process
+is_a: GO:0006937
+
+[Term]
+id: GO:0006942
+name: regulation of striated muscle contraction
 namespace: biological_process
 is_a: GO:0006937
 
@@ -9126,6 +9607,14 @@ namespace: biological_process
 is_a: GO:0007017
 
 [Term]
+id: GO:0007019
+name: microtubule depolymerization
+namespace: biological_process
+is_a: GO:0031109
+is_a: GO:0051261
+is_a: GO:0097435
+
+[Term]
 id: GO:0007020
 name: microtubule nucleation
 namespace: biological_process
@@ -9216,6 +9705,13 @@ name: cell-cell junction assembly
 namespace: biological_process
 is_a: GO:0034329
 is_a: GO:0045216
+
+[Term]
+id: GO:0007044
+name: cell-substrate junction assembly
+namespace: biological_process
+is_a: GO:0034329
+is_a: GO:0150115
 
 [Term]
 id: GO:0007049
@@ -9423,6 +9919,13 @@ is_a: GO:0061983
 is_a: GO:0140013
 
 [Term]
+id: GO:0007143
+name: female meiotic nuclear division
+namespace: biological_process
+is_a: GO:0007292
+is_a: GO:0140013
+
+[Term]
 id: GO:0007154
 name: cell communication
 namespace: biological_process
@@ -9594,6 +10097,12 @@ namespace: biological_process
 is_a: GO:0007264
 
 [Term]
+id: GO:0007266
+name: Rho protein signal transduction
+namespace: biological_process
+is_a: GO:0007264
+
+[Term]
 id: GO:0007267
 name: cell-cell signaling
 namespace: biological_process
@@ -9632,15 +10141,6 @@ name: gamete generation
 namespace: biological_process
 is_a: GO:0019953
 is_a: GO:0048609
-
-[Term]
-id: GO:0007281
-name: germ cell development
-namespace: biological_process
-is_a: GO:0003006
-is_a: GO:0007276
-is_a: GO:0022412
-is_a: GO:0048468
 
 [Term]
 id: GO:0007283
@@ -9708,18 +10208,18 @@ namespace: biological_process
 is_a: GO:0048598
 
 [Term]
+id: GO:0007378
+name: amnioserosa formation
+namespace: biological_process
+is_a: GO:0010004
+is_a: GO:0048646
+
+[Term]
 id: GO:0007389
 name: pattern specification process
 namespace: biological_process
 is_a: GO:0007275
 is_a: GO:0032501
-
-[Term]
-id: GO:0007391
-name: dorsal closure
-namespace: biological_process
-is_a: GO:0001700
-is_a: GO:0016331
 
 [Term]
 id: GO:0007399
@@ -9735,13 +10235,6 @@ namespace: biological_process
 is_a: GO:0048667
 is_a: GO:0048812
 is_a: GO:0061564
-
-[Term]
-id: GO:0007411
-name: axon guidance
-namespace: biological_process
-is_a: GO:0007409
-is_a: GO:0097485
 
 [Term]
 id: GO:0007416
@@ -9782,77 +10275,6 @@ namespace: biological_process
 is_a: GO:0048513
 
 [Term]
-id: GO:0007424
-name: open tracheal system development
-namespace: biological_process
-is_a: GO:0060541
-
-[Term]
-id: GO:0007428
-name: primary branching, open tracheal system
-namespace: biological_process
-is_a: GO:0060446
-
-[Term]
-id: GO:0007442
-name: hindgut morphogenesis
-namespace: biological_process
-is_a: GO:0009653
-is_a: GO:0048546
-is_a: GO:0061525
-
-[Term]
-id: GO:0007443
-name: Malpighian tubule morphogenesis
-namespace: biological_process
-is_a: GO:0048598
-is_a: GO:0048619
-is_a: GO:0061333
-is_a: GO:0072002
-
-[Term]
-id: GO:0007444
-name: imaginal disc development
-namespace: biological_process
-is_a: GO:0048513
-
-[Term]
-id: GO:0007446
-name: imaginal disc growth
-namespace: biological_process
-is_a: GO:0007444
-is_a: GO:0048589
-
-[Term]
-id: GO:0007447
-name: imaginal disc pattern formation
-namespace: biological_process
-is_a: GO:0003002
-is_a: GO:0007444
-
-[Term]
-id: GO:0007460
-name: R8 cell fate commitment
-namespace: biological_process
-is_a: GO:0001752
-is_a: GO:0045465
-
-[Term]
-id: GO:0007472
-name: wing disc morphogenesis
-namespace: biological_process
-is_a: GO:0007560
-is_a: GO:0035220
-
-[Term]
-id: GO:0007476
-name: imaginal disc-derived wing morphogenesis
-namespace: biological_process
-is_a: GO:0007472
-is_a: GO:0035114
-is_a: GO:0035120
-
-[Term]
 id: GO:0007492
 name: endoderm development
 namespace: biological_process
@@ -9874,10 +10296,18 @@ is_a: GO:0001709
 is_a: GO:0001710
 
 [Term]
-id: GO:0007528
-name: neuromuscular junction development
+id: GO:0007517
+name: muscle organ development
 namespace: biological_process
-is_a: GO:0050808
+is_a: GO:0048513
+is_a: GO:0061061
+
+[Term]
+id: GO:0007519
+name: skeletal muscle tissue development
+namespace: biological_process
+is_a: GO:0014706
+is_a: GO:0060538
 
 [Term]
 id: GO:0007530
@@ -9914,20 +10344,6 @@ is_a: GO:0007533
 is_a: GO:0035822
 
 [Term]
-id: GO:0007538
-name: primary sex determination
-namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0007530
-
-[Term]
-id: GO:0007542
-name: primary sex determination, germ-line
-namespace: biological_process
-is_a: GO:0007538
-is_a: GO:0018992
-
-[Term]
 id: GO:0007548
 name: sex differentiation
 namespace: biological_process
@@ -9938,22 +10354,6 @@ id: GO:0007549
 name: sex-chromosome dosage compensation
 namespace: biological_process
 is_a: GO:0040029
-
-[Term]
-id: GO:0007552
-name: metamorphosis
-namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0160108
-
-[Term]
-id: GO:0007560
-name: imaginal disc morphogenesis
-namespace: biological_process
-is_a: GO:0007444
-is_a: GO:0007552
-is_a: GO:0009887
-is_a: GO:0048707
 
 [Term]
 id: GO:0007565
@@ -10008,6 +10408,13 @@ id: GO:0007601
 name: visual perception
 namespace: biological_process
 is_a: GO:0050953
+
+[Term]
+id: GO:0007602
+name: phototransduction
+namespace: biological_process
+is_a: GO:0007165
+is_a: GO:0009583
 
 [Term]
 id: GO:0007605
@@ -10171,6 +10578,12 @@ is_a: GO:0010970
 [Term]
 id: GO:0008089
 name: anterograde axonal transport
+namespace: biological_process
+is_a: GO:0098930
+
+[Term]
+id: GO:0008090
+name: retrograde axonal transport
 namespace: biological_process
 is_a: GO:0098930
 
@@ -10464,6 +10877,19 @@ is_a: GO:0008202
 is_a: GO:0042445
 
 [Term]
+id: GO:0008211
+name: glucocorticoid metabolic process
+namespace: biological_process
+is_a: GO:0008202
+
+[Term]
+id: GO:0008212
+name: mineralocorticoid metabolic process
+namespace: biological_process
+is_a: GO:0008202
+is_a: GO:0042445
+
+[Term]
 id: GO:0008213
 name: protein alkylation
 namespace: biological_process
@@ -10493,6 +10919,12 @@ id: GO:0008219
 name: cell death
 namespace: biological_process
 is_a: GO:0009987
+
+[Term]
+id: GO:0008227
+name: G protein-coupled amine receptor activity
+namespace: molecular_function
+is_a: GO:0004930
 
 [Term]
 id: GO:0008228
@@ -10568,11 +11000,10 @@ namespace: molecular_function
 is_a: GO:0008252
 
 [Term]
-id: GO:0008258
-name: head involution
-namespace: biological_process
-is_a: GO:0001700
-is_a: GO:0048598
+id: GO:0008254
+name: 3'-nucleotidase activity
+namespace: molecular_function
+is_a: GO:0008252
 
 [Term]
 id: GO:0008270
@@ -10738,10 +11169,11 @@ is_a: GO:0000166
 is_a: GO:0043565
 
 [Term]
-id: GO:0008340
-name: determination of adult lifespan
+id: GO:0008344
+name: adult locomotory behavior
 namespace: biological_process
-is_a: GO:0032501
+is_a: GO:0007626
+is_a: GO:0030534
 
 [Term]
 id: GO:0008347
@@ -10828,6 +11260,13 @@ is_a: GO:0005216
 is_a: GO:0022836
 
 [Term]
+id: GO:0008389
+name: coumarin 7-hydroxylase activity
+namespace: molecular_function
+is_a: GO:0004497
+is_a: GO:0016705
+
+[Term]
 id: GO:0008391
 name: arachidonate monooxygenase activity
 namespace: molecular_function
@@ -10845,6 +11284,13 @@ id: GO:0008395
 name: steroid hydroxylase activity
 namespace: molecular_function
 is_a: GO:0004497
+
+[Term]
+id: GO:0008398
+name: sterol 14-demethylase activity
+namespace: molecular_function
+is_a: GO:0016712
+is_a: GO:0032451
 
 [Term]
 id: GO:0008401
@@ -10882,6 +11328,13 @@ id: GO:0008417
 name: fucosyltransferase activity
 namespace: molecular_function
 is_a: GO:0016758
+
+[Term]
+id: GO:0008420
+name: RNA polymerase II CTD heptapeptide repeat phosphatase activity
+namespace: molecular_function
+is_a: GO:0004722
+is_a: GO:0140994
 
 [Term]
 id: GO:0008422
@@ -11117,6 +11570,12 @@ id: GO:0008617
 name: guanosine metabolic process
 namespace: biological_process
 is_a: GO:0046128
+
+[Term]
+id: GO:0008625
+name: extrinsic apoptotic signaling pathway via death domain receptors
+namespace: biological_process
+is_a: GO:0097191
 
 [Term]
 id: GO:0008630
@@ -11497,6 +11956,12 @@ namespace: molecular_function
 is_a: GO:0016780
 
 [Term]
+id: GO:0008907
+name: integrase activity
+namespace: molecular_function
+is_a: GO:0140097
+
+[Term]
 id: GO:0008908
 name: isochorismatase activity
 namespace: molecular_function
@@ -11645,6 +12110,12 @@ id: GO:0009003
 name: signal peptidase activity
 namespace: molecular_function
 is_a: GO:0004175
+
+[Term]
+id: GO:0009009
+name: site-specific recombinase activity
+namespace: molecular_function
+is_a: GO:0008907
 
 [Term]
 id: GO:0009010
@@ -11974,10 +12445,24 @@ is_a: GO:0009124
 is_a: GO:0009126
 
 [Term]
+id: GO:0009128
+name: purine nucleoside monophosphate catabolic process
+namespace: biological_process
+is_a: GO:0009125
+is_a: GO:0009126
+
+[Term]
 id: GO:0009129
 name: pyrimidine nucleoside monophosphate metabolic process
 namespace: biological_process
 is_a: GO:0009123
+
+[Term]
+id: GO:0009130
+name: pyrimidine nucleoside monophosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0009124
+is_a: GO:0009129
 
 [Term]
 id: GO:0009131
@@ -12053,6 +12538,19 @@ is_a: GO:0009144
 is_a: GO:1901292
 
 [Term]
+id: GO:0009147
+name: pyrimidine nucleoside triphosphate metabolic process
+namespace: biological_process
+is_a: GO:0006753
+
+[Term]
+id: GO:0009148
+name: pyrimidine nucleoside triphosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0009147
+is_a: GO:1901293
+
+[Term]
 id: GO:0009150
 name: purine ribonucleotide metabolic process
 namespace: biological_process
@@ -12097,8 +12595,20 @@ namespace: biological_process
 is_a: GO:0009124
 
 [Term]
+id: GO:0009157
+name: deoxyribonucleoside monophosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0009124
+
+[Term]
 id: GO:0009158
 name: ribonucleoside monophosphate catabolic process
+namespace: biological_process
+is_a: GO:0009125
+
+[Term]
+id: GO:0009159
+name: deoxyribonucleoside monophosphate catabolic process
 namespace: biological_process
 is_a: GO:0009125
 
@@ -12139,6 +12649,28 @@ is_a: GO:0009156
 is_a: GO:0009167
 
 [Term]
+id: GO:0009169
+name: purine ribonucleoside monophosphate catabolic process
+namespace: biological_process
+is_a: GO:0009128
+is_a: GO:0009158
+is_a: GO:0009167
+
+[Term]
+id: GO:0009170
+name: purine deoxyribonucleoside monophosphate metabolic process
+namespace: biological_process
+is_a: GO:0009126
+
+[Term]
+id: GO:0009172
+name: purine deoxyribonucleoside monophosphate catabolic process
+namespace: biological_process
+is_a: GO:0009128
+is_a: GO:0009159
+is_a: GO:0009170
+
+[Term]
 id: GO:0009173
 name: pyrimidine ribonucleoside monophosphate metabolic process
 namespace: biological_process
@@ -12151,6 +12683,28 @@ namespace: biological_process
 is_a: GO:0009131
 is_a: GO:0009158
 is_a: GO:0009173
+
+[Term]
+id: GO:0009176
+name: pyrimidine deoxyribonucleoside monophosphate metabolic process
+namespace: biological_process
+is_a: GO:0009129
+
+[Term]
+id: GO:0009177
+name: pyrimidine deoxyribonucleoside monophosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0009130
+is_a: GO:0009157
+is_a: GO:0009176
+
+[Term]
+id: GO:0009178
+name: pyrimidine deoxyribonucleoside monophosphate catabolic process
+namespace: biological_process
+is_a: GO:0009131
+is_a: GO:0009159
+is_a: GO:0009176
 
 [Term]
 id: GO:0009179
@@ -12187,6 +12741,12 @@ namespace: biological_process
 is_a: GO:0009132
 
 [Term]
+id: GO:0009187
+name: cyclic nucleotide metabolic process
+namespace: biological_process
+is_a: GO:0009117
+
+[Term]
 id: GO:0009188
 name: ribonucleoside diphosphate biosynthetic process
 namespace: biological_process
@@ -12220,6 +12780,12 @@ namespace: biological_process
 is_a: GO:1901293
 
 [Term]
+id: GO:0009203
+name: ribonucleoside triphosphate catabolic process
+namespace: biological_process
+is_a: GO:1901292
+
+[Term]
 id: GO:0009204
 name: deoxyribonucleoside triphosphate catabolic process
 namespace: biological_process
@@ -12240,6 +12806,27 @@ namespace: biological_process
 is_a: GO:0009145
 is_a: GO:0009201
 is_a: GO:0009205
+
+[Term]
+id: GO:0009208
+name: pyrimidine ribonucleoside triphosphate metabolic process
+namespace: biological_process
+is_a: GO:0009147
+
+[Term]
+id: GO:0009209
+name: pyrimidine ribonucleoside triphosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0009148
+is_a: GO:0009201
+is_a: GO:0009208
+
+[Term]
+id: GO:0009214
+name: cyclic nucleotide catabolic process
+namespace: biological_process
+is_a: GO:0009166
+is_a: GO:0009187
 
 [Term]
 id: GO:0009215
@@ -12267,6 +12854,22 @@ name: pyrimidine deoxyribonucleotide metabolic process
 namespace: biological_process
 is_a: GO:0006220
 is_a: GO:0009394
+
+[Term]
+id: GO:0009220
+name: pyrimidine ribonucleotide biosynthetic process
+namespace: biological_process
+is_a: GO:0006221
+is_a: GO:0009218
+is_a: GO:0009260
+
+[Term]
+id: GO:0009221
+name: pyrimidine deoxyribonucleotide biosynthetic process
+namespace: biological_process
+is_a: GO:0006221
+is_a: GO:0009219
+is_a: GO:0009265
 
 [Term]
 id: GO:0009222
@@ -12488,6 +13091,14 @@ name: deoxyribonucleotide biosynthetic process
 namespace: biological_process
 is_a: GO:0009058
 is_a: GO:0009262
+
+[Term]
+id: GO:0009265
+name: 2'-deoxyribonucleotide biosynthetic process
+namespace: biological_process
+is_a: GO:0009165
+is_a: GO:0009394
+is_a: GO:0046385
 
 [Term]
 id: GO:0009266
@@ -13026,6 +13637,13 @@ is_a: GO:0009536
 is_a: GO:0031967
 
 [Term]
+id: GO:0009527
+name: plastid outer membrane
+namespace: cellular_component
+is_a: GO:0031968
+is_a: GO:0042170
+
+[Term]
 id: GO:0009528
 name: plastid inner membrane
 namespace: cellular_component
@@ -13134,6 +13752,28 @@ id: GO:0009579
 name: thylakoid
 namespace: cellular_component
 is_a: GO:0043232
+
+[Term]
+id: GO:0009581
+name: detection of external stimulus
+namespace: biological_process
+is_a: GO:0009605
+is_a: GO:0051606
+
+[Term]
+id: GO:0009582
+name: detection of abiotic stimulus
+namespace: biological_process
+is_a: GO:0009628
+is_a: GO:0051606
+
+[Term]
+id: GO:0009583
+name: detection of light stimulus
+namespace: biological_process
+is_a: GO:0009416
+is_a: GO:0009581
+is_a: GO:0009582
 
 [Term]
 id: GO:0009593
@@ -13482,6 +14122,13 @@ id: GO:0009706
 name: chloroplast inner membrane
 namespace: cellular_component
 is_a: GO:0009528
+is_a: GO:0031969
+
+[Term]
+id: GO:0009707
+name: chloroplast outer membrane
+namespace: cellular_component
+is_a: GO:0009527
 is_a: GO:0031969
 
 [Term]
@@ -13960,13 +14607,6 @@ is_a: GO:0007389
 is_a: GO:0009790
 
 [Term]
-id: GO:0009886
-name: post-embryonic animal morphogenesis
-namespace: biological_process
-is_a: GO:0009653
-is_a: GO:0009791
-
-[Term]
 id: GO:0009887
 name: animal organ morphogenesis
 namespace: biological_process
@@ -14090,6 +14730,13 @@ namespace: biological_process
 is_a: GO:0009909
 is_a: GO:0048582
 is_a: GO:2000243
+
+[Term]
+id: GO:0009913
+name: epidermal cell differentiation
+namespace: biological_process
+is_a: GO:0008544
+is_a: GO:0030855
 
 [Term]
 id: GO:0009914
@@ -14249,12 +14896,6 @@ namespace: biological_process
 is_a: GO:0009267
 
 [Term]
-id: GO:0009975
-name: cyclase activity
-namespace: molecular_function
-is_a: GO:0003824
-
-[Term]
 id: GO:0009977
 name: proton motive force dependent protein transmembrane transporter activity
 namespace: molecular_function
@@ -14291,6 +14932,12 @@ name: glial cell differentiation
 namespace: biological_process
 is_a: GO:0030154
 is_a: GO:0042063
+
+[Term]
+id: GO:0010004
+name: gastrulation involving germ band extension
+namespace: biological_process
+is_a: GO:0001703
 
 [Term]
 id: GO:0010005
@@ -14777,6 +15424,12 @@ namespace: biological_process
 is_a: GO:0009411
 
 [Term]
+id: GO:0010226
+name: response to lithium ion
+namespace: biological_process
+is_a: GO:0010038
+
+[Term]
 id: GO:0010228
 name: vegetative to reproductive phase transition of meristem
 namespace: biological_process
@@ -14886,6 +15539,12 @@ namespace: biological_process
 is_a: GO:0010038
 
 [Term]
+id: GO:0010297
+name: heteropolysaccharide binding
+namespace: molecular_function
+is_a: GO:0030247
+
+[Term]
 id: GO:0010301
 name: xanthoxin dehydrogenase (NAD+) activity
 namespace: molecular_function
@@ -14954,18 +15613,6 @@ id: GO:0010332
 name: response to gamma radiation
 namespace: biological_process
 is_a: GO:0010212
-
-[Term]
-id: GO:0010333
-name: terpene synthase activity
-namespace: molecular_function
-is_a: GO:0016838
-
-[Term]
-id: GO:0010334
-name: sesquiterpene synthase activity
-namespace: molecular_function
-is_a: GO:0010333
 
 [Term]
 id: GO:0010340
@@ -15223,6 +15870,13 @@ name: positive regulation of cell fate commitment
 namespace: biological_process
 is_a: GO:0010453
 is_a: GO:0045597
+
+[Term]
+id: GO:0010460
+name: positive regulation of heart rate
+namespace: biological_process
+is_a: GO:0002027
+is_a: GO:0045823
 
 [Term]
 id: GO:0010467
@@ -15618,6 +16272,12 @@ is_a: GO:0010646
 is_a: GO:0048523
 
 [Term]
+id: GO:0010657
+name: muscle cell apoptotic process
+namespace: biological_process
+is_a: GO:0006915
+
+[Term]
 id: GO:0010688
 name: negative regulation of ribosomal protein gene transcription by RNA polymerase II
 namespace: biological_process
@@ -15636,6 +16296,19 @@ name: positive regulation of collagen metabolic process
 namespace: biological_process
 is_a: GO:0009893
 is_a: GO:0010712
+
+[Term]
+id: GO:0010715
+name: regulation of extracellular matrix disassembly
+namespace: biological_process
+is_a: GO:1903053
+
+[Term]
+id: GO:0010716
+name: negative regulation of extracellular matrix disassembly
+namespace: biological_process
+is_a: GO:0010715
+is_a: GO:1903054
 
 [Term]
 id: GO:0010717
@@ -15725,6 +16398,13 @@ name: negative regulation of sodium ion transport
 namespace: biological_process
 is_a: GO:0002028
 is_a: GO:0043271
+
+[Term]
+id: GO:0010770
+name: positive regulation of cell morphogenesis
+namespace: biological_process
+is_a: GO:0010720
+is_a: GO:0022604
 
 [Term]
 id: GO:0010791
@@ -15834,6 +16514,21 @@ id: GO:0010876
 name: lipid localization
 namespace: biological_process
 is_a: GO:0033036
+
+[Term]
+id: GO:0010882
+name: regulation of cardiac muscle contraction by calcium ion signaling
+namespace: biological_process
+is_a: GO:0019722
+is_a: GO:0055117
+
+[Term]
+id: GO:0010893
+name: positive regulation of steroid biosynthetic process
+namespace: biological_process
+is_a: GO:0045940
+is_a: GO:0046889
+is_a: GO:0050810
 
 [Term]
 id: GO:0010894
@@ -15964,6 +16659,14 @@ is_a: GO:0030705
 is_a: GO:0099111
 
 [Term]
+id: GO:0010971
+name: positive regulation of G2/M transition of mitotic cell cycle
+namespace: biological_process
+is_a: GO:0010389
+is_a: GO:1901992
+is_a: GO:1902751
+
+[Term]
 id: GO:0010972
 name: negative regulation of G2/M transition of mitotic cell cycle
 namespace: biological_process
@@ -16061,6 +16764,19 @@ is_a: GO:0008283
 is_a: GO:0042063
 
 [Term]
+id: GO:0014013
+name: regulation of gliogenesis
+namespace: biological_process
+is_a: GO:0050767
+
+[Term]
+id: GO:0014014
+name: negative regulation of gliogenesis
+namespace: biological_process
+is_a: GO:0014013
+is_a: GO:0050768
+
+[Term]
 id: GO:0014029
 name: neural crest formation
 namespace: biological_process
@@ -16090,10 +16806,28 @@ is_a: GO:0032279
 is_a: GO:0099572
 
 [Term]
+id: GO:0014072
+name: response to isoquinoline alkaloid
+namespace: biological_process
+is_a: GO:0043279
+
+[Term]
 id: GO:0014074
 name: response to purine-containing compound
 namespace: biological_process
 is_a: GO:1901698
+
+[Term]
+id: GO:0014706
+name: striated muscle tissue development
+namespace: biological_process
+is_a: GO:0060537
+
+[Term]
+id: GO:0014812
+name: muscle cell migration
+namespace: biological_process
+is_a: GO:0016477
 
 [Term]
 id: GO:0014821
@@ -16120,6 +16854,25 @@ namespace: biological_process
 is_a: GO:0042127
 
 [Term]
+id: GO:0014902
+name: myotube differentiation
+namespace: biological_process
+is_a: GO:0051146
+
+[Term]
+id: GO:0014904
+name: myotube cell development
+namespace: biological_process
+is_a: GO:0014902
+is_a: GO:0055002
+
+[Term]
+id: GO:0014909
+name: smooth muscle cell migration
+namespace: biological_process
+is_a: GO:0014812
+
+[Term]
 id: GO:0014910
 name: regulation of smooth muscle cell migration
 namespace: biological_process
@@ -16131,6 +16884,13 @@ name: positive regulation of smooth muscle cell migration
 namespace: biological_process
 is_a: GO:0014910
 is_a: GO:0030335
+
+[Term]
+id: GO:0014912
+name: negative regulation of smooth muscle cell migration
+namespace: biological_process
+is_a: GO:0014910
+is_a: GO:0030336
 
 [Term]
 id: GO:0015026
@@ -16170,6 +16930,12 @@ id: GO:0015038
 name: glutathione disulfide oxidoreductase activity
 namespace: molecular_function
 is_a: GO:0015036
+
+[Term]
+id: GO:0015052
+name: beta3-adrenergic receptor activity
+namespace: molecular_function
+is_a: GO:0004939
 
 [Term]
 id: GO:0015075
@@ -16274,6 +17040,12 @@ name: gluconate transmembrane transporter activity
 namespace: molecular_function
 is_a: GO:0015144
 is_a: GO:0042879
+
+[Term]
+id: GO:0015129
+name: lactate transmembrane transporter activity
+namespace: molecular_function
+is_a: GO:0008028
 
 [Term]
 id: GO:0015133
@@ -16422,6 +17194,12 @@ namespace: molecular_function
 is_a: GO:0022857
 
 [Term]
+id: GO:0015172
+name: acidic amino acid transmembrane transporter activity
+namespace: molecular_function
+is_a: GO:0015171
+
+[Term]
 id: GO:0015173
 name: aromatic amino acid transmembrane transporter activity
 namespace: molecular_function
@@ -16568,12 +17346,6 @@ namespace: molecular_function
 is_a: GO:0015215
 
 [Term]
-id: GO:0015220
-name: choline transmembrane transporter activity
-namespace: molecular_function
-is_a: GO:0022857
-
-[Term]
 id: GO:0015225
 name: biotin transmembrane transporter activity
 namespace: molecular_function
@@ -16707,6 +17479,15 @@ namespace: molecular_function
 is_a: GO:0015291
 
 [Term]
+id: GO:0015327
+name: cystine:glutamate antiporter activity
+namespace: molecular_function
+is_a: GO:0000099
+is_a: GO:0005313
+is_a: GO:0015297
+is_a: GO:0072349
+
+[Term]
 id: GO:0015343
 name: siderophore-iron transmembrane transporter activity
 namespace: molecular_function
@@ -16812,6 +17593,14 @@ id: GO:0015424
 name: ABC-type amino acid transporter activity
 namespace: molecular_function
 is_a: GO:0015171
+is_a: GO:0140359
+
+[Term]
+id: GO:0015434
+name: ABC-type cadmium transporter activity
+namespace: molecular_function
+is_a: GO:0015086
+is_a: GO:0019829
 is_a: GO:0140359
 
 [Term]
@@ -17167,6 +17956,13 @@ id: GO:0015724
 name: formate transport
 namespace: biological_process
 is_a: GO:0015718
+
+[Term]
+id: GO:0015727
+name: lactate transport
+namespace: biological_process
+is_a: GO:0015718
+is_a: GO:0015850
 
 [Term]
 id: GO:0015734
@@ -17578,12 +18374,6 @@ is_a: GO:0015865
 is_a: GO:1901264
 
 [Term]
-id: GO:0015871
-name: choline transport
-namespace: biological_process
-is_a: GO:0071705
-
-[Term]
 id: GO:0015879
 name: carnitine transport
 namespace: biological_process
@@ -17667,6 +18457,12 @@ is_a: GO:0043574
 [Term]
 id: GO:0015923
 name: mannosidase activity
+namespace: molecular_function
+is_a: GO:0004553
+
+[Term]
+id: GO:0015925
+name: galactosidase activity
 namespace: molecular_function
 is_a: GO:0004553
 
@@ -17889,6 +18685,14 @@ namespace: biological_process
 is_a: GO:0007166
 
 [Term]
+id: GO:0016059
+name: negative regulation of opsin-mediated signaling pathway
+namespace: biological_process
+is_a: GO:0022400
+is_a: GO:0032102
+is_a: GO:0045744
+
+[Term]
 id: GO:0016064
 name: immunoglobulin mediated immune response
 namespace: biological_process
@@ -18093,6 +18897,13 @@ is_a: GO:0016192
 is_a: GO:0046907
 
 [Term]
+id: GO:0016202
+name: regulation of striated muscle tissue development
+namespace: biological_process
+is_a: GO:0048634
+is_a: GO:1901861
+
+[Term]
 id: GO:0016208
 name: AMP binding
 namespace: molecular_function
@@ -18284,13 +19095,6 @@ namespace: molecular_function
 is_a: GO:0052745
 
 [Term]
-id: GO:0016319
-name: mushroom body development
-namespace: biological_process
-is_a: GO:0007420
-is_a: GO:0160108
-
-[Term]
 id: GO:0016323
 name: basolateral plasma membrane
 namespace: cellular_component
@@ -18310,13 +19114,6 @@ name: lateral plasma membrane
 namespace: cellular_component
 is_a: GO:0005886
 is_a: GO:0110165
-
-[Term]
-id: GO:0016331
-name: morphogenesis of embryonic epithelium
-namespace: biological_process
-is_a: GO:0002009
-is_a: GO:0048598
 
 [Term]
 id: GO:0016361
@@ -18409,6 +19206,12 @@ is_a: GO:0008757
 [Term]
 id: GO:0016433
 name: rRNA (adenine) methyltransferase activity
+namespace: molecular_function
+is_a: GO:0008649
+
+[Term]
+id: GO:0016436
+name: rRNA (uridine) methyltransferase activity
 namespace: molecular_function
 is_a: GO:0008649
 
@@ -18517,6 +19320,12 @@ is_a: GO:0008047
 is_a: GO:0061134
 
 [Term]
+id: GO:0016514
+name: SWI/SNF complex
+namespace: cellular_component
+is_a: GO:0070603
+
+[Term]
 id: GO:0016525
 name: negative regulation of angiogenesis
 namespace: biological_process
@@ -18621,6 +19430,12 @@ name: nuclear body
 namespace: cellular_component
 is_a: GO:0005654
 is_a: GO:0043232
+
+[Term]
+id: GO:0016605
+name: PML body
+namespace: cellular_component
+is_a: GO:0016604
 
 [Term]
 id: GO:0016607
@@ -19096,6 +19911,12 @@ id: GO:0016783
 name: sulfurtransferase activity
 namespace: molecular_function
 is_a: GO:0016782
+
+[Term]
+id: GO:0016785
+name: selenotransferase activity
+namespace: molecular_function
+is_a: GO:0016740
 
 [Term]
 id: GO:0016787
@@ -19687,12 +20508,6 @@ namespace: molecular_function
 is_a: GO:0019838
 
 [Term]
-id: GO:0017145
-name: stem cell division
-namespace: biological_process
-is_a: GO:0051301
-
-[Term]
 id: GO:0017148
 name: negative regulation of translation
 namespace: biological_process
@@ -19798,6 +20613,12 @@ is_a: GO:0019107
 is_a: GO:0140096
 
 [Term]
+id: GO:0018095
+name: protein polyglutamylation
+namespace: biological_process
+is_a: GO:0018200
+
+[Term]
 id: GO:0018105
 name: peptidyl-serine phosphorylation
 namespace: biological_process
@@ -19863,6 +20684,12 @@ id: GO:0018191
 name: peptidyl-serine octanoylation
 namespace: biological_process
 is_a: GO:0018190
+
+[Term]
+id: GO:0018200
+name: peptidyl-glutamic acid modification
+namespace: biological_process
+is_a: GO:0036211
 
 [Term]
 id: GO:0018201
@@ -19960,12 +20787,6 @@ namespace: molecular_function
 is_a: GO:0004029
 
 [Term]
-id: GO:0018483
-name: 6-oxohexanoate dehydrogenase (NADP+) activity
-namespace: molecular_function
-is_a: GO:0033721
-
-[Term]
 id: GO:0018531
 name: (S)-6-hydroxynicotine oxidase activity
 namespace: molecular_function
@@ -20010,17 +20831,16 @@ is_a: GO:0032787
 is_a: GO:0042537
 
 [Term]
-id: GO:0018958
-name: phenol-containing compound metabolic process
+id: GO:0018933
+name: nicotine metabolic process
 namespace: biological_process
 is_a: GO:0008152
 
 [Term]
-id: GO:0018992
-name: germ-line sex determination
+id: GO:0018958
+name: phenol-containing compound metabolic process
 namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0007530
+is_a: GO:0008152
 
 [Term]
 id: GO:0018995
@@ -20068,12 +20888,12 @@ is_a: GO:0016032
 is_a: GO:0019058
 
 [Term]
-id: GO:0019099
-name: female germ-line sex determination
+id: GO:0019076
+name: viral release from host cell
 namespace: biological_process
-is_a: GO:0007542
-is_a: GO:0018992
-is_a: GO:0030237
+is_a: GO:0016032
+is_a: GO:0019058
+is_a: GO:0035891
 
 [Term]
 id: GO:0019104
@@ -20257,6 +21077,13 @@ id: GO:0019222
 name: regulation of metabolic process
 namespace: biological_process
 is_a: GO:0050794
+
+[Term]
+id: GO:0019229
+name: regulation of vasoconstriction
+namespace: biological_process
+is_a: GO:0097746
+is_a: GO:1903522
 
 [Term]
 id: GO:0019236
@@ -20498,6 +21325,13 @@ is_a: GO:0006641
 is_a: GO:0046463
 
 [Term]
+id: GO:0019433
+name: triglyceride catabolic process
+namespace: biological_process
+is_a: GO:0006641
+is_a: GO:0046464
+
+[Term]
 id: GO:0019448
 name: L-cysteine catabolic process
 namespace: biological_process
@@ -20511,19 +21345,6 @@ name: D-amino acid catabolic process
 namespace: biological_process
 is_a: GO:0009063
 is_a: GO:0170044
-
-[Term]
-id: GO:0019499
-name: cyanide metabolic process
-namespace: biological_process
-is_a: GO:0008152
-
-[Term]
-id: GO:0019500
-name: cyanide catabolic process
-namespace: biological_process
-is_a: GO:0009056
-is_a: GO:0019499
 
 [Term]
 id: GO:0019538
@@ -20558,6 +21379,13 @@ name: anaerobic glycerol catabolic process
 namespace: biological_process
 is_a: GO:0006113
 is_a: GO:0019563
+
+[Term]
+id: GO:0019608
+name: nicotine catabolic process
+namespace: biological_process
+is_a: GO:0009056
+is_a: GO:0018933
 
 [Term]
 id: GO:0019614
@@ -21144,6 +21972,12 @@ is_a: GO:0006301
 is_a: GO:0090592
 
 [Term]
+id: GO:0019988
+name: charged-tRNA amino acid modification
+namespace: biological_process
+is_a: GO:0006400
+
+[Term]
 id: GO:0020037
 name: heme binding
 namespace: molecular_function
@@ -21170,6 +22004,13 @@ namespace: biological_process
 is_a: GO:0021675
 
 [Term]
+id: GO:0021549
+name: cerebellum development
+namespace: biological_process
+is_a: GO:0022037
+is_a: GO:0160108
+
+[Term]
 id: GO:0021557
 name: oculomotor nerve development
 namespace: biological_process
@@ -21189,6 +22030,22 @@ namespace: biological_process
 is_a: GO:0021545
 
 [Term]
+id: GO:0021578
+name: hindbrain maturation
+namespace: biological_process
+is_a: GO:0021626
+is_a: GO:0030902
+is_a: GO:0071695
+
+[Term]
+id: GO:0021590
+name: cerebellum maturation
+namespace: biological_process
+is_a: GO:0021549
+is_a: GO:0021578
+is_a: GO:0071695
+
+[Term]
 id: GO:0021602
 name: cranial nerve morphogenesis
 namespace: biological_process
@@ -21201,6 +22058,13 @@ name: cranial nerve formation
 namespace: biological_process
 is_a: GO:0021602
 is_a: GO:0048646
+
+[Term]
+id: GO:0021626
+name: central nervous system maturation
+namespace: biological_process
+is_a: GO:0007417
+is_a: GO:0071695
 
 [Term]
 id: GO:0021648
@@ -21222,6 +22086,36 @@ name: nerve development
 namespace: biological_process
 is_a: GO:0007399
 is_a: GO:0160108
+
+[Term]
+id: GO:0021680
+name: cerebellar Purkinje cell layer development
+namespace: biological_process
+is_a: GO:0021695
+is_a: GO:0160108
+
+[Term]
+id: GO:0021691
+name: cerebellar Purkinje cell layer maturation
+namespace: biological_process
+is_a: GO:0021680
+is_a: GO:0021699
+is_a: GO:0071695
+
+[Term]
+id: GO:0021695
+name: cerebellar cortex development
+namespace: biological_process
+is_a: GO:0021549
+is_a: GO:0160108
+
+[Term]
+id: GO:0021699
+name: cerebellar cortex maturation
+namespace: biological_process
+is_a: GO:0021590
+is_a: GO:0021695
+is_a: GO:0071695
 
 [Term]
 id: GO:0021700
@@ -21253,6 +22147,47 @@ is_a: GO:0048731
 is_a: GO:0160108
 
 [Term]
+id: GO:0021795
+name: cerebral cortex cell migration
+namespace: biological_process
+is_a: GO:0021987
+is_a: GO:0022029
+
+[Term]
+id: GO:0021799
+name: cerebral cortex radially oriented cell migration
+namespace: biological_process
+is_a: GO:0021795
+
+[Term]
+id: GO:0021801
+name: cerebral cortex radial glia-guided migration
+namespace: biological_process
+is_a: GO:0021799
+is_a: GO:0022030
+
+[Term]
+id: GO:0021852
+name: pyramidal neuron migration to cerebral cortex
+namespace: biological_process
+is_a: GO:0021801
+is_a: GO:0021860
+is_a: GO:0140650
+
+[Term]
+id: GO:0021859
+name: pyramidal neuron differentiation
+namespace: biological_process
+is_a: GO:0021953
+
+[Term]
+id: GO:0021860
+name: pyramidal neuron development
+namespace: biological_process
+is_a: GO:0021859
+is_a: GO:0021884
+
+[Term]
 id: GO:0021872
 name: forebrain generation of neurons
 namespace: biological_process
@@ -21265,6 +22200,20 @@ name: forebrain neuron differentiation
 namespace: biological_process
 is_a: GO:0021872
 is_a: GO:0021953
+
+[Term]
+id: GO:0021884
+name: forebrain neuron development
+namespace: biological_process
+is_a: GO:0021879
+is_a: GO:0021954
+
+[Term]
+id: GO:0021885
+name: forebrain cell migration
+namespace: biological_process
+is_a: GO:0016477
+is_a: GO:0030900
 
 [Term]
 id: GO:0021892
@@ -21285,6 +22234,13 @@ name: central nervous system neuron differentiation
 namespace: biological_process
 is_a: GO:0007417
 is_a: GO:0030182
+
+[Term]
+id: GO:0021954
+name: central nervous system neuron development
+namespace: biological_process
+is_a: GO:0021953
+is_a: GO:0048666
 
 [Term]
 id: GO:0021987
@@ -21309,11 +22265,39 @@ is_a: GO:0032291
 is_a: GO:0042552
 
 [Term]
+id: GO:0022029
+name: telencephalon cell migration
+namespace: biological_process
+is_a: GO:0021537
+is_a: GO:0021885
+
+[Term]
+id: GO:0022030
+name: telencephalon glial cell migration
+namespace: biological_process
+is_a: GO:0008347
+is_a: GO:0022029
+
+[Term]
+id: GO:0022037
+name: metencephalon development
+namespace: biological_process
+is_a: GO:0030902
+is_a: GO:0160108
+
+[Term]
 id: GO:0022400
 name: regulation of opsin-mediated signaling pathway
 namespace: biological_process
 is_a: GO:0008277
 is_a: GO:0032101
+
+[Term]
+id: GO:0022401
+name: negative adaptation of signaling pathway
+namespace: biological_process
+is_a: GO:0009968
+is_a: GO:0023058
 
 [Term]
 id: GO:0022402
@@ -21504,6 +22488,18 @@ namespace: molecular_function
 is_a: GO:0015267
 
 [Term]
+id: GO:0022840
+name: leak channel activity
+namespace: molecular_function
+is_a: GO:0022842
+
+[Term]
+id: GO:0022842
+name: narrow pore channel activity
+namespace: molecular_function
+is_a: GO:0015267
+
+[Term]
 id: GO:0022843
 name: voltage-gated monoatomic cation channel activity
 namespace: molecular_function
@@ -21592,6 +22588,19 @@ name: negative regulation of signaling
 namespace: biological_process
 is_a: GO:0023051
 is_a: GO:0048519
+
+[Term]
+id: GO:0023058
+name: adaptation of signaling pathway
+namespace: biological_process
+is_a: GO:0009966
+
+[Term]
+id: GO:0023061
+name: signal release
+namespace: biological_process
+is_a: GO:0007267
+is_a: GO:0032940
 
 [Term]
 id: GO:0030001
@@ -21719,6 +22728,21 @@ is_a: GO:1901990
 is_a: GO:1902099
 
 [Term]
+id: GO:0030072
+name: peptide hormone secretion
+namespace: biological_process
+is_a: GO:0002790
+is_a: GO:0046879
+is_a: GO:0071705
+
+[Term]
+id: GO:0030073
+name: insulin secretion
+namespace: biological_process
+is_a: GO:0009306
+is_a: GO:0030072
+
+[Term]
 id: GO:0030075
 name: bacterial thylakoid
 namespace: cellular_component
@@ -21813,6 +22837,14 @@ is_a: GO:0030120
 is_a: GO:0030665
 
 [Term]
+id: GO:0030126
+name: COPI vesicle coat
+namespace: cellular_component
+is_a: GO:0005794
+is_a: GO:0030120
+is_a: GO:0030663
+
+[Term]
 id: GO:0030127
 name: COPII vesicle coat
 namespace: cellular_component
@@ -21857,6 +22889,13 @@ is_a: GO:0031410
 id: GO:0030136
 name: clathrin-coated vesicle
 namespace: cellular_component
+is_a: GO:0030135
+
+[Term]
+id: GO:0030137
+name: COPI-coated vesicle
+namespace: cellular_component
+is_a: GO:0005798
 is_a: GO:0030135
 
 [Term]
@@ -21926,6 +22965,12 @@ id: GO:0030155
 name: regulation of cell adhesion
 namespace: biological_process
 is_a: GO:0050794
+
+[Term]
+id: GO:0030159
+name: signaling receptor complex adaptor activity
+namespace: molecular_function
+is_a: GO:0035591
 
 [Term]
 id: GO:0030162
@@ -22048,12 +23093,6 @@ is_a: GO:0061045
 is_a: GO:1900047
 
 [Term]
-id: GO:0030196
-name: cyanide hydratase activity
-namespace: molecular_function
-is_a: GO:0016836
-
-[Term]
 id: GO:0030198
 name: extracellular matrix organization
 namespace: biological_process
@@ -22078,6 +23117,13 @@ name: hyaluronan catabolic process
 namespace: biological_process
 is_a: GO:0006027
 is_a: GO:0030212
+
+[Term]
+id: GO:0030216
+name: keratinocyte differentiation
+namespace: biological_process
+is_a: GO:0009913
+is_a: GO:0043588
 
 [Term]
 id: GO:0030217
@@ -22106,13 +23152,6 @@ namespace: molecular_function
 is_a: GO:0098772
 
 [Term]
-id: GO:0030237
-name: female sex determination
-namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0007530
-
-[Term]
 id: GO:0030242
 name: autophagy of peroxisome
 namespace: biological_process
@@ -22136,6 +23175,12 @@ id: GO:0030246
 name: carbohydrate binding
 namespace: molecular_function
 is_a: GO:0005488
+
+[Term]
+id: GO:0030247
+name: polysaccharide binding
+namespace: molecular_function
+is_a: GO:0030246
 
 [Term]
 id: GO:0030258
@@ -22235,6 +23280,28 @@ namespace: cellular_component
 is_a: GO:0110165
 
 [Term]
+id: GO:0030315
+name: T-tubule
+namespace: cellular_component
+is_a: GO:0042383
+is_a: GO:0110165
+
+[Term]
+id: GO:0030323
+name: respiratory tube development
+namespace: biological_process
+is_a: GO:0035295
+is_a: GO:0048513
+
+[Term]
+id: GO:0030324
+name: lung development
+namespace: biological_process
+is_a: GO:0030323
+is_a: GO:0048513
+is_a: GO:0060541
+
+[Term]
 id: GO:0030330
 name: DNA damage response, signal transduction by p53 class mediator
 namespace: biological_process
@@ -22278,6 +23345,12 @@ id: GO:0030371
 name: translation repressor activity
 namespace: molecular_function
 is_a: GO:0045182
+
+[Term]
+id: GO:0030377
+name: urokinase plasminogen activator receptor activity
+namespace: molecular_function
+is_a: GO:0038023
 
 [Term]
 id: GO:0030378
@@ -22357,12 +23430,6 @@ id: GO:0030447
 name: filamentous growth
 namespace: biological_process
 is_a: GO:0040007
-
-[Term]
-id: GO:0030448
-name: hyphal growth
-namespace: biological_process
-is_a: GO:0030447
 
 [Term]
 id: GO:0030449
@@ -22472,6 +23539,13 @@ is_a: GO:0017015
 is_a: GO:0090101
 
 [Term]
+id: GO:0030513
+name: positive regulation of BMP signaling pathway
+namespace: biological_process
+is_a: GO:0030510
+is_a: GO:0090100
+
+[Term]
 id: GO:0030514
 name: negative regulation of BMP signaling pathway
 namespace: biological_process
@@ -22518,6 +23592,12 @@ namespace: cellular_component
 is_a: GO:0120114
 is_a: GO:0140513
 is_a: GO:1990904
+
+[Term]
+id: GO:0030534
+name: adult behavior
+namespace: biological_process
+is_a: GO:0007610
 
 [Term]
 id: GO:0030541
@@ -22576,6 +23656,12 @@ name: bile acid catabolic process
 namespace: biological_process
 is_a: GO:0008206
 is_a: GO:0072329
+
+[Term]
+id: GO:0030587
+name: sorocarp development
+namespace: biological_process
+is_a: GO:0099120
 
 [Term]
 id: GO:0030595
@@ -22672,6 +23758,14 @@ is_a: GO:0030659
 is_a: GO:0098588
 
 [Term]
+id: GO:0030663
+name: COPI-coated vesicle membrane
+namespace: cellular_component
+is_a: GO:0030137
+is_a: GO:0030660
+is_a: GO:0030662
+
+[Term]
 id: GO:0030665
 name: clathrin-coated vesicle membrane
 namespace: cellular_component
@@ -22765,12 +23859,6 @@ namespace: biological_process
 is_a: GO:0046907
 
 [Term]
-id: GO:0030718
-name: germ-line stem cell population maintenance
-namespace: biological_process
-is_a: GO:0019827
-
-[Term]
 id: GO:0030742
 name: GTP-dependent protein binding
 namespace: molecular_function
@@ -22794,6 +23882,14 @@ name: regulation of nucleotide catabolic process
 namespace: biological_process
 is_a: GO:0006140
 is_a: GO:0009894
+
+[Term]
+id: GO:0030812
+name: negative regulation of nucleotide catabolic process
+namespace: biological_process
+is_a: GO:0009895
+is_a: GO:0030811
+is_a: GO:0045980
 
 [Term]
 id: GO:0030813
@@ -22850,6 +23946,12 @@ is_a: GO:0030833
 is_a: GO:0032273
 is_a: GO:0051495
 is_a: GO:1902905
+
+[Term]
+id: GO:0030851
+name: granulocyte differentiation
+namespace: biological_process
+is_a: GO:0002573
 
 [Term]
 id: GO:0030852
@@ -23002,6 +24104,13 @@ is_a: GO:0007420
 is_a: GO:0160108
 
 [Term]
+id: GO:0030902
+name: hindbrain development
+namespace: biological_process
+is_a: GO:0007420
+is_a: GO:0160108
+
+[Term]
 id: GO:0030904
 name: retromer complex
 namespace: cellular_component
@@ -23139,6 +24248,20 @@ namespace: cellular_component
 is_a: GO:0030312
 
 [Term]
+id: GO:0031016
+name: pancreas development
+namespace: biological_process
+is_a: GO:0048513
+
+[Term]
+id: GO:0031018
+name: endocrine pancreas development
+namespace: biological_process
+is_a: GO:0031016
+is_a: GO:0035270
+is_a: GO:0160108
+
+[Term]
 id: GO:0031021
 name: interphase microtubule organizing center
 namespace: cellular_component
@@ -23228,6 +24351,13 @@ name: platelet alpha granule lumen
 namespace: cellular_component
 is_a: GO:0031091
 is_a: GO:0034774
+
+[Term]
+id: GO:0031098
+name: stress-activated protein kinase signaling cascade
+namespace: biological_process
+is_a: GO:0033554
+is_a: GO:0035556
 
 [Term]
 id: GO:0031105
@@ -23446,6 +24576,12 @@ name: biomineral tissue development
 namespace: biological_process
 is_a: GO:0009888
 is_a: GO:0048513
+
+[Term]
+id: GO:0031218
+name: arabinogalactan endo-1,4-beta-galactosidase activity
+namespace: molecular_function
+is_a: GO:0015925
 
 [Term]
 id: GO:0031223
@@ -23762,6 +24898,13 @@ namespace: molecular_function
 is_a: GO:0046872
 
 [Term]
+id: GO:0031424
+name: keratinization
+namespace: biological_process
+is_a: GO:0030216
+is_a: GO:0032501
+
+[Term]
 id: GO:0031428
 name: box C/D methylation guide snoRNP complex
 namespace: cellular_component
@@ -24000,6 +25143,12 @@ is_a: GO:0010629
 is_a: GO:0060566
 
 [Term]
+id: GO:0031559
+name: oxidosqualene cyclase activity
+namespace: molecular_function
+is_a: GO:0016866
+
+[Term]
 id: GO:0031564
 name: transcription antitermination
 namespace: biological_process
@@ -24082,6 +25231,25 @@ namespace: biological_process
 is_a: GO:0016485
 
 [Term]
+id: GO:0031639
+name: plasminogen activation
+namespace: biological_process
+is_a: GO:0031638
+
+[Term]
+id: GO:0031640
+name: killing of cells of another organism
+namespace: biological_process
+is_a: GO:0001906
+is_a: GO:0141061
+
+[Term]
+id: GO:0031644
+name: regulation of nervous system process
+namespace: biological_process
+is_a: GO:0044057
+
+[Term]
 id: GO:0031647
 name: regulation of protein stability
 namespace: biological_process
@@ -24135,6 +25303,18 @@ id: GO:0031728
 name: CCR3 chemokine receptor binding
 namespace: molecular_function
 is_a: GO:0048020
+
+[Term]
+id: GO:0031748
+name: D1 dopamine receptor binding
+namespace: molecular_function
+is_a: GO:0050780
+
+[Term]
+id: GO:0031802
+name: type 5 metabotropic glutamate receptor binding
+namespace: molecular_function
+is_a: GO:0035256
 
 [Term]
 id: GO:0031860
@@ -24214,6 +25394,12 @@ id: GO:0031956
 name: medium-chain fatty acid-CoA ligase activity
 namespace: molecular_function
 is_a: GO:0120515
+
+[Term]
+id: GO:0031960
+name: response to corticosteroid
+namespace: biological_process
+is_a: GO:0048545
 
 [Term]
 id: GO:0031965
@@ -24782,6 +25968,21 @@ is_a: GO:0046942
 is_a: GO:0071705
 
 [Term]
+id: GO:0032330
+name: regulation of chondrocyte differentiation
+namespace: biological_process
+is_a: GO:0045595
+is_a: GO:0061035
+
+[Term]
+id: GO:0032332
+name: positive regulation of chondrocyte differentiation
+namespace: biological_process
+is_a: GO:0032330
+is_a: GO:0045597
+is_a: GO:0061036
+
+[Term]
 id: GO:0032350
 name: regulation of hormone metabolic process
 namespace: biological_process
@@ -24896,6 +26097,13 @@ is_a: GO:0048522
 is_a: GO:0051050
 
 [Term]
+id: GO:0032395
+name: MHC class II receptor activity
+namespace: molecular_function
+is_a: GO:0004888
+is_a: GO:0140375
+
+[Term]
 id: GO:0032404
 name: mismatch repair complex binding
 namespace: molecular_function
@@ -24912,6 +26120,13 @@ id: GO:0032418
 name: lysosome localization
 namespace: biological_process
 is_a: GO:1990849
+
+[Term]
+id: GO:0032432
+name: actin filament bundle
+namespace: cellular_component
+is_a: GO:0015629
+is_a: GO:0110165
 
 [Term]
 id: GO:0032433
@@ -25203,6 +26418,12 @@ is_a: GO:0090150
 is_a: GO:1903044
 
 [Term]
+id: GO:0032648
+name: regulation of interferon-beta production
+namespace: biological_process
+is_a: GO:0032479
+
+[Term]
 id: GO:0032649
 name: regulation of type II interferon production
 namespace: biological_process
@@ -25278,6 +26499,13 @@ name: negative regulation of interleukin-17 production
 namespace: biological_process
 is_a: GO:0001818
 is_a: GO:0032660
+
+[Term]
+id: GO:0032728
+name: positive regulation of interferon-beta production
+namespace: biological_process
+is_a: GO:0032481
+is_a: GO:0032648
 
 [Term]
 id: GO:0032731
@@ -25393,6 +26621,13 @@ name: glomerulus development
 namespace: biological_process
 is_a: GO:0072006
 is_a: GO:0160108
+
+[Term]
+id: GO:0032839
+name: dendrite cytoplasm
+namespace: cellular_component
+is_a: GO:0030425
+is_a: GO:0120111
 
 [Term]
 id: GO:0032868
@@ -25547,6 +26782,12 @@ is_a: GO:0046903
 is_a: GO:0140352
 
 [Term]
+id: GO:0032943
+name: mononuclear cell proliferation
+namespace: biological_process
+is_a: GO:0070661
+
+[Term]
 id: GO:0032944
 name: regulation of mononuclear cell proliferation
 namespace: biological_process
@@ -25679,6 +26920,12 @@ id: GO:0032994
 name: protein-lipid complex
 namespace: cellular_component
 is_a: GO:0032991
+
+[Term]
+id: GO:0033002
+name: muscle cell proliferation
+namespace: biological_process
+is_a: GO:0008283
 
 [Term]
 id: GO:0033013
@@ -25825,6 +27072,14 @@ is_a: GO:0030811
 is_a: GO:1900542
 
 [Term]
+id: GO:0033122
+name: negative regulation of purine nucleotide catabolic process
+namespace: biological_process
+is_a: GO:0030812
+is_a: GO:0033121
+is_a: GO:1900543
+
+[Term]
 id: GO:0033123
 name: positive regulation of purine nucleotide catabolic process
 namespace: biological_process
@@ -25856,6 +27111,12 @@ id: GO:0033146
 name: regulation of intracellular estrogen receptor signaling pathway
 namespace: biological_process
 is_a: GO:0033143
+
+[Term]
+id: GO:0033149
+name: FFAT motif binding
+namespace: molecular_function
+is_a: GO:0019904
 
 [Term]
 id: GO:0033157
@@ -26085,6 +27346,13 @@ namespace: molecular_function
 is_a: GO:0031406
 
 [Term]
+id: GO:0033298
+name: contractile vacuole organization
+namespace: biological_process
+is_a: GO:0007033
+is_a: GO:0016050
+
+[Term]
 id: GO:0033306
 name: phytol metabolic process
 namespace: biological_process
@@ -26165,6 +27433,13 @@ id: GO:0033565
 name: ESCRT-0 complex
 namespace: cellular_component
 is_a: GO:0036452
+
+[Term]
+id: GO:0033574
+name: response to testosterone
+namespace: biological_process
+is_a: GO:0033993
+is_a: GO:1901654
 
 [Term]
 id: GO:0033588
@@ -26855,6 +28130,19 @@ namespace: biological_process
 is_a: GO:0045010
 
 [Term]
+id: GO:0034315
+name: regulation of Arp2/3 complex-mediated actin nucleation
+namespace: biological_process
+is_a: GO:0051125
+
+[Term]
+id: GO:0034316
+name: negative regulation of Arp2/3 complex-mediated actin nucleation
+namespace: biological_process
+is_a: GO:0034315
+is_a: GO:0051126
+
+[Term]
 id: GO:0034329
 name: cell junction assembly
 namespace: biological_process
@@ -27040,6 +28328,12 @@ id: GO:0034389
 name: lipid droplet organization
 namespace: biological_process
 is_a: GO:0006996
+
+[Term]
+id: GO:0034390
+name: smooth muscle cell apoptotic process
+namespace: biological_process
+is_a: GO:0010657
 
 [Term]
 id: GO:0034394
@@ -27332,6 +28626,27 @@ is_a: GO:0009411
 is_a: GO:0071482
 
 [Term]
+id: GO:0034650
+name: cortisol metabolic process
+namespace: biological_process
+is_a: GO:0008211
+is_a: GO:0034308
+is_a: GO:0042180
+is_a: GO:0120254
+is_a: GO:1902644
+
+[Term]
+id: GO:0034651
+name: cortisol biosynthetic process
+namespace: biological_process
+is_a: GO:0006704
+is_a: GO:0034309
+is_a: GO:0034650
+is_a: GO:0042181
+is_a: GO:0120255
+is_a: GO:1902645
+
+[Term]
 id: GO:0034654
 name: nucleobase-containing compound biosynthetic process
 namespace: biological_process
@@ -27380,6 +28695,12 @@ is_a: GO:0034702
 [Term]
 id: GO:0034705
 name: potassium channel complex
+namespace: cellular_component
+is_a: GO:0034703
+
+[Term]
+id: GO:0034706
+name: sodium channel complex
 namespace: cellular_component
 is_a: GO:0034703
 
@@ -27448,12 +28769,6 @@ namespace: biological_process
 is_a: GO:0034763
 is_a: GO:0034765
 is_a: GO:0043271
-
-[Term]
-id: GO:0034768
-name: (E)-beta-ocimene synthase activity
-namespace: molecular_function
-is_a: GO:0016838
 
 [Term]
 id: GO:0034774
@@ -27528,6 +28843,12 @@ namespace: cellular_component
 is_a: GO:0005942
 
 [Term]
+id: GO:0035091
+name: phosphatidylinositol binding
+namespace: molecular_function
+is_a: GO:0043168
+
+[Term]
 id: GO:0035097
 name: histone methyltransferase complex
 namespace: cellular_component
@@ -27543,13 +28864,6 @@ is_a: GO:0000152
 is_a: GO:0031519
 
 [Term]
-id: GO:0035107
-name: appendage morphogenesis
-namespace: biological_process
-is_a: GO:0009653
-is_a: GO:0048736
-
-[Term]
 id: GO:0035112
 name: genitalia morphogenesis
 namespace: biological_process
@@ -27558,24 +28872,16 @@ is_a: GO:0009887
 is_a: GO:0048806
 
 [Term]
-id: GO:0035114
-name: imaginal disc-derived appendage morphogenesis
-namespace: biological_process
-is_a: GO:0035107
-is_a: GO:0048737
-
-[Term]
-id: GO:0035120
-name: post-embryonic appendage morphogenesis
-namespace: biological_process
-is_a: GO:0009886
-is_a: GO:0035107
-
-[Term]
 id: GO:0035145
 name: exon-exon junction complex
 namespace: cellular_component
 is_a: GO:0140513
+
+[Term]
+id: GO:0035150
+name: regulation of tube size
+namespace: biological_process
+is_a: GO:0090066
 
 [Term]
 id: GO:0035173
@@ -27604,30 +28910,11 @@ namespace: biological_process
 is_a: GO:0070918
 
 [Term]
-id: GO:0035220
-name: wing disc development
-namespace: biological_process
-is_a: GO:0007444
-
-[Term]
-id: GO:0035222
-name: wing disc pattern formation
-namespace: biological_process
-is_a: GO:0007447
-is_a: GO:0035220
-
-[Term]
 id: GO:0035239
 name: tube morphogenesis
 namespace: biological_process
 is_a: GO:0009653
 is_a: GO:0035295
-
-[Term]
-id: GO:0035248
-name: alpha-1,4-N-acetylgalactosaminyltransferase activity
-namespace: molecular_function
-is_a: GO:0008376
 
 [Term]
 id: GO:0035250
@@ -27651,6 +28938,25 @@ is_a: GO:0008194
 is_a: GO:0042285
 
 [Term]
+id: GO:0035254
+name: glutamate receptor binding
+namespace: molecular_function
+is_a: GO:0005102
+
+[Term]
+id: GO:0035255
+name: ionotropic glutamate receptor binding
+namespace: molecular_function
+is_a: GO:0035254
+
+[Term]
+id: GO:0035256
+name: G protein-coupled glutamate receptor binding
+namespace: molecular_function
+is_a: GO:0001664
+is_a: GO:0035254
+
+[Term]
 id: GO:0035265
 name: organ growth
 namespace: biological_process
@@ -27671,6 +28977,13 @@ namespace: cellular_component
 is_a: GO:0043189
 
 [Term]
+id: GO:0035270
+name: endocrine system development
+namespace: biological_process
+is_a: GO:0048731
+is_a: GO:0160108
+
+[Term]
 id: GO:0035281
 name: pre-miRNA export from nucleus
 namespace: biological_process
@@ -27689,6 +29002,12 @@ name: tube development
 namespace: biological_process
 is_a: GO:0007275
 is_a: GO:0048856
+
+[Term]
+id: GO:0035296
+name: regulation of tube diameter
+namespace: biological_process
+is_a: GO:0035150
 
 [Term]
 id: GO:0035312
@@ -28051,6 +29370,13 @@ namespace: biological_process
 is_a: GO:0046631
 
 [Term]
+id: GO:0035725
+name: sodium ion transmembrane transport
+namespace: biological_process
+is_a: GO:0006814
+is_a: GO:0098655
+
+[Term]
 id: GO:0035727
 name: lysophosphatidic acid binding
 namespace: molecular_function
@@ -28059,11 +29385,24 @@ is_a: GO:0043168
 is_a: GO:0097367
 
 [Term]
+id: GO:0035752
+name: lysosomal lumen pH elevation
+namespace: biological_process
+is_a: GO:0051454
+
+[Term]
 id: GO:0035770
 name: ribonucleoprotein granule
 namespace: cellular_component
 is_a: GO:0043232
 is_a: GO:0099080
+
+[Term]
+id: GO:0035774
+name: positive regulation of insulin secretion involved in cellular response to glucose stimulus
+namespace: biological_process
+is_a: GO:0032024
+is_a: GO:0061178
 
 [Term]
 id: GO:0035798
@@ -28103,6 +29442,31 @@ namespace: cellular_component
 is_a: GO:0090734
 
 [Term]
+id: GO:0035873
+name: lactate transmembrane transport
+namespace: biological_process
+is_a: GO:0015727
+is_a: GO:1905039
+
+[Term]
+id: GO:0035879
+name: plasma membrane lactate transport
+namespace: biological_process
+is_a: GO:0035873
+
+[Term]
+id: GO:0035883
+name: enteroendocrine cell differentiation
+namespace: biological_process
+is_a: GO:0030855
+
+[Term]
+id: GO:0035891
+name: exit from host cell
+namespace: biological_process
+is_a: GO:0051701
+
+[Term]
 id: GO:0035924
 name: cellular response to vascular endothelial growth factor stimulus
 namespace: biological_process
@@ -28114,6 +29478,13 @@ name: RNA import into mitochondrion
 namespace: biological_process
 is_a: GO:0050658
 is_a: GO:0055085
+
+[Term]
+id: GO:0035964
+name: COPI-coated vesicle budding
+namespace: biological_process
+is_a: GO:0006900
+is_a: GO:0048193
 
 [Term]
 id: GO:0035965
@@ -28152,6 +29523,13 @@ id: GO:0035988
 name: chondrocyte proliferation
 namespace: biological_process
 is_a: GO:0008283
+
+[Term]
+id: GO:0035999
+name: tetrahydrofolate interconversion
+namespace: biological_process
+is_a: GO:0006730
+is_a: GO:0046654
 
 [Term]
 id: GO:0036002
@@ -28193,6 +29571,12 @@ id: GO:0036033
 name: mediator complex binding
 namespace: molecular_function
 is_a: GO:0044877
+
+[Term]
+id: GO:0036041
+name: long-chain fatty acid binding
+namespace: molecular_function
+is_a: GO:0005504
 
 [Term]
 id: GO:0036042
@@ -28281,12 +29665,6 @@ is_a: GO:0036119
 is_a: GO:0071363
 
 [Term]
-id: GO:0036122
-name: BMP binding
-namespace: molecular_function
-is_a: GO:0019955
-
-[Term]
 id: GO:0036126
 name: sperm flagellum
 namespace: cellular_component
@@ -28321,6 +29699,21 @@ id: GO:0036155
 name: acylglycerol acyl-chain remodeling
 namespace: biological_process
 is_a: GO:0006639
+
+[Term]
+id: GO:0036196
+name: zymosterol metabolic process
+namespace: biological_process
+is_a: GO:0016125
+is_a: GO:1902652
+
+[Term]
+id: GO:0036197
+name: zymosterol biosynthetic process
+namespace: biological_process
+is_a: GO:0016126
+is_a: GO:0036196
+is_a: GO:1902653
 
 [Term]
 id: GO:0036211
@@ -28445,6 +29838,12 @@ namespace: biological_process
 is_a: GO:0048010
 
 [Term]
+id: GO:0036368
+name: photoresponse recovery
+namespace: biological_process
+is_a: GO:0009416
+
+[Term]
 id: GO:0036373
 name: L-fucose mutarotase activity
 namespace: molecular_function
@@ -28535,6 +29934,12 @@ id: GO:0036460
 name: cellular response to cell envelope stress
 namespace: biological_process
 is_a: GO:0033554
+
+[Term]
+id: GO:0036462
+name: TRAIL-activated apoptotic signaling pathway
+namespace: biological_process
+is_a: GO:0008625
 
 [Term]
 id: GO:0036464
@@ -28646,6 +30051,33 @@ namespace: biological_process
 is_a: GO:0019221
 
 [Term]
+id: GO:0038182
+name: G protein-coupled bile acid receptor activity
+namespace: molecular_function
+is_a: GO:0004930
+
+[Term]
+id: GO:0038183
+name: bile acid signaling pathway
+namespace: biological_process
+is_a: GO:0007165
+
+[Term]
+id: GO:0038184
+name: adenylate cyclase-activating G protein-coupled bile acid receptor signaling pathway
+namespace: biological_process
+is_a: GO:0007166
+is_a: GO:0007189
+is_a: GO:0038183
+
+[Term]
+id: GO:0038185
+name: nuclear receptor-mediated bile acid signaling pathway
+namespace: biological_process
+is_a: GO:0038183
+is_a: GO:0141193
+
+[Term]
 id: GO:0038187
 name: pattern recognition receptor activity
 namespace: molecular_function
@@ -28677,6 +30109,19 @@ namespace: biological_process
 is_a: GO:0002683
 is_a: GO:0039531
 is_a: GO:1902532
+
+[Term]
+id: GO:0039533
+name: regulation of MDA-5 signaling pathway
+namespace: biological_process
+is_a: GO:0039531
+
+[Term]
+id: GO:0039534
+name: negative regulation of MDA-5 signaling pathway
+namespace: biological_process
+is_a: GO:0039532
+is_a: GO:0039533
 
 [Term]
 id: GO:0039535
@@ -28762,6 +30207,13 @@ namespace: biological_process
 is_a: GO:0050793
 
 [Term]
+id: GO:0040038
+name: polar body extrusion after meiotic divisions
+namespace: biological_process
+is_a: GO:0007143
+is_a: GO:0033206
+
+[Term]
 id: GO:0042023
 name: DNA endoreduplication
 namespace: biological_process
@@ -28823,13 +30275,6 @@ namespace: biological_process
 is_a: GO:0022008
 
 [Term]
-id: GO:0042078
-name: germ-line stem cell division
-namespace: biological_process
-is_a: GO:0007281
-is_a: GO:0017145
-
-[Term]
 id: GO:0042088
 name: T-helper 1 type immune response
 namespace: biological_process
@@ -28840,6 +30285,32 @@ id: GO:0042093
 name: T-helper cell differentiation
 namespace: biological_process
 is_a: GO:0043367
+
+[Term]
+id: GO:0042098
+name: T cell proliferation
+namespace: biological_process
+is_a: GO:0042110
+is_a: GO:0046651
+
+[Term]
+id: GO:0042100
+name: B cell proliferation
+namespace: biological_process
+is_a: GO:0042113
+is_a: GO:0046651
+
+[Term]
+id: GO:0042101
+name: T cell receptor complex
+namespace: cellular_component
+is_a: GO:0098802
+
+[Term]
+id: GO:0042105
+name: alpha-beta T cell receptor complex
+namespace: cellular_component
+is_a: GO:0042101
 
 [Term]
 id: GO:0042110
@@ -28917,6 +30388,12 @@ id: GO:0042149
 name: cellular response to glucose starvation
 namespace: biological_process
 is_a: GO:0009267
+
+[Term]
+id: GO:0042150
+name: plasmid recombination
+namespace: biological_process
+is_a: GO:0006310
 
 [Term]
 id: GO:0042157
@@ -29154,6 +30631,12 @@ namespace: molecular_function
 is_a: GO:0005102
 
 [Term]
+id: GO:0042289
+name: MHC class II protein binding
+namespace: molecular_function
+is_a: GO:0042287
+
+[Term]
 id: GO:0042296
 name: ISG15 transferase activity
 namespace: molecular_function
@@ -29197,6 +30680,14 @@ is_a: GO:0042306
 is_a: GO:0046823
 is_a: GO:0090317
 is_a: GO:1900181
+
+[Term]
+id: GO:0042321
+name: negative regulation of circadian sleep/wake cycle, sleep
+namespace: biological_process
+is_a: GO:0042754
+is_a: GO:0045187
+is_a: GO:0048521
 
 [Term]
 id: GO:0042325
@@ -29440,6 +30931,20 @@ is_a: GO:0009119
 is_a: GO:0009164
 
 [Term]
+id: GO:0042461
+name: photoreceptor cell development
+namespace: biological_process
+is_a: GO:0046530
+is_a: GO:0048666
+
+[Term]
+id: GO:0042462
+name: eye photoreceptor cell development
+namespace: biological_process
+is_a: GO:0001754
+is_a: GO:0042461
+
+[Term]
 id: GO:0042470
 name: melanosome
 namespace: cellular_component
@@ -29616,6 +31121,12 @@ is_a: GO:0005576
 is_a: GO:0110165
 
 [Term]
+id: GO:0042599
+name: lamellar body
+namespace: cellular_component
+is_a: GO:0030141
+
+[Term]
 id: GO:0042602
 name: riboflavin reductase (NADPH) activity
 namespace: molecular_function
@@ -29660,6 +31171,13 @@ namespace: biological_process
 is_a: GO:0055092
 
 [Term]
+id: GO:0042641
+name: actomyosin
+namespace: cellular_component
+is_a: GO:0015629
+is_a: GO:0110165
+
+[Term]
 id: GO:0042644
 name: chloroplast nucleoid
 namespace: cellular_component
@@ -29702,11 +31220,11 @@ is_a: GO:0010455
 is_a: GO:0042659
 
 [Term]
-id: GO:0042706
-name: eye photoreceptor cell fate commitment
+id: GO:0042692
+name: muscle cell differentiation
 namespace: biological_process
-is_a: GO:0001754
-is_a: GO:0046552
+is_a: GO:0030154
+is_a: GO:0061061
 
 [Term]
 id: GO:0042709
@@ -29810,10 +31328,24 @@ is_a: GO:0009056
 is_a: GO:0042743
 
 [Term]
+id: GO:0042749
+name: regulation of circadian sleep/wake cycle
+namespace: biological_process
+is_a: GO:0042752
+is_a: GO:0050795
+
+[Term]
 id: GO:0042752
 name: regulation of circadian rhythm
 namespace: biological_process
 is_a: GO:0050789
+
+[Term]
+id: GO:0042754
+name: negative regulation of circadian rhythm
+namespace: biological_process
+is_a: GO:0042752
+is_a: GO:0048519
 
 [Term]
 id: GO:0042759
@@ -30237,6 +31769,12 @@ namespace: biological_process
 is_a: GO:0043570
 
 [Term]
+id: GO:0043008
+name: ATP-dependent protein binding
+namespace: molecular_function
+is_a: GO:0005515
+
+[Term]
 id: GO:0043009
 name: chordate embryonic development
 namespace: biological_process
@@ -30485,6 +32023,19 @@ is_a: GO:0043122
 is_a: GO:1902533
 
 [Term]
+id: GO:0043124
+name: negative regulation of canonical NF-kappaB signal transduction
+namespace: biological_process
+is_a: GO:0043122
+is_a: GO:1902532
+
+[Term]
+id: GO:0043129
+name: surfactant homeostasis
+namespace: biological_process
+is_a: GO:0140962
+
+[Term]
 id: GO:0043130
 name: ubiquitin binding
 namespace: molecular_function
@@ -30637,6 +32188,13 @@ is_a: GO:0044309
 is_a: GO:0098794
 
 [Term]
+id: GO:0043198
+name: dendritic shaft
+namespace: cellular_component
+is_a: GO:0030425
+is_a: GO:0110165
+
+[Term]
 id: GO:0043199
 name: sulfate binding
 namespace: molecular_function
@@ -30669,6 +32227,12 @@ name: response to external biotic stimulus
 namespace: biological_process
 is_a: GO:0009605
 is_a: GO:0009607
+
+[Term]
+id: GO:0043209
+name: myelin sheath
+namespace: cellular_component
+is_a: GO:0110165
 
 [Term]
 id: GO:0043211
@@ -30809,6 +32373,13 @@ namespace: molecular_function
 is_a: GO:0017110
 
 [Term]
+id: GO:0043264
+name: extracellular membraneless organelle
+namespace: cellular_component
+is_a: GO:0043228
+is_a: GO:0043230
+
+[Term]
 id: GO:0043266
 name: regulation of potassium ion transport
 namespace: biological_process
@@ -30828,10 +32399,28 @@ is_a: GO:0043269
 is_a: GO:0051051
 
 [Term]
+id: GO:0043273
+name: CTPase activity
+namespace: molecular_function
+is_a: GO:0017111
+
+[Term]
 id: GO:0043277
 name: apoptotic cell clearance
 namespace: biological_process
 is_a: GO:0006909
+
+[Term]
+id: GO:0043278
+name: response to morphine
+namespace: biological_process
+is_a: GO:0014072
+
+[Term]
+id: GO:0043279
+name: response to alkaloid
+namespace: biological_process
+is_a: GO:1901698
 
 [Term]
 id: GO:0043289
@@ -31125,6 +32714,13 @@ is_a: GO:0043487
 is_a: GO:0061013
 
 [Term]
+id: GO:0043489
+name: RNA stabilization
+namespace: biological_process
+is_a: GO:0043487
+is_a: GO:1902369
+
+[Term]
 id: GO:0043490
 name: malate-aspartate shuttle
 namespace: biological_process
@@ -31180,6 +32776,13 @@ id: GO:0043524
 name: negative regulation of neuron apoptotic process
 namespace: biological_process
 is_a: GO:0043066
+is_a: GO:0043523
+
+[Term]
+id: GO:0043525
+name: positive regulation of neuron apoptotic process
+namespace: biological_process
+is_a: GO:0043065
 is_a: GO:0043523
 
 [Term]
@@ -31326,6 +32929,12 @@ namespace: biological_process
 is_a: GO:0046907
 
 [Term]
+id: GO:0043576
+name: regulation of respiratory gaseous exchange
+namespace: biological_process
+is_a: GO:0051239
+
+[Term]
 id: GO:0043580
 name: periplasmic space organization
 namespace: biological_process
@@ -31336,6 +32945,12 @@ id: GO:0043583
 name: ear development
 namespace: biological_process
 is_a: GO:0007423
+
+[Term]
+id: GO:0043588
+name: skin development
+namespace: biological_process
+is_a: GO:0048513
 
 [Term]
 id: GO:0043590
@@ -31424,6 +33039,14 @@ namespace: cellular_component
 is_a: GO:0033643
 
 [Term]
+id: GO:0043679
+name: axon terminus
+namespace: cellular_component
+is_a: GO:0044306
+is_a: GO:0098793
+is_a: GO:0150034
+
+[Term]
 id: GO:0043687
 name: post-translational protein modification
 namespace: biological_process
@@ -31447,13 +33070,6 @@ name: monoterpene biosynthetic process
 namespace: biological_process
 is_a: GO:0043692
 is_a: GO:0046246
-
-[Term]
-id: GO:0043704
-name: photoreceptor cell fate specification
-namespace: biological_process
-is_a: GO:0046552
-is_a: GO:0048665
 
 [Term]
 id: GO:0043708
@@ -31733,6 +33349,13 @@ namespace: biological_process
 is_a: GO:0044057
 
 [Term]
+id: GO:0044065
+name: regulation of respiratory system process
+namespace: biological_process
+is_a: GO:0043576
+is_a: GO:0044057
+
+[Term]
 id: GO:0044068
 name: symbiont-mediated perturbation of host cellular process
 namespace: biological_process
@@ -31789,12 +33412,6 @@ namespace: biological_process
 is_a: GO:0065009
 
 [Term]
-id: GO:0044104
-name: 2,5-dioxovalerate dehydrogenase (NAD+) activity
-namespace: molecular_function
-is_a: GO:0004029
-
-[Term]
 id: GO:0044182
 name: filamentous growth of a population of unicellular organisms
 namespace: biological_process
@@ -31810,12 +33427,6 @@ id: GO:0044217
 name: other organism part
 namespace: cellular_component
 is_a: GO:0110165
-
-[Term]
-id: GO:0044228
-name: host cell surface
-namespace: cellular_component
-is_a: GO:0033643
 
 [Term]
 id: GO:0044232
@@ -31878,9 +33489,22 @@ is_a: GO:0005743
 is_a: GO:0044232
 
 [Term]
+id: GO:0044295
+name: axonal growth cone
+namespace: cellular_component
+is_a: GO:0030426
+
+[Term]
 id: GO:0044297
 name: cell body
 namespace: cellular_component
+is_a: GO:0110165
+
+[Term]
+id: GO:0044306
+name: neuron projection terminus
+namespace: cellular_component
+is_a: GO:0043005
 is_a: GO:0110165
 
 [Term]
@@ -31901,6 +33525,20 @@ id: GO:0044325
 name: transmembrane transporter binding
 namespace: molecular_function
 is_a: GO:0005515
+
+[Term]
+id: GO:0044326
+name: dendritic spine neck
+namespace: cellular_component
+is_a: GO:0043197
+is_a: GO:0110165
+
+[Term]
+id: GO:0044327
+name: dendritic spine head
+namespace: cellular_component
+is_a: GO:0043197
+is_a: GO:0110165
 
 [Term]
 id: GO:0044341
@@ -32075,13 +33713,6 @@ namespace: molecular_function
 is_a: GO:0017110
 
 [Term]
-id: GO:0044719
-name: regulation of imaginal disc-derived wing size
-namespace: biological_process
-is_a: GO:0007476
-is_a: GO:0090066
-
-[Term]
 id: GO:0044725
 name: epigenetic programming in the zygotic pronuclei
 namespace: biological_process
@@ -32230,6 +33861,12 @@ is_a: GO:0045141
 [Term]
 id: GO:0044827
 name: host-mediated perturbation of viral genome replication
+namespace: biological_process
+is_a: GO:0044788
+
+[Term]
+id: GO:0044828
+name: host-mediated suppression of viral genome replication
 namespace: biological_process
 is_a: GO:0044788
 
@@ -32648,6 +34285,12 @@ is_a: GO:0008104
 is_a: GO:0051235
 
 [Term]
+id: GO:0045187
+name: regulation of circadian sleep/wake cycle, sleep
+namespace: biological_process
+is_a: GO:0042749
+
+[Term]
 id: GO:0045202
 name: synapse
 namespace: cellular_component
@@ -32733,12 +34376,6 @@ id: GO:0045296
 name: cadherin binding
 namespace: molecular_function
 is_a: GO:0050839
-
-[Term]
-id: GO:0045302
-name: choloylglycine hydrolase activity
-namespace: molecular_function
-is_a: GO:0016811
 
 [Term]
 id: GO:0045309
@@ -32846,19 +34483,6 @@ namespace: biological_process
 is_a: GO:0019725
 
 [Term]
-id: GO:0045464
-name: R8 cell fate specification
-namespace: biological_process
-is_a: GO:0007460
-is_a: GO:0043704
-
-[Term]
-id: GO:0045465
-name: R8 cell differentiation
-namespace: biological_process
-is_a: GO:0001751
-
-[Term]
 id: GO:0045471
 name: response to ethanol
 namespace: biological_process
@@ -32917,19 +34541,6 @@ id: GO:0045551
 name: cinnamyl-alcohol dehydrogenase activity
 namespace: molecular_function
 is_a: GO:0016616
-
-[Term]
-id: GO:0045570
-name: regulation of imaginal disc growth
-namespace: biological_process
-is_a: GO:0048638
-
-[Term]
-id: GO:0045572
-name: positive regulation of imaginal disc growth
-namespace: biological_process
-is_a: GO:0045570
-is_a: GO:0048639
 
 [Term]
 id: GO:0045576
@@ -33214,6 +34825,14 @@ is_a: GO:0009891
 is_a: GO:0010907
 
 [Term]
+id: GO:0045724
+name: positive regulation of cilium assembly
+namespace: biological_process
+is_a: GO:0120034
+is_a: GO:1902017
+is_a: GO:1902117
+
+[Term]
 id: GO:0045727
 name: positive regulation of translation
 namespace: biological_process
@@ -33308,6 +34927,12 @@ is_a: GO:0045765
 is_a: GO:1904018
 
 [Term]
+id: GO:0045777
+name: positive regulation of blood pressure
+namespace: biological_process
+is_a: GO:0008217
+
+[Term]
 id: GO:0045778
 name: positive regulation of ossification
 namespace: biological_process
@@ -33366,12 +34991,13 @@ is_a: GO:0006367
 is_a: GO:0141137
 
 [Term]
-id: GO:0045819
-name: positive regulation of glycogen catabolic process
+id: GO:0045820
+name: negative regulation of glycolytic process
 namespace: biological_process
-is_a: GO:0005981
-is_a: GO:0009896
-is_a: GO:0070875
+is_a: GO:0006110
+is_a: GO:0033122
+is_a: GO:0045912
+is_a: GO:1903579
 
 [Term]
 id: GO:0045821
@@ -33381,6 +35007,20 @@ is_a: GO:0006110
 is_a: GO:0033123
 is_a: GO:0045913
 is_a: GO:1903580
+
+[Term]
+id: GO:0045822
+name: negative regulation of heart contraction
+namespace: biological_process
+is_a: GO:0008016
+is_a: GO:1903523
+
+[Term]
+id: GO:0045823
+name: positive regulation of heart contraction
+namespace: biological_process
+is_a: GO:0008016
+is_a: GO:1903524
 
 [Term]
 id: GO:0045824
@@ -33425,6 +35065,12 @@ is_a: GO:0051785
 is_a: GO:0090068
 
 [Term]
+id: GO:0045837
+name: negative regulation of membrane potential
+namespace: biological_process
+is_a: GO:0042391
+
+[Term]
 id: GO:0045839
 name: negative regulation of mitotic nuclear division
 namespace: biological_process
@@ -33442,6 +35088,14 @@ is_a: GO:0045839
 is_a: GO:1901991
 is_a: GO:1902100
 is_a: GO:2000816
+
+[Term]
+id: GO:0045844
+name: positive regulation of striated muscle tissue development
+namespace: biological_process
+is_a: GO:0016202
+is_a: GO:0048636
+is_a: GO:1901863
 
 [Term]
 id: GO:0045848
@@ -33525,6 +35179,13 @@ is_a: GO:0045898
 is_a: GO:0060261
 
 [Term]
+id: GO:0045901
+name: positive regulation of translational elongation
+namespace: biological_process
+is_a: GO:0006448
+is_a: GO:0045727
+
+[Term]
 id: GO:0045903
 name: positive regulation of translational fidelity
 namespace: biological_process
@@ -33538,6 +35199,13 @@ namespace: biological_process
 is_a: GO:0006449
 is_a: GO:0043243
 is_a: GO:0045727
+
+[Term]
+id: GO:0045907
+name: positive regulation of vasoconstriction
+namespace: biological_process
+is_a: GO:0019229
+is_a: GO:0051240
 
 [Term]
 id: GO:0045910
@@ -33619,6 +35287,13 @@ is_a: GO:0007346
 is_a: GO:0045787
 
 [Term]
+id: GO:0045932
+name: negative regulation of muscle contraction
+namespace: biological_process
+is_a: GO:0006937
+is_a: GO:0051241
+
+[Term]
 id: GO:0045933
 name: positive regulation of muscle contraction
 namespace: biological_process
@@ -33693,6 +35368,15 @@ is_a: GO:0045727
 is_a: GO:0045974
 
 [Term]
+id: GO:0045980
+name: negative regulation of nucleotide metabolic process
+namespace: biological_process
+is_a: GO:0006140
+is_a: GO:0010563
+is_a: GO:0045934
+is_a: GO:0062014
+
+[Term]
 id: GO:0045981
 name: positive regulation of nucleotide metabolic process
 namespace: biological_process
@@ -33701,11 +35385,25 @@ is_a: GO:0010562
 is_a: GO:0062013
 
 [Term]
+id: GO:0045986
+name: negative regulation of smooth muscle contraction
+namespace: biological_process
+is_a: GO:0006940
+is_a: GO:0045932
+
+[Term]
 id: GO:0045987
 name: positive regulation of smooth muscle contraction
 namespace: biological_process
 is_a: GO:0006940
 is_a: GO:0045933
+
+[Term]
+id: GO:0045988
+name: negative regulation of striated muscle contraction
+namespace: biological_process
+is_a: GO:0006942
+is_a: GO:0045932
 
 [Term]
 id: GO:0045995
@@ -33725,6 +35423,12 @@ name: negative regulation of activated T cell proliferation
 namespace: biological_process
 is_a: GO:0042130
 is_a: GO:0046006
+
+[Term]
+id: GO:0046015
+name: regulation of transcription by glucose
+namespace: biological_process
+is_a: GO:0006355
 
 [Term]
 id: GO:0046030
@@ -33763,11 +35467,27 @@ is_a: GO:0009150
 is_a: GO:0009205
 
 [Term]
+id: GO:0046036
+name: CTP metabolic process
+namespace: biological_process
+is_a: GO:0009141
+is_a: GO:0009208
+is_a: GO:0009218
+
+[Term]
 id: GO:0046037
 name: GMP metabolic process
 namespace: biological_process
 is_a: GO:0009150
 is_a: GO:0009167
+
+[Term]
+id: GO:0046038
+name: GMP catabolic process
+namespace: biological_process
+is_a: GO:0009154
+is_a: GO:0009169
+is_a: GO:0046037
 
 [Term]
 id: GO:0046039
@@ -33785,6 +35505,21 @@ is_a: GO:0009150
 is_a: GO:0009167
 
 [Term]
+id: GO:0046044
+name: TMP metabolic process
+namespace: biological_process
+is_a: GO:0009173
+is_a: GO:0009218
+
+[Term]
+id: GO:0046045
+name: TMP catabolic process
+namespace: biological_process
+is_a: GO:0009175
+is_a: GO:0009222
+is_a: GO:0046044
+
+[Term]
 id: GO:0046049
 name: UMP metabolic process
 namespace: biological_process
@@ -33798,6 +35533,21 @@ namespace: biological_process
 is_a: GO:0009175
 is_a: GO:0009222
 is_a: GO:0046049
+
+[Term]
+id: GO:0046054
+name: dGMP metabolic process
+namespace: biological_process
+is_a: GO:0009151
+is_a: GO:0009170
+
+[Term]
+id: GO:0046055
+name: dGMP catabolic process
+namespace: biological_process
+is_a: GO:0009155
+is_a: GO:0009172
+is_a: GO:0046054
 
 [Term]
 id: GO:0046066
@@ -33822,6 +35572,36 @@ namespace: biological_process
 is_a: GO:0009151
 is_a: GO:0009200
 is_a: GO:0009215
+
+[Term]
+id: GO:0046073
+name: dTMP metabolic process
+namespace: biological_process
+is_a: GO:0009176
+is_a: GO:0009219
+
+[Term]
+id: GO:0046074
+name: dTMP catabolic process
+namespace: biological_process
+is_a: GO:0009178
+is_a: GO:0009223
+is_a: GO:0046073
+
+[Term]
+id: GO:0046078
+name: dUMP metabolic process
+namespace: biological_process
+is_a: GO:0009176
+is_a: GO:0009219
+
+[Term]
+id: GO:0046079
+name: dUMP catabolic process
+namespace: biological_process
+is_a: GO:0009178
+is_a: GO:0009223
+is_a: GO:0046078
 
 [Term]
 id: GO:0046085
@@ -34035,6 +35815,13 @@ namespace: biological_process
 is_a: GO:0043385
 
 [Term]
+id: GO:0046226
+name: coumarin catabolic process
+namespace: biological_process
+is_a: GO:0009804
+is_a: GO:0046271
+
+[Term]
 id: GO:0046244
 name: salicylic acid catabolic process
 namespace: biological_process
@@ -34049,6 +35836,13 @@ namespace: biological_process
 is_a: GO:0008299
 is_a: GO:0042214
 is_a: GO:0120251
+
+[Term]
+id: GO:0046271
+name: phenylpropanoid catabolic process
+namespace: biological_process
+is_a: GO:0009056
+is_a: GO:0009698
 
 [Term]
 id: GO:0046278
@@ -34181,6 +35975,13 @@ is_a: GO:0005976
 is_a: GO:1901135
 
 [Term]
+id: GO:0046385
+name: deoxyribose phosphate biosynthetic process
+namespace: biological_process
+is_a: GO:0090407
+is_a: GO:1901137
+
+[Term]
 id: GO:0046386
 name: deoxyribose phosphate catabolic process
 namespace: biological_process
@@ -34289,6 +36090,12 @@ is_a: GO:0006638
 is_a: GO:0008610
 
 [Term]
+id: GO:0046461
+name: neutral lipid catabolic process
+namespace: biological_process
+is_a: GO:0006638
+
+[Term]
 id: GO:0046462
 name: monoacylglycerol metabolic process
 namespace: biological_process
@@ -34301,6 +36108,14 @@ namespace: biological_process
 is_a: GO:0006639
 is_a: GO:0045017
 is_a: GO:0046460
+
+[Term]
+id: GO:0046464
+name: acylglycerol catabolic process
+namespace: biological_process
+is_a: GO:0006639
+is_a: GO:0046461
+is_a: GO:0046503
 
 [Term]
 id: GO:0046470
@@ -34465,13 +36280,6 @@ namespace: cellular_component
 is_a: GO:0097526
 
 [Term]
-id: GO:0046552
-name: photoreceptor cell fate commitment
-namespace: biological_process
-is_a: GO:0046530
-is_a: GO:0048663
-
-[Term]
 id: GO:0046556
 name: alpha-L-arabinofuranosidase activity
 namespace: molecular_function
@@ -34594,6 +36402,13 @@ id: GO:0046649
 name: lymphocyte activation
 namespace: biological_process
 is_a: GO:0045321
+
+[Term]
+id: GO:0046651
+name: lymphocyte proliferation
+namespace: biological_process
+is_a: GO:0032943
+is_a: GO:0046649
 
 [Term]
 id: GO:0046653
@@ -34719,12 +36534,6 @@ id: GO:0046794
 name: transport of virus
 namespace: biological_process
 is_a: GO:0016032
-
-[Term]
-id: GO:0046812
-name: host cell surface binding
-namespace: molecular_function
-is_a: GO:0005488
 
 [Term]
 id: GO:0046813
@@ -34858,6 +36667,13 @@ namespace: biological_process
 is_a: GO:0044058
 is_a: GO:0050878
 is_a: GO:0051046
+
+[Term]
+id: GO:0046879
+name: hormone secretion
+namespace: biological_process
+is_a: GO:0009914
+is_a: GO:0023061
 
 [Term]
 id: GO:0046883
@@ -35240,12 +37056,6 @@ namespace: molecular_function
 is_a: GO:0016833
 
 [Term]
-id: GO:0047449
-name: 2-dehydro-3-deoxy-L-arabinonate dehydratase activity
-namespace: molecular_function
-is_a: GO:0016836
-
-[Term]
 id: GO:0047480
 name: UDP-N-acetylmuramoyl-tripeptide-D-alanyl-D-alanine ligase activity
 namespace: molecular_function
@@ -35559,6 +37369,13 @@ namespace: molecular_function
 is_a: GO:0048038
 
 [Term]
+id: GO:0048041
+name: focal adhesion assembly
+namespace: biological_process
+is_a: GO:0007044
+is_a: GO:0007160
+
+[Term]
 id: GO:0048046
 name: apoplast
 namespace: cellular_component
@@ -35598,19 +37415,6 @@ namespace: biological_process
 is_a: GO:0048167
 
 [Term]
-id: GO:0048179
-name: activin receptor complex
-namespace: cellular_component
-is_a: GO:0098802
-is_a: GO:1902554
-
-[Term]
-id: GO:0048185
-name: activin binding
-namespace: molecular_function
-is_a: GO:0044877
-
-[Term]
 id: GO:0048193
 name: Golgi vesicle transport
 namespace: biological_process
@@ -35622,6 +37426,20 @@ name: Golgi vesicle budding
 namespace: biological_process
 is_a: GO:0006900
 is_a: GO:0048193
+
+[Term]
+id: GO:0048200
+name: Golgi transport vesicle coating
+namespace: biological_process
+is_a: GO:0006901
+is_a: GO:0048194
+
+[Term]
+id: GO:0048205
+name: COPI coating of Golgi vesicle
+namespace: biological_process
+is_a: GO:0035964
+is_a: GO:0048200
 
 [Term]
 id: GO:0048208
@@ -35689,6 +37507,13 @@ is_a: GO:0071621
 is_a: GO:0072677
 
 [Term]
+id: GO:0048247
+name: lymphocyte chemotaxis
+namespace: biological_process
+is_a: GO:0030595
+is_a: GO:0072676
+
+[Term]
 id: GO:0048248
 name: CXCR3 chemokine receptor binding
 namespace: molecular_function
@@ -35700,6 +37525,14 @@ name: elastic fiber assembly
 namespace: biological_process
 is_a: GO:0085029
 is_a: GO:0097435
+
+[Term]
+id: GO:0048255
+name: mRNA stabilization
+namespace: biological_process
+is_a: GO:0043488
+is_a: GO:0043489
+is_a: GO:1902373
 
 [Term]
 id: GO:0048256
@@ -35740,6 +37573,13 @@ id: GO:0048285
 name: organelle fission
 namespace: biological_process
 is_a: GO:0006996
+
+[Term]
+id: GO:0048286
+name: lung alveolus development
+namespace: biological_process
+is_a: GO:0030324
+is_a: GO:0160108
 
 [Term]
 id: GO:0048306
@@ -35956,6 +37796,19 @@ is_a: GO:0048731
 is_a: GO:0160108
 
 [Term]
+id: GO:0048487
+name: beta-tubulin binding
+namespace: molecular_function
+is_a: GO:0015631
+
+[Term]
+id: GO:0048505
+name: regulation of timing of cell differentiation
+namespace: biological_process
+is_a: GO:0040034
+is_a: GO:0045595
+
+[Term]
 id: GO:0048506
 name: regulation of timing of meristematic phase transition
 namespace: biological_process
@@ -36009,6 +37862,13 @@ id: GO:0048519
 name: negative regulation of biological process
 namespace: biological_process
 is_a: GO:0050789
+
+[Term]
+id: GO:0048520
+name: positive regulation of behavior
+namespace: biological_process
+is_a: GO:0050795
+is_a: GO:0051240
 
 [Term]
 id: GO:0048521
@@ -36072,13 +37932,6 @@ is_a: GO:0009725
 is_a: GO:0033993
 
 [Term]
-id: GO:0048546
-name: digestive tract morphogenesis
-namespace: biological_process
-is_a: GO:0035239
-is_a: GO:0048565
-
-[Term]
 id: GO:0048548
 name: regulation of pinocytosis
 namespace: biological_process
@@ -36098,14 +37951,6 @@ namespace: biological_process
 is_a: GO:0009887
 is_a: GO:0048568
 is_a: GO:0048598
-
-[Term]
-id: GO:0048565
-name: digestive tract development
-namespace: biological_process
-is_a: GO:0035295
-is_a: GO:0055123
-is_a: GO:0160108
 
 [Term]
 id: GO:0048568
@@ -36234,17 +38079,18 @@ namespace: biological_process
 is_a: GO:0022414
 
 [Term]
-id: GO:0048619
-name: embryonic hindgut morphogenesis
-namespace: biological_process
-is_a: GO:0007442
-is_a: GO:0048598
-
-[Term]
 id: GO:0048634
 name: regulation of muscle organ development
 namespace: biological_process
 is_a: GO:0050793
+
+[Term]
+id: GO:0048636
+name: positive regulation of muscle organ development
+namespace: biological_process
+is_a: GO:0048634
+is_a: GO:0051094
+is_a: GO:0051240
 
 [Term]
 id: GO:0048638
@@ -36270,6 +38116,19 @@ is_a: GO:0048638
 is_a: GO:0051093
 
 [Term]
+id: GO:0048641
+name: regulation of skeletal muscle tissue development
+namespace: biological_process
+is_a: GO:0016202
+
+[Term]
+id: GO:0048643
+name: positive regulation of skeletal muscle tissue development
+namespace: biological_process
+is_a: GO:0045844
+is_a: GO:0048641
+
+[Term]
 id: GO:0048646
 name: anatomical structure formation involved in morphogenesis
 namespace: biological_process
@@ -36293,6 +38152,12 @@ is_a: GO:0048653
 is_a: GO:0160109
 
 [Term]
+id: GO:0048659
+name: smooth muscle cell proliferation
+namespace: biological_process
+is_a: GO:0033002
+
+[Term]
 id: GO:0048660
 name: regulation of smooth muscle cell proliferation
 namespace: biological_process
@@ -36306,18 +38171,18 @@ is_a: GO:0008284
 is_a: GO:0048660
 
 [Term]
+id: GO:0048662
+name: negative regulation of smooth muscle cell proliferation
+namespace: biological_process
+is_a: GO:0008285
+is_a: GO:0048660
+
+[Term]
 id: GO:0048663
 name: neuron fate commitment
 namespace: biological_process
 is_a: GO:0030182
 is_a: GO:0045165
-
-[Term]
-id: GO:0048665
-name: neuron fate specification
-namespace: biological_process
-is_a: GO:0001708
-is_a: GO:0048663
 
 [Term]
 id: GO:0048666
@@ -36334,6 +38199,13 @@ is_a: GO:0000902
 is_a: GO:0048666
 
 [Term]
+id: GO:0048675
+name: axon extension
+namespace: biological_process
+is_a: GO:0007409
+is_a: GO:1990138
+
+[Term]
 id: GO:0048699
 name: generation of neurons
 namespace: biological_process
@@ -36345,13 +38217,6 @@ name: skeletal system morphogenesis
 namespace: biological_process
 is_a: GO:0001501
 is_a: GO:0009887
-
-[Term]
-id: GO:0048707
-name: instar larval or pupal morphogenesis
-namespace: biological_process
-is_a: GO:0002165
-is_a: GO:0009886
 
 [Term]
 id: GO:0048709
@@ -36375,23 +38240,17 @@ is_a: GO:0007275
 is_a: GO:0048856
 
 [Term]
-id: GO:0048736
-name: appendage development
+id: GO:0048732
+name: gland development
 namespace: biological_process
-is_a: GO:0007275
-is_a: GO:0160108
+is_a: GO:0048513
 
 [Term]
-id: GO:0048737
-name: imaginal disc-derived appendage development
+id: GO:0048741
+name: skeletal muscle fiber development
 namespace: biological_process
-is_a: GO:0048736
-
-[Term]
-id: GO:0048749
-name: compound eye development
-namespace: biological_process
-is_a: GO:0001654
+is_a: GO:0007519
+is_a: GO:0014904
 
 [Term]
 id: GO:0048753
@@ -36465,6 +38324,13 @@ namespace: cellular_component
 is_a: GO:0031410
 
 [Term]
+id: GO:0048786
+name: presynaptic active zone
+namespace: cellular_component
+is_a: GO:0098793
+is_a: GO:0110165
+
+[Term]
 id: GO:0048799
 name: animal organ maturation
 namespace: biological_process
@@ -36485,6 +38351,13 @@ name: neuron projection morphogenesis
 namespace: biological_process
 is_a: GO:0031175
 is_a: GO:0120039
+
+[Term]
+id: GO:0048814
+name: regulation of dendrite morphogenesis
+namespace: biological_process
+is_a: GO:0022603
+is_a: GO:0050773
 
 [Term]
 id: GO:0048825
@@ -36677,6 +38550,12 @@ namespace: molecular_function
 is_a: GO:0016717
 
 [Term]
+id: GO:0050254
+name: rhodopsin kinase activity
+namespace: molecular_function
+is_a: GO:0004703
+
+[Term]
 id: GO:0050263
 name: ribosylpyrimidine nucleosidase activity
 namespace: molecular_function
@@ -36793,12 +38672,6 @@ id: GO:0050547
 name: feruloyl-CoA hydratase/lyase activity
 namespace: molecular_function
 is_a: GO:0016832
-
-[Term]
-id: GO:0050551
-name: myrcene synthase activity
-namespace: molecular_function
-is_a: GO:0010333
 
 [Term]
 id: GO:0050568
@@ -36948,6 +38821,12 @@ namespace: biological_process
 is_a: GO:0050688
 
 [Term]
+id: GO:0050699
+name: WW domain binding
+namespace: molecular_function
+is_a: GO:0019904
+
+[Term]
 id: GO:0050708
 name: regulation of protein secretion
 namespace: biological_process
@@ -37013,6 +38892,12 @@ namespace: molecular_function
 is_a: GO:0016420
 
 [Term]
+id: GO:0050746
+name: regulation of lipoprotein metabolic process
+namespace: biological_process
+is_a: GO:0051246
+
+[Term]
 id: GO:0050750
 name: low-density lipoprotein particle receptor binding
 namespace: molecular_function
@@ -37039,12 +38924,36 @@ is_a: GO:0051960
 is_a: GO:0060284
 
 [Term]
+id: GO:0050768
+name: negative regulation of neurogenesis
+namespace: biological_process
+is_a: GO:0010721
+is_a: GO:0050767
+is_a: GO:0051961
+
+[Term]
 id: GO:0050769
 name: positive regulation of neurogenesis
 namespace: biological_process
 is_a: GO:0010720
 is_a: GO:0050767
 is_a: GO:0051962
+
+[Term]
+id: GO:0050773
+name: regulation of dendrite development
+namespace: biological_process
+is_a: GO:0010975
+is_a: GO:0050793
+
+[Term]
+id: GO:0050775
+name: positive regulation of dendrite morphogenesis
+namespace: biological_process
+is_a: GO:0010770
+is_a: GO:0031346
+is_a: GO:0048814
+is_a: GO:0050769
 
 [Term]
 id: GO:0050776
@@ -37076,6 +38985,12 @@ namespace: biological_process
 is_a: GO:0009896
 is_a: GO:0043487
 is_a: GO:0051254
+
+[Term]
+id: GO:0050780
+name: dopamine receptor binding
+namespace: molecular_function
+is_a: GO:0001664
 
 [Term]
 id: GO:0050786
@@ -37306,6 +39221,13 @@ is_a: GO:0009968
 is_a: GO:0050854
 
 [Term]
+id: GO:0050859
+name: negative regulation of B cell receptor signaling pathway
+namespace: biological_process
+is_a: GO:0050855
+is_a: GO:0050858
+
+[Term]
 id: GO:0050860
 name: negative regulation of T cell receptor signaling pathway
 namespace: biological_process
@@ -37371,6 +39293,18 @@ is_a: GO:0050864
 is_a: GO:0051251
 
 [Term]
+id: GO:0050872
+name: white fat cell differentiation
+namespace: biological_process
+is_a: GO:0045444
+
+[Term]
+id: GO:0050873
+name: brown fat cell differentiation
+namespace: biological_process
+is_a: GO:0045444
+
+[Term]
 id: GO:0050877
 name: nervous system process
 namespace: biological_process
@@ -37433,6 +39367,13 @@ namespace: biological_process
 is_a: GO:0050877
 
 [Term]
+id: GO:0050906
+name: detection of stimulus involved in sensory perception
+namespace: biological_process
+is_a: GO:0007600
+is_a: GO:0051606
+
+[Term]
 id: GO:0050918
 name: positive chemotaxis
 namespace: biological_process
@@ -37485,6 +39426,35 @@ namespace: biological_process
 is_a: GO:0007600
 
 [Term]
+id: GO:0050974
+name: detection of mechanical stimulus involved in sensory perception
+namespace: biological_process
+is_a: GO:0050906
+is_a: GO:0050954
+is_a: GO:0050982
+
+[Term]
+id: GO:0050975
+name: sensory perception of touch
+namespace: biological_process
+is_a: GO:0050954
+
+[Term]
+id: GO:0050976
+name: detection of mechanical stimulus involved in sensory perception of touch
+namespace: biological_process
+is_a: GO:0050974
+is_a: GO:0050975
+
+[Term]
+id: GO:0050982
+name: detection of mechanical stimulus
+namespace: biological_process
+is_a: GO:0009581
+is_a: GO:0009582
+is_a: GO:0009612
+
+[Term]
 id: GO:0050997
 name: quaternary ammonium group binding
 namespace: molecular_function
@@ -37504,6 +39474,13 @@ namespace: biological_process
 is_a: GO:0051693
 
 [Term]
+id: GO:0051017
+name: actin filament bundle assembly
+namespace: biological_process
+is_a: GO:0022607
+is_a: GO:0061572
+
+[Term]
 id: GO:0051018
 name: protein kinase A binding
 namespace: molecular_function
@@ -37520,6 +39497,18 @@ id: GO:0051020
 name: GTPase binding
 namespace: molecular_function
 is_a: GO:0019899
+
+[Term]
+id: GO:0051021
+name: GDP-dissociation inhibitor binding
+namespace: molecular_function
+is_a: GO:0005515
+
+[Term]
+id: GO:0051022
+name: Rho GDP-dissociation inhibitor binding
+namespace: molecular_function
+is_a: GO:0051021
 
 [Term]
 id: GO:0051027
@@ -37644,6 +39633,12 @@ is_a: GO:0051056
 is_a: GO:1902532
 
 [Term]
+id: GO:0051059
+name: NF-kappaB binding
+namespace: molecular_function
+is_a: GO:0061629
+
+[Term]
 id: GO:0051073
 name: adenosylcobinamide-GDP ribazoletransferase activity
 namespace: molecular_function
@@ -37721,6 +39716,20 @@ is_a: GO:0006367
 is_a: GO:0070897
 
 [Term]
+id: GO:0051125
+name: regulation of actin nucleation
+namespace: biological_process
+is_a: GO:0110053
+
+[Term]
+id: GO:0051126
+name: negative regulation of actin nucleation
+namespace: biological_process
+is_a: GO:0051125
+is_a: GO:0051494
+is_a: GO:1902904
+
+[Term]
 id: GO:0051128
 name: regulation of cellular component organization
 namespace: biological_process
@@ -37752,6 +39761,12 @@ name: metal cation:proton antiporter activity
 namespace: molecular_function
 is_a: GO:0015078
 is_a: GO:0140828
+
+[Term]
+id: GO:0051146
+name: striated muscle cell differentiation
+namespace: biological_process
+is_a: GO:0042692
 
 [Term]
 id: GO:0051156
@@ -38061,6 +40076,12 @@ namespace: biological_process
 is_a: GO:0051259
 
 [Term]
+id: GO:0051261
+name: protein depolymerization
+namespace: biological_process
+is_a: GO:0032984
+
+[Term]
 id: GO:0051262
 name: protein tetramerization
 namespace: biological_process
@@ -38223,6 +40244,13 @@ namespace: biological_process
 is_a: GO:0009267
 
 [Term]
+id: GO:0051380
+name: norepinephrine binding
+namespace: molecular_function
+is_a: GO:0043169
+is_a: GO:1901338
+
+[Term]
 id: GO:0051382
 name: kinetochore assembly
 namespace: biological_process
@@ -38237,6 +40265,24 @@ namespace: biological_process
 is_a: GO:0051276
 
 [Term]
+id: GO:0051384
+name: response to glucocorticoid
+namespace: biological_process
+is_a: GO:0031960
+
+[Term]
+id: GO:0051385
+name: response to mineralocorticoid
+namespace: biological_process
+is_a: GO:0031960
+
+[Term]
+id: GO:0051402
+name: neuron apoptotic process
+namespace: biological_process
+is_a: GO:0006915
+
+[Term]
 id: GO:0051417
 name: microtubule nucleation by spindle pole body
 namespace: biological_process
@@ -38247,6 +40293,12 @@ id: GO:0051418
 name: microtubule nucleation by microtubule organizing center
 namespace: biological_process
 is_a: GO:0007020
+
+[Term]
+id: GO:0051427
+name: hormone receptor binding
+namespace: molecular_function
+is_a: GO:0005102
 
 [Term]
 id: GO:0051438
@@ -38308,6 +40360,12 @@ is_a: GO:0030003
 is_a: GO:0065008
 
 [Term]
+id: GO:0051454
+name: intracellular pH elevation
+namespace: biological_process
+is_a: GO:0051453
+
+[Term]
 id: GO:0051455
 name: spindle attachment to meiosis I kinetochore
 namespace: biological_process
@@ -38326,6 +40384,19 @@ id: GO:0051480
 name: regulation of cytosolic calcium ion concentration
 namespace: biological_process
 is_a: GO:0006874
+
+[Term]
+id: GO:0051489
+name: regulation of filopodium assembly
+namespace: biological_process
+is_a: GO:0120032
+
+[Term]
+id: GO:0051491
+name: positive regulation of filopodium assembly
+namespace: biological_process
+is_a: GO:0051489
+is_a: GO:0120034
 
 [Term]
 id: GO:0051492
@@ -38775,6 +40846,15 @@ is_a: GO:0001952
 is_a: GO:0090109
 
 [Term]
+id: GO:0051894
+name: positive regulation of focal adhesion assembly
+namespace: biological_process
+is_a: GO:0001954
+is_a: GO:0051893
+is_a: GO:0150117
+is_a: GO:1901890
+
+[Term]
 id: GO:0051895
 name: negative regulation of focal adhesion assembly
 namespace: biological_process
@@ -38896,12 +40976,36 @@ namespace: biological_process
 is_a: GO:2000026
 
 [Term]
+id: GO:0051961
+name: negative regulation of nervous system development
+namespace: biological_process
+is_a: GO:0051093
+is_a: GO:0051241
+is_a: GO:0051960
+
+[Term]
 id: GO:0051962
 name: positive regulation of nervous system development
 namespace: biological_process
 is_a: GO:0051094
 is_a: GO:0051240
 is_a: GO:0051960
+
+[Term]
+id: GO:0051963
+name: regulation of synapse assembly
+namespace: biological_process
+is_a: GO:0050807
+is_a: GO:1901888
+
+[Term]
+id: GO:0051964
+name: negative regulation of synapse assembly
+namespace: biological_process
+is_a: GO:0051961
+is_a: GO:0051963
+is_a: GO:1901889
+is_a: GO:1905809
 
 [Term]
 id: GO:0051983
@@ -38968,12 +41072,6 @@ namespace: biological_process
 is_a: GO:0052111
 
 [Term]
-id: GO:0052025
-name: symbiont-mediated perturbation of host cell endomembrane system
-namespace: biological_process
-is_a: GO:0141171
-
-[Term]
 id: GO:0052027
 name: symbiont-mediated perturbation of host signal transduction pathway
 namespace: biological_process
@@ -38984,12 +41082,6 @@ id: GO:0052029
 name: symbiont-mediated suppression of host signal transduction pathway
 namespace: biological_process
 is_a: GO:0052027
-
-[Term]
-id: GO:0052031
-name: symbiont-mediated perturbation of host defense response
-namespace: biological_process
-is_a: GO:0044003
 
 [Term]
 id: GO:0052039
@@ -39010,35 +41102,10 @@ namespace: biological_process
 is_a: GO:0052040
 
 [Term]
-id: GO:0052080
-name: symbiont-mediated perturbation of host MAPK cascade
-namespace: biological_process
-is_a: GO:0052027
-
-[Term]
 id: GO:0052111
 name: symbiont-mediated disruption of host anatomical structure
 namespace: biological_process
 is_a: GO:0141060
-
-[Term]
-id: GO:0052167
-name: symbiont-mediated perturbation of host innate immune response
-namespace: biological_process
-is_a: GO:0052553
-
-[Term]
-id: GO:0052170
-name: symbiont-mediated suppression of host innate immune response
-namespace: biological_process
-is_a: GO:0052167
-is_a: GO:0052562
-
-[Term]
-id: GO:0052200
-name: symbiont-mediated response to host defenses
-namespace: biological_process
-is_a: GO:0075136
 
 [Term]
 id: GO:0052314
@@ -39070,12 +41137,6 @@ is_a: GO:0016765
 is_a: GO:0140101
 
 [Term]
-id: GO:0052460
-name: modulation of nutrient release by symbiont
-namespace: biological_process
-is_a: GO:0035821
-
-[Term]
 id: GO:0052541
 name: plant-type cell wall cellulose metabolic process
 namespace: biological_process
@@ -39089,18 +41150,6 @@ name: cell wall pectin metabolic process
 namespace: biological_process
 is_a: GO:0009664
 is_a: GO:0045488
-
-[Term]
-id: GO:0052553
-name: symbiont-mediated perturbation of host immune response
-namespace: biological_process
-is_a: GO:0052031
-
-[Term]
-id: GO:0052562
-name: symbiont-mediated suppression of host immune response
-namespace: biological_process
-is_a: GO:0052553
 
 [Term]
 id: GO:0052588
@@ -39450,6 +41499,20 @@ namespace: molecular_function
 is_a: GO:0120531
 
 [Term]
+id: GO:0055001
+name: muscle cell development
+namespace: biological_process
+is_a: GO:0042692
+is_a: GO:0048468
+
+[Term]
+id: GO:0055002
+name: striated muscle cell development
+namespace: biological_process
+is_a: GO:0051146
+is_a: GO:0055001
+
+[Term]
 id: GO:0055021
 name: regulation of cardiac muscle tissue growth
 namespace: biological_process
@@ -39603,6 +41666,13 @@ namespace: biological_process
 is_a: GO:0055088
 
 [Term]
+id: GO:0055093
+name: response to hyperoxia
+namespace: biological_process
+is_a: GO:0006950
+is_a: GO:0036296
+
+[Term]
 id: GO:0055105
 name: ubiquitin-protein transferase inhibitor activity
 namespace: molecular_function
@@ -39616,18 +41686,26 @@ namespace: molecular_function
 is_a: GO:0030234
 
 [Term]
+id: GO:0055117
+name: regulation of cardiac muscle contraction
+namespace: biological_process
+is_a: GO:0006942
+is_a: GO:0008016
+
+[Term]
+id: GO:0055118
+name: negative regulation of cardiac muscle contraction
+namespace: biological_process
+is_a: GO:0045822
+is_a: GO:0045988
+is_a: GO:0055117
+
+[Term]
 id: GO:0055121
 name: response to high fluence blue light stimulus by blue high-fluence system
 namespace: biological_process
 is_a: GO:0009637
 is_a: GO:0009644
-
-[Term]
-id: GO:0055123
-name: digestive system development
-namespace: biological_process
-is_a: GO:0048731
-is_a: GO:0160108
 
 [Term]
 id: GO:0055129
@@ -39677,6 +41755,12 @@ namespace: biological_process
 is_a: GO:0016055
 
 [Term]
+id: GO:0060076
+name: excitatory synapse
+namespace: cellular_component
+is_a: GO:0045202
+
+[Term]
 id: GO:0060089
 name: molecular transducer activity
 namespace: molecular_function
@@ -39685,6 +41769,20 @@ namespace: molecular_function
 id: GO:0060090
 name: molecular adaptor activity
 namespace: molecular_function
+
+[Term]
+id: GO:0060135
+name: maternal process involved in female pregnancy
+namespace: biological_process
+is_a: GO:0007565
+is_a: GO:0048609
+
+[Term]
+id: GO:0060164
+name: regulation of timing of neuron differentiation
+namespace: biological_process
+is_a: GO:0045664
+is_a: GO:0048505
 
 [Term]
 id: GO:0060187
@@ -39750,6 +41848,12 @@ is_a: GO:0010570
 is_a: GO:0045926
 
 [Term]
+id: GO:0060259
+name: regulation of feeding behavior
+namespace: biological_process
+is_a: GO:0050795
+
+[Term]
 id: GO:0060260
 name: regulation of transcription initiation by RNA polymerase II
 namespace: biological_process
@@ -39777,6 +41881,28 @@ id: GO:0060284
 name: regulation of cell development
 namespace: biological_process
 is_a: GO:0045595
+
+[Term]
+id: GO:0060292
+name: long-term synaptic depression
+namespace: biological_process
+is_a: GO:0048167
+is_a: GO:0050805
+
+[Term]
+id: GO:0060295
+name: regulation of cilium movement involved in cell motility
+namespace: biological_process
+is_a: GO:0003352
+is_a: GO:1902019
+
+[Term]
+id: GO:0060296
+name: regulation of cilium beat frequency involved in ciliary motility
+namespace: biological_process
+is_a: GO:0003356
+is_a: GO:0060295
+is_a: GO:0065008
 
 [Term]
 id: GO:0060306
@@ -39877,13 +42003,6 @@ is_a: GO:0090101
 is_a: GO:1902532
 
 [Term]
-id: GO:0060395
-name: SMAD protein signal transduction
-namespace: biological_process
-is_a: GO:0007178
-is_a: GO:0141124
-
-[Term]
 id: GO:0060420
 name: regulation of heart growth
 namespace: biological_process
@@ -39903,13 +42022,6 @@ name: epithelium development
 namespace: biological_process
 is_a: GO:0009888
 is_a: GO:0160108
-
-[Term]
-id: GO:0060446
-name: branching involved in open tracheal system development
-namespace: biological_process
-is_a: GO:0007424
-is_a: GO:0048754
 
 [Term]
 id: GO:0060457
@@ -39932,6 +42044,19 @@ name: regulation of cell projection assembly
 namespace: biological_process
 is_a: GO:0031344
 is_a: GO:0044087
+
+[Term]
+id: GO:0060537
+name: muscle tissue development
+namespace: biological_process
+is_a: GO:0009888
+is_a: GO:0160108
+
+[Term]
+id: GO:0060538
+name: skeletal muscle organ development
+namespace: biological_process
+is_a: GO:0007517
 
 [Term]
 id: GO:0060541
@@ -39997,6 +42122,12 @@ is_a: GO:0030154
 is_a: GO:0051216
 
 [Term]
+id: GO:0060623
+name: regulation of chromosome condensation
+namespace: biological_process
+is_a: GO:0033044
+
+[Term]
 id: GO:0060627
 name: regulation of vesicle-mediated transport
 namespace: biological_process
@@ -40009,6 +42140,12 @@ name: regulation of ER to Golgi vesicle-mediated transport
 namespace: biological_process
 is_a: GO:0032386
 is_a: GO:0060627
+
+[Term]
+id: GO:0060632
+name: regulation of microtubule-based movement
+namespace: biological_process
+is_a: GO:0032886
 
 [Term]
 id: GO:0060675
@@ -40109,11 +42246,35 @@ is_a: GO:0051094
 is_a: GO:0060998
 
 [Term]
+id: GO:0061001
+name: regulation of dendritic spine morphogenesis
+namespace: biological_process
+is_a: GO:0010975
+is_a: GO:0022603
+is_a: GO:0099175
+
+[Term]
+id: GO:0061003
+name: positive regulation of dendritic spine morphogenesis
+namespace: biological_process
+is_a: GO:0010976
+is_a: GO:0050775
+is_a: GO:0060999
+is_a: GO:0061001
+
+[Term]
 id: GO:0061005
 name: cell differentiation involved in kidney development
 namespace: biological_process
 is_a: GO:0001822
 is_a: GO:0030154
+
+[Term]
+id: GO:0061008
+name: hepaticobiliary system development
+namespace: biological_process
+is_a: GO:0048731
+is_a: GO:0160108
 
 [Term]
 id: GO:0061013
@@ -40151,6 +42312,20 @@ namespace: biological_process
 is_a: GO:0061024
 
 [Term]
+id: GO:0061035
+name: regulation of cartilage development
+namespace: biological_process
+is_a: GO:2000026
+
+[Term]
+id: GO:0061036
+name: positive regulation of cartilage development
+namespace: biological_process
+is_a: GO:0051094
+is_a: GO:0051240
+is_a: GO:0061035
+
+[Term]
 id: GO:0061041
 name: regulation of wound healing
 namespace: biological_process
@@ -40170,6 +42345,12 @@ namespace: biological_process
 is_a: GO:0032102
 is_a: GO:0061041
 is_a: GO:1903035
+
+[Term]
+id: GO:0061061
+name: muscle structure development
+namespace: biological_process
+is_a: GO:0160108
 
 [Term]
 id: GO:0061083
@@ -40241,6 +42422,13 @@ is_a: GO:0050779
 is_a: GO:0061014
 
 [Term]
+id: GO:0061178
+name: regulation of insulin secretion involved in cellular response to glucose stimulus
+namespace: biological_process
+is_a: GO:0050796
+is_a: GO:0060341
+
+[Term]
 id: GO:0061186
 name: negative regulation of silent mating-type cassette heterochromatin formation
 namespace: biological_process
@@ -40306,6 +42494,12 @@ is_a: GO:1901701
 is_a: GO:1904640
 
 [Term]
+id: GO:0061436
+name: establishment of skin barrier
+namespace: biological_process
+is_a: GO:0098773
+
+[Term]
 id: GO:0061448
 name: connective tissue development
 namespace: biological_process
@@ -40339,6 +42533,12 @@ is_a: GO:0019213
 is_a: GO:0052689
 
 [Term]
+id: GO:0061512
+name: protein localization to cilium
+namespace: biological_process
+is_a: GO:0033365
+
+[Term]
 id: GO:0061517
 name: macrophage proliferation
 namespace: biological_process
@@ -40350,12 +42550,6 @@ name: microglial cell proliferation
 namespace: biological_process
 is_a: GO:0014009
 is_a: GO:0061517
-
-[Term]
-id: GO:0061525
-name: hindgut development
-namespace: biological_process
-is_a: GO:0048565
 
 [Term]
 id: GO:0061542
@@ -40506,6 +42700,12 @@ is_a: GO:0019789
 is_a: GO:0061659
 
 [Term]
+id: GO:0061668
+name: mitochondrial ribosome assembly
+namespace: biological_process
+is_a: GO:0042255
+
+[Term]
 id: GO:0061676
 name: importin-alpha family protein binding
 namespace: molecular_function
@@ -40529,6 +42729,12 @@ id: GO:0061685
 name: diphthine methylesterase activity
 namespace: molecular_function
 is_a: GO:0052689
+
+[Term]
+id: GO:0061687
+name: detoxification of inorganic compound
+namespace: biological_process
+is_a: GO:0098754
 
 [Term]
 id: GO:0061695
@@ -40630,6 +42836,13 @@ is_a: GO:0006950
 is_a: GO:0031667
 
 [Term]
+id: GO:0061773
+name: eNoSc complex
+namespace: cellular_component
+is_a: GO:0005677
+is_a: GO:0005730
+
+[Term]
 id: GO:0061783
 name: peptidoglycan muralytic activity
 namespace: molecular_function
@@ -40646,6 +42859,13 @@ id: GO:0061844
 name: antimicrobial humoral immune response mediated by antimicrobial peptide
 namespace: biological_process
 is_a: GO:0019730
+
+[Term]
+id: GO:0061846
+name: dendritic spine cytoplasm
+namespace: cellular_component
+is_a: GO:0032839
+is_a: GO:0043197
 
 [Term]
 id: GO:0061900
@@ -40758,6 +42978,13 @@ namespace: molecular_function
 is_a: GO:0140006
 
 [Term]
+id: GO:0062075
+name: pollen aperture formation
+namespace: biological_process
+is_a: GO:0010208
+is_a: GO:0010927
+
+[Term]
 id: GO:0062079
 name: ATG2-ATG18 complex
 namespace: cellular_component
@@ -40794,6 +43021,12 @@ id: GO:0062167
 name: complement component C1q complex
 namespace: cellular_component
 is_a: GO:0140392
+
+[Term]
+id: GO:0062176
+name: R-loop processing
+namespace: biological_process
+is_a: GO:0006338
 
 [Term]
 id: GO:0062193
@@ -40923,6 +43156,13 @@ namespace: molecular_function
 is_a: GO:0003723
 
 [Term]
+id: GO:0070042
+name: rRNA (uridine-N3-)-methyltransferase activity
+namespace: molecular_function
+is_a: GO:0008170
+is_a: GO:0016436
+
+[Term]
 id: GO:0070059
 name: intrinsic apoptotic signaling pathway in response to endoplasmic reticulum stress
 namespace: biological_process
@@ -40996,6 +43236,18 @@ is_a: GO:0045744
 is_a: GO:0070099
 
 [Term]
+id: GO:0070110
+name: ciliary neurotrophic factor receptor complex
+namespace: cellular_component
+is_a: GO:0098802
+
+[Term]
+id: GO:0070120
+name: ciliary neurotrophic factor-mediated signaling pathway
+namespace: biological_process
+is_a: GO:0019221
+
+[Term]
 id: GO:0070124
 name: mitochondrial translational initiation
 namespace: biological_process
@@ -41008,6 +43260,20 @@ name: mitochondrial translational elongation
 namespace: biological_process
 is_a: GO:0006414
 is_a: GO:0032543
+
+[Term]
+id: GO:0070129
+name: regulation of mitochondrial translation
+namespace: biological_process
+is_a: GO:0006417
+is_a: GO:0062125
+
+[Term]
+id: GO:0070131
+name: positive regulation of mitochondrial translation
+namespace: biological_process
+is_a: GO:0045727
+is_a: GO:0070129
 
 [Term]
 id: GO:0070160
@@ -41040,6 +43306,12 @@ name: D-serine biosynthetic process
 namespace: biological_process
 is_a: GO:0008652
 is_a: GO:0170043
+
+[Term]
+id: GO:0070180
+name: large ribosomal subunit rRNA binding
+namespace: molecular_function
+is_a: GO:0019843
 
 [Term]
 id: GO:0070181
@@ -41146,6 +43418,13 @@ namespace: biological_process
 is_a: GO:0070228
 
 [Term]
+id: GO:0070268
+name: cornification
+namespace: biological_process
+is_a: GO:0012501
+is_a: GO:0031424
+
+[Term]
 id: GO:0070269
 name: pyroptotic inflammatory response
 namespace: biological_process
@@ -41232,6 +43511,13 @@ is_a: GO:0010948
 is_a: GO:0070316
 
 [Term]
+id: GO:0070318
+name: positive regulation of G0 to G1 transition
+namespace: biological_process
+is_a: GO:0070316
+is_a: GO:0090068
+
+[Term]
 id: GO:0070325
 name: lipoprotein particle receptor binding
 namespace: molecular_function
@@ -41268,6 +43554,12 @@ name: cellular heat acclimation
 namespace: biological_process
 is_a: GO:0010286
 is_a: GO:0034605
+
+[Term]
+id: GO:0070371
+name: ERK1 and ERK2 cascade
+namespace: biological_process
+is_a: GO:0000165
 
 [Term]
 id: GO:0070372
@@ -41366,6 +43658,20 @@ is_a: GO:0070426
 is_a: GO:0070428
 
 [Term]
+id: GO:0070445
+name: regulation of oligodendrocyte progenitor proliferation
+namespace: biological_process
+is_a: GO:2000177
+
+[Term]
+id: GO:0070446
+name: negative regulation of oligodendrocyte progenitor proliferation
+namespace: biological_process
+is_a: GO:0014014
+is_a: GO:0070445
+is_a: GO:2000178
+
+[Term]
 id: GO:0070461
 name: SAGA-type complex
 namespace: cellular_component
@@ -41454,6 +43760,23 @@ namespace: molecular_function
 is_a: GO:0016779
 
 [Term]
+id: GO:0070570
+name: regulation of neuron projection regeneration
+namespace: biological_process
+is_a: GO:0010975
+is_a: GO:0050793
+is_a: GO:0080135
+
+[Term]
+id: GO:0070572
+name: positive regulation of neuron projection regeneration
+namespace: biological_process
+is_a: GO:0010976
+is_a: GO:0048584
+is_a: GO:0051094
+is_a: GO:0070570
+
+[Term]
 id: GO:0070573
 name: metallodipeptidase activity
 namespace: molecular_function
@@ -41496,6 +43819,12 @@ namespace: biological_process
 is_a: GO:0000271
 is_a: GO:0010383
 is_a: GO:0044038
+
+[Term]
+id: GO:0070601
+name: centromeric sister chromatid cohesion
+namespace: biological_process
+is_a: GO:0007062
 
 [Term]
 id: GO:0070602
@@ -41542,6 +43871,12 @@ namespace: biological_process
 is_a: GO:0061572
 
 [Term]
+id: GO:0070651
+name: nonfunctional rRNA decay
+namespace: biological_process
+is_a: GO:0016075
+
+[Term]
 id: GO:0070661
 name: leukocyte proliferation
 namespace: biological_process
@@ -41581,10 +43916,10 @@ namespace: molecular_function
 is_a: GO:0003727
 
 [Term]
-id: GO:0070724
-name: BMP receptor complex
+id: GO:0070721
+name: ISGF3 complex
 namespace: cellular_component
-is_a: GO:0098802
+is_a: GO:0090575
 
 [Term]
 id: GO:0070726
@@ -41717,6 +44052,22 @@ namespace: molecular_function
 is_a: GO:0017022
 
 [Term]
+id: GO:0070857
+name: regulation of bile acid biosynthetic process
+namespace: biological_process
+is_a: GO:0010565
+is_a: GO:0050810
+is_a: GO:0062012
+
+[Term]
+id: GO:0070859
+name: positive regulation of bile acid biosynthetic process
+namespace: biological_process
+is_a: GO:0010893
+is_a: GO:0062013
+is_a: GO:0070857
+
+[Term]
 id: GO:0070873
 name: regulation of glycogen metabolic process
 namespace: biological_process
@@ -41729,14 +44080,6 @@ name: negative regulation of glycogen metabolic process
 namespace: biological_process
 is_a: GO:0010605
 is_a: GO:0045912
-is_a: GO:0070873
-
-[Term]
-id: GO:0070875
-name: positive regulation of glycogen metabolic process
-namespace: biological_process
-is_a: GO:0010604
-is_a: GO:0010907
 is_a: GO:0070873
 
 [Term]
@@ -41788,6 +44131,14 @@ is_a: GO:0090646
 is_a: GO:1900864
 
 [Term]
+id: GO:0070905
+name: serine binding
+namespace: molecular_function
+is_a: GO:0016597
+is_a: GO:0031406
+is_a: GO:0043169
+
+[Term]
 id: GO:0070918
 name: regulatory ncRNA processing
 namespace: biological_process
@@ -41808,6 +44159,12 @@ namespace: biological_process
 is_a: GO:0072344
 
 [Term]
+id: GO:0070935
+name: 3'-UTR-mediated mRNA stabilization
+namespace: biological_process
+is_a: GO:0048255
+
+[Term]
 id: GO:0070936
 name: protein K48-linked ubiquitination
 namespace: biological_process
@@ -41818,6 +44175,34 @@ id: GO:0070938
 name: contractile ring
 namespace: cellular_component
 is_a: GO:0110165
+
+[Term]
+id: GO:0070942
+name: neutrophil mediated cytotoxicity
+namespace: biological_process
+is_a: GO:0001909
+is_a: GO:0002446
+
+[Term]
+id: GO:0070943
+name: neutrophil-mediated killing of symbiont cell
+namespace: biological_process
+is_a: GO:0031640
+is_a: GO:0070942
+
+[Term]
+id: GO:0070944
+name: neutrophil-mediated killing of bacterium
+namespace: biological_process
+is_a: GO:0042742
+is_a: GO:0070943
+
+[Term]
+id: GO:0070947
+name: neutrophil-mediated killing of fungus
+namespace: biological_process
+is_a: GO:0050832
+is_a: GO:0070943
 
 [Term]
 id: GO:0070968
@@ -42026,13 +44411,6 @@ namespace: cellular_component
 is_a: GO:0032991
 
 [Term]
-id: GO:0071144
-name: heteromeric SMAD protein complex
-namespace: cellular_component
-is_a: GO:0071141
-is_a: GO:0090575
-
-[Term]
 id: GO:0071162
 name: CMG complex
 namespace: cellular_component
@@ -42203,6 +44581,13 @@ id: GO:0071280
 name: cellular response to copper ion
 namespace: biological_process
 is_a: GO:0046688
+is_a: GO:0071248
+
+[Term]
+id: GO:0071285
+name: cellular response to lithium ion
+namespace: biological_process
+is_a: GO:0010226
 is_a: GO:0071248
 
 [Term]
@@ -42674,6 +45059,13 @@ namespace: biological_process
 is_a: GO:0043647
 
 [Term]
+id: GO:0071548
+name: response to dexamethasone
+namespace: biological_process
+is_a: GO:0051384
+is_a: GO:1901654
+
+[Term]
 id: GO:0071554
 name: cell wall organization or biogenesis
 namespace: biological_process
@@ -42717,6 +45109,13 @@ id: GO:0071569
 name: protein ufmylation
 namespace: biological_process
 is_a: GO:0032446
+
+[Term]
+id: GO:0071585
+name: detoxification of cadmium ion
+namespace: biological_process
+is_a: GO:0061687
+is_a: GO:1990170
 
 [Term]
 id: GO:0071595
@@ -42897,6 +45296,21 @@ namespace: biological_process
 is_a: GO:0007029
 
 [Term]
+id: GO:0071801
+name: regulation of podosome assembly
+namespace: biological_process
+is_a: GO:0043254
+is_a: GO:0120032
+
+[Term]
+id: GO:0071803
+name: positive regulation of podosome assembly
+namespace: biological_process
+is_a: GO:0031334
+is_a: GO:0071801
+is_a: GO:0120034
+
+[Term]
 id: GO:0071805
 name: potassium ion transmembrane transport
 namespace: biological_process
@@ -42972,6 +45386,34 @@ namespace: biological_process
 is_a: GO:0071554
 
 [Term]
+id: GO:0071867
+name: response to monoamine
+namespace: biological_process
+is_a: GO:1901698
+
+[Term]
+id: GO:0071868
+name: cellular response to monoamine stimulus
+namespace: biological_process
+is_a: GO:0071867
+is_a: GO:1901699
+
+[Term]
+id: GO:0071869
+name: response to catecholamine
+namespace: biological_process
+is_a: GO:0071867
+is_a: GO:1901700
+
+[Term]
+id: GO:0071870
+name: cellular response to catecholamine stimulus
+namespace: biological_process
+is_a: GO:0071868
+is_a: GO:0071869
+is_a: GO:1901701
+
+[Term]
 id: GO:0071875
 name: adrenergic receptor signaling pathway
 namespace: biological_process
@@ -43018,6 +45460,12 @@ namespace: biological_process
 is_a: GO:0031297
 
 [Term]
+id: GO:0071933
+name: Arp2/3 complex binding
+namespace: molecular_function
+is_a: GO:0044877
+
+[Term]
 id: GO:0071940
 name: fungal-type cell wall assembly
 namespace: biological_process
@@ -43049,6 +45497,13 @@ name: elastic fiber
 namespace: cellular_component
 is_a: GO:0099512
 is_a: GO:0140149
+
+[Term]
+id: GO:0071962
+name: mitotic sister chromatid cohesion, centromeric
+namespace: biological_process
+is_a: GO:0007064
+is_a: GO:0070601
 
 [Term]
 id: GO:0071973
@@ -43089,13 +45544,6 @@ name: renal system development
 namespace: biological_process
 is_a: GO:0048731
 is_a: GO:0160108
-
-[Term]
-id: GO:0072002
-name: Malpighian tubule development
-namespace: biological_process
-is_a: GO:0048513
-is_a: GO:0061326
 
 [Term]
 id: GO:0072006
@@ -43480,6 +45928,21 @@ is_a: GO:0055085
 is_a: GO:0071705
 
 [Term]
+id: GO:0072538
+name: T-helper 17 type immune response
+namespace: biological_process
+is_a: GO:0002460
+
+[Term]
+id: GO:0072539
+name: T-helper 17 cell differentiation
+namespace: biological_process
+is_a: GO:0002287
+is_a: GO:0002292
+is_a: GO:0042093
+is_a: GO:0072538
+
+[Term]
 id: GO:0072545
 name: L-tyrosine binding
 namespace: molecular_function
@@ -43580,6 +46043,13 @@ namespace: biological_process
 is_a: GO:0072594
 
 [Term]
+id: GO:0072656
+name: maintenance of protein location in mitochondrion
+namespace: biological_process
+is_a: GO:0070585
+is_a: GO:0072595
+
+[Term]
 id: GO:0072657
 name: protein localization to membrane
 namespace: biological_process
@@ -43624,6 +46094,12 @@ name: mitochondrial tRNA threonylcarbamoyladenosine modification
 namespace: biological_process
 is_a: GO:0002949
 is_a: GO:0070900
+
+[Term]
+id: GO:0072676
+name: lymphocyte migration
+namespace: biological_process
+is_a: GO:0071674
 
 [Term]
 id: GO:0072677
@@ -43695,13 +46171,6 @@ namespace: biological_process
 is_a: GO:0052029
 
 [Term]
-id: GO:0075136
-name: response to host
-namespace: biological_process
-is_a: GO:0051701
-is_a: GO:0051707
-
-[Term]
 id: GO:0075733
 name: intracellular transport of virus
 namespace: biological_process
@@ -43732,20 +46201,6 @@ id: GO:0080008
 name: Cul4-RING E3 ubiquitin ligase complex
 namespace: cellular_component
 is_a: GO:0031461
-
-[Term]
-id: GO:0080016
-name: (-)-E-beta-caryophyllene synthase activity
-namespace: molecular_function
-is_a: GO:0009975
-is_a: GO:0010334
-
-[Term]
-id: GO:0080017
-name: alpha-humulene synthase activity
-namespace: molecular_function
-is_a: GO:0009975
-is_a: GO:0010334
 
 [Term]
 id: GO:0080022
@@ -44094,6 +46549,12 @@ is_a: GO:0003333
 is_a: GO:0098739
 
 [Term]
+id: GO:0089720
+name: caspase binding
+namespace: molecular_function
+is_a: GO:0002020
+
+[Term]
 id: GO:0090030
 name: regulation of steroid hormone biosynthetic process
 namespace: biological_process
@@ -44190,6 +46651,13 @@ name: negative regulation of canonical Wnt signaling pathway
 namespace: biological_process
 is_a: GO:0030178
 is_a: GO:0060828
+
+[Term]
+id: GO:0090091
+name: positive regulation of extracellular matrix disassembly
+namespace: biological_process
+is_a: GO:0010715
+is_a: GO:1903055
 
 [Term]
 id: GO:0090092
@@ -44404,14 +46872,6 @@ namespace: biological_process
 is_a: GO:0032879
 
 [Term]
-id: GO:0090256
-name: regulation of cell proliferation involved in imaginal disc-derived wing morphogenesis
-namespace: biological_process
-is_a: GO:0007476
-is_a: GO:0042127
-is_a: GO:0048580
-
-[Term]
 id: GO:0090257
 name: regulation of muscle system process
 namespace: biological_process
@@ -44583,6 +47043,13 @@ is_a: GO:0033157
 is_a: GO:0051224
 
 [Term]
+id: GO:0090324
+name: negative regulation of oxidative phosphorylation
+namespace: biological_process
+is_a: GO:0002082
+is_a: GO:1901856
+
+[Term]
 id: GO:0090329
 name: regulation of DNA-templated DNA replication
 namespace: biological_process
@@ -44640,6 +47107,19 @@ name: negative regulation of auxin metabolic process
 namespace: biological_process
 is_a: GO:0032351
 is_a: GO:0090354
+
+[Term]
+id: GO:0090365
+name: regulation of mRNA modification
+namespace: biological_process
+is_a: GO:1903311
+
+[Term]
+id: GO:0090367
+name: negative regulation of mRNA modification
+namespace: biological_process
+is_a: GO:0090365
+is_a: GO:1903312
 
 [Term]
 id: GO:0090398
@@ -44983,10 +47463,29 @@ namespace: molecular_function
 is_a: GO:0016709
 
 [Term]
+id: GO:0097009
+name: energy homeostasis
+namespace: biological_process
+is_a: GO:0048871
+
+[Term]
+id: GO:0097014
+name: ciliary plasm
+namespace: cellular_component
+is_a: GO:0005737
+is_a: GO:0005929
+
+[Term]
 id: GO:0097020
 name: COPII receptor activity
 namespace: molecular_function
 is_a: GO:0038024
+
+[Term]
+id: GO:0097021
+name: lymphocyte migration into lymphoid organs
+namespace: biological_process
+is_a: GO:0072676
 
 [Term]
 id: GO:0097023
@@ -45015,6 +47514,26 @@ name: establishment of protein localization to endoplasmic reticulum membrane
 namespace: biological_process
 is_a: GO:0072599
 is_a: GO:0090150
+
+[Term]
+id: GO:0097059
+name: CNTFR-CLCF1 complex
+namespace: cellular_component
+is_a: GO:0140392
+
+[Term]
+id: GO:0097061
+name: dendritic spine organization
+namespace: biological_process
+is_a: GO:0099173
+is_a: GO:0106027
+
+[Term]
+id: GO:0097062
+name: dendritic spine maintenance
+namespace: biological_process
+is_a: GO:0043954
+is_a: GO:0097061
 
 [Term]
 id: GO:0097094
@@ -45175,6 +47694,20 @@ is_a: GO:0032561
 is_a: GO:0043168
 
 [Term]
+id: GO:0097225
+name: sperm midpiece
+namespace: cellular_component
+is_a: GO:0036126
+is_a: GO:0110165
+
+[Term]
+id: GO:0097228
+name: sperm principal piece
+namespace: cellular_component
+is_a: GO:0036126
+is_a: GO:0110165
+
+[Term]
 id: GO:0097237
 name: cellular response to toxic substance
 namespace: biological_process
@@ -45226,6 +47759,12 @@ id: GO:0097267
 name: omega-hydroxylase P450 pathway
 namespace: biological_process
 is_a: GO:0019369
+
+[Term]
+id: GO:0097268
+name: cytoophidium
+namespace: cellular_component
+is_a: GO:0099512
 
 [Term]
 id: GO:0097271
@@ -45380,13 +47919,6 @@ namespace: molecular_function
 is_a: GO:0004672
 
 [Term]
-id: GO:0097485
-name: neuron projection guidance
-namespace: biological_process
-is_a: GO:0031175
-is_a: GO:0048812
-
-[Term]
 id: GO:0097487
 name: multivesicular body, internal vesicle
 namespace: cellular_component
@@ -45417,6 +47949,12 @@ id: GO:0097510
 name: base-excision repair, AP site formation via deaminated base removal
 namespace: biological_process
 is_a: GO:0006285
+
+[Term]
+id: GO:0097517
+name: contractile actin filament bundle
+namespace: cellular_component
+is_a: GO:0032432
 
 [Term]
 id: GO:0097524
@@ -45466,6 +48004,12 @@ name: vacuole fusion
 namespace: biological_process
 is_a: GO:0007033
 is_a: GO:0048284
+
+[Term]
+id: GO:0097581
+name: lamellipodium organization
+namespace: biological_process
+is_a: GO:0120036
 
 [Term]
 id: GO:0097588
@@ -45524,6 +48068,12 @@ is_a: GO:0006284
 is_a: GO:0043247
 
 [Term]
+id: GO:0097707
+name: ferroptosis
+namespace: biological_process
+is_a: GO:0012501
+
+[Term]
 id: GO:0097708
 name: intracellular vesicle
 namespace: cellular_component
@@ -45541,6 +48091,33 @@ id: GO:0097729
 name: 9+2 motile cilium
 namespace: cellular_component
 is_a: GO:0031514
+
+[Term]
+id: GO:0097730
+name: non-motile cilium
+namespace: cellular_component
+is_a: GO:0005929
+
+[Term]
+id: GO:0097731
+name: 9+0 non-motile cilium
+namespace: cellular_component
+is_a: GO:0097730
+
+[Term]
+id: GO:0097733
+name: photoreceptor cell cilium
+namespace: cellular_component
+is_a: GO:0043005
+is_a: GO:0097731
+
+[Term]
+id: GO:0097746
+name: blood vessel diameter maintenance
+namespace: biological_process
+is_a: GO:0003018
+is_a: GO:0008015
+is_a: GO:0035296
 
 [Term]
 id: GO:0097747
@@ -45698,6 +48275,13 @@ namespace: biological_process
 is_a: GO:0007155
 
 [Term]
+id: GO:0098621
+name: O-phosphoseryl-tRNA(Sec) selenium transferase activity
+namespace: molecular_function
+is_a: GO:0016785
+is_a: GO:0140101
+
+[Term]
 id: GO:0098630
 name: aggregation of unicellular organisms
 namespace: biological_process
@@ -45714,6 +48298,37 @@ id: GO:0098632
 name: cell-cell adhesion mediator activity
 namespace: molecular_function
 is_a: GO:0098631
+
+[Term]
+id: GO:0098634
+name: cell-matrix adhesion mediator activity
+namespace: molecular_function
+is_a: GO:0098631
+
+[Term]
+id: GO:0098635
+name: protein complex involved in cell-cell adhesion
+namespace: cellular_component
+is_a: GO:0098636
+
+[Term]
+id: GO:0098636
+name: protein complex involved in cell adhesion
+namespace: cellular_component
+is_a: GO:0032991
+
+[Term]
+id: GO:0098637
+name: protein complex involved in cell-matrix adhesion
+namespace: cellular_component
+is_a: GO:0098636
+
+[Term]
+id: GO:0098641
+name: cadherin binding involved in cell-cell adhesion
+namespace: molecular_function
+is_a: GO:0045296
+is_a: GO:0098632
 
 [Term]
 id: GO:0098653
@@ -45786,6 +48401,20 @@ is_a: GO:0034755
 is_a: GO:0098659
 
 [Term]
+id: GO:0098712
+name: L-glutamate import across plasma membrane
+namespace: biological_process
+is_a: GO:0015813
+is_a: GO:0089718
+
+[Term]
+id: GO:0098719
+name: sodium ion import across plasma membrane
+namespace: biological_process
+is_a: GO:0035725
+is_a: GO:0098659
+
+[Term]
 id: GO:0098725
 name: symmetric cell division
 namespace: biological_process
@@ -45808,6 +48437,12 @@ id: GO:0098734
 name: macromolecule depalmitoylation
 namespace: biological_process
 is_a: GO:0098732
+
+[Term]
+id: GO:0098737
+name: protein insertion into plasma membrane
+namespace: biological_process
+is_a: GO:0051205
 
 [Term]
 id: GO:0098739
@@ -45838,6 +48473,14 @@ is_a: GO:0048878
 id: GO:0098772
 name: molecular function regulator activity
 namespace: molecular_function
+
+[Term]
+id: GO:0098773
+name: skin epidermis development
+namespace: biological_process
+is_a: GO:0008544
+is_a: GO:0043588
+is_a: GO:0060429
 
 [Term]
 id: GO:0098791
@@ -45930,10 +48573,13 @@ namespace: biological_process
 is_a: GO:0007059
 
 [Term]
-id: GO:0098821
-name: BMP receptor activity
-namespace: molecular_function
-is_a: GO:0004675
+id: GO:0098815
+name: modulation of excitatory postsynaptic potential
+namespace: biological_process
+is_a: GO:0009966
+is_a: GO:0031644
+is_a: GO:0042391
+is_a: GO:0050804
 
 [Term]
 id: GO:0098827
@@ -45941,6 +48587,13 @@ name: endoplasmic reticulum subcompartment
 namespace: cellular_component
 is_a: GO:0005783
 is_a: GO:0031984
+
+[Term]
+id: GO:0098831
+name: presynaptic active zone cytoplasmic component
+namespace: cellular_component
+is_a: GO:0048786
+is_a: GO:0099738
 
 [Term]
 id: GO:0098840
@@ -45957,11 +48610,26 @@ namespace: biological_process
 is_a: GO:0072741
 
 [Term]
+id: GO:0098843
+name: postsynaptic endocytic zone
+namespace: cellular_component
+is_a: GO:0098794
+is_a: GO:0110165
+
+[Term]
 id: GO:0098847
 name: sequence-specific single stranded DNA binding
 namespace: molecular_function
 is_a: GO:0003697
 is_a: GO:0043565
+
+[Term]
+id: GO:0098849
+name: cellular detoxification of cadmium ion
+namespace: biological_process
+is_a: GO:0071276
+is_a: GO:0071585
+is_a: GO:0140961
 
 [Term]
 id: GO:0098852
@@ -45996,6 +48664,13 @@ namespace: biological_process
 is_a: GO:1990748
 
 [Term]
+id: GO:0098871
+name: postsynaptic actin cytoskeleton
+namespace: cellular_component
+is_a: GO:0015629
+is_a: GO:0099571
+
+[Term]
 id: GO:0098876
 name: vesicle-mediated transport to the plasma membrane
 namespace: biological_process
@@ -46003,10 +48678,23 @@ is_a: GO:0016192
 is_a: GO:0051668
 
 [Term]
+id: GO:0098885
+name: modification of postsynaptic actin cytoskeleton
+namespace: biological_process
+is_a: GO:0099010
+
+[Term]
 id: GO:0098916
 name: anterograde trans-synaptic signaling
 namespace: biological_process
 is_a: GO:0099537
+
+[Term]
+id: GO:0098926
+name: postsynaptic signal transduction
+namespace: biological_process
+is_a: GO:0007165
+is_a: GO:0099536
 
 [Term]
 id: GO:0098927
@@ -46034,10 +48722,22 @@ namespace: cellular_component
 is_a: GO:0045202
 
 [Term]
+id: GO:0098982
+name: GABA-ergic synapse
+namespace: cellular_component
+is_a: GO:0045202
+
+[Term]
 id: GO:0098984
 name: neuron to neuron synapse
 namespace: cellular_component
 is_a: GO:0045202
+
+[Term]
+id: GO:0099010
+name: modification of postsynaptic structure
+namespace: biological_process
+is_a: GO:0099563
 
 [Term]
 id: GO:0099020
@@ -46104,6 +48804,13 @@ is_a: GO:0006996
 is_a: GO:0099173
 
 [Term]
+id: GO:0099091
+name: postsynaptic specialization, intracellular component
+namespace: cellular_component
+is_a: GO:0043232
+is_a: GO:0099572
+
+[Term]
 id: GO:0099093
 name: calcium export from the mitochondrion
 namespace: biological_process
@@ -46142,6 +48849,20 @@ name: microtubule-based protein transport
 namespace: biological_process
 is_a: GO:0015031
 is_a: GO:0099111
+
+[Term]
+id: GO:0099120
+name: socially cooperative development
+namespace: biological_process
+is_a: GO:0048856
+is_a: GO:0051703
+
+[Term]
+id: GO:0099149
+name: regulation of postsynaptic neurotransmitter receptor internalization
+namespace: biological_process
+is_a: GO:0002090
+is_a: GO:0065008
 
 [Term]
 id: GO:0099173
@@ -46197,6 +48918,12 @@ is_a: GO:0005856
 is_a: GO:0099512
 
 [Term]
+id: GO:0099527
+name: postsynapse to nucleus signaling pathway
+namespace: biological_process
+is_a: GO:0098926
+
+[Term]
 id: GO:0099536
 name: synaptic signaling
 namespace: biological_process
@@ -46207,6 +48934,25 @@ id: GO:0099537
 name: trans-synaptic signaling
 namespace: biological_process
 is_a: GO:0099536
+
+[Term]
+id: GO:0099563
+name: modification of synaptic structure
+namespace: biological_process
+is_a: GO:0050808
+
+[Term]
+id: GO:0099568
+name: cytoplasmic region
+namespace: cellular_component
+is_a: GO:0005737
+
+[Term]
+id: GO:0099571
+name: postsynaptic cytoskeleton
+namespace: cellular_component
+is_a: GO:0005856
+is_a: GO:0098794
 
 [Term]
 id: GO:0099572
@@ -46233,6 +48979,27 @@ id: GO:0099622
 name: cardiac muscle cell membrane repolarization
 namespace: biological_process
 is_a: GO:0086009
+
+[Term]
+id: GO:0099640
+name: axo-dendritic protein transport
+namespace: biological_process
+is_a: GO:0008088
+is_a: GO:0098840
+
+[Term]
+id: GO:0099642
+name: retrograde axonal protein transport
+namespace: biological_process
+is_a: GO:0008090
+is_a: GO:0099640
+
+[Term]
+id: GO:0099738
+name: cell cortex region
+namespace: cellular_component
+is_a: GO:0005938
+is_a: GO:0099568
 
 [Term]
 id: GO:0101002
@@ -46321,6 +49088,12 @@ id: GO:0102262
 name: tRNA-dihydrouridine16 synthase activity
 namespace: molecular_function
 is_a: GO:0017150
+
+[Term]
+id: GO:0102478
+name: beta-L-arabinofuranosidase activity
+namespace: molecular_function
+is_a: GO:0004553
 
 [Term]
 id: GO:0102559
@@ -46425,6 +49198,12 @@ namespace: molecular_function
 is_a: GO:0140085
 
 [Term]
+id: GO:0103069
+name: 17-hydroxyprogesterone 21-hydroxylase activity
+namespace: molecular_function
+is_a: GO:0004509
+
+[Term]
 id: GO:0104004
 name: cellular response to environmental stimulus
 namespace: biological_process
@@ -46441,6 +49220,12 @@ id: GO:0106026
 name: Gly-tRNA(Ala) deacylase activity
 namespace: molecular_function
 is_a: GO:0002161
+
+[Term]
+id: GO:0106027
+name: neuron projection organization
+namespace: biological_process
+is_a: GO:0120036
 
 [Term]
 id: GO:0106029
@@ -46489,6 +49274,12 @@ namespace: cellular_component
 is_a: GO:0033106
 is_a: GO:0098796
 is_a: GO:0099023
+
+[Term]
+id: GO:0106104
+name: regulation of glutamate receptor clustering
+namespace: biological_process
+is_a: GO:1903909
 
 [Term]
 id: GO:0106105
@@ -46560,6 +49351,18 @@ namespace: molecular_function
 is_a: GO:0042577
 
 [Term]
+id: GO:0106245
+name: L-serine-phosphatidylethanolamine phosphatidyltransferase activity
+namespace: molecular_function
+is_a: GO:0016780
+
+[Term]
+id: GO:0106258
+name: L-serine-phosphatidylcholine phosphatidyltransferase activity
+namespace: molecular_function
+is_a: GO:0016780
+
+[Term]
 id: GO:0106262
 name: 1-acylglycerophosphoethanolamine O-acyltransferase activity
 namespace: molecular_function
@@ -46590,6 +49393,12 @@ namespace: biological_process
 is_a: GO:0006281
 
 [Term]
+id: GO:0106309
+name: progesterone 21-hydroxylase activity
+namespace: molecular_function
+is_a: GO:0004509
+
+[Term]
 id: GO:0106310
 name: protein serine kinase activity
 namespace: molecular_function
@@ -46614,12 +49423,6 @@ namespace: molecular_function
 is_a: GO:0051903
 
 [Term]
-id: GO:0106335
-name: tRNA (5-carboxymethyluridine(34)-5-O)-methyltransferase activity
-namespace: molecular_function
-is_a: GO:0016300
-
-[Term]
 id: GO:0106339
 name: tRNA (cytidine(32)-2'-O-ribose)-methyltransferase activity
 namespace: molecular_function
@@ -46630,6 +49433,12 @@ id: GO:0106345
 name: glyoxylate reductase activity
 namespace: molecular_function
 is_a: GO:0016616
+
+[Term]
+id: GO:0106346
+name: snRNA methyltransferase activity
+namespace: molecular_function
+is_a: GO:0008173
 
 [Term]
 id: GO:0106350
@@ -46702,6 +49511,12 @@ namespace: molecular_function
 is_a: GO:0106413
 
 [Term]
+id: GO:0106426
+name: regulation of kainate selective glutamate receptor signaling pathway
+namespace: biological_process
+is_a: GO:1900449
+
+[Term]
 id: GO:0106435
 name: carboxylesterase activity
 namespace: molecular_function
@@ -46750,6 +49565,13 @@ id: GO:0110075
 name: regulation of ferroptosis
 namespace: biological_process
 is_a: GO:0043067
+
+[Term]
+id: GO:0110076
+name: negative regulation of ferroptosis
+namespace: biological_process
+is_a: GO:0043069
+is_a: GO:0110075
 
 [Term]
 id: GO:0110085
@@ -46891,6 +49713,21 @@ is_a: GO:0030031
 is_a: GO:0120036
 
 [Term]
+id: GO:0120032
+name: regulation of plasma membrane bounded cell projection assembly
+namespace: biological_process
+is_a: GO:0060491
+is_a: GO:0120035
+
+[Term]
+id: GO:0120034
+name: positive regulation of plasma membrane bounded cell projection assembly
+namespace: biological_process
+is_a: GO:0031346
+is_a: GO:0044089
+is_a: GO:0120032
+
+[Term]
 id: GO:0120035
 name: regulation of plasma membrane bounded cell projection organization
 namespace: biological_process
@@ -46909,6 +49746,12 @@ namespace: biological_process
 is_a: GO:0048858
 
 [Term]
+id: GO:0120049
+name: snRNA (adenine-N6)-methylation
+namespace: biological_process
+is_a: GO:0040031
+
+[Term]
 id: GO:0120092
 name: (2E)-butenoyl-CoA hydratase activity
 namespace: molecular_function
@@ -46919,6 +49762,13 @@ id: GO:0120095
 name: vacuole-isolation membrane contact site
 namespace: cellular_component
 is_a: GO:0044232
+
+[Term]
+id: GO:0120111
+name: neuron projection cytoplasm
+namespace: cellular_component
+is_a: GO:0005737
+is_a: GO:0043005
 
 [Term]
 id: GO:0120114
@@ -46933,6 +49783,12 @@ namespace: cellular_component
 is_a: GO:0120114
 
 [Term]
+id: GO:0120145
+name: protein localization to basal ectoplasmic specialization
+namespace: biological_process
+is_a: GO:0150105
+
+[Term]
 id: GO:0120146
 name: sulfatide binding
 namespace: molecular_function
@@ -46944,6 +49800,19 @@ name: rRNA pseudouridine synthase activity
 namespace: molecular_function
 is_a: GO:0009982
 is_a: GO:0140098
+
+[Term]
+id: GO:0120161
+name: regulation of cold-induced thermogenesis
+namespace: biological_process
+is_a: GO:0051239
+
+[Term]
+id: GO:0120162
+name: positive regulation of cold-induced thermogenesis
+namespace: biological_process
+is_a: GO:0051240
+is_a: GO:0120161
 
 [Term]
 id: GO:0120178
@@ -47038,6 +49907,12 @@ name: autolysosome membrane
 namespace: cellular_component
 is_a: GO:0005765
 is_a: GO:0044754
+
+[Term]
+id: GO:0120283
+name: protein serine/threonine kinase binding
+namespace: molecular_function
+is_a: GO:0019901
 
 [Term]
 id: GO:0120284
@@ -47164,6 +50039,12 @@ namespace: molecular_function
 is_a: GO:0004659
 
 [Term]
+id: GO:0120567
+name: hydroxytrimethyllysine aldolase activity
+namespace: molecular_function
+is_a: GO:0016832
+
+[Term]
 id: GO:0120569
 name: phospholipase activity
 namespace: molecular_function
@@ -47245,6 +50126,18 @@ id: GO:0140030
 name: modification-dependent protein binding
 namespace: molecular_function
 is_a: GO:0005515
+
+[Term]
+id: GO:0140035
+name: ubiquitin-like protein reader activity
+namespace: molecular_function
+is_a: GO:0030674
+
+[Term]
+id: GO:0140036
+name: ubiquitin-modified protein reader activity
+namespace: molecular_function
+is_a: GO:0140035
 
 [Term]
 id: GO:0140041
@@ -47462,6 +50355,12 @@ namespace: molecular_function
 is_a: GO:0016616
 
 [Term]
+id: GO:0140177
+name: membrane-membrane adaptor activity
+namespace: molecular_function
+is_a: GO:0060090
+
+[Term]
 id: GO:0140186
 name: protein N-acyltransferase activity
 namespace: molecular_function
@@ -47536,6 +50435,12 @@ id: GO:0140274
 name: repair of kinetochore microtubule attachment defect
 namespace: biological_process
 is_a: GO:0022402
+
+[Term]
+id: GO:0140284
+name: endoplasmic reticulum-endosome membrane contact site
+namespace: cellular_component
+is_a: GO:7770088
 
 [Term]
 id: GO:0140285
@@ -47742,39 +50647,10 @@ is_a: GO:0005576
 is_a: GO:0032991
 
 [Term]
-id: GO:0140403
-name: effector-mediated suppression of host innate immune response
-namespace: biological_process
-is_a: GO:0052170
-is_a: GO:0140404
-is_a: GO:0140590
-
-[Term]
-id: GO:0140404
-name: effector-mediated perturbation of host innate immune response by symbiont
-namespace: biological_process
-is_a: GO:0052167
-is_a: GO:0140415
-
-[Term]
-id: GO:0140415
-name: effector-mediated perturbation of host defenses by symbiont
-namespace: biological_process
-is_a: GO:0052031
-is_a: GO:0052200
-is_a: GO:0140418
-
-[Term]
 id: GO:0140416
 name: transcription regulator inhibitor activity
 namespace: molecular_function
 is_a: GO:0140678
-
-[Term]
-id: GO:0140418
-name: effector-mediated perturbation of host process by symbiont
-namespace: biological_process
-is_a: GO:0044003
 
 [Term]
 id: GO:0140431
@@ -47888,6 +50764,19 @@ namespace: molecular_function
 is_a: GO:0140677
 
 [Term]
+id: GO:0140542
+name: regulation of piRNA transcription
+namespace: biological_process
+is_a: GO:0006355
+
+[Term]
+id: GO:0140543
+name: positive regulation of piRNA transcription
+namespace: biological_process
+is_a: GO:0045893
+is_a: GO:0140542
+
+[Term]
 id: GO:0140544
 name: septin collar organization
 namespace: biological_process
@@ -47931,10 +50820,11 @@ namespace: molecular_function
 is_a: GO:0140463
 
 [Term]
-id: GO:0140590
-name: effector-mediated suppression of host defense response
-namespace: biological_process
-is_a: GO:0140415
+id: GO:0140571
+name: transmembrane ascorbate ferrireductase activity
+namespace: molecular_function
+is_a: GO:0015453
+is_a: GO:0016722
 
 [Term]
 id: GO:0140597
@@ -47947,6 +50837,12 @@ id: GO:0140608
 name: cysteine-type endopeptidase activator activity
 namespace: molecular_function
 is_a: GO:0061133
+
+[Term]
+id: GO:0140610
+name: RNA sequestering activity
+namespace: molecular_function
+is_a: GO:0140313
 
 [Term]
 id: GO:0140624
@@ -47965,6 +50861,24 @@ id: GO:0140640
 name: catalytic activity, acting on a nucleic acid
 namespace: molecular_function
 is_a: GO:0003824
+
+[Term]
+id: GO:0140644
+name: neutrophil extracellular trap
+namespace: cellular_component
+is_a: GO:0043264
+
+[Term]
+id: GO:0140645
+name: neutrophil extracellular trap formation
+namespace: biological_process
+is_a: GO:0022607
+
+[Term]
+id: GO:0140650
+name: radial glia-guided pyramidal neuron migration
+namespace: biological_process
+is_a: GO:0001764
 
 [Term]
 id: GO:0140657
@@ -48035,6 +50949,12 @@ name: RNA folding chaperone
 namespace: molecular_function
 
 [Term]
+id: GO:0140693
+name: molecular condensate scaffold activity
+namespace: molecular_function
+is_a: GO:0030674
+
+[Term]
 id: GO:0140694
 name: membraneless organelle assembly
 namespace: biological_process
@@ -48060,6 +50980,12 @@ id: GO:0140713
 name: histone chaperone activity
 namespace: molecular_function
 is_a: GO:0140597
+
+[Term]
+id: GO:0140718
+name: facultative heterochromatin formation
+namespace: biological_process
+is_a: GO:0031507
 
 [Term]
 id: GO:0140719
@@ -48092,6 +51018,11 @@ id: GO:0140769
 name: ACP-dependent peptidyl-lysine N6-myristoyltransferase activity
 namespace: molecular_function
 is_a: GO:0018030
+
+[Term]
+id: GO:0140776
+name: protein-containing complex destabilizing activity
+namespace: molecular_function
 
 [Term]
 id: GO:0140803
@@ -48131,11 +51062,48 @@ is_a: GO:0015297
 is_a: GO:0046873
 
 [Term]
+id: GO:0140834
+name: RNA polymerase II CTD heptapeptide repeat S2 kinase activity
+namespace: molecular_function
+is_a: GO:0008353
+
+[Term]
+id: GO:0140836
+name: RNA polymerase II CTD heptapeptide repeat S5 kinase activity
+namespace: molecular_function
+is_a: GO:0008353
+
+[Term]
+id: GO:0140851
+name: histone H3K14 ubiquitin ligase activity
+namespace: molecular_function
+is_a: GO:0141055
+
+[Term]
+id: GO:0140852
+name: histone ubiquitin ligase activity
+namespace: molecular_function
+is_a: GO:0061630
+is_a: GO:0140993
+
+[Term]
 id: GO:0140861
 name: DNA repair-dependent chromatin remodeling
 namespace: biological_process
 is_a: GO:0006338
 is_a: GO:0006974
+
+[Term]
+id: GO:0140924
+name: L-kynurenine transmembrane transport
+namespace: biological_process
+is_a: GO:1902475
+
+[Term]
+id: GO:0140926
+name: L-kynurenine transmembrane transporter activity
+namespace: molecular_function
+is_a: GO:0015179
 
 [Term]
 id: GO:0140938
@@ -48180,6 +51148,13 @@ namespace: molecular_function
 is_a: GO:0046976
 
 [Term]
+id: GO:0140961
+name: cellular detoxification of metal ion
+namespace: biological_process
+is_a: GO:0061687
+is_a: GO:1990748
+
+[Term]
 id: GO:0140962
 name: multicellular organismal-level chemical homeostasis
 namespace: biological_process
@@ -48211,6 +51186,13 @@ id: GO:0140970
 name: AIM2 inflammasome complex assembly
 namespace: biological_process
 is_a: GO:0065003
+
+[Term]
+id: GO:0140978
+name: mitochondrial large ribosomal subunit binding
+namespace: molecular_function
+is_a: GO:0043023
+is_a: GO:0097177
 
 [Term]
 id: GO:0140993
@@ -48280,23 +51262,28 @@ namespace: molecular_function
 is_a: GO:0032452
 
 [Term]
+id: GO:0141055
+name: histone H3 ubiquitin ligase activity
+namespace: molecular_function
+is_a: GO:0140852
+
+[Term]
 id: GO:0141060
 name: disruption of anatomical structure in another organism
 namespace: biological_process
 is_a: GO:0044419
 
 [Term]
+id: GO:0141061
+name: disruption of cell in another organism
+namespace: biological_process
+is_a: GO:0141060
+
+[Term]
 id: GO:0141067
 name: intracellular nitrogen homeostasis
 namespace: biological_process
 is_a: GO:0055082
-
-[Term]
-id: GO:0141070
-name: symbiont-mediated suppression of host MAPK cascade
-namespace: biological_process
-is_a: GO:0052029
-is_a: GO:0052080
 
 [Term]
 id: GO:0141085
@@ -48356,12 +51343,6 @@ is_a: GO:0010628
 is_a: GO:0040029
 
 [Term]
-id: GO:0141146
-name: symbiont-mediated disruption of host tissue
-namespace: biological_process
-is_a: GO:0052111
-
-[Term]
 id: GO:0141148
 name: enoyl-[acyl-carrier-protein] reductase (NADPH) activity
 namespace: molecular_function
@@ -48378,12 +51359,6 @@ id: GO:0141153
 name: glycerol-3-phosphate dehydrogenase (NADP+) activity
 namespace: molecular_function
 is_a: GO:0047952
-
-[Term]
-id: GO:0141171
-name: symbiont-mediated perturbation of host membrane
-namespace: biological_process
-is_a: GO:0052008
 
 [Term]
 id: GO:0141187
@@ -48460,6 +51435,12 @@ is_a: GO:0045056
 is_a: GO:0097242
 
 [Term]
+id: GO:0150105
+name: protein localization to cell-cell junction
+namespace: biological_process
+is_a: GO:1902414
+
+[Term]
 id: GO:0150106
 name: regulation of protein localization to cell-cell junction
 namespace: biological_process
@@ -48472,10 +51453,23 @@ namespace: biological_process
 is_a: GO:0051049
 
 [Term]
+id: GO:0150115
+name: cell-substrate junction organization
+namespace: biological_process
+is_a: GO:0034330
+
+[Term]
 id: GO:0150116
 name: regulation of cell-substrate junction organization
 namespace: biological_process
 is_a: GO:0051128
+
+[Term]
+id: GO:0150117
+name: positive regulation of cell-substrate junction organization
+namespace: biological_process
+is_a: GO:0051130
+is_a: GO:0150116
 
 [Term]
 id: GO:0150118
@@ -48537,6 +51531,13 @@ id: GO:0160062
 name: cutin-based cuticle development
 namespace: biological_process
 is_a: GO:0048856
+
+[Term]
+id: GO:0160069
+name: surfactant secretion
+namespace: biological_process
+is_a: GO:0043129
+is_a: GO:0046903
 
 [Term]
 id: GO:0160082
@@ -48660,6 +51661,12 @@ namespace: molecular_function
 is_a: GO:0003824
 
 [Term]
+id: GO:0160221
+name: Rho-activating G protein-coupled receptor signaling pathway
+namespace: biological_process
+is_a: GO:0007186
+
+[Term]
 id: GO:0160254
 name: tRNA queuosine(34) biosynthetic process from salvaged queuosine or its precursors
 namespace: biological_process
@@ -48677,6 +51684,31 @@ name: complement activation, GZMK pathway
 namespace: biological_process
 is_a: GO:0006956
 is_a: GO:0045087
+
+[Term]
+id: GO:0160258
+name: endoplasmic reticulum-trans-Golgi network membrane contact site
+namespace: cellular_component
+is_a: GO:0044232
+
+[Term]
+id: GO:0160260
+name: protein asparagine deamidase activity
+namespace: molecular_function
+is_a: GO:0016811
+is_a: GO:0140096
+
+[Term]
+id: GO:0160261
+name: histone H1 asparagine deamidase activity
+namespace: molecular_function
+is_a: GO:0160260
+
+[Term]
+id: GO:0160264
+name: histone H1N76/N77 asparagine deamidase activity
+namespace: molecular_function
+is_a: GO:0160261
 
 [Term]
 id: GO:0160267
@@ -48711,6 +51743,18 @@ name: endosomal intralumenal vesicle
 namespace: cellular_component
 is_a: GO:0005768
 is_a: GO:0031410
+
+[Term]
+id: GO:0170009
+name: endoplasmic reticulum-organelle membrane tether activity
+namespace: molecular_function
+is_a: GO:0140177
+
+[Term]
+id: GO:0170016
+name: endoplasmic reticulum-endosome tether activity
+namespace: molecular_function
+is_a: GO:0170009
 
 [Term]
 id: GO:0170036
@@ -48814,6 +51858,12 @@ id: GO:0180035
 name: lncRNA processing
 namespace: biological_process
 is_a: GO:0006396
+
+[Term]
+id: GO:0180038
+name: cyclin L-CDK11 complex
+namespace: cellular_component
+is_a: GO:0000307
 
 [Term]
 id: GO:0180046
@@ -48984,6 +52034,14 @@ is_a: GO:0033242
 is_a: GO:0045763
 is_a: GO:0062014
 is_a: GO:1900081
+
+[Term]
+id: GO:1900087
+name: positive regulation of G1/S transition of mitotic cell cycle
+namespace: biological_process
+is_a: GO:1901992
+is_a: GO:1902808
+is_a: GO:2000045
 
 [Term]
 id: GO:1900088
@@ -49249,6 +52307,12 @@ is_a: GO:1900430
 is_a: GO:1900434
 
 [Term]
+id: GO:1900449
+name: regulation of glutamate receptor signaling pathway
+namespace: biological_process
+is_a: GO:0009966
+
+[Term]
 id: GO:1900457
 name: regulation of brassinosteroid mediated signaling pathway
 namespace: biological_process
@@ -49279,6 +52343,13 @@ id: GO:1900542
 name: regulation of purine nucleotide metabolic process
 namespace: biological_process
 is_a: GO:0006140
+
+[Term]
+id: GO:1900543
+name: negative regulation of purine nucleotide metabolic process
+namespace: biological_process
+is_a: GO:0045980
+is_a: GO:1900542
 
 [Term]
 id: GO:1900544
@@ -49318,6 +52389,13 @@ id: GO:1900865
 name: chloroplast RNA modification
 namespace: biological_process
 is_a: GO:0009451
+
+[Term]
+id: GO:1900871
+name: chloroplast mRNA modification
+namespace: biological_process
+is_a: GO:0016556
+is_a: GO:1900865
 
 [Term]
 id: GO:1900911
@@ -49603,6 +52681,12 @@ is_a: GO:0009058
 is_a: GO:1901334
 
 [Term]
+id: GO:1901338
+name: catecholamine binding
+namespace: molecular_function
+is_a: GO:0005488
+
+[Term]
 id: GO:1901342
 name: regulation of vasculature development
 namespace: biological_process
@@ -49707,6 +52791,14 @@ is_a: GO:0016241
 is_a: GO:1903146
 
 [Term]
+id: GO:1901525
+name: negative regulation of mitophagy
+namespace: biological_process
+is_a: GO:0016242
+is_a: GO:1901524
+is_a: GO:1903147
+
+[Term]
 id: GO:1901526
 name: positive regulation of mitophagy
 namespace: biological_process
@@ -49726,6 +52818,13 @@ name: negative regulation of hematopoietic progenitor cell differentiation
 namespace: biological_process
 is_a: GO:0045596
 is_a: GO:1901532
+
+[Term]
+id: GO:1901556
+name: response to candesartan
+namespace: biological_process
+is_a: GO:1901698
+is_a: GO:1901700
 
 [Term]
 id: GO:1901567
@@ -49780,6 +52879,19 @@ id: GO:1901612
 name: cardiolipin binding
 namespace: molecular_function
 is_a: GO:1901611
+
+[Term]
+id: GO:1901626
+name: regulation of postsynaptic membrane organization
+namespace: biological_process
+is_a: GO:0051128
+
+[Term]
+id: GO:1901628
+name: positive regulation of postsynaptic membrane organization
+namespace: biological_process
+is_a: GO:0051130
+is_a: GO:1901626
 
 [Term]
 id: GO:1901652
@@ -50011,6 +53123,19 @@ is_a: GO:0051054
 is_a: GO:1901858
 
 [Term]
+id: GO:1901861
+name: regulation of muscle tissue development
+namespace: biological_process
+is_a: GO:0050793
+
+[Term]
+id: GO:1901863
+name: positive regulation of muscle tissue development
+namespace: biological_process
+is_a: GO:0051094
+is_a: GO:1901861
+
+[Term]
 id: GO:1901873
 name: regulation of post-translational protein modification
 namespace: biological_process
@@ -50062,6 +53187,14 @@ id: GO:1901889
 name: negative regulation of cell junction assembly
 namespace: biological_process
 is_a: GO:0051129
+is_a: GO:1901888
+
+[Term]
+id: GO:1901890
+name: positive regulation of cell junction assembly
+namespace: biological_process
+is_a: GO:0044089
+is_a: GO:0051130
 is_a: GO:1901888
 
 [Term]
@@ -50195,6 +53328,19 @@ id: GO:1902003
 name: regulation of amyloid-beta formation
 namespace: biological_process
 is_a: GO:1902991
+
+[Term]
+id: GO:1902017
+name: regulation of cilium assembly
+namespace: biological_process
+is_a: GO:0120032
+is_a: GO:1902115
+
+[Term]
+id: GO:1902019
+name: regulation of cilium-dependent cell motility
+namespace: biological_process
+is_a: GO:2000145
 
 [Term]
 id: GO:1902021
@@ -50446,6 +53592,13 @@ is_a: GO:0015755
 is_a: GO:0034486
 
 [Term]
+id: GO:1902340
+name: negative regulation of chromosome condensation
+namespace: biological_process
+is_a: GO:0060623
+is_a: GO:2001251
+
+[Term]
 id: GO:1902347
 name: response to strigolactone
 namespace: biological_process
@@ -50467,6 +53620,22 @@ namespace: biological_process
 is_a: GO:0015698
 is_a: GO:0055085
 is_a: GO:0072348
+
+[Term]
+id: GO:1902369
+name: negative regulation of RNA catabolic process
+namespace: biological_process
+is_a: GO:0009895
+is_a: GO:0051253
+
+[Term]
+id: GO:1902373
+name: negative regulation of mRNA catabolic process
+namespace: biological_process
+is_a: GO:0010628
+is_a: GO:0061013
+is_a: GO:1902369
+is_a: GO:1903312
 
 [Term]
 id: GO:1902387
@@ -50566,6 +53735,19 @@ namespace: biological_process
 is_a: GO:0051094
 is_a: GO:0051240
 is_a: GO:2000036
+
+[Term]
+id: GO:1902460
+name: regulation of mesenchymal stem cell proliferation
+namespace: biological_process
+is_a: GO:0072091
+
+[Term]
+id: GO:1902462
+name: positive regulation of mesenchymal stem cell proliferation
+namespace: biological_process
+is_a: GO:1902460
+is_a: GO:2000648
 
 [Term]
 id: GO:1902475
@@ -50725,12 +53907,6 @@ is_a: GO:0051254
 is_a: GO:2001141
 
 [Term]
-id: GO:1902692
-name: regulation of neuroblast proliferation
-namespace: biological_process
-is_a: GO:2000177
-
-[Term]
 id: GO:1902693
 name: superoxide dismutase complex
 namespace: cellular_component
@@ -50741,6 +53917,14 @@ id: GO:1902730
 name: positive regulation of proteoglycan biosynthetic process
 namespace: biological_process
 is_a: GO:0010560
+
+[Term]
+id: GO:1902737
+name: dendritic filopodium
+namespace: cellular_component
+is_a: GO:0030175
+is_a: GO:0030425
+is_a: GO:0043005
 
 [Term]
 id: GO:1902743
@@ -50783,6 +53967,20 @@ is_a: GO:1901988
 is_a: GO:1902749
 
 [Term]
+id: GO:1902751
+name: positive regulation of cell cycle G2/M phase transition
+namespace: biological_process
+is_a: GO:1901989
+is_a: GO:1902749
+
+[Term]
+id: GO:1902775
+name: mitochondrial large ribosomal subunit assembly
+namespace: biological_process
+is_a: GO:0000027
+is_a: GO:0061668
+
+[Term]
 id: GO:1902806
 name: regulation of cell cycle G1/S phase transition
 namespace: biological_process
@@ -50793,6 +53991,13 @@ id: GO:1902807
 name: negative regulation of cell cycle G1/S phase transition
 namespace: biological_process
 is_a: GO:1901988
+is_a: GO:1902806
+
+[Term]
+id: GO:1902808
+name: positive regulation of cell cycle G1/S phase transition
+namespace: biological_process
+is_a: GO:1901989
 is_a: GO:1902806
 
 [Term]
@@ -50932,6 +54137,19 @@ name: positive regulation of dendritic spine maintenance
 namespace: biological_process
 is_a: GO:0031346
 is_a: GO:1902950
+
+[Term]
+id: GO:1902956
+name: regulation of mitochondrial electron transport, NADH to ubiquinone
+namespace: biological_process
+is_a: GO:1903715
+
+[Term]
+id: GO:1902957
+name: negative regulation of mitochondrial electron transport, NADH to ubiquinone
+namespace: biological_process
+is_a: GO:1902956
+is_a: GO:1905447
 
 [Term]
 id: GO:1902991
@@ -51091,6 +54309,34 @@ is_a: GO:0000278
 is_a: GO:0022402
 
 [Term]
+id: GO:1903053
+name: regulation of extracellular matrix organization
+namespace: biological_process
+is_a: GO:0051128
+
+[Term]
+id: GO:1903054
+name: negative regulation of extracellular matrix organization
+namespace: biological_process
+is_a: GO:0051129
+is_a: GO:1903053
+
+[Term]
+id: GO:1903055
+name: positive regulation of extracellular matrix organization
+namespace: biological_process
+is_a: GO:0051130
+is_a: GO:1903053
+
+[Term]
+id: GO:1903059
+name: regulation of protein lipidation
+namespace: biological_process
+is_a: GO:0010556
+is_a: GO:0031399
+is_a: GO:0050746
+
+[Term]
 id: GO:1903066
 name: regulation of protein localization to cell tip
 namespace: biological_process
@@ -51126,6 +54372,13 @@ namespace: biological_process
 is_a: GO:0034502
 
 [Term]
+id: GO:1903084
+name: protein localization to condensed nuclear chromosome
+namespace: biological_process
+is_a: GO:0034504
+is_a: GO:1903083
+
+[Term]
 id: GO:1903108
 name: regulation of mitochondrial transcription
 namespace: biological_process
@@ -51143,6 +54396,13 @@ id: GO:1903146
 name: regulation of autophagy of mitochondrion
 namespace: biological_process
 is_a: GO:0010506
+
+[Term]
+id: GO:1903147
+name: negative regulation of autophagy of mitochondrion
+namespace: biological_process
+is_a: GO:0010507
+is_a: GO:1903146
 
 [Term]
 id: GO:1903169
@@ -51184,6 +54444,13 @@ id: GO:1903228
 name: xanthosine catabolic process
 namespace: biological_process
 is_a: GO:0046130
+
+[Term]
+id: GO:1903292
+name: protein localization to Golgi membrane
+namespace: biological_process
+is_a: GO:0034067
+is_a: GO:0072657
 
 [Term]
 id: GO:1903293
@@ -51266,12 +54533,6 @@ namespace: biological_process
 is_a: GO:0032386
 
 [Term]
-id: GO:1903338
-name: regulation of cell wall organization or biogenesis
-namespace: biological_process
-is_a: GO:0050794
-
-[Term]
 id: GO:1903341
 name: regulation of meiotic DNA double-strand break formation
 namespace: biological_process
@@ -51287,6 +54548,19 @@ is_a: GO:0010948
 is_a: GO:0051053
 is_a: GO:1903341
 is_a: GO:2000242
+
+[Term]
+id: GO:1903350
+name: response to dopamine
+namespace: biological_process
+is_a: GO:0071869
+
+[Term]
+id: GO:1903351
+name: cellular response to dopamine
+namespace: biological_process
+is_a: GO:0071870
+is_a: GO:1903350
 
 [Term]
 id: GO:1903358
@@ -51436,6 +54710,20 @@ namespace: biological_process
 is_a: GO:0044057
 
 [Term]
+id: GO:1903523
+name: negative regulation of blood circulation
+namespace: biological_process
+is_a: GO:0051241
+is_a: GO:1903522
+
+[Term]
+id: GO:1903524
+name: positive regulation of blood circulation
+namespace: biological_process
+is_a: GO:0051240
+is_a: GO:1903522
+
+[Term]
 id: GO:1903525
 name: regulation of membrane tubulation
 namespace: biological_process
@@ -51533,10 +54821,24 @@ is_a: GO:0048585
 is_a: GO:1905897
 
 [Term]
+id: GO:1903575
+name: cornified envelope assembly
+namespace: biological_process
+is_a: GO:0007009
+is_a: GO:0071709
+
+[Term]
 id: GO:1903578
 name: regulation of ATP metabolic process
 namespace: biological_process
 is_a: GO:1900542
+
+[Term]
+id: GO:1903579
+name: negative regulation of ATP metabolic process
+namespace: biological_process
+is_a: GO:1900543
+is_a: GO:1903578
 
 [Term]
 id: GO:1903580
@@ -51717,12 +55019,27 @@ is_a: GO:0072530
 is_a: GO:1901679
 
 [Term]
+id: GO:1903803
+name: L-glutamine import across plasma membrane
+namespace: biological_process
+is_a: GO:0006868
+is_a: GO:0089718
+is_a: GO:1902475
+
+[Term]
 id: GO:1903804
 name: glycine import across plasma membrane
 namespace: biological_process
 is_a: GO:0015816
 is_a: GO:0089718
 is_a: GO:1905039
+
+[Term]
+id: GO:1903805
+name: L-valine import across plasma membrane
+namespace: biological_process
+is_a: GO:0089718
+is_a: GO:1903785
 
 [Term]
 id: GO:1903826
@@ -51793,6 +55110,19 @@ is_a: GO:0048525
 is_a: GO:1903900
 
 [Term]
+id: GO:1903909
+name: regulation of receptor clustering
+namespace: biological_process
+is_a: GO:1905475
+
+[Term]
+id: GO:1903911
+name: positive regulation of receptor clustering
+namespace: biological_process
+is_a: GO:1903909
+is_a: GO:1905477
+
+[Term]
 id: GO:1903981
 name: enterobactin binding
 namespace: molecular_function
@@ -51813,6 +55143,14 @@ id: GO:1904035
 name: regulation of epithelial cell apoptotic process
 namespace: biological_process
 is_a: GO:0042981
+
+[Term]
+id: GO:1904044
+name: response to aldosterone
+namespace: biological_process
+is_a: GO:0051385
+is_a: GO:0097305
+is_a: GO:1901654
 
 [Term]
 id: GO:1904047
@@ -51848,6 +55186,12 @@ is_a: GO:0010560
 is_a: GO:1904098
 
 [Term]
+id: GO:1904116
+name: response to vasopressin
+namespace: biological_process
+is_a: GO:0043434
+
+[Term]
 id: GO:1904159
 name: megasporocyte differentiation
 namespace: biological_process
@@ -51859,6 +55203,13 @@ name: negative regulation of membrane depolarization
 namespace: biological_process
 is_a: GO:0003254
 is_a: GO:0048519
+
+[Term]
+id: GO:1904247
+name: positive regulation of polynucleotide adenylyltransferase activity
+namespace: biological_process
+is_a: GO:0043085
+is_a: GO:0051338
 
 [Term]
 id: GO:1904262
@@ -51957,19 +55308,6 @@ is_a: GO:1903829
 is_a: GO:1904375
 
 [Term]
-id: GO:1904396
-name: regulation of neuromuscular junction development
-namespace: biological_process
-is_a: GO:0050807
-
-[Term]
-id: GO:1904398
-name: positive regulation of neuromuscular junction development
-namespace: biological_process
-is_a: GO:0051130
-is_a: GO:1904396
-
-[Term]
 id: GO:1904408
 name: melatonin binding
 namespace: molecular_function
@@ -51980,6 +55318,21 @@ id: GO:1904426
 name: positive regulation of GTP binding
 namespace: biological_process
 is_a: GO:0051099
+
+[Term]
+id: GO:1904481
+name: response to tetrahydrofolate
+namespace: biological_process
+is_a: GO:1901698
+is_a: GO:1901700
+
+[Term]
+id: GO:1904482
+name: cellular response to tetrahydrofolate
+namespace: biological_process
+is_a: GO:1901699
+is_a: GO:1901701
+is_a: GO:1904481
 
 [Term]
 id: GO:1904502
@@ -52064,10 +55417,25 @@ is_a: GO:0045947
 is_a: GO:1904688
 
 [Term]
+id: GO:1904695
+name: positive regulation of vascular associated smooth muscle contraction
+namespace: biological_process
+is_a: GO:0003056
+is_a: GO:0045907
+is_a: GO:0045987
+
+[Term]
 id: GO:1904705
 name: regulation of vascular associated smooth muscle cell proliferation
 namespace: biological_process
 is_a: GO:0048660
+
+[Term]
+id: GO:1904706
+name: negative regulation of vascular associated smooth muscle cell proliferation
+namespace: biological_process
+is_a: GO:0048662
+is_a: GO:1904705
 
 [Term]
 id: GO:1904707
@@ -52098,11 +55466,31 @@ is_a: GO:0042177
 is_a: GO:1904714
 
 [Term]
+id: GO:1904717
+name: regulation of AMPA glutamate receptor clustering
+namespace: biological_process
+is_a: GO:0106104
+
+[Term]
+id: GO:1904719
+name: positive regulation of AMPA glutamate receptor clustering
+namespace: biological_process
+is_a: GO:1901628
+is_a: GO:1903911
+is_a: GO:1904717
+
+[Term]
 id: GO:1904724
 name: tertiary granule lumen
 namespace: cellular_component
 is_a: GO:0070013
 is_a: GO:0070820
+
+[Term]
+id: GO:1904738
+name: vascular associated smooth muscle cell migration
+namespace: biological_process
+is_a: GO:0014909
 
 [Term]
 id: GO:1904749
@@ -52122,6 +55510,13 @@ id: GO:1904752
 name: regulation of vascular associated smooth muscle cell migration
 namespace: biological_process
 is_a: GO:0014910
+
+[Term]
+id: GO:1904753
+name: negative regulation of vascular associated smooth muscle cell migration
+namespace: biological_process
+is_a: GO:0014912
+is_a: GO:1904752
 
 [Term]
 id: GO:1904754
@@ -52281,6 +55676,19 @@ is_a: GO:0046942
 is_a: GO:0055085
 
 [Term]
+id: GO:1905082
+name: regulation of mitochondrial translational elongation
+namespace: biological_process
+is_a: GO:0006448
+
+[Term]
+id: GO:1905084
+name: positive regulation of mitochondrial translational elongation
+namespace: biological_process
+is_a: GO:0045901
+is_a: GO:1905082
+
+[Term]
 id: GO:1905089
 name: regulation of type 2 mitophagy
 namespace: biological_process
@@ -52362,6 +55770,15 @@ namespace: molecular_function
 is_a: GO:0043021
 
 [Term]
+id: GO:1905232
+name: cellular response to L-glutamate
+namespace: biological_process
+is_a: GO:0071230
+is_a: GO:1901699
+is_a: GO:1901701
+is_a: GO:1902065
+
+[Term]
 id: GO:1905261
 name: regulation of meiotic DNA double-strand break formation involved in reciprocal meiotic recombination
 namespace: biological_process
@@ -52383,6 +55800,13 @@ is_a: GO:0051129
 is_a: GO:1902275
 
 [Term]
+id: GO:1905269
+name: positive regulation of chromatin organization
+namespace: biological_process
+is_a: GO:1902275
+is_a: GO:2001252
+
+[Term]
 id: GO:1905276
 name: regulation of epithelial tube formation
 namespace: biological_process
@@ -52402,6 +55826,12 @@ id: GO:1905286
 name: serine-type peptidase complex
 namespace: cellular_component
 is_a: GO:1905368
+
+[Term]
+id: GO:1905288
+name: vascular associated smooth muscle cell apoptotic process
+namespace: biological_process
+is_a: GO:0034390
 
 [Term]
 id: GO:1905330
@@ -52491,6 +55921,36 @@ id: GO:1905421
 name: regulation of plant organ morphogenesis
 namespace: biological_process
 is_a: GO:0022603
+
+[Term]
+id: GO:1905429
+name: response to glycine
+namespace: biological_process
+is_a: GO:0043200
+is_a: GO:1901698
+is_a: GO:1901700
+
+[Term]
+id: GO:1905430
+name: cellular response to glycine
+namespace: biological_process
+is_a: GO:0071230
+is_a: GO:1901699
+is_a: GO:1901701
+is_a: GO:1905429
+
+[Term]
+id: GO:1905446
+name: regulation of mitochondrial ATP synthesis coupled electron transport
+namespace: biological_process
+is_a: GO:0043467
+
+[Term]
+id: GO:1905447
+name: negative regulation of mitochondrial ATP synthesis coupled electron transport
+namespace: biological_process
+is_a: GO:0090324
+is_a: GO:1905446
 
 [Term]
 id: GO:1905456
@@ -52588,6 +56048,13 @@ id: GO:1905748
 name: hard palate morphogenesis
 namespace: biological_process
 is_a: GO:0009653
+
+[Term]
+id: GO:1905809
+name: negative regulation of synapse organization
+namespace: biological_process
+is_a: GO:0050807
+is_a: GO:0051129
 
 [Term]
 id: GO:1905818
@@ -52767,6 +56234,14 @@ namespace: biological_process
 is_a: GO:0009416
 
 [Term]
+id: GO:1990074
+name: polyuridylation-dependent mRNA catabolic process
+namespace: biological_process
+is_a: GO:0006402
+is_a: GO:0043632
+is_a: GO:0061157
+
+[Term]
 id: GO:1990077
 name: primosome complex
 namespace: cellular_component
@@ -52862,6 +56337,14 @@ namespace: cellular_component
 is_a: GO:1905360
 
 [Term]
+id: GO:1990138
+name: neuron projection extension
+namespace: biological_process
+is_a: GO:0048588
+is_a: GO:0048812
+is_a: GO:0060560
+
+[Term]
 id: GO:1990139
 name: protein localization to nuclear periphery
 namespace: biological_process
@@ -52898,6 +56381,13 @@ id: GO:1990169
 name: stress response to copper ion
 namespace: biological_process
 is_a: GO:0046688
+is_a: GO:0097501
+
+[Term]
+id: GO:1990170
+name: stress response to cadmium ion
+namespace: biological_process
+is_a: GO:0046686
 is_a: GO:0097501
 
 [Term]
@@ -52942,6 +56432,12 @@ id: GO:1990222
 name: ProVWX complex
 namespace: cellular_component
 is_a: GO:0043190
+
+[Term]
+id: GO:1990226
+name: histone methyltransferase binding
+namespace: molecular_function
+is_a: GO:0019899
 
 [Term]
 id: GO:1990228
@@ -53056,6 +56552,12 @@ id: GO:1990391
 name: DNA repair complex
 namespace: cellular_component
 is_a: GO:1902494
+
+[Term]
+id: GO:1990400
+name: mitochondrial ribosomal large subunit rRNA binding
+namespace: molecular_function
+is_a: GO:0070180
 
 [Term]
 id: GO:1990404
@@ -53272,6 +56774,12 @@ is_a: GO:0031134
 is_a: GO:0051315
 
 [Term]
+id: GO:1990776
+name: response to angiotensin
+namespace: biological_process
+is_a: GO:0043434
+
+[Term]
 id: GO:1990777
 name: lipoprotein particle
 namespace: cellular_component
@@ -53282,6 +56790,19 @@ id: GO:1990778
 name: protein localization to cell periphery
 namespace: biological_process
 is_a: GO:0008104
+
+[Term]
+id: GO:1990784
+name: response to dsDNA
+namespace: biological_process
+is_a: GO:1901698
+
+[Term]
+id: GO:1990786
+name: cellular response to dsDNA
+namespace: biological_process
+is_a: GO:1901699
+is_a: GO:1990784
 
 [Term]
 id: GO:1990816
@@ -53365,6 +56886,12 @@ name: cellular response to chemokine
 namespace: biological_process
 is_a: GO:0071345
 is_a: GO:1990868
+
+[Term]
+id: GO:1990874
+name: vascular associated smooth muscle cell proliferation
+namespace: biological_process
+is_a: GO:0048659
 
 [Term]
 id: GO:1990904
@@ -53496,6 +57023,19 @@ name: regulation of G1/S transition of mitotic cell cycle
 namespace: biological_process
 is_a: GO:1901990
 is_a: GO:1902806
+
+[Term]
+id: GO:2000047
+name: regulation of cell-cell adhesion mediated by cadherin
+namespace: biological_process
+is_a: GO:0022407
+
+[Term]
+id: GO:2000049
+name: positive regulation of cell-cell adhesion mediated by cadherin
+namespace: biological_process
+is_a: GO:0022409
+is_a: GO:2000047
 
 [Term]
 id: GO:2000058
@@ -53647,10 +57187,10 @@ namespace: biological_process
 is_a: GO:0042127
 
 [Term]
-id: GO:2000179
-name: positive regulation of neural precursor cell proliferation
+id: GO:2000178
+name: negative regulation of neural precursor cell proliferation
 namespace: biological_process
-is_a: GO:0008284
+is_a: GO:0008285
 is_a: GO:2000177
 
 [Term]
@@ -53743,6 +57283,13 @@ namespace: biological_process
 is_a: GO:0032466
 is_a: GO:2000242
 is_a: GO:2000244
+
+[Term]
+id: GO:2000253
+name: positive regulation of feeding behavior
+namespace: biological_process
+is_a: GO:0048520
+is_a: GO:0060259
 
 [Term]
 id: GO:2000278
@@ -53882,6 +57429,13 @@ namespace: biological_process
 is_a: GO:0032467
 is_a: GO:0051495
 is_a: GO:2000431
+
+[Term]
+id: GO:2000463
+name: positive regulation of excitatory postsynaptic potential
+namespace: biological_process
+is_a: GO:0009967
+is_a: GO:0098815
 
 [Term]
 id: GO:2000544
@@ -54141,6 +57695,12 @@ namespace: biological_process
 is_a: GO:0008152
 
 [Term]
+id: GO:2001072
+name: galactomannan binding
+namespace: molecular_function
+is_a: GO:0010297
+
+[Term]
 id: GO:2001138
 name: regulation of phospholipid transport
 namespace: biological_process
@@ -54198,6 +57758,19 @@ is_a: GO:0019219
 is_a: GO:0042762
 is_a: GO:0062012
 is_a: GO:0071071
+
+[Term]
+id: GO:2001222
+name: regulation of neuron migration
+namespace: biological_process
+is_a: GO:0030334
+
+[Term]
+id: GO:2001224
+name: positive regulation of neuron migration
+namespace: biological_process
+is_a: GO:0030335
+is_a: GO:2001222
 
 [Term]
 id: GO:2001233
@@ -54335,22 +57908,16 @@ is_a: GO:0098800
 is_a: GO:1902495
 
 [Term]
-id: GO:7770003
-name: amino acid conjugated cholate hydrolase activity
-namespace: molecular_function
-is_a: GO:0016811
-
-[Term]
-id: GO:7770009
-name: L-tryptophan conjugated cholate hydrolase activity
-namespace: molecular_function
-is_a: GO:7770003
-
-[Term]
 id: GO:7770011
 name: lipid exchange activity
 namespace: molecular_function
 is_a: GO:0120013
+
+[Term]
+id: GO:7770013
+name: humanin receptor complex
+namespace: cellular_component
+is_a: GO:0098802
 
 [Term]
 id: GO:7770058
@@ -54365,8 +57932,20 @@ namespace: biological_process
 is_a: GO:0045039
 
 [Term]
+id: GO:7770062
+name: vesicle membrane tethering activity
+namespace: molecular_function
+is_a: GO:0140177
+
+[Term]
 id: GO:7770068
 name: ferric iron reductase activity
 namespace: molecular_function
 is_a: GO:0016723
+
+[Term]
+id: GO:7770088
+name: endoplasmic reticulum-endolysosomal membrane contact site
+namespace: cellular_component
+is_a: GO:0044232
 
