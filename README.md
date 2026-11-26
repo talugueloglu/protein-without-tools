@@ -16,11 +16,13 @@
   <img src="assets/banner.jpg" alt="Proteins Without Tools — amino-acid text tokens folding into a 3D protein structure" width="100%" />
 </p>
 
-This repository contains the complete 8-task benchmark (**582 targets**), zero-leakage anonymised prompts, automated evaluators, specialist baseline pipelines, and interactive HTML report (`website/index.html`).
+This repository contains the complete **13-task v2 benchmark suite (852 targets = 582 v1 + 270 v2)**, zero-leakage anonymised prompts, automated evaluators, uncontaminated specialist baseline pipelines, and interactive HTML report (`website/index.html`).
 
 ---
 
-## Benchmark Overview (8 Tasks · 582 Targets)
+## Benchmark Overview (13 Tasks · 852 Targets)
+
+### Core v1 Suite (Tasks 1–8 · 582 Targets)
 
 | # | Task | Dataset & Holdout Design | Specialist Baseline | Primary Metrics |
 | :---: | :--- | :--- | :--- | :--- |
@@ -33,6 +35,16 @@ This repository contains the complete 8-task benchmark (**582 targets**), zero-l
 | **7** | **De novo & motif design** | **`N = 40`** single-shot sequence prompts (`24` fold-conditioned + `16` crystal motif scaffolds), folded with ESMFold-2 & OpenFold3 | `RFdiffusion3 + ProteinMPNN` | Proteina-Complexa criteria: Fold `TM ≥ 0.50`, Motif `RMSD ≤ 1.0 Å`, `pLDDT ≥ 70`, `scRMSD ≤ 2 Å`, `<30%` SeqID |
 | **8** | **Closed-loop binder design** | **`N = 12`** RCSB PDB epitopes (`4` ProtDBench classic, `5` BoltzProt1 novel, `3` post-May-2026 crystals) × `16` AlphaFold2/ESMFold-2 feedback rounds | `BoltzGen` (16 all-atom designs) | `Hit@16` (`ipTM ≥ 0.75`, `iPAE < 10 Å`, `≥3/5` hotspots), running-best AF2 score |
 
+### v2 Expansion Suite (Tasks 9–13 · 270 Targets)
+
+| # | Task | Dataset & Holdout Design | Specialist Baseline | Primary Metrics |
+| :---: | :--- | :--- | :--- | :--- |
+| **9** | **Double-mutant epistasis** | **`N = 60`** `MegaScale` Dataset 3 double-mutant panels (`4` *de novo*, `56` natural; dynamic-range filtered `0.75 ≤ ΔG ≤ 4.75`, 8 coupled + 8 additive pairs; additive & 3D-distance null `AUROC ≤ 0.50`) | `ProteinMPNN` (`v_48_020`, zero-shot conditional cycle) | `Coupling AUROC`, `Spearman ρ (|ΔΔΔG|)`, `Sign accuracy`, `NDCG@5` |
+| **10** | **Ligand, cofactor & metal binding** | **`N = 60`** strictly post-May-2026 RCSB PDB complexes (`24` drug SMILES, `18` cofactors, `18` catalytic metals) with 1-to-1 same-AA decoys (`> 10 Å`, exact `50.0%` 1D AA null) | `Boltz-2` (MSA + all-atom co-folding) | `AUROC`, `Same-AA win`, `Spearman ρ`, `NDCG@5` |
+| **11** | **Conformational dynamics & cryptic pockets** | **`N = 50`** multi-conformation crystal pairs (`microsoft/bioemu-benchmarks`: `20` cryptic pockets, `13` domain motions, `17` OOD switches), N/C termini trimmed & TOP-IDP 1D-disorder matched (`AUROC ~ 0.53` null) | `Boltz-2` 5-sample conformational ensemble (RMSF + `100 − pLDDT`) | `AUROC`, `Spearman ρ`, `NDCG@5` |
+| **12** | **Protein–DNA / RNA interfaces** | **`N = 50`** strictly post-May-2026 RCSB PDB complexes (`25` dsDNA, `25` RNA) with 1-to-1 same-AA `R/K/H` decoys (`> 10 Å`, exact `50.0%` charge-lookup null) | `Boltz-2` (MSA + protein–DNA/RNA co-folding) | `AUROC`, `Same-AA win`, `Spearman ρ`, `NDCG@5` |
+| **13** | **Wet-lab antibody developability** | **`N = 50`** strictly within-assay 10-antibody panels (`Graylab/FLAb`: `14` thermostability `Tm`, `12` polyreactivity, `12` aggregation, `12` expression; all INN/assay names stripped; length null `ρ ≈ 0.06`) | `ESM-2 (650M)` LL + Biophysical TAP-style hybrid *(zero-shot)* | `Spearman ρ`, `Pairwise accuracy`, `NDCG@5` |
+
 ---
 
 ## Quick Start
@@ -44,8 +56,11 @@ cd protein-without-tools
 # Install into a local virtualenv (Python 3.11+)
 uv venv && uv pip install -e ".[dev,cloud]"
 
-# Run unit, anti-cheat, CAFA-6 IA/masking, and zero-leakage tests (14/14 in < 2s)
+# Run all unit, anti-cheat, CAFA-6 IA/masking, and zero-leakage tests (28/28 in < 2s)
 .venv/bin/pytest -v
+
+# Print unified 13-task summary (manifests, anti-cheat null floors, specialist baselines)
+.venv/bin/python scripts/score_all.py
 ```
 
 ---
@@ -55,9 +70,9 @@ uv venv && uv pip install -e ".[dev,cloud]"
 ```bash
 cp .env.example .env   # add OPENAI_API_KEY (and ANTHROPIC_API_KEY / GEMINI_API_KEY as needed)
 
-# Single-shot tasks 1–7 (e.g. gpt-6.1-sol, gpt-6.2-sol, gpt-6.2-astra)
+# Single-shot tasks 1–7 and/or v2 tasks 9–13 (--stages v1 | v2 | all | 9,10,11,12,13)
 .venv/bin/python scripts/run_benchmark_llms.py \
-  --provider openai --model gpt-6.2-astra --stages 1,2,3,4,5,6,7 --thinking-budget 4096
+  --provider openai --model gpt-6.2-astra --stages v2 --thinking-budget 4096
 
 # Task 8: 16-round closed-loop AlphaFold2 binder campaigns
 .venv/bin/python scripts/run_stage3b_closed_loop_llms.py \

@@ -30,3 +30,5 @@ website/proteinbench_artifact.html
 website/proteinbench_redesign.html
 website/*_backup*.html
 website/*_before_redesign_*.html
+
+data/raw_v2_cache/

@@ -1,0 +1,526 @@
+{
+  "task": "task11_conformational_dynamics",
+  "specialist_model": "Boltz-2 5-Sample Conformational Ensemble (MSA + Diffusion CA-RMSF)",
+  "n_evaluated": 50,
+  "n_total": 50,
+  "cost_usd": 0.073,
+  "overall": {
+    "n": 50,
+    "auroc": 0.7778,
+    "spearman_rho": 0.4608,
+    "ndcg_at_5": 0.6829
+  },
+  "by_stratum": {
+    "cryptic_pocket": {
+      "n": 20,
+      "auroc": 0.8703,
+      "spearman_rho": 0.6223,
+      "ndcg_at_5": 0.7608
+    },
+    "domain_motion": {
+      "n": 13,
+      "auroc": 0.8365,
+      "spearman_rho": 0.569,
+      "ndcg_at_5": 0.762
+    },
+    "ood_conformational_switch": {
+      "n": 17,
+      "auroc": 0.6241,
+      "spearman_rho": 0.1879,
+      "ndcg_at_5": 0.5307
+    }
+  },
+  "modes": {
+    "ensemble_rmsf": {
+      "overall": {
+        "n": 50,
+        "auroc": 0.7778,
+        "spearman_rho": 0.4608,
+        "ndcg_at_5": 0.6829
+      },
+      "by_stratum": {
+        "cryptic_pocket": {
+          "n": 20,
+          "auroc": 0.8703,
+          "spearman_rho": 0.6223,
+          "ndcg_at_5": 0.7608
+        },
+        "domain_motion": {
+          "n": 13,
+          "auroc": 0.8365,
+          "spearman_rho": 0.569,
+          "ndcg_at_5": 0.762
+        },
+        "ood_conformational_switch": {
+          "n": 17,
+          "auroc": 0.6241,
+          "spearman_rho": 0.1879,
+          "ndcg_at_5": 0.5307
+        }
+      }
+    },
+    "inv_plddt": {
+      "overall": {
+        "n": 50,
+        "auroc": 0.6444,
+        "spearman_rho": 0.2472,
+        "ndcg_at_5": 0.5372
+      },
+      "by_stratum": {
+        "cryptic_pocket": {
+          "n": 20,
+          "auroc": 0.7844,
+          "spearman_rho": 0.4881,
+          "ndcg_at_5": 0.7215
+        },
+        "domain_motion": {
+          "n": 13,
+          "auroc": 0.5228,
+          "spearman_rho": 0.0385,
+          "ndcg_at_5": 0.3941
+        },
+        "ood_conformational_switch": {
+          "n": 17,
+          "auroc": 0.5726,
+          "spearman_rho": 0.1235,
+          "ndcg_at_5": 0.4299
+        }
+      }
+    },
+    "combined_rmsf_plddt": {
+      "overall": {
+        "n": 50,
+        "auroc": 0.7337,
+        "spearman_rho": 0.3925,
+        "ndcg_at_5": 0.628
+      },
+      "by_stratum": {
+        "cryptic_pocket": {
+          "n": 20,
+          "auroc": 0.8273,
+          "spearman_rho": 0.5521,
+          "ndcg_at_5": 0.7694
+        },
+        "domain_motion": {
+          "n": 13,
+          "auroc": 0.7596,
+          "spearman_rho": 0.4391,
+          "ndcg_at_5": 0.5964
+        },
+        "ood_conformational_switch": {
+          "n": 17,
+          "auroc": 0.6039,
+          "spearman_rho": 0.1692,
+          "ndcg_at_5": 0.4858
+        }
+      }
+    }
+  },
+  "anti_cheat_null": {
+    "top_idp_disorder_auroc": 0.5306,
+    "top_idp_disorder_spearman": 0.0719,
+    "terminus_dist_auroc": 0.5195
+  },
+  "per_target": [
+    {
+      "target_id": "t11_c001",
+      "stratum": "cryptic_pocket",
+      "length": 130,
+      "auroc": 1.0,
+      "spearman_rho": 0.8441,
+      "ndcg_at_5": 0.7023
+    },
+    {
+      "target_id": "t11_c002",
+      "stratum": "cryptic_pocket",
+      "length": 369,
+      "auroc": 1.0,
+      "spearman_rho": 0.6706,
+      "ndcg_at_5": 0.8689
+    },
+    {
+      "target_id": "t11_c003",
+      "stratum": "cryptic_pocket",
+      "length": 272,
+      "auroc": 1.0,
+      "spearman_rho": 0.7441,
+      "ndcg_at_5": 0.8118
+    },
+    {
+      "target_id": "t11_c004",
+      "stratum": "cryptic_pocket",
+      "length": 379,
+      "auroc": 0.3594,
+      "spearman_rho": 0.0118,
+      "ndcg_at_5": 0.2998
+    },
+    {
+      "target_id": "t11_c005",
+      "stratum": "cryptic_pocket",
+      "length": 138,
+      "auroc": 0.7344,
+      "spearman_rho": 0.3735,
+      "ndcg_at_5": 0.8813
+    },
+    {
+      "target_id": "t11_c006",
+      "stratum": "cryptic_pocket",
+      "length": 380,
+      "auroc": 0.9375,
+      "spearman_rho": 0.7912,
+      "ndcg_at_5": 0.8207
+    },
+    {
+      "target_id": "t11_c007",
+      "stratum": "cryptic_pocket",
+      "length": 397,
+      "auroc": 0.9375,
+      "spearman_rho": 0.7118,
+      "ndcg_at_5": 0.9786
+    },
+    {
+      "target_id": "t11_c008",
+      "stratum": "cryptic_pocket",
+      "length": 158,
+      "auroc": 1.0,
+      "spearman_rho": 0.9147,
+      "ndcg_at_5": 0.9493
+    },
+    {
+      "target_id": "t11_c009",
+      "stratum": "cryptic_pocket",
+      "length": 324,
+      "auroc": 0.7812,
+      "spearman_rho": 0.4794,
+      "ndcg_at_5": 0.9341
+    },
+    {
+      "target_id": "t11_c010",
+      "stratum": "cryptic_pocket",
+      "length": 166,
+      "auroc": 1.0,
+      "spearman_rho": 0.7912,
+      "ndcg_at_5": 0.6056
+    },
+    {
+      "target_id": "t11_c011",
+      "stratum": "cryptic_pocket",
+      "length": 152,
+      "auroc": 0.9844,
+      "spearman_rho": 0.7529,
+      "ndcg_at_5": 0.7103
+    },
+    {
+      "target_id": "t11_c012",
+      "stratum": "cryptic_pocket",
+      "length": 169,
+      "auroc": 0.4062,
+      "spearman_rho": -0.0559,
+      "ndcg_at_5": 0.4068
+    },
+    {
+      "target_id": "t11_c013",
+      "stratum": "cryptic_pocket",
+      "length": 214,
+      "auroc": 1.0,
+      "spearman_rho": 0.8471,
+      "ndcg_at_5": 0.8951
+    },
+    {
+      "target_id": "t11_c014",
+      "stratum": "cryptic_pocket",
+      "length": 333,
+      "auroc": 1.0,
+      "spearman_rho": 0.7676,
+      "ndcg_at_5": 0.7649
+    },
+    {
+      "target_id": "t11_c015",
+      "stratum": "cryptic_pocket",
+      "length": 152,
+      "auroc": 0.6094,
+      "spearman_rho": 0.1353,
+      "ndcg_at_5": 0.3713
+    },
+    {
+      "target_id": "t11_c016",
+      "stratum": "cryptic_pocket",
+      "length": 222,
+      "auroc": 0.9062,
+      "spearman_rho": 0.5559,
+      "ndcg_at_5": 0.6869
+    },
+    {
+      "target_id": "t11_c017",
+      "stratum": "cryptic_pocket",
+      "length": 256,
+      "auroc": 0.9844,
+      "spearman_rho": 0.9088,
+      "ndcg_at_5": 0.9721
+    },
+    {
+      "target_id": "t11_c018",
+      "stratum": "cryptic_pocket",
+      "length": 162,
+      "auroc": 0.8281,
+      "spearman_rho": 0.6059,
+      "ndcg_at_5": 0.6808
+    },
+    {
+      "target_id": "t11_c019",
+      "stratum": "cryptic_pocket",
+      "length": 239,
+      "auroc": 0.9375,
+      "spearman_rho": 0.7176,
+      "ndcg_at_5": 0.8911
+    },
+    {
+      "target_id": "t11_c020",
+      "stratum": "cryptic_pocket",
+      "length": 306,
+      "auroc": 1.0,
+      "spearman_rho": 0.8794,
+      "ndcg_at_5": 0.9848
+    },
+    {
+      "target_id": "t11_c021",
+      "stratum": "domain_motion",
+      "length": 141,
+      "auroc": 0.9531,
+      "spearman_rho": 0.7588,
+      "ndcg_at_5": 0.976
+    },
+    {
+      "target_id": "t11_c022",
+      "stratum": "domain_motion",
+      "length": 403,
+      "auroc": 0.6094,
+      "spearman_rho": -0.0147,
+      "ndcg_at_5": 0.543
+    },
+    {
+      "target_id": "t11_c023",
+      "stratum": "domain_motion",
+      "length": 137,
+      "auroc": 0.8125,
+      "spearman_rho": 0.5,
+      "ndcg_at_5": 0.655
+    },
+    {
+      "target_id": "t11_c024",
+      "stratum": "domain_motion",
+      "length": 345,
+      "auroc": 0.1875,
+      "spearman_rho": -0.4647,
+      "ndcg_at_5": 0.2976
+    },
+    {
+      "target_id": "t11_c025",
+      "stratum": "domain_motion",
+      "length": 217,
+      "auroc": 0.8281,
+      "spearman_rho": 0.6059,
+      "ndcg_at_5": 0.7178
+    },
+    {
+      "target_id": "t11_c026",
+      "stratum": "domain_motion",
+      "length": 237,
+      "auroc": 1.0,
+      "spearman_rho": 0.9529,
+      "ndcg_at_5": 0.992
+    },
+    {
+      "target_id": "t11_c027",
+      "stratum": "domain_motion",
+      "length": 295,
+      "auroc": 1.0,
+      "spearman_rho": 0.8471,
+      "ndcg_at_5": 0.9642
+    },
+    {
+      "target_id": "t11_c028",
+      "stratum": "domain_motion",
+      "length": 271,
+      "auroc": 0.7656,
+      "spearman_rho": 0.5618,
+      "ndcg_at_5": 0.4627
+    },
+    {
+      "target_id": "t11_c029",
+      "stratum": "domain_motion",
+      "length": 308,
+      "auroc": 1.0,
+      "spearman_rho": 0.9471,
+      "ndcg_at_5": 0.9778
+    },
+    {
+      "target_id": "t11_c030",
+      "stratum": "domain_motion",
+      "length": 324,
+      "auroc": 1.0,
+      "spearman_rho": 0.8324,
+      "ndcg_at_5": 0.9777
+    },
+    {
+      "target_id": "t11_c031",
+      "stratum": "domain_motion",
+      "length": 236,
+      "auroc": 0.8438,
+      "spearman_rho": 0.4941,
+      "ndcg_at_5": 0.5446
+    },
+    {
+      "target_id": "t11_c032",
+      "stratum": "domain_motion",
+      "length": 220,
+      "auroc": 0.875,
+      "spearman_rho": 0.55,
+      "ndcg_at_5": 0.8843
+    },
+    {
+      "target_id": "t11_c033",
+      "stratum": "domain_motion",
+      "length": 218,
+      "auroc": 1.0,
+      "spearman_rho": 0.8265,
+      "ndcg_at_5": 0.913
+    },
+    {
+      "target_id": "t11_c034",
+      "stratum": "ood_conformational_switch",
+      "length": 67,
+      "auroc": 0.9219,
+      "spearman_rho": 0.7853,
+      "ndcg_at_5": 0.9192
+    },
+    {
+      "target_id": "t11_c035",
+      "stratum": "ood_conformational_switch",
+      "length": 125,
+      "auroc": 0.6094,
+      "spearman_rho": 0.4765,
+      "ndcg_at_5": 0.6392
+    },
+    {
+      "target_id": "t11_c036",
+      "stratum": "ood_conformational_switch",
+      "length": 72,
+      "auroc": 0.5,
+      "spearman_rho": -0.0029,
+      "ndcg_at_5": 0.4219
+    },
+    {
+      "target_id": "t11_c037",
+      "stratum": "ood_conformational_switch",
+      "length": 76,
+      "auroc": 0.8438,
+      "spearman_rho": 0.65,
+      "ndcg_at_5": 0.975
+    },
+    {
+      "target_id": "t11_c038",
+      "stratum": "ood_conformational_switch",
+      "length": 65,
+      "auroc": 0.5156,
+      "spearman_rho": 0.0971,
+      "ndcg_at_5": 0.4918
+    },
+    {
+      "target_id": "t11_c039",
+      "stratum": "ood_conformational_switch",
+      "length": 65,
+      "auroc": 1.0,
+      "spearman_rho": 0.6706,
+      "ndcg_at_5": 0.6543
+    },
+    {
+      "target_id": "t11_c040",
+      "stratum": "ood_conformational_switch",
+      "length": 366,
+      "auroc": 1.0,
+      "spearman_rho": 0.7971,
+      "ndcg_at_5": 0.9388
+    },
+    {
+      "target_id": "t11_c041",
+      "stratum": "ood_conformational_switch",
+      "length": 77,
+      "auroc": 0.3281,
+      "spearman_rho": -0.3676,
+      "ndcg_at_5": 0.0759
+    },
+    {
+      "target_id": "t11_c042",
+      "stratum": "ood_conformational_switch",
+      "length": 88,
+      "auroc": 0.0938,
+      "spearman_rho": -0.75,
+      "ndcg_at_5": 0.0
+    },
+    {
+      "target_id": "t11_c043",
+      "stratum": "ood_conformational_switch",
+      "length": 272,
+      "auroc": 0.3906,
+      "spearman_rho": -0.3147,
+      "ndcg_at_5": 0.3884
+    },
+    {
+      "target_id": "t11_c044",
+      "stratum": "ood_conformational_switch",
+      "length": 273,
+      "auroc": 0.5938,
+      "spearman_rho": 0.1941,
+      "ndcg_at_5": 0.442
+    },
+    {
+      "target_id": "t11_c045",
+      "stratum": "ood_conformational_switch",
+      "length": 202,
+      "auroc": 1.0,
+      "spearman_rho": 0.9,
+      "ndcg_at_5": 0.932
+    },
+    {
+      "target_id": "t11_c046",
+      "stratum": "ood_conformational_switch",
+      "length": 247,
+      "auroc": 1.0,
+      "spearman_rho": 0.7559,
+      "ndcg_at_5": 0.6978
+    },
+    {
+      "target_id": "t11_c047",
+      "stratum": "ood_conformational_switch",
+      "length": 354,
+      "auroc": 0.4062,
+      "spearman_rho": -0.2147,
+      "ndcg_at_5": 0.3884
+    },
+    {
+      "target_id": "t11_c048",
+      "stratum": "ood_conformational_switch",
+      "length": 97,
+      "auroc": 0.9375,
+      "spearman_rho": 0.6676,
+      "ndcg_at_5": 0.8082
+    },
+    {
+      "target_id": "t11_c049",
+      "stratum": "ood_conformational_switch",
+      "length": 398,
+      "auroc": 0.1406,
+      "spearman_rho": -0.7647,
+      "ndcg_at_5": 0.0
+    },
+    {
+      "target_id": "t11_c050",
+      "stratum": "ood_conformational_switch",
+      "length": 151,
+      "auroc": 0.3281,
+      "spearman_rho": -0.3853,
+      "ndcg_at_5": 0.2482
+    }
+  ]
+}

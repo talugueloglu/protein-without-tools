@@ -1,0 +1,548 @@
+{
+  "task": "task13_wet_lab_developability",
+  "specialist_model": "Zero-Shot ESM-2 (650M) Log-Likelihood + Biophysical TAP-Style Descriptors",
+  "n_evaluated": 50,
+  "n_total": 50,
+  "overall": {
+    "n": 50,
+    "spearman_rho": 0.1872,
+    "pairwise_accuracy": 0.5668,
+    "ndcg_at_5": 0.5063
+  },
+  "by_property": {
+    "aggregation": {
+      "n": 12,
+      "spearman_rho": 0.0833,
+      "pairwise_accuracy": 0.5276,
+      "ndcg_at_5": 0.4889
+    },
+    "expression": {
+      "n": 12,
+      "spearman_rho": 0.4323,
+      "pairwise_accuracy": 0.6537,
+      "ndcg_at_5": 0.6252
+    },
+    "polyreactivity": {
+      "n": 12,
+      "spearman_rho": 0.1548,
+      "pairwise_accuracy": 0.5645,
+      "ndcg_at_5": 0.4691
+    },
+    "thermostability": {
+      "n": 14,
+      "spearman_rho": 0.094,
+      "pairwise_accuracy": 0.5278,
+      "ndcg_at_5": 0.4511
+    }
+  },
+  "baselines": {
+    "esm2_650m_ll": {
+      "overall": {
+        "n": 50,
+        "spearman_rho": 0.0701,
+        "pairwise_accuracy": 0.5238,
+        "ndcg_at_5": 0.4337
+      },
+      "by_property": {
+        "aggregation": {
+          "n": 12,
+          "spearman_rho": -0.1593,
+          "pairwise_accuracy": 0.4345,
+          "ndcg_at_5": 0.3558
+        },
+        "expression": {
+          "n": 12,
+          "spearman_rho": 0.4293,
+          "pairwise_accuracy": 0.6574,
+          "ndcg_at_5": 0.5847
+        },
+        "polyreactivity": {
+          "n": 12,
+          "spearman_rho": -0.1077,
+          "pairwise_accuracy": 0.4635,
+          "ndcg_at_5": 0.3877
+        },
+        "thermostability": {
+          "n": 14,
+          "spearman_rho": 0.1113,
+          "pairwise_accuracy": 0.5373,
+          "ndcg_at_5": 0.4105
+        }
+      }
+    },
+    "biophysical_tap": {
+      "overall": {
+        "n": 50,
+        "spearman_rho": 0.078,
+        "pairwise_accuracy": 0.5305,
+        "ndcg_at_5": 0.4606
+      },
+      "by_property": {
+        "aggregation": {
+          "n": 12,
+          "spearman_rho": 0.0808,
+          "pairwise_accuracy": 0.5333,
+          "ndcg_at_5": 0.473
+        },
+        "expression": {
+          "n": 12,
+          "spearman_rho": 0.02,
+          "pairwise_accuracy": 0.5074,
+          "ndcg_at_5": 0.439
+        },
+        "polyreactivity": {
+          "n": 12,
+          "spearman_rho": 0.2394,
+          "pairwise_accuracy": 0.5915,
+          "ndcg_at_5": 0.5756
+        },
+        "thermostability": {
+          "n": 14,
+          "spearman_rho": -0.013,
+          "pairwise_accuracy": 0.4956,
+          "ndcg_at_5": 0.3698
+        }
+      }
+    },
+    "hybrid_esm2_tap": {
+      "overall": {
+        "n": 50,
+        "spearman_rho": 0.1872,
+        "pairwise_accuracy": 0.5668,
+        "ndcg_at_5": 0.5063
+      },
+      "by_property": {
+        "aggregation": {
+          "n": 12,
+          "spearman_rho": 0.0833,
+          "pairwise_accuracy": 0.5276,
+          "ndcg_at_5": 0.4889
+        },
+        "expression": {
+          "n": 12,
+          "spearman_rho": 0.4323,
+          "pairwise_accuracy": 0.6537,
+          "ndcg_at_5": 0.6252
+        },
+        "polyreactivity": {
+          "n": 12,
+          "spearman_rho": 0.1548,
+          "pairwise_accuracy": 0.5645,
+          "ndcg_at_5": 0.4691
+        },
+        "thermostability": {
+          "n": 14,
+          "spearman_rho": 0.094,
+          "pairwise_accuracy": 0.5278,
+          "ndcg_at_5": 0.4511
+        }
+      }
+    }
+  },
+  "anti_cheat_null": {
+    "length_null_spearman": 0.0576,
+    "length_null_concordance": 0.5214
+  },
+  "per_target": [
+    {
+      "target_id": "t13_d001",
+      "property_type": "thermostability",
+      "source_assay": "garbinski2023_tm1",
+      "spearman_rho": -0.4788,
+      "pairwise_accuracy": 0.3333,
+      "ndcg_at_5": 0.086
+    },
+    {
+      "target_id": "t13_d002",
+      "property_type": "thermostability",
+      "source_assay": "garbinski2023_tm1",
+      "spearman_rho": -0.2485,
+      "pairwise_accuracy": 0.4,
+      "ndcg_at_5": 0.1068
+    },
+    {
+      "target_id": "t13_d003",
+      "property_type": "thermostability",
+      "source_assay": "garbinski2023_tm1",
+      "spearman_rho": 0.1273,
+      "pairwise_accuracy": 0.4889,
+      "ndcg_at_5": 0.4213
+    },
+    {
+      "target_id": "t13_d004",
+      "property_type": "thermostability",
+      "source_assay": "garbinski2023_tm1",
+      "spearman_rho": -0.5152,
+      "pairwise_accuracy": 0.3111,
+      "ndcg_at_5": 0.2197
+    },
+    {
+      "target_id": "t13_d005",
+      "property_type": "thermostability",
+      "source_assay": "hutchinson2023_tm1",
+      "spearman_rho": 0.6606,
+      "pairwise_accuracy": 0.7556,
+      "ndcg_at_5": 0.8615
+    },
+    {
+      "target_id": "t13_d006",
+      "property_type": "thermostability",
+      "source_assay": "hutchinson2023_tm1",
+      "spearman_rho": 0.4667,
+      "pairwise_accuracy": 0.6667,
+      "ndcg_at_5": 0.7137
+    },
+    {
+      "target_id": "t13_d007",
+      "property_type": "thermostability",
+      "source_assay": "hutchinson2023_tm1",
+      "spearman_rho": -0.3587,
+      "pairwise_accuracy": 0.3636,
+      "ndcg_at_5": 0.1336
+    },
+    {
+      "target_id": "t13_d008",
+      "property_type": "thermostability",
+      "source_assay": "hutchinson2023_tm1",
+      "spearman_rho": 0.4788,
+      "pairwise_accuracy": 0.6667,
+      "ndcg_at_5": 0.7323
+    },
+    {
+      "target_id": "t13_d009",
+      "property_type": "thermostability",
+      "source_assay": "jain2024_tm",
+      "spearman_rho": 0.1459,
+      "pairwise_accuracy": 0.5455,
+      "ndcg_at_5": 0.6346
+    },
+    {
+      "target_id": "t13_d010",
+      "property_type": "thermostability",
+      "source_assay": "jain2024_tm",
+      "spearman_rho": 0.3222,
+      "pairwise_accuracy": 0.6136,
+      "ndcg_at_5": 0.5681
+    },
+    {
+      "target_id": "t13_d011",
+      "property_type": "thermostability",
+      "source_assay": "jain2017_tm",
+      "spearman_rho": 0.0303,
+      "pairwise_accuracy": 0.5111,
+      "ndcg_at_5": 0.252
+    },
+    {
+      "target_id": "t13_d012",
+      "property_type": "thermostability",
+      "source_assay": "jain2017_tm",
+      "spearman_rho": 0.6,
+      "pairwise_accuracy": 0.7111,
+      "ndcg_at_5": 0.8228
+    },
+    {
+      "target_id": "t13_d013",
+      "property_type": "thermostability",
+      "source_assay": "jain2017_tm",
+      "spearman_rho": -0.0182,
+      "pairwise_accuracy": 0.4889,
+      "ndcg_at_5": 0.3528
+    },
+    {
+      "target_id": "t13_d014",
+      "property_type": "thermostability",
+      "source_assay": "jain2017_tm",
+      "spearman_rho": 0.103,
+      "pairwise_accuracy": 0.5333,
+      "ndcg_at_5": 0.4108
+    },
+    {
+      "target_id": "t13_d015",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2024_psr",
+      "spearman_rho": 0.2492,
+      "pairwise_accuracy": 0.5909,
+      "ndcg_at_5": 0.5748
+    },
+    {
+      "target_id": "t13_d016",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2024_psr",
+      "spearman_rho": 0.079,
+      "pairwise_accuracy": 0.5455,
+      "ndcg_at_5": 0.3287
+    },
+    {
+      "target_id": "t13_d017",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2024_heparin",
+      "spearman_rho": -0.0125,
+      "pairwise_accuracy": 0.4737,
+      "ndcg_at_5": 0.6103
+    },
+    {
+      "target_id": "t13_d018",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2023_dnp",
+      "spearman_rho": -0.2364,
+      "pairwise_accuracy": 0.4222,
+      "ndcg_at_5": 0.3268
+    },
+    {
+      "target_id": "t13_d019",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2023_dnp",
+      "spearman_rho": 0.0545,
+      "pairwise_accuracy": 0.5556,
+      "ndcg_at_5": 0.4975
+    },
+    {
+      "target_id": "t13_d020",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2023_dnp",
+      "spearman_rho": 0.4303,
+      "pairwise_accuracy": 0.6889,
+      "ndcg_at_5": 0.4401
+    },
+    {
+      "target_id": "t13_d021",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2023_heme",
+      "spearman_rho": 0.0667,
+      "pairwise_accuracy": 0.5111,
+      "ndcg_at_5": 0.4269
+    },
+    {
+      "target_id": "t13_d022",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2023_heme",
+      "spearman_rho": 0.1155,
+      "pairwise_accuracy": 0.5455,
+      "ndcg_at_5": 0.381
+    },
+    {
+      "target_id": "t13_d023",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2017_bvp",
+      "spearman_rho": 0.2848,
+      "pairwise_accuracy": 0.6,
+      "ndcg_at_5": 0.7141
+    },
+    {
+      "target_id": "t13_d024",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2017_bvp",
+      "spearman_rho": 0.2606,
+      "pairwise_accuracy": 0.6,
+      "ndcg_at_5": 0.4466
+    },
+    {
+      "target_id": "t13_d025",
+      "property_type": "polyreactivity",
+      "source_assay": "jain2017_elisa",
+      "spearman_rho": -0.2485,
+      "pairwise_accuracy": 0.4222,
+      "ndcg_at_5": 0.2564
+    },
+    {
+      "target_id": "t13_d026",
+      "property_type": "polyreactivity",
+      "source_assay": "shanehsazzadeh2023_poly",
+      "spearman_rho": 0.8146,
+      "pairwise_accuracy": 0.8182,
+      "ndcg_at_5": 0.6261
+    },
+    {
+      "target_id": "t13_d027",
+      "property_type": "aggregation",
+      "source_assay": "jain2024_acsins",
+      "spearman_rho": -0.1879,
+      "pairwise_accuracy": 0.4222,
+      "ndcg_at_5": 0.1929
+    },
+    {
+      "target_id": "t13_d028",
+      "property_type": "aggregation",
+      "source_assay": "jain2024_acsins",
+      "spearman_rho": -0.079,
+      "pairwise_accuracy": 0.4545,
+      "ndcg_at_5": 0.5387
+    },
+    {
+      "target_id": "t13_d029",
+      "property_type": "aggregation",
+      "source_assay": "jain2024_hic",
+      "spearman_rho": 0.4667,
+      "pairwise_accuracy": 0.6444,
+      "ndcg_at_5": 0.5964
+    },
+    {
+      "target_id": "t13_d030",
+      "property_type": "aggregation",
+      "source_assay": "jain2024_hic",
+      "spearman_rho": 0.0545,
+      "pairwise_accuracy": 0.5111,
+      "ndcg_at_5": 0.34
+    },
+    {
+      "target_id": "t13_d031",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_acsins",
+      "spearman_rho": -0.5515,
+      "pairwise_accuracy": 0.3111,
+      "ndcg_at_5": 0.1659
+    },
+    {
+      "target_id": "t13_d032",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_acsins",
+      "spearman_rho": 0.5515,
+      "pairwise_accuracy": 0.7111,
+      "ndcg_at_5": 0.7052
+    },
+    {
+      "target_id": "t13_d033",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_acsins",
+      "spearman_rho": 0.7939,
+      "pairwise_accuracy": 0.8,
+      "ndcg_at_5": 0.9489
+    },
+    {
+      "target_id": "t13_d034",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_acsins",
+      "spearman_rho": 0.1636,
+      "pairwise_accuracy": 0.5333,
+      "ndcg_at_5": 0.4842
+    },
+    {
+      "target_id": "t13_d035",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_hic",
+      "spearman_rho": 0.0788,
+      "pairwise_accuracy": 0.5333,
+      "ndcg_at_5": 0.5596
+    },
+    {
+      "target_id": "t13_d036",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_hic",
+      "spearman_rho": 0.2485,
+      "pairwise_accuracy": 0.6,
+      "ndcg_at_5": 0.6502
+    },
+    {
+      "target_id": "t13_d037",
+      "property_type": "aggregation",
+      "source_assay": "jain2017_hic",
+      "spearman_rho": -0.4667,
+      "pairwise_accuracy": 0.3556,
+      "ndcg_at_5": 0.2158
+    },
+    {
+      "target_id": "t13_d038",
+      "property_type": "aggregation",
+      "source_assay": "shanehsazzadeh2023_acsins",
+      "spearman_rho": -0.0729,
+      "pairwise_accuracy": 0.4545,
+      "ndcg_at_5": 0.4696
+    },
+    {
+      "target_id": "t13_d039",
+      "property_type": "expression",
+      "source_assay": "garbinski2023_exp",
+      "spearman_rho": 0.4909,
+      "pairwise_accuracy": 0.6667,
+      "ndcg_at_5": 0.5529
+    },
+    {
+      "target_id": "t13_d040",
+      "property_type": "expression",
+      "source_assay": "garbinski2023_exp",
+      "spearman_rho": 0.4909,
+      "pairwise_accuracy": 0.6222,
+      "ndcg_at_5": 0.7825
+    },
+    {
+      "target_id": "t13_d041",
+      "property_type": "expression",
+      "source_assay": "garbinski2023_exp",
+      "spearman_rho": 0.1152,
+      "pairwise_accuracy": 0.5778,
+      "ndcg_at_5": 0.6011
+    },
+    {
+      "target_id": "t13_d042",
+      "property_type": "expression",
+      "source_assay": "garbinski2023_exp",
+      "spearman_rho": 0.4182,
+      "pairwise_accuracy": 0.6444,
+      "ndcg_at_5": 0.5471
+    },
+    {
+      "target_id": "t13_d043",
+      "property_type": "expression",
+      "source_assay": "jain2017_hek",
+      "spearman_rho": 0.3455,
+      "pairwise_accuracy": 0.6,
+      "ndcg_at_5": 0.4013
+    },
+    {
+      "target_id": "t13_d044",
+      "property_type": "expression",
+      "source_assay": "jain2017_hek",
+      "spearman_rho": 0.4303,
+      "pairwise_accuracy": 0.6667,
+      "ndcg_at_5": 0.8335
+    },
+    {
+      "target_id": "t13_d045",
+      "property_type": "expression",
+      "source_assay": "jain2017_hek",
+      "spearman_rho": 0.5758,
+      "pairwise_accuracy": 0.7111,
+      "ndcg_at_5": 0.7082
+    },
+    {
+      "target_id": "t13_d046",
+      "property_type": "expression",
+      "source_assay": "jain2017_hek",
+      "spearman_rho": 0.2364,
+      "pairwise_accuracy": 0.5778,
+      "ndcg_at_5": 0.5184
+    },
+    {
+      "target_id": "t13_d047",
+      "property_type": "expression",
+      "source_assay": "koenig2017_er",
+      "spearman_rho": 0.3818,
+      "pairwise_accuracy": 0.6444,
+      "ndcg_at_5": 0.5581
+    },
+    {
+      "target_id": "t13_d048",
+      "property_type": "expression",
+      "source_assay": "koenig2017_er",
+      "spearman_rho": 0.5394,
+      "pairwise_accuracy": 0.7111,
+      "ndcg_at_5": 0.6111
+    },
+    {
+      "target_id": "t13_d049",
+      "property_type": "expression",
+      "source_assay": "koenig2017_er",
+      "spearman_rho": 0.5636,
+      "pairwise_accuracy": 0.6889,
+      "ndcg_at_5": 0.6472
+    },
+    {
+      "target_id": "t13_d050",
+      "property_type": "expression",
+      "source_assay": "koenig2017_er",
+      "spearman_rho": 0.6,
+      "pairwise_accuracy": 0.7333,
+      "ndcg_at_5": 0.7413
+    }
+  ]
+}

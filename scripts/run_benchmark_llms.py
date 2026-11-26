@@ -22,7 +22,7 @@ if str(REPO_ROOT / "src") not in sys.path:
 from protein_without_tools.llm_client import UnifiedLLMRunner
 
 STAGE_SPECS: Dict[str, Tuple[str, str, int]] = {
-    # Clean sequential test numbers (1..7; Test 8 uses `run_stage3b_closed_loop_llms.py`)
+    # v1 tasks (1..7; Test 8 uses `run_stage3b_closed_loop_llms.py`)
     "1": ("stage1a_forward_prompts.jsonl", "stage1a", 4096),
     "2": ("stage1b_inverse_prompts.jsonl", "stage1b", 2048),
     "3": ("stage2a_homology_prompts.jsonl", "stage2a", 1024),
@@ -30,7 +30,13 @@ STAGE_SPECS: Dict[str, Tuple[str, str, int]] = {
     "5": ("stage3a_alanine_prompts.jsonl", "stage3a", 4096),
     "6": ("stage6_binding_alanine_prompts.jsonl", "stage6_binding", 4096),
     "7": ("stage3b_denovo_prompts.jsonl", "stage3b", 2048),
-    # Backwards-compatible aliases
+    # v2 tasks (9..13)
+    "9": ("task9_epistasis_prompts.jsonl", "task9_epistasis", 3072),
+    "10": ("task10_ligand_site_prompts.jsonl", "task10_ligand_site", 3072),
+    "11": ("task11_dynamics_prompts.jsonl", "task11_dynamics", 3072),
+    "12": ("task12_nucleic_acid_prompts.jsonl", "task12_nucleic_acid", 3072),
+    "13": ("task13_developability_prompts.jsonl", "task13_developability", 3072),
+    # Backwards-compatible & semantic aliases
     "1a": ("stage1a_forward_prompts.jsonl", "stage1a", 4096),
     "1b": ("stage1b_inverse_prompts.jsonl", "stage1b", 2048),
     "2a": ("stage2a_homology_prompts.jsonl", "stage2a", 1024),
@@ -38,6 +44,11 @@ STAGE_SPECS: Dict[str, Tuple[str, str, int]] = {
     "3a": ("stage3a_alanine_prompts.jsonl", "stage3a", 4096),
     "3a_bind": ("stage6_binding_alanine_prompts.jsonl", "stage6_binding", 4096),
     "3b": ("stage3b_denovo_prompts.jsonl", "stage3b", 2048),
+    "epistasis": ("task9_epistasis_prompts.jsonl", "task9_epistasis", 3072),
+    "ligand": ("task10_ligand_site_prompts.jsonl", "task10_ligand_site", 3072),
+    "dynamics": ("task11_dynamics_prompts.jsonl", "task11_dynamics", 3072),
+    "nucleic": ("task12_nucleic_acid_prompts.jsonl", "task12_nucleic_acid", 3072),
+    "developability": ("task13_developability_prompts.jsonl", "task13_developability", 3072),
 }
 
 
@@ -149,7 +160,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Execute Frontier LLM protein benchmark prompts across stages.")
     parser.add_argument("--provider", required=True, choices=["anthropic", "openai", "gemini", "openrouter"])
     parser.add_argument("--model", required=True, help="e.g. gpt-6.2-astra, claude-opus-5-5, gpt-5.2, gemini-3.1-pro")
-    parser.add_argument("--stages", default="all", help="Comma-separated tasks: 1,2,3,4,5,6,7 (or legacy 1a,1b,2a,2b,3a,3a_bind,3b) or 'all'")
+    parser.add_argument("--stages", default="all", help="Comma-separated tasks: 1..7,9..13, 'v1', 'v2', or 'all'")
     parser.add_argument("--thinking-budget", type=int, default=0, help="Extended thinking token budget (0 = Direct)")
     parser.add_argument("--prompts-dir", default=str(REPO_ROOT / "outputs" / "prompts"))
     parser.add_argument("--out-dir", default=str(REPO_ROOT / "outputs" / "predictions"))
@@ -158,8 +169,13 @@ def main() -> None:
     parser.add_argument("--max-usd", type=float, default=35.0)
     args = parser.parse_args()
 
-    if args.stages.strip().lower() == "all":
+    s_arg = args.stages.strip().lower()
+    if s_arg == "all":
+        stage_keys = ["1", "2", "3", "4", "5", "6", "7", "9", "10", "11", "12", "13"]
+    elif s_arg == "v1":
         stage_keys = ["1", "2", "3", "4", "5", "6", "7"]
+    elif s_arg == "v2":
+        stage_keys = ["9", "10", "11", "12", "13"]
     else:
         stage_keys = [s.strip().lower() for s in args.stages.split(",") if s.strip()]
 

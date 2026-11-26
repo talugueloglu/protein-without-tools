@@ -1,0 +1,6464 @@
+{
+  "benchmark": "protein-without-tools-task12-protein-nucleic-acid",
+  "n_targets": 50,
+  "by_stratum": {
+    "dsDNA": 25,
+    "RNA": 25
+  },
+  "anti_cheat_audit": {
+    "charge_1d_lookup_same_aa_win": 0.5,
+    "charge_1d_lookup_auroc": 0.5
+  },
+  "targets": [
+    {
+      "target_id": "t12_n001",
+      "pdb_id": "36BO",
+      "chain_id": "A",
+      "release_date": "2026-11-25",
+      "resolution": 2.9,
+      "title": "Cryo-EM structure of the VchCAST strand-transfer complex Class 1 (STC, Class 1)",
+      "stratum": "dsDNA",
+      "na_sequence": "CGTAGTGTTGATGCAACCATAAAGTGATATTTAATAATTATTTATAATCAGCAACTTAACCACAAAACAACCATATATTGATATCTC",
+      "na_length": 87,
+      "length": 230,
+      "sequence": "MATSLPTPSAEVRAALEAAFETPARNLTKSRGKNIHRYVSVKNSKRITVESTLEFDACYHFDFEPSIVRFTAKPIRFKYELNGKSHSYVPDFLVQFDTNEFVLYEVKSAYQINKPDFPVKWEAKVKAARELGLELELVTESDIRDTVVLNNLKRIHRYASKDELNEVHNSILKIIKENGAQTARELGEQLGLKGRTVLPILCDLLSRRLLDTRLDEPLSLESRFELASYG",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R31",
+          "aa": "R",
+          "pos": 31,
+          "min_dist_angstrom": 3.06,
+          "is_contact": true
+        },
+        {
+          "res_id": "G32",
+          "aa": "G",
+          "pos": 32,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "K33",
+          "aa": "K",
+          "pos": 33,
+          "min_dist_angstrom": 3.53,
+          "is_contact": true
+        },
+        {
+          "res_id": "N34",
+          "aa": "N",
+          "pos": 34,
+          "min_dist_angstrom": 3.03,
+          "is_contact": true
+        },
+        {
+          "res_id": "S51",
+          "aa": "S",
+          "pos": 51,
+          "min_dist_angstrom": 3.62,
+          "is_contact": true
+        },
+        {
+          "res_id": "T52",
+          "aa": "T",
+          "pos": 52,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "L53",
+          "aa": "L",
+          "pos": 53,
+          "min_dist_angstrom": 4.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "T98",
+          "aa": "T",
+          "pos": 98,
+          "min_dist_angstrom": 30.18,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q111",
+          "aa": "Q",
+          "pos": 111,
+          "min_dist_angstrom": 3.0,
+          "is_contact": true
+        },
+        {
+          "res_id": "S170",
+          "aa": "S",
+          "pos": 170,
+          "min_dist_angstrom": 35.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "K176",
+          "aa": "K",
+          "pos": 176,
+          "min_dist_angstrom": 36.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "N178",
+          "aa": "N",
+          "pos": 178,
+          "min_dist_angstrom": 35.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "R184",
+          "aa": "R",
+          "pos": 184,
+          "min_dist_angstrom": 29.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q189",
+          "aa": "Q",
+          "pos": 189,
+          "min_dist_angstrom": 36.46,
+          "is_contact": false
+        },
+        {
+          "res_id": "L190",
+          "aa": "L",
+          "pos": 190,
+          "min_dist_angstrom": 33.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "G191",
+          "aa": "G",
+          "pos": 191,
+          "min_dist_angstrom": 34.78,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n002",
+      "pdb_id": "36BP",
+      "chain_id": "X",
+      "release_date": "2026-11-25",
+      "resolution": 3.2,
+      "title": "Cryo-EM structure of the VchCAST strand-transfer complex Class 2 (STC, Class 2)",
+      "stratum": "dsDNA",
+      "na_sequence": "CGTAGTGTTGATGCAACCATAAAGTGATATTTAATAATTATTTATAATCAGCAACTTAACCACAAAACAACCATATATTGATATCTC",
+      "na_length": 87,
+      "length": 93,
+      "sequence": "ALTKAEMSEYLFDKLGLSKRDAKELVELFFEEIRRALENGEQVKLSGFGNFDLRDKNQRPGRNPKTGEDIPITARRVVTFRPGQKLKSRVENA",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "A5",
+          "aa": "A",
+          "pos": 5,
+          "min_dist_angstrom": 3.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "D13",
+          "aa": "D",
+          "pos": 13,
+          "min_dist_angstrom": 12.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "K14",
+          "aa": "K",
+          "pos": 14,
+          "min_dist_angstrom": 16.34,
+          "is_contact": false
+        },
+        {
+          "res_id": "G16",
+          "aa": "G",
+          "pos": 16,
+          "min_dist_angstrom": 14.26,
+          "is_contact": false
+        },
+        {
+          "res_id": "S18",
+          "aa": "S",
+          "pos": 18,
+          "min_dist_angstrom": 12.29,
+          "is_contact": false
+        },
+        {
+          "res_id": "K23",
+          "aa": "K",
+          "pos": 23,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "I33",
+          "aa": "I",
+          "pos": 33,
+          "min_dist_angstrom": 12.7,
+          "is_contact": false
+        },
+        {
+          "res_id": "R35",
+          "aa": "R",
+          "pos": 35,
+          "min_dist_angstrom": 14.62,
+          "is_contact": false
+        },
+        {
+          "res_id": "N39",
+          "aa": "N",
+          "pos": 39,
+          "min_dist_angstrom": 15.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "S46",
+          "aa": "S",
+          "pos": 46,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "D52",
+          "aa": "D",
+          "pos": 52,
+          "min_dist_angstrom": 3.11,
+          "is_contact": true
+        },
+        {
+          "res_id": "N63",
+          "aa": "N",
+          "pos": 63,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "I70",
+          "aa": "I",
+          "pos": 70,
+          "min_dist_angstrom": 3.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "R81",
+          "aa": "R",
+          "pos": 81,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "G83",
+          "aa": "G",
+          "pos": 83,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        },
+        {
+          "res_id": "A93",
+          "aa": "A",
+          "pos": 93,
+          "min_dist_angstrom": 14.02,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n003",
+      "pdb_id": "36BQ",
+      "chain_id": "R",
+      "release_date": "2026-11-25",
+      "resolution": 3.0,
+      "title": "Cryo-EM structure of the VchCAST Cascade-TniQ Target Recognition Complex (TRC)",
+      "stratum": "dsDNA",
+      "na_sequence": "CAGTGCACGTCTGCTGTCAGATAAAGTCTCCCGTGAACTTTACCCGGT",
+      "na_length": 48,
+      "length": 343,
+      "sequence": "MKLPTNLAYERSIDPSDVCFFVVWPDDRKTPLTYNSRTLLGQMEAASLAYDVSGQPIKSATAEALAQGNPHQVDFCHVPYGASHIECSFSVSFSSELRQPYKCNSSKVKQTLVQLVELYETKIGWTELATRYLMNICNGKWLWKNTRKAYCWNIVLTPWPWNGEKVGFEDIRTNYTSRQDFKNNKNWSAIVEMIKTAFSSTDGLAIFEVRATLHLPTNAMVRPSQVFTEKKTQNSRVFQSTTIDGERSPILGAFKTGAAIATIDDWYPEATEPLRVGRFGVHREDVTCYRHPSTGKDFFSILQQAEHYIEVLSANKTPAQETINDMHFLMANLIKGGMFQHKG",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "M1",
+          "aa": "M",
+          "pos": 1,
+          "min_dist_angstrom": 2.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "P25",
+          "aa": "P",
+          "pos": 25,
+          "min_dist_angstrom": 34.25,
+          "is_contact": false
+        },
+        {
+          "res_id": "L40",
+          "aa": "L",
+          "pos": 40,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "N69",
+          "aa": "N",
+          "pos": 69,
+          "min_dist_angstrom": 3.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "P70",
+          "aa": "P",
+          "pos": 70,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "H71",
+          "aa": "H",
+          "pos": 71,
+          "min_dist_angstrom": 2.98,
+          "is_contact": true
+        },
+        {
+          "res_id": "H84",
+          "aa": "H",
+          "pos": 84,
+          "min_dist_angstrom": 29.26,
+          "is_contact": false
+        },
+        {
+          "res_id": "L156",
+          "aa": "L",
+          "pos": 156,
+          "min_dist_angstrom": 30.49,
+          "is_contact": false
+        },
+        {
+          "res_id": "G163",
+          "aa": "G",
+          "pos": 163,
+          "min_dist_angstrom": 41.0,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q179",
+          "aa": "Q",
+          "pos": 179,
+          "min_dist_angstrom": 36.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "N183",
+          "aa": "N",
+          "pos": 183,
+          "min_dist_angstrom": 39.36,
+          "is_contact": false
+        },
+        {
+          "res_id": "M193",
+          "aa": "M",
+          "pos": 193,
+          "min_dist_angstrom": 28.78,
+          "is_contact": false
+        },
+        {
+          "res_id": "T232",
+          "aa": "T",
+          "pos": 232,
+          "min_dist_angstrom": 3.07,
+          "is_contact": true
+        },
+        {
+          "res_id": "T317",
+          "aa": "T",
+          "pos": 317,
+          "min_dist_angstrom": 35.75,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q340",
+          "aa": "Q",
+          "pos": 340,
+          "min_dist_angstrom": 2.91,
+          "is_contact": true
+        },
+        {
+          "res_id": "G343",
+          "aa": "G",
+          "pos": 343,
+          "min_dist_angstrom": 3.05,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n004",
+      "pdb_id": "39GL",
+      "chain_id": "A",
+      "release_date": "2026-11-25",
+      "resolution": 2.12,
+      "title": "Crystal structure of RQ01, a de novo designed protein-DNA assembly generated with RFDpoly",
+      "stratum": "dsDNA",
+      "na_sequence": "CGCTATCCAGAGCTGCACATCGCC",
+      "na_length": 24,
+      "length": 166,
+      "sequence": "VQVSPELGALLTQMRREAGLTQRELAELAGVGQSTVSRIEKGESLGSILLLLLAAKKALEAAGKHEEAAALLEAFYKATGKYEWLKKNKPAIEAAYAELQEIKAQGLSNEELSKKIKELREKAGLTQVEFAEKAGLSRRTIINIERGYIVPQPHVLFSILLAYHQV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "Q22",
+          "aa": "Q",
+          "pos": 22,
+          "min_dist_angstrom": 2.74,
+          "is_contact": true
+        },
+        {
+          "res_id": "G32",
+          "aa": "G",
+          "pos": 32,
+          "min_dist_angstrom": 3.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "G63",
+          "aa": "G",
+          "pos": 63,
+          "min_dist_angstrom": 20.0,
+          "is_contact": false
+        },
+        {
+          "res_id": "H65",
+          "aa": "H",
+          "pos": 65,
+          "min_dist_angstrom": 21.15,
+          "is_contact": false
+        },
+        {
+          "res_id": "L72",
+          "aa": "L",
+          "pos": 72,
+          "min_dist_angstrom": 18.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "T79",
+          "aa": "T",
+          "pos": 79,
+          "min_dist_angstrom": 17.03,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y82",
+          "aa": "Y",
+          "pos": 82,
+          "min_dist_angstrom": 22.12,
+          "is_contact": false
+        },
+        {
+          "res_id": "I92",
+          "aa": "I",
+          "pos": 92,
+          "min_dist_angstrom": 17.66,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q105",
+          "aa": "Q",
+          "pos": 105,
+          "min_dist_angstrom": 19.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "S108",
+          "aa": "S",
+          "pos": 108,
+          "min_dist_angstrom": 14.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "L136",
+          "aa": "L",
+          "pos": 136,
+          "min_dist_angstrom": 4.0,
+          "is_contact": true
+        },
+        {
+          "res_id": "S137",
+          "aa": "S",
+          "pos": 137,
+          "min_dist_angstrom": 2.71,
+          "is_contact": true
+        },
+        {
+          "res_id": "T140",
+          "aa": "T",
+          "pos": 140,
+          "min_dist_angstrom": 2.51,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y148",
+          "aa": "Y",
+          "pos": 148,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "I149",
+          "aa": "I",
+          "pos": 149,
+          "min_dist_angstrom": 3.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "H154",
+          "aa": "H",
+          "pos": 154,
+          "min_dist_angstrom": 3.83,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n005",
+      "pdb_id": "24YH",
+      "chain_id": "A",
+      "release_date": "2026-11-18",
+      "resolution": 1.764,
+      "title": "3-methyladenine DNA glycosylase mutant D223A bound to DNA/Hx",
+      "stratum": "dsDNA",
+      "na_sequence": "TCGCTACATGT",
+      "na_length": 11,
+      "length": 274,
+      "sequence": "MIDLEKTAKEMIRNGTWAFRDGTFYQALRLGGGKARVVAYDGDFHFPEDWGRKERKEAKEKVTFVLGLDTDLDSFYAEISDSPFSFLIEEFYGLTMPASPSPYQALVEVIAQQQVNFDFAQRTIANLVKLAGEPVGELYAFPTAGKIASLGLEELKKARLGYRAGYIKSLTESYLKGELNLELWDWDIDEAIKYLTKFRGIGKWTAELFLAYGLRKNVYPAGALGLRRGIAKIFDKKPKEVRERDVREIIEPYGKWKGLLAFYITCYDRKTEME",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "T23",
+          "aa": "T",
+          "pos": 23,
+          "min_dist_angstrom": 30.84,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q26",
+          "aa": "Q",
+          "pos": 26,
+          "min_dist_angstrom": 24.22,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y40",
+          "aa": "Y",
+          "pos": 40,
+          "min_dist_angstrom": 31.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "F46",
+          "aa": "F",
+          "pos": 46,
+          "min_dist_angstrom": 34.43,
+          "is_contact": false
+        },
+        {
+          "res_id": "W50",
+          "aa": "W",
+          "pos": 50,
+          "min_dist_angstrom": 32.96,
+          "is_contact": false
+        },
+        {
+          "res_id": "G51",
+          "aa": "G",
+          "pos": 51,
+          "min_dist_angstrom": 38.41,
+          "is_contact": false
+        },
+        {
+          "res_id": "R52",
+          "aa": "R",
+          "pos": 52,
+          "min_dist_angstrom": 37.16,
+          "is_contact": false
+        },
+        {
+          "res_id": "I88",
+          "aa": "I",
+          "pos": 88,
+          "min_dist_angstrom": 26.83,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q114",
+          "aa": "Q",
+          "pos": 114,
+          "min_dist_angstrom": 2.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y166",
+          "aa": "Y",
+          "pos": 166,
+          "min_dist_angstrom": 3.49,
+          "is_contact": true
+        },
+        {
+          "res_id": "F198",
+          "aa": "F",
+          "pos": 198,
+          "min_dist_angstrom": 3.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "R199",
+          "aa": "R",
+          "pos": 199,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "G200",
+          "aa": "G",
+          "pos": 200,
+          "min_dist_angstrom": 2.85,
+          "is_contact": true
+        },
+        {
+          "res_id": "I201",
+          "aa": "I",
+          "pos": 201,
+          "min_dist_angstrom": 3.46,
+          "is_contact": true
+        },
+        {
+          "res_id": "W204",
+          "aa": "W",
+          "pos": 204,
+          "min_dist_angstrom": 3.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "T205",
+          "aa": "T",
+          "pos": 205,
+          "min_dist_angstrom": 2.7,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n006",
+      "pdb_id": "25DL",
+      "chain_id": "B",
+      "release_date": "2026-11-18",
+      "resolution": 3.1,
+      "title": "Cryo-EM structure of the large serine recombinase Dn29 in complex with attP and attB (attP-R focused)",
+      "stratum": "dsDNA",
+      "na_sequence": "AACACAGATAAACAGTTAATGTTATTTC",
+      "na_length": 28,
+      "length": 318,
+      "sequence": "RKSRADLEAEARGEGETVGISGESRGNFMARREFKFITRRLQRGRVATVEEGNYIAPRPPYGYIIEKNNKERYLIPHPEQAPIVKMIFDWYTHDDPNVRMGASKIANELNKFCKSPTGIAWKGSTVLSILKNAVYAGRIQWRKKEEKKSITPGKKKDVRMRPKEQWIDVEGKHEPLVSMETYLKAQEILERKYHVPYQIQNGITNPLAGLVKCGICGSSMVYRPYTHQRHPHLICYNRYCTNKSSRFEYVESKIIQGLHQLLAQYKIIPTVENVLELYYKTQDPAKKNNLLKSVLDYAVYRKEKHQRDDDFTLVLYPK",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "S3",
+          "aa": "S",
+          "pos": 3,
+          "min_dist_angstrom": 1.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "R32",
+          "aa": "R",
+          "pos": 32,
+          "min_dist_angstrom": 11.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "R45",
+          "aa": "R",
+          "pos": 45,
+          "min_dist_angstrom": 2.47,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y61",
+          "aa": "Y",
+          "pos": 61,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "A102",
+          "aa": "A",
+          "pos": 102,
+          "min_dist_angstrom": 2.86,
+          "is_contact": true
+        },
+        {
+          "res_id": "T117",
+          "aa": "T",
+          "pos": 117,
+          "min_dist_angstrom": 2.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "K131",
+          "aa": "K",
+          "pos": 131,
+          "min_dist_angstrom": 2.65,
+          "is_contact": true
+        },
+        {
+          "res_id": "S178",
+          "aa": "S",
+          "pos": 178,
+          "min_dist_angstrom": 15.55,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q228",
+          "aa": "Q",
+          "pos": 228,
+          "min_dist_angstrom": 2.62,
+          "is_contact": true
+        },
+        {
+          "res_id": "H232",
+          "aa": "H",
+          "pos": 232,
+          "min_dist_angstrom": 2.7,
+          "is_contact": true
+        },
+        {
+          "res_id": "H259",
+          "aa": "H",
+          "pos": 259,
+          "min_dist_angstrom": 22.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "A263",
+          "aa": "A",
+          "pos": 263,
+          "min_dist_angstrom": 26.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q264",
+          "aa": "Q",
+          "pos": 264,
+          "min_dist_angstrom": 25.52,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y265",
+          "aa": "Y",
+          "pos": 265,
+          "min_dist_angstrom": 23.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "K266",
+          "aa": "K",
+          "pos": 266,
+          "min_dist_angstrom": 29.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "T270",
+          "aa": "T",
+          "pos": 270,
+          "min_dist_angstrom": 21.39,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n007",
+      "pdb_id": "12CD",
+      "chain_id": "F",
+      "release_date": "2026-11-11",
+      "resolution": 2.68,
+      "title": "RNAP-EcoRI* Collision",
+      "stratum": "dsDNA",
+      "na_sequence": "GCTAATGAATTCTCGATTGTGACATATATAAGACCTAGATTTGACCGCTGGGC",
+      "na_length": 53,
+      "length": 258,
+      "sequence": "VIGIFGDYAKAHDLAVGEVSKLVKKALSNEYPQLSFRYRDSIKKTEINEALKKIDPDLGGTLFVSNSSIKPDGGIVEVKDDYGEWRVVLVAQAKHQGKDIINIRNGLLVGKRGDQDLMAAGNAIERSHKNISEIANFMLSESHFPYVLFLEGSNFLTENISITRPDGRVVNLEYNSGILNRLDRLTAANYGMPINSNLCINKFVNHKDKSIMLQAASIYTQGDGREWDSKIMFEIMFDISTTSLRVLGRDLFEQLTSK",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "A26",
+          "aa": "A",
+          "pos": 26,
+          "min_dist_angstrom": 21.96,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q33",
+          "aa": "Q",
+          "pos": 33,
+          "min_dist_angstrom": 28.7,
+          "is_contact": false
+        },
+        {
+          "res_id": "K94",
+          "aa": "K",
+          "pos": 94,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q96",
+          "aa": "Q",
+          "pos": 96,
+          "min_dist_angstrom": 3.14,
+          "is_contact": true
+        },
+        {
+          "res_id": "M118",
+          "aa": "M",
+          "pos": 118,
+          "min_dist_angstrom": 3.51,
+          "is_contact": true
+        },
+        {
+          "res_id": "A119",
+          "aa": "A",
+          "pos": 119,
+          "min_dist_angstrom": 3.1,
+          "is_contact": true
+        },
+        {
+          "res_id": "N122",
+          "aa": "N",
+          "pos": 122,
+          "min_dist_angstrom": 3.07,
+          "is_contact": true
+        },
+        {
+          "res_id": "S176",
+          "aa": "S",
+          "pos": 176,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "G177",
+          "aa": "G",
+          "pos": 177,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "R181",
+          "aa": "R",
+          "pos": 181,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "N205",
+          "aa": "N",
+          "pos": 205,
+          "min_dist_angstrom": 28.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "K207",
+          "aa": "K",
+          "pos": 207,
+          "min_dist_angstrom": 30.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "M212",
+          "aa": "M",
+          "pos": 212,
+          "min_dist_angstrom": 23.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "G248",
+          "aa": "G",
+          "pos": 248,
+          "min_dist_angstrom": 28.58,
+          "is_contact": false
+        },
+        {
+          "res_id": "R249",
+          "aa": "R",
+          "pos": 249,
+          "min_dist_angstrom": 30.06,
+          "is_contact": false
+        },
+        {
+          "res_id": "S257",
+          "aa": "S",
+          "pos": 257,
+          "min_dist_angstrom": 34.98,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n008",
+      "pdb_id": "37FJ",
+      "chain_id": "B",
+      "release_date": "2026-11-04",
+      "resolution": 2.87,
+      "title": "Cryo-EM structure of the human mitochondrial transcription initiation complex on HSP without TFAM",
+      "stratum": "dsDNA",
+      "na_sequence": "CATACCCCGAACCAACCAAATTATCCCGACACCCC",
+      "na_length": 35,
+      "length": 327,
+      "sequence": "DFKRYVTDRRLAETLAQIYLGKPSRPPHLLLECNPGPGILTQALLEAGAKVVALESDKTFIPHLESLGKNLDGKLRVIHCDFFKLDPRSGGVIKPPAMSSRGLFKNLGIEAVPWTADIPLKVVGMFPSRGEKRALWKLAYDLYSCTSIYKFGRIEVNMFIGEKEFQKLMADPGNPDLYHVLSVIWQLACEIKVLHMEPWSSFDIYTRKGPLENPKRRELLDQLQQKLYLIQMIPRQNLFTKNLTPMNYNIFFHLLKHCFGRRSATVIDHLRSLTPLDARDILMQIGKQEDEKVVNMHPQDFKTLFETIERSKDCAYKWLYDETLEDR",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 4,
+      "candidates": [
+        {
+          "res_id": "K22",
+          "aa": "K",
+          "pos": 22,
+          "min_dist_angstrom": 32.38,
+          "is_contact": false
+        },
+        {
+          "res_id": "S24",
+          "aa": "S",
+          "pos": 24,
+          "min_dist_angstrom": 36.03,
+          "is_contact": false
+        },
+        {
+          "res_id": "R25",
+          "aa": "R",
+          "pos": 25,
+          "min_dist_angstrom": 31.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "H28",
+          "aa": "H",
+          "pos": 28,
+          "min_dist_angstrom": 27.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "G48",
+          "aa": "G",
+          "pos": 48,
+          "min_dist_angstrom": 32.08,
+          "is_contact": false
+        },
+        {
+          "res_id": "K69",
+          "aa": "K",
+          "pos": 69,
+          "min_dist_angstrom": 31.35,
+          "is_contact": false
+        },
+        {
+          "res_id": "S89",
+          "aa": "S",
+          "pos": 89,
+          "min_dist_angstrom": 3.01,
+          "is_contact": true
+        },
+        {
+          "res_id": "W114",
+          "aa": "W",
+          "pos": 114,
+          "min_dist_angstrom": 18.22,
+          "is_contact": false
+        },
+        {
+          "res_id": "G130",
+          "aa": "G",
+          "pos": 130,
+          "min_dist_angstrom": 3.25,
+          "is_contact": true
+        },
+        {
+          "res_id": "K132",
+          "aa": "K",
+          "pos": 132,
+          "min_dist_angstrom": 3.51,
+          "is_contact": true
+        },
+        {
+          "res_id": "R133",
+          "aa": "R",
+          "pos": 133,
+          "min_dist_angstrom": 2.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "W136",
+          "aa": "W",
+          "pos": 136,
+          "min_dist_angstrom": 3.53,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y140",
+          "aa": "Y",
+          "pos": 140,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "H179",
+          "aa": "H",
+          "pos": 179,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        },
+        {
+          "res_id": "K256",
+          "aa": "K",
+          "pos": 256,
+          "min_dist_angstrom": 2.86,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y316",
+          "aa": "Y",
+          "pos": 316,
+          "min_dist_angstrom": 22.54,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n009",
+      "pdb_id": "37XL",
+      "chain_id": "G",
+      "release_date": "2026-11-04",
+      "resolution": 2.6,
+      "title": "Nucleosome containing a nick with a 3'-phosphate and 5'-OH at SHL-3",
+      "stratum": "dsDNA",
+      "na_sequence": "ATCGGATGTATATATCTGACACGTGCCTGGAGACTAGGGAGTA",
+      "na_length": 43,
+      "length": 107,
+      "sequence": "RAKAKTRSSRAGLQFPVGRVHRLLRKGNYAERVGAGAPVYLAAVLEYLTAEILELAGNAARDNKKTRIIPRHLQLAIRNDEELNKLLGKVTIAQGGVLPNIQAVLLP",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 4,
+      "candidates": [
+        {
+          "res_id": "R1",
+          "aa": "R",
+          "pos": 1,
+          "min_dist_angstrom": 3.1,
+          "is_contact": true
+        },
+        {
+          "res_id": "A2",
+          "aa": "A",
+          "pos": 2,
+          "min_dist_angstrom": 3.34,
+          "is_contact": true
+        },
+        {
+          "res_id": "K3",
+          "aa": "K",
+          "pos": 3,
+          "min_dist_angstrom": 4.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "K5",
+          "aa": "K",
+          "pos": 5,
+          "min_dist_angstrom": 3.04,
+          "is_contact": true
+        },
+        {
+          "res_id": "T6",
+          "aa": "T",
+          "pos": 6,
+          "min_dist_angstrom": 4.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "G18",
+          "aa": "G",
+          "pos": 18,
+          "min_dist_angstrom": 4.08,
+          "is_contact": true
+        },
+        {
+          "res_id": "R22",
+          "aa": "R",
+          "pos": 22,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "E31",
+          "aa": "E",
+          "pos": 31,
+          "min_dist_angstrom": 4.31,
+          "is_contact": true
+        },
+        {
+          "res_id": "R61",
+          "aa": "R",
+          "pos": 61,
+          "min_dist_angstrom": 11.55,
+          "is_contact": false
+        },
+        {
+          "res_id": "R78",
+          "aa": "R",
+          "pos": 78,
+          "min_dist_angstrom": 19.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "E82",
+          "aa": "E",
+          "pos": 82,
+          "min_dist_angstrom": 25.75,
+          "is_contact": false
+        },
+        {
+          "res_id": "K85",
+          "aa": "K",
+          "pos": 85,
+          "min_dist_angstrom": 26.82,
+          "is_contact": false
+        },
+        {
+          "res_id": "G88",
+          "aa": "G",
+          "pos": 88,
+          "min_dist_angstrom": 25.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "K89",
+          "aa": "K",
+          "pos": 89,
+          "min_dist_angstrom": 24.06,
+          "is_contact": false
+        },
+        {
+          "res_id": "T91",
+          "aa": "T",
+          "pos": 91,
+          "min_dist_angstrom": 17.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "A103",
+          "aa": "A",
+          "pos": 103,
+          "min_dist_angstrom": 17.15,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n010",
+      "pdb_id": "37XM",
+      "chain_id": "H",
+      "release_date": "2026-11-04",
+      "resolution": 2.9,
+      "title": "Polynucleotide kinase phosphatase bound to a nucleosome containing a nick with a 3'-phosphate and 5'-OH at SHL-3 (catalytic, composite)",
+      "stratum": "dsDNA",
+      "na_sequence": "ATCGGATGTATATATCTGACACGTGCCTGGAGACTAGGGAGTA",
+      "na_length": 43,
+      "length": 92,
+      "sequence": "RKESYSVYVYKVLKQVHPDTGISSKAMGIMNSFVNDIFERIAGEASRLAHYNKRSTITSREIQTAVRLLLPGELAKHAVSEGTKAVTKYTSS",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R1",
+          "aa": "R",
+          "pos": 1,
+          "min_dist_angstrom": 3.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "E3",
+          "aa": "E",
+          "pos": 3,
+          "min_dist_angstrom": 3.7,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y10",
+          "aa": "Y",
+          "pos": 10,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "G21",
+          "aa": "G",
+          "pos": 21,
+          "min_dist_angstrom": 3.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "I22",
+          "aa": "I",
+          "pos": 22,
+          "min_dist_angstrom": 3.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "S23",
+          "aa": "S",
+          "pos": 23,
+          "min_dist_angstrom": 3.23,
+          "is_contact": true
+        },
+        {
+          "res_id": "S24",
+          "aa": "S",
+          "pos": 24,
+          "min_dist_angstrom": 3.16,
+          "is_contact": true
+        },
+        {
+          "res_id": "R40",
+          "aa": "R",
+          "pos": 40,
+          "min_dist_angstrom": 18.62,
+          "is_contact": false
+        },
+        {
+          "res_id": "I41",
+          "aa": "I",
+          "pos": 41,
+          "min_dist_angstrom": 17.63,
+          "is_contact": false
+        },
+        {
+          "res_id": "S46",
+          "aa": "S",
+          "pos": 46,
+          "min_dist_angstrom": 13.33,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y51",
+          "aa": "Y",
+          "pos": 51,
+          "min_dist_angstrom": 12.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "R54",
+          "aa": "R",
+          "pos": 54,
+          "min_dist_angstrom": 3.26,
+          "is_contact": true
+        },
+        {
+          "res_id": "R67",
+          "aa": "R",
+          "pos": 67,
+          "min_dist_angstrom": 16.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "G72",
+          "aa": "G",
+          "pos": 72,
+          "min_dist_angstrom": 26.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "E73",
+          "aa": "E",
+          "pos": 73,
+          "min_dist_angstrom": 27.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "S80",
+          "aa": "S",
+          "pos": 80,
+          "min_dist_angstrom": 20.18,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n011",
+      "pdb_id": "9XH4",
+      "chain_id": "B",
+      "release_date": "2026-11-04",
+      "resolution": 2.72,
+      "title": "Cryo-EM structure of unnatural-base aptamer AptD1 with DENV1 NS1 hexamer",
+      "stratum": "dsDNA",
+      "na_sequence": "ACGGACTGGTGTCTCGGATGGCCGT",
+      "na_length": 25,
+      "length": 354,
+      "sequence": "ASDSGCVINWKGRELKCGSGIFVTNEVHTWTEQYKFQADSPKRLSAAIGKAWEEGVCGIRSATRLENIMWKQISNELNHILLENDMKFTVVVGDVSGILAQGKKMIRPQPMEHKYSWKSWGKAKIIGADVQNTTFIIDGPNTPECPDNQRAWNIWEVEDYGFGIFTTNIWLKLRDSYTQVCDHRLMSAAIKDSKAVHADMGYWIESEKNETWKLARASFIEVKTCIWPKSHTLWSNGVLESEMIIPKIYGGPISQHNYRPGYFTQTAGPWHLGKLELDFDLCEGTTVVVDEHCGNRGPSLRTTTVTGKTIHEWCCRSCTLPPLRFKGEDGCWYGMEIRPVKEKEENLVKSMVSA",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R13",
+          "aa": "R",
+          "pos": 13,
+          "min_dist_angstrom": 35.31,
+          "is_contact": false
+        },
+        {
+          "res_id": "E14",
+          "aa": "E",
+          "pos": 14,
+          "min_dist_angstrom": 34.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "L15",
+          "aa": "L",
+          "pos": 15,
+          "min_dist_angstrom": 34.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "P41",
+          "aa": "P",
+          "pos": 41,
+          "min_dist_angstrom": 25.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "S116",
+          "aa": "S",
+          "pos": 116,
+          "min_dist_angstrom": 34.53,
+          "is_contact": false
+        },
+        {
+          "res_id": "K124",
+          "aa": "K",
+          "pos": 124,
+          "min_dist_angstrom": 37.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q131",
+          "aa": "Q",
+          "pos": 131,
+          "min_dist_angstrom": 31.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "N132",
+          "aa": "N",
+          "pos": 132,
+          "min_dist_angstrom": 31.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q179",
+          "aa": "Q",
+          "pos": 179,
+          "min_dist_angstrom": 2.7,
+          "is_contact": true
+        },
+        {
+          "res_id": "P228",
+          "aa": "P",
+          "pos": 228,
+          "min_dist_angstrom": 3.31,
+          "is_contact": true
+        },
+        {
+          "res_id": "L239",
+          "aa": "L",
+          "pos": 239,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "E240",
+          "aa": "E",
+          "pos": 240,
+          "min_dist_angstrom": 2.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "S241",
+          "aa": "S",
+          "pos": 241,
+          "min_dist_angstrom": 2.43,
+          "is_contact": true
+        },
+        {
+          "res_id": "K247",
+          "aa": "K",
+          "pos": 247,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "N295",
+          "aa": "N",
+          "pos": 295,
+          "min_dist_angstrom": 3.26,
+          "is_contact": true
+        },
+        {
+          "res_id": "R296",
+          "aa": "R",
+          "pos": 296,
+          "min_dist_angstrom": 2.86,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n012",
+      "pdb_id": "32ZQ",
+      "chain_id": "U",
+      "release_date": "2026-10-28",
+      "resolution": 2.8,
+      "title": "B. subtilis RNA Polymerase delta/omega variant with SigA",
+      "stratum": "dsDNA",
+      "na_sequence": "ATCCACCTCAGATGTAAATAACAACAACACGAGCCCATTTTTGTCAAATAAAATTTAAAT",
+      "na_length": 60,
+      "length": 288,
+      "sequence": "EKPKIETVEISDDAKFGKFVVEPLERGYGTTLGNSLRRILLSSLPGAAVTSIQIDGVLHEFSTIEGVVEDVTTIILHIKKLALKIYSDEEKTLEIDVQGEGTVTAADITHDSDVEILNPDLHIATLGENASFRVRLTAQRGRGYTPADANKRDDQPIGVIPIDSIYTPVSRVSYQVENTRVGQVANYDKLTLDVWTDGSTGPKEAIALGSKILTEHLNIFVGLTDEMTIEELDLSVRSYNCLKRAGINTVQELANKTEEDMMKVRNLGRKSLEEVKAKLEELGLGLRK",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 5,
+      "candidates": [
+        {
+          "res_id": "K2",
+          "aa": "K",
+          "pos": 2,
+          "min_dist_angstrom": 63.18,
+          "is_contact": false
+        },
+        {
+          "res_id": "R26",
+          "aa": "R",
+          "pos": 26,
+          "min_dist_angstrom": 54.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "R140",
+          "aa": "R",
+          "pos": 140,
+          "min_dist_angstrom": 40.17,
+          "is_contact": false
+        },
+        {
+          "res_id": "R171",
+          "aa": "R",
+          "pos": 171,
+          "min_dist_angstrom": 41.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "N178",
+          "aa": "N",
+          "pos": 178,
+          "min_dist_angstrom": 56.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "R180",
+          "aa": "R",
+          "pos": 180,
+          "min_dist_angstrom": 63.82,
+          "is_contact": false
+        },
+        {
+          "res_id": "G182",
+          "aa": "G",
+          "pos": 182,
+          "min_dist_angstrom": 69.53,
+          "is_contact": false
+        },
+        {
+          "res_id": "N186",
+          "aa": "N",
+          "pos": 186,
+          "min_dist_angstrom": 58.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "R237",
+          "aa": "R",
+          "pos": 237,
+          "min_dist_angstrom": 3.0,
+          "is_contact": true
+        },
+        {
+          "res_id": "N240",
+          "aa": "N",
+          "pos": 240,
+          "min_dist_angstrom": 3.09,
+          "is_contact": true
+        },
+        {
+          "res_id": "K243",
+          "aa": "K",
+          "pos": 243,
+          "min_dist_angstrom": 3.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "R244",
+          "aa": "R",
+          "pos": 244,
+          "min_dist_angstrom": 2.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "R265",
+          "aa": "R",
+          "pos": 265,
+          "min_dist_angstrom": 3.62,
+          "is_contact": true
+        },
+        {
+          "res_id": "N266",
+          "aa": "N",
+          "pos": 266,
+          "min_dist_angstrom": 3.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "G268",
+          "aa": "G",
+          "pos": 268,
+          "min_dist_angstrom": 3.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "R269",
+          "aa": "R",
+          "pos": 269,
+          "min_dist_angstrom": 2.52,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n013",
+      "pdb_id": "32ZR",
+      "chain_id": "G",
+      "release_date": "2026-10-28",
+      "resolution": 2.8,
+      "title": "B. subtilis RNA Polymerase delta omega variant with SigA",
+      "stratum": "dsDNA",
+      "na_sequence": "ATCCACCTCAGATGTAAATAACAACAACACGAGCCCATTTTTGTCAAATAAAATTTAAAT",
+      "na_length": 60,
+      "length": 278,
+      "sequence": "PGVKINDPVRMYLKEIGRVNLLSAKEEIAYAQKIEEGDEESKRRLAEANLRLVVSIAKRYVGRGMLFLDLIQEGNMGLMKAVEKFDYRKGYKFSTYATWWIRQAITRAIADQARTIRIPVHMVETINKLIRVQRQLLQDLGREPTPEEIAEDMDLTPEKVREILKIAQEPVSLETPIGEEDDSHLGDFIEDQEATSPSDHAAYELLKEQLEDVLDTLTDREENVLRLRFGLDDGRTRTLEEVGKVFGVTRERIRQIEAKALRKLRHPSRSKRLKDFLE",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "L13",
+          "aa": "L",
+          "pos": 13,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "K92",
+          "aa": "K",
+          "pos": 92,
+          "min_dist_angstrom": 2.72,
+          "is_contact": true
+        },
+        {
+          "res_id": "S94",
+          "aa": "S",
+          "pos": 94,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y96",
+          "aa": "Y",
+          "pos": 96,
+          "min_dist_angstrom": 3.07,
+          "is_contact": true
+        },
+        {
+          "res_id": "T98",
+          "aa": "T",
+          "pos": 98,
+          "min_dist_angstrom": 2.73,
+          "is_contact": true
+        },
+        {
+          "res_id": "H121",
+          "aa": "H",
+          "pos": 121,
+          "min_dist_angstrom": 2.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "T195",
+          "aa": "T",
+          "pos": 195,
+          "min_dist_angstrom": 20.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "S198",
+          "aa": "S",
+          "pos": 198,
+          "min_dist_angstrom": 20.28,
+          "is_contact": false
+        },
+        {
+          "res_id": "H200",
+          "aa": "H",
+          "pos": 200,
+          "min_dist_angstrom": 24.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y203",
+          "aa": "Y",
+          "pos": 203,
+          "min_dist_angstrom": 20.29,
+          "is_contact": false
+        },
+        {
+          "res_id": "E204",
+          "aa": "E",
+          "pos": 204,
+          "min_dist_angstrom": 25.76,
+          "is_contact": false
+        },
+        {
+          "res_id": "L205",
+          "aa": "L",
+          "pos": 205,
+          "min_dist_angstrom": 25.45,
+          "is_contact": false
+        },
+        {
+          "res_id": "E240",
+          "aa": "E",
+          "pos": 240,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "R252",
+          "aa": "R",
+          "pos": 252,
+          "min_dist_angstrom": 2.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "K271",
+          "aa": "K",
+          "pos": 271,
+          "min_dist_angstrom": 22.57,
+          "is_contact": false
+        },
+        {
+          "res_id": "R272",
+          "aa": "R",
+          "pos": 272,
+          "min_dist_angstrom": 22.95,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n014",
+      "pdb_id": "32ZT",
+      "chain_id": "F",
+      "release_date": "2026-10-28",
+      "resolution": 3.0,
+      "title": "B. subtilis RNA Polymerase with SigF",
+      "stratum": "dsDNA",
+      "na_sequence": "GGCTGTTTTAAAATCTTTCCATTCAGGGAATATTGTTACCGTTCAAAAAA",
+      "na_length": 50,
+      "length": 242,
+      "sequence": "GKNAQLKDHEVKELIKQSQNGDQQARDLLIEKNMRLVWSVVQRFLNRGYEPDDLFQIGCIGLLKSVDKFDLTYDVRFSTYAVPMIIGEIQRFIRDDGTVKVSRSLKELGNKIRRAKDELSKTLGRVPTVQEIADHLEIEAEDVVLAQEAVRAPSSIHETVYENDGDPITLLDQIADNSEEKWFDKIALKEAISDLEEREKLIVYLRYYKDQTQSEVAERLGISQVQVSRLEKKILKQIKVQM",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R47",
+          "aa": "R",
+          "pos": 47,
+          "min_dist_angstrom": 2.34,
+          "is_contact": true
+        },
+        {
+          "res_id": "K68",
+          "aa": "K",
+          "pos": 68,
+          "min_dist_angstrom": 2.42,
+          "is_contact": true
+        },
+        {
+          "res_id": "D70",
+          "aa": "D",
+          "pos": 70,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y80",
+          "aa": "Y",
+          "pos": 80,
+          "min_dist_angstrom": 2.43,
+          "is_contact": true
+        },
+        {
+          "res_id": "E107",
+          "aa": "E",
+          "pos": 107,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "N110",
+          "aa": "N",
+          "pos": 110,
+          "min_dist_angstrom": 2.52,
+          "is_contact": true
+        },
+        {
+          "res_id": "R125",
+          "aa": "R",
+          "pos": 125,
+          "min_dist_angstrom": 16.06,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y161",
+          "aa": "Y",
+          "pos": 161,
+          "min_dist_angstrom": 15.35,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q173",
+          "aa": "Q",
+          "pos": 173,
+          "min_dist_angstrom": 21.18,
+          "is_contact": false
+        },
+        {
+          "res_id": "D176",
+          "aa": "D",
+          "pos": 176,
+          "min_dist_angstrom": 26.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "N177",
+          "aa": "N",
+          "pos": 177,
+          "min_dist_angstrom": 22.45,
+          "is_contact": false
+        },
+        {
+          "res_id": "S178",
+          "aa": "S",
+          "pos": 178,
+          "min_dist_angstrom": 25.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "E179",
+          "aa": "E",
+          "pos": 179,
+          "min_dist_angstrom": 27.06,
+          "is_contact": false
+        },
+        {
+          "res_id": "K185",
+          "aa": "K",
+          "pos": 185,
+          "min_dist_angstrom": 21.75,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q213",
+          "aa": "Q",
+          "pos": 213,
+          "min_dist_angstrom": 2.46,
+          "is_contact": true
+        },
+        {
+          "res_id": "S214",
+          "aa": "S",
+          "pos": 214,
+          "min_dist_angstrom": 2.44,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n015",
+      "pdb_id": "36AP",
+      "chain_id": "B",
+      "release_date": "2026-10-28",
+      "resolution": 2.64,
+      "title": "Mycobacterium tuberculosis DNA Gyrase catalytic core in complex with DNA and indole-3-acetyl-L-aspartic acid",
+      "stratum": "dsDNA",
+      "na_sequence": "AATGCACGTAT",
+      "na_length": 11,
+      "length": 245,
+      "sequence": "ALVRRKGLPGKLADCRSTDPRKSELYVVEGDSAGGSAKSGRDSMFQAILPLRGKIINVEKARIDRVLKNTEVQAIITALGTGIHDEFDIGKLRYHKIVLMADADVDGQHISTLLLTLLFRFMRPLIENGHVFLAQPPLYKLKWQRSDPEFAYSDRERDGLLEAGLKAGKKINKEDGIQRYKGLGEMDAKELWETTMDPSVRVLRQVTLDDAAAADELFSILMGEDVDARRSFITRNAKDVRFLDV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "V3",
+          "aa": "V",
+          "pos": 3,
+          "min_dist_angstrom": 24.3,
+          "is_contact": false
+        },
+        {
+          "res_id": "E29",
+          "aa": "E",
+          "pos": 29,
+          "min_dist_angstrom": 2.78,
+          "is_contact": true
+        },
+        {
+          "res_id": "G53",
+          "aa": "G",
+          "pos": 53,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "K54",
+          "aa": "K",
+          "pos": 54,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "N57",
+          "aa": "N",
+          "pos": 57,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "H95",
+          "aa": "H",
+          "pos": 95,
+          "min_dist_angstrom": 24.04,
+          "is_contact": false
+        },
+        {
+          "res_id": "H109",
+          "aa": "H",
+          "pos": 109,
+          "min_dist_angstrom": 3.15,
+          "is_contact": true
+        },
+        {
+          "res_id": "I110",
+          "aa": "I",
+          "pos": 110,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "R145",
+          "aa": "R",
+          "pos": 145,
+          "min_dist_angstrom": 30.38,
+          "is_contact": false
+        },
+        {
+          "res_id": "E162",
+          "aa": "E",
+          "pos": 162,
+          "min_dist_angstrom": 30.38,
+          "is_contact": false
+        },
+        {
+          "res_id": "K166",
+          "aa": "K",
+          "pos": 166,
+          "min_dist_angstrom": 36.2,
+          "is_contact": false
+        },
+        {
+          "res_id": "G168",
+          "aa": "G",
+          "pos": 168,
+          "min_dist_angstrom": 35.2,
+          "is_contact": false
+        },
+        {
+          "res_id": "I171",
+          "aa": "I",
+          "pos": 171,
+          "min_dist_angstrom": 28.69,
+          "is_contact": false
+        },
+        {
+          "res_id": "N172",
+          "aa": "N",
+          "pos": 172,
+          "min_dist_angstrom": 27.0,
+          "is_contact": false
+        },
+        {
+          "res_id": "V226",
+          "aa": "V",
+          "pos": 226,
+          "min_dist_angstrom": 3.36,
+          "is_contact": true
+        },
+        {
+          "res_id": "R229",
+          "aa": "R",
+          "pos": 229,
+          "min_dist_angstrom": 2.71,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n016",
+      "pdb_id": "9T03",
+      "chain_id": "A",
+      "release_date": "2026-10-28",
+      "resolution": 2.79,
+      "title": "Human PCNA in complex with a anti-PCNA DNA aptamer",
+      "stratum": "dsDNA",
+      "na_sequence": "GAGATGCCTATGGTCCCCGCGTAGGTGGCAGCTC",
+      "na_length": 34,
+      "length": 256,
+      "sequence": "FMFEARLVQGSILKKVLEALKDLINEACWDISSSGVNLQSMDSSHVSLVQLTLRSEGFDTYRCDRNLAMGVNLTSMSKILKCAGNEDIITLRAEDNADTLALVFEAPNQEKVSDYEMKLMDLDVEQLGIPEQEYSCVVKMPSGEFARICRDLSHIGDAVVISCAKDGVKFSASGELGNGNIKLSQTSNVDKEEEAVTIEMNEPVQLTFALRYLNFFTKATPLSSTVTLSMSADVPLVVEYKIADMGHLKYYLAPKI",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "T60",
+          "aa": "T",
+          "pos": 60,
+          "min_dist_angstrom": 24.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "D64",
+          "aa": "D",
+          "pos": 64,
+          "min_dist_angstrom": 33.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "R65",
+          "aa": "R",
+          "pos": 65,
+          "min_dist_angstrom": 33.43,
+          "is_contact": false
+        },
+        {
+          "res_id": "T99",
+          "aa": "T",
+          "pos": 99,
+          "min_dist_angstrom": 24.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "A146",
+          "aa": "A",
+          "pos": 146,
+          "min_dist_angstrom": 3.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "R150",
+          "aa": "R",
+          "pos": 150,
+          "min_dist_angstrom": 3.05,
+          "is_contact": true
+        },
+        {
+          "res_id": "D151",
+          "aa": "D",
+          "pos": 151,
+          "min_dist_angstrom": 3.2,
+          "is_contact": true
+        },
+        {
+          "res_id": "H154",
+          "aa": "H",
+          "pos": 154,
+          "min_dist_angstrom": 3.75,
+          "is_contact": true
+        },
+        {
+          "res_id": "K165",
+          "aa": "K",
+          "pos": 165,
+          "min_dist_angstrom": 26.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "P203",
+          "aa": "P",
+          "pos": 203,
+          "min_dist_angstrom": 28.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "T217",
+          "aa": "T",
+          "pos": 217,
+          "min_dist_angstrom": 3.8,
+          "is_contact": true
+        },
+        {
+          "res_id": "K218",
+          "aa": "K",
+          "pos": 218,
+          "min_dist_angstrom": 3.35,
+          "is_contact": true
+        },
+        {
+          "res_id": "T220",
+          "aa": "T",
+          "pos": 220,
+          "min_dist_angstrom": 3.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "P221",
+          "aa": "P",
+          "pos": 221,
+          "min_dist_angstrom": 3.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "A232",
+          "aa": "A",
+          "pos": 232,
+          "min_dist_angstrom": 28.08,
+          "is_contact": false
+        },
+        {
+          "res_id": "H247",
+          "aa": "H",
+          "pos": 247,
+          "min_dist_angstrom": 16.42,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n017",
+      "pdb_id": "9TUN",
+      "chain_id": "P",
+      "release_date": "2026-10-14",
+      "resolution": 2.59,
+      "title": "Nucleosome with an SSB at SHL +5.3 in complex with the WGR domain of human PARP2, Class 1",
+      "stratum": "dsDNA",
+      "na_sequence": "GTCAGATATATACATCCTGTGAT",
+      "na_length": 23,
+      "length": 115,
+      "sequence": "KAPVDPECTAKVGKAHVYCEGNDVYDVMLNQTNLQFNNNKYYLIQLLEDDAQRNFSVWMRWGRVGKMGQHSLVACSGNLNKAKEIFQKKFLDKTKNNWEDREKFEKVPGKYDMLQ",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "K1",
+          "aa": "K",
+          "pos": 1,
+          "min_dist_angstrom": 23.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "K11",
+          "aa": "K",
+          "pos": 11,
+          "min_dist_angstrom": 15.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "K14",
+          "aa": "K",
+          "pos": 14,
+          "min_dist_angstrom": 19.73,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y18",
+          "aa": "Y",
+          "pos": 18,
+          "min_dist_angstrom": 18.37,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y25",
+          "aa": "Y",
+          "pos": 25,
+          "min_dist_angstrom": 14.71,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q31",
+          "aa": "Q",
+          "pos": 31,
+          "min_dist_angstrom": 3.57,
+          "is_contact": true
+        },
+        {
+          "res_id": "K40",
+          "aa": "K",
+          "pos": 40,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y42",
+          "aa": "Y",
+          "pos": 42,
+          "min_dist_angstrom": 3.01,
+          "is_contact": true
+        },
+        {
+          "res_id": "D50",
+          "aa": "D",
+          "pos": 50,
+          "min_dist_angstrom": 22.97,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q52",
+          "aa": "Q",
+          "pos": 52,
+          "min_dist_angstrom": 20.97,
+          "is_contact": false
+        },
+        {
+          "res_id": "W61",
+          "aa": "W",
+          "pos": 61,
+          "min_dist_angstrom": 2.67,
+          "is_contact": true
+        },
+        {
+          "res_id": "K89",
+          "aa": "K",
+          "pos": 89,
+          "min_dist_angstrom": 2.74,
+          "is_contact": true
+        },
+        {
+          "res_id": "D92",
+          "aa": "D",
+          "pos": 92,
+          "min_dist_angstrom": 3.43,
+          "is_contact": true
+        },
+        {
+          "res_id": "K93",
+          "aa": "K",
+          "pos": 93,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "W98",
+          "aa": "W",
+          "pos": 98,
+          "min_dist_angstrom": 13.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y111",
+          "aa": "Y",
+          "pos": 111,
+          "min_dist_angstrom": 3.1,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n018",
+      "pdb_id": "9ST7",
+      "chain_id": "A",
+      "release_date": "2026-10-07",
+      "resolution": 1.43,
+      "title": "BstEII in complex with dsDNA substrate",
+      "stratum": "dsDNA",
+      "na_sequence": "CTACATTGGTTACCT",
+      "na_length": 15,
+      "length": 286,
+      "sequence": "KNFRDYQRVAAKYITFIESEFYPDYLDNARFLYGEVLNKFYELVNSSSSSIELLENISKTKDPVRTQLLRIFRKYVSPDTSVEMLKRKQRIPDIIKEFGTRFRDIKIVRQKIATRNHPDETIMALLYEYKDRGKKGYELTDAFFTWFEQKFPNYEIIGPRGAGKDILLNEVLPGFPSKIPADFLIYRRSDKTPIVVGFARYDSDRGGAQEDDRTGGNRDKITEIKKYAAEHNIPLKILFLNDGPGLLLGSMWNDYSALEDYGEGCVMVCTLKMLEERFTIDWLENL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R65",
+          "aa": "R",
+          "pos": 65,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "K88",
+          "aa": "K",
+          "pos": 88,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q89",
+          "aa": "Q",
+          "pos": 89,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "K106",
+          "aa": "K",
+          "pos": 106,
+          "min_dist_angstrom": 26.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "R109",
+          "aa": "R",
+          "pos": 109,
+          "min_dist_angstrom": 23.5,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q110",
+          "aa": "Q",
+          "pos": 110,
+          "min_dist_angstrom": 28.18,
+          "is_contact": false
+        },
+        {
+          "res_id": "A113",
+          "aa": "A",
+          "pos": 113,
+          "min_dist_angstrom": 27.93,
+          "is_contact": false
+        },
+        {
+          "res_id": "A162",
+          "aa": "A",
+          "pos": 162,
+          "min_dist_angstrom": 3.43,
+          "is_contact": true
+        },
+        {
+          "res_id": "G163",
+          "aa": "G",
+          "pos": 163,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "D182",
+          "aa": "D",
+          "pos": 182,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "S189",
+          "aa": "S",
+          "pos": 189,
+          "min_dist_angstrom": 23.58,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y201",
+          "aa": "Y",
+          "pos": 201,
+          "min_dist_angstrom": 2.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "S203",
+          "aa": "S",
+          "pos": 203,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y261",
+          "aa": "Y",
+          "pos": 261,
+          "min_dist_angstrom": 20.69,
+          "is_contact": false
+        },
+        {
+          "res_id": "G264",
+          "aa": "G",
+          "pos": 264,
+          "min_dist_angstrom": 23.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "D281",
+          "aa": "D",
+          "pos": 281,
+          "min_dist_angstrom": 26.14,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n019",
+      "pdb_id": "9SUO",
+      "chain_id": "A",
+      "release_date": "2026-10-07",
+      "resolution": 2.26,
+      "title": "DtxR-like iron-dependent regulator IdeR complexed with cobalt and a mutated consensus DNA-binding sequence",
+      "stratum": "dsDNA",
+      "na_sequence": "CGTACTTAAGTTAAGTTAACTTAAGTCAC",
+      "na_length": 29,
+      "length": 217,
+      "sequence": "LIDTTEMYLRTIYDLEEEGVVPLRARIAERLEQSGPTVSQTVARMERDGLLTVAEDRHLELTKAGRARAISVMRKHRLAERLLVDVIGLEWEQVHLEARWEHVMSEAVERKLVKLLGNPTTSPYGNPIPGLDELGVLRRVDEVARSGGGRALVCRIAEHVQLDPDLMSELKKVGVVPGNEIDIVAVAGVNKPIQVQGSEGGTQLQPGIAHAVMVRVK",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "L1",
+          "aa": "L",
+          "pos": 1,
+          "min_dist_angstrom": 3.64,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y8",
+          "aa": "Y",
+          "pos": 8,
+          "min_dist_angstrom": 3.46,
+          "is_contact": true
+        },
+        {
+          "res_id": "E32",
+          "aa": "E",
+          "pos": 32,
+          "min_dist_angstrom": 3.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q33",
+          "aa": "Q",
+          "pos": 33,
+          "min_dist_angstrom": 2.85,
+          "is_contact": true
+        },
+        {
+          "res_id": "S34",
+          "aa": "S",
+          "pos": 34,
+          "min_dist_angstrom": 2.53,
+          "is_contact": true
+        },
+        {
+          "res_id": "P36",
+          "aa": "P",
+          "pos": 36,
+          "min_dist_angstrom": 3.68,
+          "is_contact": true
+        },
+        {
+          "res_id": "T37",
+          "aa": "T",
+          "pos": 37,
+          "min_dist_angstrom": 2.61,
+          "is_contact": true
+        },
+        {
+          "res_id": "R44",
+          "aa": "R",
+          "pos": 44,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y124",
+          "aa": "Y",
+          "pos": 124,
+          "min_dist_angstrom": 23.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "R150",
+          "aa": "R",
+          "pos": 150,
+          "min_dist_angstrom": 35.56,
+          "is_contact": false
+        },
+        {
+          "res_id": "L152",
+          "aa": "L",
+          "pos": 152,
+          "min_dist_angstrom": 34.96,
+          "is_contact": false
+        },
+        {
+          "res_id": "P177",
+          "aa": "P",
+          "pos": 177,
+          "min_dist_angstrom": 29.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "E180",
+          "aa": "E",
+          "pos": 180,
+          "min_dist_angstrom": 37.79,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q196",
+          "aa": "Q",
+          "pos": 196,
+          "min_dist_angstrom": 35.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "S198",
+          "aa": "S",
+          "pos": 198,
+          "min_dist_angstrom": 38.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "T202",
+          "aa": "T",
+          "pos": 202,
+          "min_dist_angstrom": 29.14,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n020",
+      "pdb_id": "9VQI",
+      "chain_id": "A",
+      "release_date": "2026-10-07",
+      "resolution": 2.803,
+      "title": "Structure of E1 bound to DNA fragment",
+      "stratum": "dsDNA",
+      "na_sequence": "AGAGAGAAAATGAGAAGATG",
+      "na_length": 20,
+      "length": 116,
+      "sequence": "DDPWKIKKTLTDSDLGILSRLLLAADLVKKQILPLGAYHARAAETEGTPVRVWDDTKSHQLVLKRWSSSKSYVLIGKWNQDFVRRRDLRKGDEIGFHWDPYNCVFNFCVLKQAPEN",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "K8",
+          "aa": "K",
+          "pos": 8,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "T11",
+          "aa": "T",
+          "pos": 11,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        },
+        {
+          "res_id": "S13",
+          "aa": "S",
+          "pos": 13,
+          "min_dist_angstrom": 2.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "I17",
+          "aa": "I",
+          "pos": 17,
+          "min_dist_angstrom": 3.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "L18",
+          "aa": "L",
+          "pos": 18,
+          "min_dist_angstrom": 3.32,
+          "is_contact": true
+        },
+        {
+          "res_id": "A25",
+          "aa": "A",
+          "pos": 25,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "I32",
+          "aa": "I",
+          "pos": 32,
+          "min_dist_angstrom": 11.79,
+          "is_contact": false
+        },
+        {
+          "res_id": "L35",
+          "aa": "L",
+          "pos": 35,
+          "min_dist_angstrom": 15.4,
+          "is_contact": false
+        },
+        {
+          "res_id": "G36",
+          "aa": "G",
+          "pos": 36,
+          "min_dist_angstrom": 18.65,
+          "is_contact": false
+        },
+        {
+          "res_id": "A37",
+          "aa": "A",
+          "pos": 37,
+          "min_dist_angstrom": 18.15,
+          "is_contact": false
+        },
+        {
+          "res_id": "T56",
+          "aa": "T",
+          "pos": 56,
+          "min_dist_angstrom": 18.49,
+          "is_contact": false
+        },
+        {
+          "res_id": "K57",
+          "aa": "K",
+          "pos": 57,
+          "min_dist_angstrom": 21.34,
+          "is_contact": false
+        },
+        {
+          "res_id": "S58",
+          "aa": "S",
+          "pos": 58,
+          "min_dist_angstrom": 17.45,
+          "is_contact": false
+        },
+        {
+          "res_id": "W66",
+          "aa": "W",
+          "pos": 66,
+          "min_dist_angstrom": 2.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "G76",
+          "aa": "G",
+          "pos": 76,
+          "min_dist_angstrom": 3.4,
+          "is_contact": true
+        },
+        {
+          "res_id": "W98",
+          "aa": "W",
+          "pos": 98,
+          "min_dist_angstrom": 18.41,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n021",
+      "pdb_id": "9VR3",
+      "chain_id": "A",
+      "release_date": "2026-10-07",
+      "resolution": 1.85,
+      "title": "Trapped reaction intermediate of the DNA Repair Enzyme Endonuclease VIII with DNA containing G opposite the crosslink",
+      "stratum": "dsDNA",
+      "na_sequence": "GCTTCGTCCTGG",
+      "na_length": 12,
+      "length": 255,
+      "sequence": "PEGPEIRRAADNLEAAIKGKPLTDVWFAFPQLKTYQSQLIGQHVTHVETRGKALLTHFSNDLTLYSHNQLYGVWRVVDTGEEPQTTRVLRVKLQTADKTILLYSASDIEMLRPEQLTTHPFLQRVGPDVLDPNLTPEVVKERLLSPRFRNRQFAGLLLDQAFLAGLGNYLRVEILWQVGLTGNHKAKDLNAAQLDALAHALLEIPRFSYATRGQGALFRFKVFHRDGEPCERCGSIIEKTTLSSRPFYWCPGCQH",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "K20",
+          "aa": "K",
+          "pos": 20,
+          "min_dist_angstrom": 25.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "G41",
+          "aa": "G",
+          "pos": 41,
+          "min_dist_angstrom": 27.02,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q42",
+          "aa": "Q",
+          "pos": 42,
+          "min_dist_angstrom": 26.37,
+          "is_contact": false
+        },
+        {
+          "res_id": "H43",
+          "aa": "H",
+          "pos": 43,
+          "min_dist_angstrom": 24.57,
+          "is_contact": false
+        },
+        {
+          "res_id": "V44",
+          "aa": "V",
+          "pos": 44,
+          "min_dist_angstrom": 20.68,
+          "is_contact": false
+        },
+        {
+          "res_id": "K52",
+          "aa": "K",
+          "pos": 52,
+          "min_dist_angstrom": 2.58,
+          "is_contact": true
+        },
+        {
+          "res_id": "S59",
+          "aa": "S",
+          "pos": 59,
+          "min_dist_angstrom": 24.65,
+          "is_contact": false
+        },
+        {
+          "res_id": "N60",
+          "aa": "N",
+          "pos": 60,
+          "min_dist_angstrom": 24.57,
+          "is_contact": false
+        },
+        {
+          "res_id": "H67",
+          "aa": "H",
+          "pos": 67,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q69",
+          "aa": "Q",
+          "pos": 69,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "V88",
+          "aa": "V",
+          "pos": 88,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "S104",
+          "aa": "S",
+          "pos": 104,
+          "min_dist_angstrom": 2.45,
+          "is_contact": true
+        },
+        {
+          "res_id": "G167",
+          "aa": "G",
+          "pos": 167,
+          "min_dist_angstrom": 3.19,
+          "is_contact": true
+        },
+        {
+          "res_id": "N168",
+          "aa": "N",
+          "pos": 168,
+          "min_dist_angstrom": 3.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "R232",
+          "aa": "R",
+          "pos": 232,
+          "min_dist_angstrom": 20.87,
+          "is_contact": false
+        },
+        {
+          "res_id": "R245",
+          "aa": "R",
+          "pos": 245,
+          "min_dist_angstrom": 2.56,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n022",
+      "pdb_id": "11ST",
+      "chain_id": "B",
+      "release_date": "2026-09-30",
+      "resolution": 2.73,
+      "title": "Structure of Yarrowia lipolytica ORC-Cdc6 bound to 54bp segment of OriC-061 DNA",
+      "stratum": "dsDNA",
+      "na_sequence": "GATCCCAATATTACACCCAAGTAGCATGCATAAGCT",
+      "na_length": 36,
+      "length": 377,
+      "sequence": "PILDSSNDFHTDERSLANVGALIAAEDRVLFLDSSEGYFDQHKTRGRGNANTMAKAPAIDHSVFFKYTNQANELFHADQKKMLRHAYRGMFSQWIFELSEGFSLLFYGLGSKRELLTDFVCEKVDSEIPILVINGYNASVQFKSVLNSVVDVLYENHEDIFAKKGFVVRNKLPKDVDLLVKLVVDTMRDIEAGSKPSLVVLCHNVDGESLRIDKASTHLSQLMSISQIWFVASVDHIMAPLMWDSAKLASYNFVWHDVTTFAPYTVETSFDDPLLLGKKAEAQGVKYVLESVTPNHRSLYKNLIYCQLEEFHNVGALTGSTSISVDYDKVLTECLNELTVSNKKDFQEKLKEFMDHKMVVAKLYIPFKDVVQQILEG",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 4,
+      "candidates": [
+        {
+          "res_id": "P1",
+          "aa": "P",
+          "pos": 1,
+          "min_dist_angstrom": 35.31,
+          "is_contact": false
+        },
+        {
+          "res_id": "R45",
+          "aa": "R",
+          "pos": 45,
+          "min_dist_angstrom": 3.01,
+          "is_contact": true
+        },
+        {
+          "res_id": "G46",
+          "aa": "G",
+          "pos": 46,
+          "min_dist_angstrom": 3.39,
+          "is_contact": true
+        },
+        {
+          "res_id": "R47",
+          "aa": "R",
+          "pos": 47,
+          "min_dist_angstrom": 3.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "G48",
+          "aa": "G",
+          "pos": 48,
+          "min_dist_angstrom": 3.13,
+          "is_contact": true
+        },
+        {
+          "res_id": "D78",
+          "aa": "D",
+          "pos": 78,
+          "min_dist_angstrom": 40.54,
+          "is_contact": false
+        },
+        {
+          "res_id": "K81",
+          "aa": "K",
+          "pos": 81,
+          "min_dist_angstrom": 39.55,
+          "is_contact": false
+        },
+        {
+          "res_id": "R84",
+          "aa": "R",
+          "pos": 84,
+          "min_dist_angstrom": 37.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "R88",
+          "aa": "R",
+          "pos": 88,
+          "min_dist_angstrom": 39.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "G89",
+          "aa": "G",
+          "pos": 89,
+          "min_dist_angstrom": 41.88,
+          "is_contact": false
+        },
+        {
+          "res_id": "G101",
+          "aa": "G",
+          "pos": 101,
+          "min_dist_angstrom": 30.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "K123",
+          "aa": "K",
+          "pos": 123,
+          "min_dist_angstrom": 33.92,
+          "is_contact": false
+        },
+        {
+          "res_id": "K143",
+          "aa": "K",
+          "pos": 143,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "P173",
+          "aa": "P",
+          "pos": 173,
+          "min_dist_angstrom": 3.61,
+          "is_contact": true
+        },
+        {
+          "res_id": "K174",
+          "aa": "K",
+          "pos": 174,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "D175",
+          "aa": "D",
+          "pos": 175,
+          "min_dist_angstrom": 3.35,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n023",
+      "pdb_id": "9SNL",
+      "chain_id": "A",
+      "release_date": "2026-09-30",
+      "resolution": 2.701,
+      "title": "transcription factor ELF3",
+      "stratum": "dsDNA",
+      "na_sequence": "GGAATTTTGGTAGGTTACTTCCGGGTGT",
+      "na_length": 28,
+      "length": 101,
+      "sequence": "RKRGRPRKGTHLWEFIRDILIHPELNEGLMKWENRHEGVFKFLRSEAVAQLWGQKKKNSNMTYEKLSRAMRYYYKREILERVDGRRLVYKFGKNSSGWKEE",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "G4",
+          "aa": "G",
+          "pos": 4,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "R5",
+          "aa": "R",
+          "pos": 5,
+          "min_dist_angstrom": 2.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "P6",
+          "aa": "P",
+          "pos": 6,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "P23",
+          "aa": "P",
+          "pos": 23,
+          "min_dist_angstrom": 19.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "L25",
+          "aa": "L",
+          "pos": 25,
+          "min_dist_angstrom": 17.69,
+          "is_contact": false
+        },
+        {
+          "res_id": "N26",
+          "aa": "N",
+          "pos": 26,
+          "min_dist_angstrom": 16.08,
+          "is_contact": false
+        },
+        {
+          "res_id": "W32",
+          "aa": "W",
+          "pos": 32,
+          "min_dist_angstrom": 14.38,
+          "is_contact": false
+        },
+        {
+          "res_id": "R35",
+          "aa": "R",
+          "pos": 35,
+          "min_dist_angstrom": 17.57,
+          "is_contact": false
+        },
+        {
+          "res_id": "W52",
+          "aa": "W",
+          "pos": 52,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "N58",
+          "aa": "N",
+          "pos": 58,
+          "min_dist_angstrom": 2.51,
+          "is_contact": true
+        },
+        {
+          "res_id": "E64",
+          "aa": "E",
+          "pos": 64,
+          "min_dist_angstrom": 3.0,
+          "is_contact": true
+        },
+        {
+          "res_id": "K65",
+          "aa": "K",
+          "pos": 65,
+          "min_dist_angstrom": 2.85,
+          "is_contact": true
+        },
+        {
+          "res_id": "L87",
+          "aa": "L",
+          "pos": 87,
+          "min_dist_angstrom": 2.51,
+          "is_contact": true
+        },
+        {
+          "res_id": "G97",
+          "aa": "G",
+          "pos": 97,
+          "min_dist_angstrom": 14.51,
+          "is_contact": false
+        },
+        {
+          "res_id": "K99",
+          "aa": "K",
+          "pos": 99,
+          "min_dist_angstrom": 18.13,
+          "is_contact": false
+        },
+        {
+          "res_id": "E101",
+          "aa": "E",
+          "pos": 101,
+          "min_dist_angstrom": 23.23,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n024",
+      "pdb_id": "9Y77",
+      "chain_id": "F",
+      "release_date": "2026-09-30",
+      "resolution": 2.58,
+      "title": "Cryo-EM structure of Mycobacterium tuberculosis transcription initiation complex in complex with UMN141",
+      "stratum": "dsDNA",
+      "na_sequence": "AGGCTTGACAAGGCCCGTCCGTTGCCGTATAATGGGAGCTGTCACGGATGCAG",
+      "na_length": 53,
+      "length": 319,
+      "sequence": "SEALRQARKDAELTASADSVRAYLKQIGKVALLNAEEEVELAKRIEAGLYATQLMTELSERGEKLPAAQRRDMMWICRDGDRAKNHLLEANLRLVVSLAKRYTGRGMAFLDLIQEGNLGLIRAVEKFDYTKGYKFSTYATWWIRQAITRAMADQARTIRIPVHMVEVINKLGRIQRELLQDLGREPTPEELAKEMDITPEKVLEIQQYAREPISLDQTIGDEGDSQLGDFIEDSEAVVAVDAVSFTLLQDQLQSVLDTLSEREAGVVRLRFGLTDGQPRTLDEIGQVYGVTRERIRQIESKTMSKLRHPSRSQVLRDYL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "E63",
+          "aa": "E",
+          "pos": 63,
+          "min_dist_angstrom": 31.94,
+          "is_contact": false
+        },
+        {
+          "res_id": "K64",
+          "aa": "K",
+          "pos": 64,
+          "min_dist_angstrom": 28.84,
+          "is_contact": false
+        },
+        {
+          "res_id": "L65",
+          "aa": "L",
+          "pos": 65,
+          "min_dist_angstrom": 33.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "R70",
+          "aa": "R",
+          "pos": 70,
+          "min_dist_angstrom": 29.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "D72",
+          "aa": "D",
+          "pos": 72,
+          "min_dist_angstrom": 25.79,
+          "is_contact": false
+        },
+        {
+          "res_id": "R101",
+          "aa": "R",
+          "pos": 101,
+          "min_dist_angstrom": 2.35,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y102",
+          "aa": "Y",
+          "pos": 102,
+          "min_dist_angstrom": 2.15,
+          "is_contact": true
+        },
+        {
+          "res_id": "K134",
+          "aa": "K",
+          "pos": 134,
+          "min_dist_angstrom": 2.58,
+          "is_contact": true
+        },
+        {
+          "res_id": "T137",
+          "aa": "T",
+          "pos": 137,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "H163",
+          "aa": "H",
+          "pos": 163,
+          "min_dist_angstrom": 2.57,
+          "is_contact": true
+        },
+        {
+          "res_id": "D224",
+          "aa": "D",
+          "pos": 224,
+          "min_dist_angstrom": 2.61,
+          "is_contact": true
+        },
+        {
+          "res_id": "T246",
+          "aa": "T",
+          "pos": 246,
+          "min_dist_angstrom": 26.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "L281",
+          "aa": "L",
+          "pos": 281,
+          "min_dist_angstrom": 2.5,
+          "is_contact": true
+        },
+        {
+          "res_id": "E293",
+          "aa": "E",
+          "pos": 293,
+          "min_dist_angstrom": 2.81,
+          "is_contact": true
+        },
+        {
+          "res_id": "H308",
+          "aa": "H",
+          "pos": 308,
+          "min_dist_angstrom": 14.92,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y318",
+          "aa": "Y",
+          "pos": 318,
+          "min_dist_angstrom": 23.51,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n025",
+      "pdb_id": "9Z4Y",
+      "chain_id": "A",
+      "release_date": "2026-09-23",
+      "resolution": 2.05,
+      "title": "Human APE1 D210N with Mg and substrate tetrahydrofuran-containing DNA",
+      "stratum": "dsDNA",
+      "na_sequence": "CGATCGGTAGC",
+      "na_length": 11,
+      "length": 276,
+      "sequence": "ALYEDPPDQKTSPSGKPATLKICSWNVDGLRAWIKKKGLDWVKEEAPDILCLQETKCSENKLPAELQELPGLSHQYWSAPSDKEGYSGVGLLSRQCPLKVSYGIGDEEHDQEGRVIVAEFDSFVLVTAYVPNAGRGLVRLEYRQRWDEAFRKFLKGLASRKPLVLCGNLNVAHEEIDLRNPKGNKKNAGFTPQERQGFGELLQAVPLADSFRHLYPNTPYAYTFWTYMMNARSKNVGWRLDYFLLSHSLLPALCDSKIRSKALGSDHCPITLYLAL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "K10",
+          "aa": "K",
+          "pos": 10,
+          "min_dist_angstrom": 29.88,
+          "is_contact": false
+        },
+        {
+          "res_id": "G15",
+          "aa": "G",
+          "pos": 15,
+          "min_dist_angstrom": 30.35,
+          "is_contact": false
+        },
+        {
+          "res_id": "A18",
+          "aa": "A",
+          "pos": 18,
+          "min_dist_angstrom": 26.03,
+          "is_contact": false
+        },
+        {
+          "res_id": "G29",
+          "aa": "G",
+          "pos": 29,
+          "min_dist_angstrom": 3.19,
+          "is_contact": true
+        },
+        {
+          "res_id": "A32",
+          "aa": "A",
+          "pos": 32,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "W41",
+          "aa": "W",
+          "pos": 41,
+          "min_dist_angstrom": 14.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y86",
+          "aa": "Y",
+          "pos": 86,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "R94",
+          "aa": "R",
+          "pos": 94,
+          "min_dist_angstrom": 18.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "R135",
+          "aa": "R",
+          "pos": 135,
+          "min_dist_angstrom": 2.8,
+          "is_contact": true
+        },
+        {
+          "res_id": "N184",
+          "aa": "N",
+          "pos": 184,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "K186",
+          "aa": "K",
+          "pos": 186,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "V205",
+          "aa": "V",
+          "pos": 205,
+          "min_dist_angstrom": 22.35,
+          "is_contact": false
+        },
+        {
+          "res_id": "N217",
+          "aa": "N",
+          "pos": 217,
+          "min_dist_angstrom": 19.0,
+          "is_contact": false
+        },
+        {
+          "res_id": "V236",
+          "aa": "V",
+          "pos": 236,
+          "min_dist_angstrom": 3.33,
+          "is_contact": true
+        },
+        {
+          "res_id": "W238",
+          "aa": "W",
+          "pos": 238,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y273",
+          "aa": "Y",
+          "pos": 273,
+          "min_dist_angstrom": 24.98,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n026",
+      "pdb_id": "36BQ",
+      "chain_id": "P",
+      "release_date": "2026-11-25",
+      "resolution": 3.0,
+      "title": "Cryo-EM structure of the VchCAST Cascade-TniQ Target Recognition Complex (TRC)",
+      "stratum": "RNA",
+      "na_sequence": "CUGAUAACCGGGAGACUUUAUCUGACAGCAGACGUGCACUGUGAACUGCCGAGUAGGUAG",
+      "na_length": 60,
+      "length": 195,
+      "sequence": "YYKTITFLPELCNNESLAAKCLRVLHGFNYQYETRNIGVSFPLWCDATVGKKISFVSKNKIELDLLLKQHYFVQMEQLQYFHISNTVLVPEDCTYVSFRRCQSIDKLTAAGLARKIRRLEKRALSRGEQFDPSSFAQKEHTAIAHYHSLGESSKQTNRNFRLNIRMLSEQPREGNSIFSSYGLSNSENSFQPVPL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "Y30",
+          "aa": "Y",
+          "pos": 30,
+          "min_dist_angstrom": 2.69,
+          "is_contact": true
+        },
+        {
+          "res_id": "K60",
+          "aa": "K",
+          "pos": 60,
+          "min_dist_angstrom": 22.23,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q79",
+          "aa": "Q",
+          "pos": 79,
+          "min_dist_angstrom": 27.59,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y80",
+          "aa": "Y",
+          "pos": 80,
+          "min_dist_angstrom": 23.19,
+          "is_contact": false
+        },
+        {
+          "res_id": "F81",
+          "aa": "F",
+          "pos": 81,
+          "min_dist_angstrom": 20.3,
+          "is_contact": false
+        },
+        {
+          "res_id": "S84",
+          "aa": "S",
+          "pos": 84,
+          "min_dist_angstrom": 26.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "N85",
+          "aa": "N",
+          "pos": 85,
+          "min_dist_angstrom": 27.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "T86",
+          "aa": "T",
+          "pos": 86,
+          "min_dist_angstrom": 26.57,
+          "is_contact": false
+        },
+        {
+          "res_id": "K106",
+          "aa": "K",
+          "pos": 106,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "T108",
+          "aa": "T",
+          "pos": 108,
+          "min_dist_angstrom": 3.2,
+          "is_contact": true
+        },
+        {
+          "res_id": "R126",
+          "aa": "R",
+          "pos": 126,
+          "min_dist_angstrom": 2.85,
+          "is_contact": true
+        },
+        {
+          "res_id": "S134",
+          "aa": "S",
+          "pos": 134,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q155",
+          "aa": "Q",
+          "pos": 155,
+          "min_dist_angstrom": 2.81,
+          "is_contact": true
+        },
+        {
+          "res_id": "F160",
+          "aa": "F",
+          "pos": 160,
+          "min_dist_angstrom": 3.03,
+          "is_contact": true
+        },
+        {
+          "res_id": "R172",
+          "aa": "R",
+          "pos": 172,
+          "min_dist_angstrom": 13.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "N185",
+          "aa": "N",
+          "pos": 185,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n027",
+      "pdb_id": "9Z6J",
+      "chain_id": "A",
+      "release_date": "2026-11-18",
+      "resolution": 2.9,
+      "title": "cA4 signal molecule bound structure of Type III CRISPR-Associated, Membrane Pore-Forming Cap1 Effector.",
+      "stratum": "RNA",
+      "na_sequence": "AAAA",
+      "na_length": 4,
+      "length": 211,
+      "sequence": "PSFFRRNFQFAIKHYKRELKIGLLVLFVTIVIVFLSWSLGESFSNFYSAYIDTVISISTLVVGIGLWFAYLDKRRTESLSKKLTVHFKYDKKYIMSCFEAYLSSEADIRQWAQQIGAQISKERQLSFYPYITSLEPKENPANNIHSFMHYEITIYLRELPTTNPLLEKHYVFWIQDDVSLGYKQGSLDEHPTEPLSKEQAYNHIKKHGEVE",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R5",
+          "aa": "R",
+          "pos": 5,
+          "min_dist_angstrom": 36.23,
+          "is_contact": false
+        },
+        {
+          "res_id": "R6",
+          "aa": "R",
+          "pos": 6,
+          "min_dist_angstrom": 32.54,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q9",
+          "aa": "Q",
+          "pos": 9,
+          "min_dist_angstrom": 33.76,
+          "is_contact": false
+        },
+        {
+          "res_id": "L39",
+          "aa": "L",
+          "pos": 39,
+          "min_dist_angstrom": 65.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "E41",
+          "aa": "E",
+          "pos": 41,
+          "min_dist_angstrom": 67.69,
+          "is_contact": false
+        },
+        {
+          "res_id": "F46",
+          "aa": "F",
+          "pos": 46,
+          "min_dist_angstrom": 60.64,
+          "is_contact": false
+        },
+        {
+          "res_id": "A49",
+          "aa": "A",
+          "pos": 49,
+          "min_dist_angstrom": 59.94,
+          "is_contact": false
+        },
+        {
+          "res_id": "R109",
+          "aa": "R",
+          "pos": 109,
+          "min_dist_angstrom": 2.89,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q113",
+          "aa": "Q",
+          "pos": 113,
+          "min_dist_angstrom": 2.73,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q114",
+          "aa": "Q",
+          "pos": 114,
+          "min_dist_angstrom": 2.46,
+          "is_contact": true
+        },
+        {
+          "res_id": "A117",
+          "aa": "A",
+          "pos": 117,
+          "min_dist_angstrom": 3.44,
+          "is_contact": true
+        },
+        {
+          "res_id": "E122",
+          "aa": "E",
+          "pos": 122,
+          "min_dist_angstrom": 3.29,
+          "is_contact": true
+        },
+        {
+          "res_id": "R123",
+          "aa": "R",
+          "pos": 123,
+          "min_dist_angstrom": 3.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "L125",
+          "aa": "L",
+          "pos": 125,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "F127",
+          "aa": "F",
+          "pos": 127,
+          "min_dist_angstrom": 4.47,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q199",
+          "aa": "Q",
+          "pos": 199,
+          "min_dist_angstrom": 25.64,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n028",
+      "pdb_id": "9T3B",
+      "chain_id": "B",
+      "release_date": "2026-10-21",
+      "resolution": 2.69,
+      "title": "yeast core m6A Methyltransferase Complex (ycMTC) bound to mRNA",
+      "stratum": "RNA",
+      "na_sequence": "AGGACACUA",
+      "na_length": 9,
+      "length": 294,
+      "sequence": "VSFKPSRDFHTNDYSNNYIHGKSLPQQHVTNIENRVDGYPKLQKLFQAKAKQINQFATTPFGCKIGIDSIVPTLNHWIQNENLTFDVVMIGCLTENQFIYPILTQLPLDRLISKPGFLFIWANSQKINELTKLLNNEIWAKKFRRSEELVFVPIDKKSPFYPGLDQDDETLMEKMQWHCWMCITGTVRRSTDGHLIHCNVDTDLSIETKDTTNGAVPSHLYRIAENFSTATRRLHIIPARTGYETPVKVRPGWVIVSPDVMLDNFSPKRYKEEIANLGSNIPLKNEIELLRPRP",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "V1",
+          "aa": "V",
+          "pos": 1,
+          "min_dist_angstrom": 35.7,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y39",
+          "aa": "Y",
+          "pos": 39,
+          "min_dist_angstrom": 4.27,
+          "is_contact": true
+        },
+        {
+          "res_id": "R144",
+          "aa": "R",
+          "pos": 144,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "G185",
+          "aa": "G",
+          "pos": 185,
+          "min_dist_angstrom": 3.98,
+          "is_contact": true
+        },
+        {
+          "res_id": "T186",
+          "aa": "T",
+          "pos": 186,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "V187",
+          "aa": "V",
+          "pos": 187,
+          "min_dist_angstrom": 2.8,
+          "is_contact": true
+        },
+        {
+          "res_id": "R188",
+          "aa": "R",
+          "pos": 188,
+          "min_dist_angstrom": 3.29,
+          "is_contact": true
+        },
+        {
+          "res_id": "R189",
+          "aa": "R",
+          "pos": 189,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "R240",
+          "aa": "R",
+          "pos": 240,
+          "min_dist_angstrom": 33.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "T241",
+          "aa": "T",
+          "pos": 241,
+          "min_dist_angstrom": 32.34,
+          "is_contact": false
+        },
+        {
+          "res_id": "G242",
+          "aa": "G",
+          "pos": 242,
+          "min_dist_angstrom": 35.53,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y243",
+          "aa": "Y",
+          "pos": 243,
+          "min_dist_angstrom": 37.85,
+          "is_contact": false
+        },
+        {
+          "res_id": "P246",
+          "aa": "P",
+          "pos": 246,
+          "min_dist_angstrom": 32.62,
+          "is_contact": false
+        },
+        {
+          "res_id": "R250",
+          "aa": "R",
+          "pos": 250,
+          "min_dist_angstrom": 25.68,
+          "is_contact": false
+        },
+        {
+          "res_id": "R269",
+          "aa": "R",
+          "pos": 269,
+          "min_dist_angstrom": 31.33,
+          "is_contact": false
+        },
+        {
+          "res_id": "P294",
+          "aa": "P",
+          "pos": 294,
+          "min_dist_angstrom": 4.49,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n029",
+      "pdb_id": "11ON",
+      "chain_id": "A",
+      "release_date": "2026-10-14",
+      "resolution": 3.1,
+      "title": "Divergent interfaces and convergent outcome in the structural basis of HIV-2 Vif antagonism of APOBEC3H",
+      "stratum": "RNA",
+      "na_sequence": "ACGCCAACCA",
+      "na_length": 10,
+      "length": 182,
+      "sequence": "ALLTAETFRLQFNNRRRLRRPYYPRKALLCYQLTPQNGSTPTRGYFENKKKCHAEICFINEIKSMGLDETQCYQVTCYLTWSPCSSCAWKLVDFIQAHDHLNLRIFASRLYYHWCKPQQEGLRLLCGSQVPVEVMGLPEFNDCWENFVDHEKPLSFDPCKMLEELDKNSRAIKRRLERIKQS",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "R15",
+          "aa": "R",
+          "pos": 15,
+          "min_dist_angstrom": 2.45,
+          "is_contact": true
+        },
+        {
+          "res_id": "P24",
+          "aa": "P",
+          "pos": 24,
+          "min_dist_angstrom": 3.55,
+          "is_contact": true
+        },
+        {
+          "res_id": "P41",
+          "aa": "P",
+          "pos": 41,
+          "min_dist_angstrom": 29.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "R43",
+          "aa": "R",
+          "pos": 43,
+          "min_dist_angstrom": 25.15,
+          "is_contact": false
+        },
+        {
+          "res_id": "K63",
+          "aa": "K",
+          "pos": 63,
+          "min_dist_angstrom": 26.91,
+          "is_contact": false
+        },
+        {
+          "res_id": "L67",
+          "aa": "L",
+          "pos": 67,
+          "min_dist_angstrom": 30.32,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q71",
+          "aa": "Q",
+          "pos": 71,
+          "min_dist_angstrom": 34.79,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y73",
+          "aa": "Y",
+          "pos": 73,
+          "min_dist_angstrom": 29.13,
+          "is_contact": false
+        },
+        {
+          "res_id": "W81",
+          "aa": "W",
+          "pos": 81,
+          "min_dist_angstrom": 3.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "H100",
+          "aa": "H",
+          "pos": 100,
+          "min_dist_angstrom": 30.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "L110",
+          "aa": "L",
+          "pos": 110,
+          "min_dist_angstrom": 3.17,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y112",
+          "aa": "Y",
+          "pos": 112,
+          "min_dist_angstrom": 3.57,
+          "is_contact": true
+        },
+        {
+          "res_id": "H113",
+          "aa": "H",
+          "pos": 113,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "K116",
+          "aa": "K",
+          "pos": 116,
+          "min_dist_angstrom": 2.52,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q119",
+          "aa": "Q",
+          "pos": 119,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "W144",
+          "aa": "W",
+          "pos": 144,
+          "min_dist_angstrom": 19.14,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n030",
+      "pdb_id": "9PQ8",
+      "chain_id": "A",
+      "release_date": "2026-09-30",
+      "resolution": 1.71,
+      "title": "Crystal structure of DND1-NANOS3-RNA complex",
+      "stratum": "RNA",
+      "na_sequence": "AUGAAUUU",
+      "na_length": 8,
+      "length": 226,
+      "sequence": "KRDCELWCERVNPENKAALEAWVRETGIRLVQVNGQRKYGGPPPGWVGSPPPAGSEVFIGRLPQDVYEHQLIPLFQRVGRLYEFRLMMTFSGLNRGFAYARYSSRRGAQAAIATLHNHPLRPSCPLLVCRSTEKCELSVDGLPPNLTRSALLLALQPLGPGLQEARLLPSPGPAPGQIALLKFSSHRAAAMAKKALVEGQSHLCGEQVAVEWLKPDLKQRLRQQLV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "K1",
+          "aa": "K",
+          "pos": 1,
+          "min_dist_angstrom": 15.37,
+          "is_contact": false
+        },
+        {
+          "res_id": "E25",
+          "aa": "E",
+          "pos": 25,
+          "min_dist_angstrom": 23.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q36",
+          "aa": "Q",
+          "pos": 36,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "H69",
+          "aa": "H",
+          "pos": 69,
+          "min_dist_angstrom": 17.23,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y82",
+          "aa": "Y",
+          "pos": 82,
+          "min_dist_angstrom": 12.53,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y99",
+          "aa": "Y",
+          "pos": 99,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "T132",
+          "aa": "T",
+          "pos": 132,
+          "min_dist_angstrom": 3.03,
+          "is_contact": true
+        },
+        {
+          "res_id": "E133",
+          "aa": "E",
+          "pos": 133,
+          "min_dist_angstrom": 3.25,
+          "is_contact": true
+        },
+        {
+          "res_id": "T147",
+          "aa": "T",
+          "pos": 147,
+          "min_dist_angstrom": 23.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "R148",
+          "aa": "R",
+          "pos": 148,
+          "min_dist_angstrom": 22.54,
+          "is_contact": false
+        },
+        {
+          "res_id": "A174",
+          "aa": "A",
+          "pos": 174,
+          "min_dist_angstrom": 22.16,
+          "is_contact": false
+        },
+        {
+          "res_id": "H186",
+          "aa": "H",
+          "pos": 186,
+          "min_dist_angstrom": 2.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "R187",
+          "aa": "R",
+          "pos": 187,
+          "min_dist_angstrom": 2.75,
+          "is_contact": true
+        },
+        {
+          "res_id": "A190",
+          "aa": "A",
+          "pos": 190,
+          "min_dist_angstrom": 3.26,
+          "is_contact": true
+        },
+        {
+          "res_id": "K193",
+          "aa": "K",
+          "pos": 193,
+          "min_dist_angstrom": 2.58,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q224",
+          "aa": "Q",
+          "pos": 224,
+          "min_dist_angstrom": 23.05,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n031",
+      "pdb_id": "35SE",
+      "chain_id": "G",
+      "release_date": "2026-09-16",
+      "resolution": 2.68,
+      "title": "VIPR Binary Complex - Consensus Conformation",
+      "stratum": "RNA",
+      "na_sequence": "UGCGGUGGGGUAAGGCUAGGUUUGG",
+      "na_length": 25,
+      "length": 195,
+      "sequence": "MKLLNIKITGTRPFLSHADTLSDPLNPLTKYHKSLSSKRKKTDEDYALLAESQLVTSCYYDEQLGFVMNGEMIEACIKSGAKLNKLGKVIDRAIMLTDVVFPMTIKNCPANPQELAKNQDFIYAKSVKIGTARVMSYRPIFRDWSVEFGLMFDEEQITKEELLMVLENAGNLCGVGDWRPRFGRFSVEIMSEGNV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "K2",
+          "aa": "K",
+          "pos": 2,
+          "min_dist_angstrom": 21.96,
+          "is_contact": false
+        },
+        {
+          "res_id": "A18",
+          "aa": "A",
+          "pos": 18,
+          "min_dist_angstrom": 3.27,
+          "is_contact": true
+        },
+        {
+          "res_id": "R39",
+          "aa": "R",
+          "pos": 39,
+          "min_dist_angstrom": 20.16,
+          "is_contact": false
+        },
+        {
+          "res_id": "D43",
+          "aa": "D",
+          "pos": 43,
+          "min_dist_angstrom": 21.68,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y46",
+          "aa": "Y",
+          "pos": 46,
+          "min_dist_angstrom": 16.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y59",
+          "aa": "Y",
+          "pos": 59,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "E71",
+          "aa": "E",
+          "pos": 71,
+          "min_dist_angstrom": 3.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "M72",
+          "aa": "M",
+          "pos": 72,
+          "min_dist_angstrom": 3.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "A110",
+          "aa": "A",
+          "pos": 110,
+          "min_dist_angstrom": 19.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "K128",
+          "aa": "K",
+          "pos": 128,
+          "min_dist_angstrom": 3.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "G176",
+          "aa": "G",
+          "pos": 176,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "D177",
+          "aa": "D",
+          "pos": 177,
+          "min_dist_angstrom": 3.15,
+          "is_contact": true
+        },
+        {
+          "res_id": "R179",
+          "aa": "R",
+          "pos": 179,
+          "min_dist_angstrom": 3.4,
+          "is_contact": true
+        },
+        {
+          "res_id": "M190",
+          "aa": "M",
+          "pos": 190,
+          "min_dist_angstrom": 20.84,
+          "is_contact": false
+        },
+        {
+          "res_id": "E192",
+          "aa": "E",
+          "pos": 192,
+          "min_dist_angstrom": 24.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "G193",
+          "aa": "G",
+          "pos": 193,
+          "min_dist_angstrom": 26.27,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n032",
+      "pdb_id": "36PD",
+      "chain_id": "A",
+      "release_date": "2026-09-16",
+      "resolution": 2.8,
+      "title": "P. fulva VIPR Ternary Complex with four subunits",
+      "stratum": "RNA",
+      "na_sequence": "CAUGGCAAGGCAAGGCAAGG",
+      "na_length": 20,
+      "length": 188,
+      "sequence": "MQTLKVKIVGTRPLLVHADVFADPLNKLTKSHKQLTSKRKKSDEDHELIARSEWRGGLYFSEDVGPYLPGINIESALVAGGKLSKMGTQLKRSVEIMDTRCPIIYEGPRSVEGLWDEQFYDARSVKVGTARITRYRPLFRSWAVVCEIAYDQESIDRDQVLKCLEDAGQYCGVGDYRPKFGRFAVEVL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "H17",
+          "aa": "H",
+          "pos": 17,
+          "min_dist_angstrom": 3.13,
+          "is_contact": true
+        },
+        {
+          "res_id": "A18",
+          "aa": "A",
+          "pos": 18,
+          "min_dist_angstrom": 3.01,
+          "is_contact": true
+        },
+        {
+          "res_id": "N26",
+          "aa": "N",
+          "pos": 26,
+          "min_dist_angstrom": 11.56,
+          "is_contact": false
+        },
+        {
+          "res_id": "H46",
+          "aa": "H",
+          "pos": 46,
+          "min_dist_angstrom": 13.1,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y59",
+          "aa": "Y",
+          "pos": 59,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "N72",
+          "aa": "N",
+          "pos": 72,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        },
+        {
+          "res_id": "S75",
+          "aa": "S",
+          "pos": 75,
+          "min_dist_angstrom": 3.19,
+          "is_contact": true
+        },
+        {
+          "res_id": "G107",
+          "aa": "G",
+          "pos": 107,
+          "min_dist_angstrom": 22.46,
+          "is_contact": false
+        },
+        {
+          "res_id": "S110",
+          "aa": "S",
+          "pos": 110,
+          "min_dist_angstrom": 20.05,
+          "is_contact": false
+        },
+        {
+          "res_id": "D116",
+          "aa": "D",
+          "pos": 116,
+          "min_dist_angstrom": 20.94,
+          "is_contact": false
+        },
+        {
+          "res_id": "A149",
+          "aa": "A",
+          "pos": 149,
+          "min_dist_angstrom": 16.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y150",
+          "aa": "Y",
+          "pos": 150,
+          "min_dist_angstrom": 18.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "R157",
+          "aa": "R",
+          "pos": 157,
+          "min_dist_angstrom": 18.82,
+          "is_contact": false
+        },
+        {
+          "res_id": "G174",
+          "aa": "G",
+          "pos": 174,
+          "min_dist_angstrom": 3.33,
+          "is_contact": true
+        },
+        {
+          "res_id": "D175",
+          "aa": "D",
+          "pos": 175,
+          "min_dist_angstrom": 2.98,
+          "is_contact": true
+        },
+        {
+          "res_id": "R177",
+          "aa": "R",
+          "pos": 177,
+          "min_dist_angstrom": 3.23,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n033",
+      "pdb_id": "37KX",
+      "chain_id": "A",
+      "release_date": "2026-09-09",
+      "resolution": 3.0,
+      "title": "Gammacoronavirus IBV dsRNA-bound nsp15",
+      "stratum": "RNA",
+      "na_sequence": "AAAAUCAAACAAGCAAAUCUAC",
+      "na_length": 22,
+      "length": 339,
+      "sequence": "AGSIDNIAYNMYKGGHYDAIAGEMPTIVTGDKVFVIDQGVEKAVFFNQTILPTSVAFELYAKRNIRTLPNNRILKGLGVDVTNGFVIWDYTNQTPLYRNTVKVCAYTDIEPNGLIVLYDDRYGDYQSFLAADNAVLVSTQCYKRYSYVEIPSNLLVQNGIPLKDGANLYVYKRVNGAFVTLPNTLNTQGRSYETFEPRSDVERDFLDMSEESFVEKYGKELGLQAILYGEVDKPQLGGLHTVIGMCRLLRANKLNAKSVTNSDSDVMQNYFVLADNGSYKQVCTVVDLLLDDFLELLRNILKEYGTNKSKVVTVSIDYHSINFMTWFEDGIIKTCYPQL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "S3",
+          "aa": "S",
+          "pos": 3,
+          "min_dist_angstrom": 42.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y9",
+          "aa": "Y",
+          "pos": 9,
+          "min_dist_angstrom": 45.73,
+          "is_contact": false
+        },
+        {
+          "res_id": "K13",
+          "aa": "K",
+          "pos": 13,
+          "min_dist_angstrom": 44.88,
+          "is_contact": false
+        },
+        {
+          "res_id": "H16",
+          "aa": "H",
+          "pos": 16,
+          "min_dist_angstrom": 37.39,
+          "is_contact": false
+        },
+        {
+          "res_id": "T26",
+          "aa": "T",
+          "pos": 26,
+          "min_dist_angstrom": 44.39,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q38",
+          "aa": "Q",
+          "pos": 38,
+          "min_dist_angstrom": 53.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "V40",
+          "aa": "V",
+          "pos": 40,
+          "min_dist_angstrom": 49.02,
+          "is_contact": false
+        },
+        {
+          "res_id": "W88",
+          "aa": "W",
+          "pos": 88,
+          "min_dist_angstrom": 25.37,
+          "is_contact": false
+        },
+        {
+          "res_id": "H240",
+          "aa": "H",
+          "pos": 240,
+          "min_dist_angstrom": 3.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "K280",
+          "aa": "K",
+          "pos": 280,
+          "min_dist_angstrom": 3.14,
+          "is_contact": true
+        },
+        {
+          "res_id": "T284",
+          "aa": "T",
+          "pos": 284,
+          "min_dist_angstrom": 2.68,
+          "is_contact": true
+        },
+        {
+          "res_id": "S309",
+          "aa": "S",
+          "pos": 309,
+          "min_dist_angstrom": 2.72,
+          "is_contact": true
+        },
+        {
+          "res_id": "V311",
+          "aa": "V",
+          "pos": 311,
+          "min_dist_angstrom": 3.08,
+          "is_contact": true
+        },
+        {
+          "res_id": "W326",
+          "aa": "W",
+          "pos": 326,
+          "min_dist_angstrom": 3.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y336",
+          "aa": "Y",
+          "pos": 336,
+          "min_dist_angstrom": 3.39,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q338",
+          "aa": "Q",
+          "pos": 338,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n034",
+      "pdb_id": "9SVK",
+      "chain_id": "F",
+      "release_date": "2026-09-09",
+      "resolution": 3.4,
+      "title": "cryo-EM structure of LwHicAB-crRNA",
+      "stratum": "RNA",
+      "na_sequence": "GAGCACCCCAAAAAUGAAGGGGACUAAAACACAAA",
+      "na_length": 35,
+      "length": 63,
+      "sequence": "MIFMSYRKIEKRFRKLGGKVVAIRGSHYQWMIPGVEGVVTVPYSKDIPVGTLRSIEKQVGIKF",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "R7",
+          "aa": "R",
+          "pos": 7,
+          "min_dist_angstrom": 2.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "E10",
+          "aa": "E",
+          "pos": 10,
+          "min_dist_angstrom": 4.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "K11",
+          "aa": "K",
+          "pos": 11,
+          "min_dist_angstrom": 3.33,
+          "is_contact": true
+        },
+        {
+          "res_id": "V20",
+          "aa": "V",
+          "pos": 20,
+          "min_dist_angstrom": 3.53,
+          "is_contact": true
+        },
+        {
+          "res_id": "I23",
+          "aa": "I",
+          "pos": 23,
+          "min_dist_angstrom": 3.89,
+          "is_contact": true
+        },
+        {
+          "res_id": "G25",
+          "aa": "G",
+          "pos": 25,
+          "min_dist_angstrom": 4.43,
+          "is_contact": true
+        },
+        {
+          "res_id": "S26",
+          "aa": "S",
+          "pos": 26,
+          "min_dist_angstrom": 4.42,
+          "is_contact": true
+        },
+        {
+          "res_id": "K45",
+          "aa": "K",
+          "pos": 45,
+          "min_dist_angstrom": 3.86,
+          "is_contact": true
+        },
+        {
+          "res_id": "V49",
+          "aa": "V",
+          "pos": 49,
+          "min_dist_angstrom": 18.36,
+          "is_contact": false
+        },
+        {
+          "res_id": "G50",
+          "aa": "G",
+          "pos": 50,
+          "min_dist_angstrom": 19.48,
+          "is_contact": false
+        },
+        {
+          "res_id": "R53",
+          "aa": "R",
+          "pos": 53,
+          "min_dist_angstrom": 20.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "S54",
+          "aa": "S",
+          "pos": 54,
+          "min_dist_angstrom": 19.56,
+          "is_contact": false
+        },
+        {
+          "res_id": "E56",
+          "aa": "E",
+          "pos": 56,
+          "min_dist_angstrom": 19.0,
+          "is_contact": false
+        },
+        {
+          "res_id": "K57",
+          "aa": "K",
+          "pos": 57,
+          "min_dist_angstrom": 22.19,
+          "is_contact": false
+        },
+        {
+          "res_id": "I61",
+          "aa": "I",
+          "pos": 61,
+          "min_dist_angstrom": 15.39,
+          "is_contact": false
+        },
+        {
+          "res_id": "K62",
+          "aa": "K",
+          "pos": 62,
+          "min_dist_angstrom": 17.08,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n035",
+      "pdb_id": "11FS",
+      "chain_id": "C",
+      "release_date": "2026-08-26",
+      "resolution": 3.2,
+      "title": "Effector complex from type IV-C CRISPR-Cas system",
+      "stratum": "RNA",
+      "na_sequence": "AUUGAAAGCUGAAGUGCUCUCAGCCGCAAGGACCGCAUACUACAAGA",
+      "na_length": 47,
+      "length": 303,
+      "sequence": "MRVVLKIKALEPISVGYESIGIETLLYSLPIIKEDGTALEVPVIPGNSLRGVLRDKMALQFLEDVKSVLIGSKQGSLEAHIGTLLSLFSGGILSGKEKDQSTPNIKEIMEKYVYPLLPLSIMGVALKKIIIPGKIKVGIGYPVTKETKSLLTDLGVPFDESAPTLSEIISSVLITRKDDMNKVMQLKELLNVQGKVEEVKAGDSAVQQRLYRQVVVPGTVFYSYVEDIIPMTEAEWGLVLKTLEHLDKIGGRVAGGLGKVKIELHGINKERKENFIHAYENYIRDNITDIQEALKKSPNDFFR",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "V15",
+          "aa": "V",
+          "pos": 15,
+          "min_dist_angstrom": 2.62,
+          "is_contact": true
+        },
+        {
+          "res_id": "N47",
+          "aa": "N",
+          "pos": 47,
+          "min_dist_angstrom": 3.19,
+          "is_contact": true
+        },
+        {
+          "res_id": "V68",
+          "aa": "V",
+          "pos": 68,
+          "min_dist_angstrom": 24.49,
+          "is_contact": false
+        },
+        {
+          "res_id": "G71",
+          "aa": "G",
+          "pos": 71,
+          "min_dist_angstrom": 28.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "K73",
+          "aa": "K",
+          "pos": 73,
+          "min_dist_angstrom": 30.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q74",
+          "aa": "Q",
+          "pos": 74,
+          "min_dist_angstrom": 29.33,
+          "is_contact": false
+        },
+        {
+          "res_id": "P132",
+          "aa": "P",
+          "pos": 132,
+          "min_dist_angstrom": 3.06,
+          "is_contact": true
+        },
+        {
+          "res_id": "P157",
+          "aa": "P",
+          "pos": 157,
+          "min_dist_angstrom": 26.2,
+          "is_contact": false
+        },
+        {
+          "res_id": "T175",
+          "aa": "T",
+          "pos": 175,
+          "min_dist_angstrom": 2.72,
+          "is_contact": true
+        },
+        {
+          "res_id": "K177",
+          "aa": "K",
+          "pos": 177,
+          "min_dist_angstrom": 2.98,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q207",
+          "aa": "Q",
+          "pos": 207,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "G250",
+          "aa": "G",
+          "pos": 250,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "R252",
+          "aa": "R",
+          "pos": 252,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "N268",
+          "aa": "N",
+          "pos": 268,
+          "min_dist_angstrom": 25.44,
+          "is_contact": false
+        },
+        {
+          "res_id": "R284",
+          "aa": "R",
+          "pos": 284,
+          "min_dist_angstrom": 25.11,
+          "is_contact": false
+        },
+        {
+          "res_id": "T288",
+          "aa": "T",
+          "pos": 288,
+          "min_dist_angstrom": 23.82,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n036",
+      "pdb_id": "11HC",
+      "chain_id": "B",
+      "release_date": "2026-08-26",
+      "resolution": 3.37,
+      "title": "Effector complex from type IV-C CRISPR-Cas system",
+      "stratum": "RNA",
+      "na_sequence": "AUUGAAAGCUGAAGUGCUCUCAGCCGCAAGGACCGCAUACUACAAGA",
+      "na_length": 47,
+      "length": 285,
+      "sequence": "MYLVTLRFRTYPLFLSLSNPNELSQELTPLDGPLAFAEYYRTRLSNDPDWRVKYLEDILTARKLEWISDIRSSYLLPCTVNKETLTITTPMGFKAVFNVDEKKEAHYKFSEGQPLKKWESSQIFLRLGRRDDIIKVEILRNSLGVRLTKYKAVDYSLRLYTPNLMWASVVNGISQRKLDELLRILGKFGIGKKRNMGWGDLLDYQIYELKGENITPDYILHKRGESRFLETWRPISPEKIAEMITKSPKGVKLYLLDSKIGYGADRPPYWRRNLVVKSALFLVQN",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "F14",
+          "aa": "F",
+          "pos": 14,
+          "min_dist_angstrom": 3.08,
+          "is_contact": true
+        },
+        {
+          "res_id": "L64",
+          "aa": "L",
+          "pos": 64,
+          "min_dist_angstrom": 2.97,
+          "is_contact": true
+        },
+        {
+          "res_id": "D100",
+          "aa": "D",
+          "pos": 100,
+          "min_dist_angstrom": 27.68,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y107",
+          "aa": "Y",
+          "pos": 107,
+          "min_dist_angstrom": 23.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "F109",
+          "aa": "F",
+          "pos": 109,
+          "min_dist_angstrom": 25.3,
+          "is_contact": false
+        },
+        {
+          "res_id": "G128",
+          "aa": "G",
+          "pos": 128,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "D131",
+          "aa": "D",
+          "pos": 131,
+          "min_dist_angstrom": 3.06,
+          "is_contact": true
+        },
+        {
+          "res_id": "K193",
+          "aa": "K",
+          "pos": 193,
+          "min_dist_angstrom": 2.78,
+          "is_contact": true
+        },
+        {
+          "res_id": "R194",
+          "aa": "R",
+          "pos": 194,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "N195",
+          "aa": "N",
+          "pos": 195,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "R223",
+          "aa": "R",
+          "pos": 223,
+          "min_dist_angstrom": 24.72,
+          "is_contact": false
+        },
+        {
+          "res_id": "K249",
+          "aa": "K",
+          "pos": 249,
+          "min_dist_angstrom": 28.7,
+          "is_contact": false
+        },
+        {
+          "res_id": "G250",
+          "aa": "G",
+          "pos": 250,
+          "min_dist_angstrom": 30.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y262",
+          "aa": "Y",
+          "pos": 262,
+          "min_dist_angstrom": 2.78,
+          "is_contact": true
+        },
+        {
+          "res_id": "L282",
+          "aa": "L",
+          "pos": 282,
+          "min_dist_angstrom": 21.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "N285",
+          "aa": "N",
+          "pos": 285,
+          "min_dist_angstrom": 31.2,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n037",
+      "pdb_id": "25QK",
+      "chain_id": "A",
+      "release_date": "2026-08-26",
+      "resolution": 3.04,
+      "title": "Cryo-EM structure of TasH-tigRNA-MM1 dsDNA complex",
+      "stratum": "RNA",
+      "na_sequence": "AGUCAUUCCGUUAAAGACAACCACGGAGACGAAGCG",
+      "na_length": 36,
+      "length": 302,
+      "sequence": "MNKQVLKEQASHCEITGAPLAGLPELVDVDRITERFQGGTYTPDNTRVLTPRAHMERHGILRERDQWLEELKAMMDDRAQTMKVVMKMNNQLLAYQRQTDHARQSTEQFLQDTLDASNKRLAQIDREVTKHIKHAKDPLAQAAMGVPGVGPITVAGLQTYVDLEKAKSASALWAYIGIDKPSHDRYTKGEAGGGNKTLRTMVWNMANSMIKNRKCPYRTVYEQTKERLAVSEKVTKSRNTQGQLIECAWKDTKPSHRHGAALRAVMKHFLADYWFVGRELAGLDTRPLYVGIVQPQERGWEW",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "V5",
+          "aa": "V",
+          "pos": 5,
+          "min_dist_angstrom": 18.43,
+          "is_contact": false
+        },
+        {
+          "res_id": "S11",
+          "aa": "S",
+          "pos": 11,
+          "min_dist_angstrom": 21.36,
+          "is_contact": false
+        },
+        {
+          "res_id": "D44",
+          "aa": "D",
+          "pos": 44,
+          "min_dist_angstrom": 20.12,
+          "is_contact": false
+        },
+        {
+          "res_id": "D76",
+          "aa": "D",
+          "pos": 76,
+          "min_dist_angstrom": 2.57,
+          "is_contact": true
+        },
+        {
+          "res_id": "K83",
+          "aa": "K",
+          "pos": 83,
+          "min_dist_angstrom": 2.57,
+          "is_contact": true
+        },
+        {
+          "res_id": "H134",
+          "aa": "H",
+          "pos": 134,
+          "min_dist_angstrom": 21.23,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y175",
+          "aa": "Y",
+          "pos": 175,
+          "min_dist_angstrom": 2.35,
+          "is_contact": true
+        },
+        {
+          "res_id": "S182",
+          "aa": "S",
+          "pos": 182,
+          "min_dist_angstrom": 2.38,
+          "is_contact": true
+        },
+        {
+          "res_id": "R199",
+          "aa": "R",
+          "pos": 199,
+          "min_dist_angstrom": 2.48,
+          "is_contact": true
+        },
+        {
+          "res_id": "R213",
+          "aa": "R",
+          "pos": 213,
+          "min_dist_angstrom": 19.38,
+          "is_contact": false
+        },
+        {
+          "res_id": "K214",
+          "aa": "K",
+          "pos": 214,
+          "min_dist_angstrom": 20.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y217",
+          "aa": "Y",
+          "pos": 217,
+          "min_dist_angstrom": 12.23,
+          "is_contact": false
+        },
+        {
+          "res_id": "W249",
+          "aa": "W",
+          "pos": 249,
+          "min_dist_angstrom": 2.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "H256",
+          "aa": "H",
+          "pos": 256,
+          "min_dist_angstrom": 2.61,
+          "is_contact": true
+        },
+        {
+          "res_id": "V290",
+          "aa": "V",
+          "pos": 290,
+          "min_dist_angstrom": 2.33,
+          "is_contact": true
+        },
+        {
+          "res_id": "W300",
+          "aa": "W",
+          "pos": 300,
+          "min_dist_angstrom": 12.84,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n038",
+      "pdb_id": "36UK",
+      "chain_id": "B",
+      "release_date": "2026-08-19",
+      "resolution": 2.8,
+      "title": "Geobacillus stearothermophilus RNase P holoenzyme in complex with precursor tRNA at 2 mM MgCl2",
+      "stratum": "RNA",
+      "na_sequence": "GGAUUUUCCCUUUCGCGGAAGUAGUUCAGUGGUAGAACACCACCUUGCCAAGGUGGGGGUCGCGGGUUCGAGUCCCGUCUUCCGCUCCA",
+      "na_length": 89,
+      "length": 116,
+      "sequence": "GMKKKYRIKKNEEFQEVFQQGVSVANRQFVVYTLDRPEQPYFRIGLSVSKKLGKAVVRNRIKRYIRQCFLELKEEVAPGKDYVIIARQPAAEMGYAEVKKSLIHVLRKAGGLKKEA",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "Q15",
+          "aa": "Q",
+          "pos": 15,
+          "min_dist_angstrom": 3.5,
+          "is_contact": true
+        },
+        {
+          "res_id": "F18",
+          "aa": "F",
+          "pos": 18,
+          "min_dist_angstrom": 3.28,
+          "is_contact": true
+        },
+        {
+          "res_id": "A25",
+          "aa": "A",
+          "pos": 25,
+          "min_dist_angstrom": 2.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "R27",
+          "aa": "R",
+          "pos": 27,
+          "min_dist_angstrom": 2.89,
+          "is_contact": true
+        },
+        {
+          "res_id": "V30",
+          "aa": "V",
+          "pos": 30,
+          "min_dist_angstrom": 4.07,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y32",
+          "aa": "Y",
+          "pos": 32,
+          "min_dist_angstrom": 2.72,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q39",
+          "aa": "Q",
+          "pos": 39,
+          "min_dist_angstrom": 18.89,
+          "is_contact": false
+        },
+        {
+          "res_id": "F42",
+          "aa": "F",
+          "pos": 42,
+          "min_dist_angstrom": 19.07,
+          "is_contact": false
+        },
+        {
+          "res_id": "R43",
+          "aa": "R",
+          "pos": 43,
+          "min_dist_angstrom": 15.11,
+          "is_contact": false
+        },
+        {
+          "res_id": "I44",
+          "aa": "I",
+          "pos": 44,
+          "min_dist_angstrom": 12.21,
+          "is_contact": false
+        },
+        {
+          "res_id": "K50",
+          "aa": "K",
+          "pos": 50,
+          "min_dist_angstrom": 3.14,
+          "is_contact": true
+        },
+        {
+          "res_id": "K73",
+          "aa": "K",
+          "pos": 73,
+          "min_dist_angstrom": 23.46,
+          "is_contact": false
+        },
+        {
+          "res_id": "V76",
+          "aa": "V",
+          "pos": 76,
+          "min_dist_angstrom": 19.58,
+          "is_contact": false
+        },
+        {
+          "res_id": "A77",
+          "aa": "A",
+          "pos": 77,
+          "min_dist_angstrom": 20.17,
+          "is_contact": false
+        },
+        {
+          "res_id": "I85",
+          "aa": "I",
+          "pos": 85,
+          "min_dist_angstrom": 3.74,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y95",
+          "aa": "Y",
+          "pos": 95,
+          "min_dist_angstrom": 17.8,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n039",
+      "pdb_id": "9WHX",
+      "chain_id": "A",
+      "release_date": "2026-08-12",
+      "resolution": 2.5,
+      "title": "Cryo-EM structure of the IS621 recombinase in complex with bridge RNA, left-half DNA, and right-half DNA in the pre-strand exchange state",
+      "stratum": "RNA",
+      "na_sequence": "GUCCGCAUGCCGUAUCGGGCCUUGGGUUCUAACCUGUUCUGUAGAUUUAUGCAGCGGAC",
+      "na_length": 59,
+      "length": 311,
+      "sequence": "ELHYIGIDTAKEKLDVDVLRPDGRHRTKKFANTTKGHDELVSWLKGHKIDHAHICIEATGTYMEPVAECLYDAGYIVSVINPALGKAFAQSEGLRNKTDTVDARMLAEFCRQKRPAAWEAPHPLERALRALVVRHQALTDMHTQELNRTETAREVQRPSIDAHLLWLEAELKRLEKQIKDLTDDDPDMKHRRKLLESIPGIGEKTSAVLLAYIGLKDRFAHARQFAAFAGLTPRRYEASRMSKAGHVSLRRALYMPAMVATSKTEWGRAFRDRLAANGKKGKVILGAMMRKLAQVAYGVLKSGVPFDASRH",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "R24",
+          "aa": "R",
+          "pos": 24,
+          "min_dist_angstrom": 2.6,
+          "is_contact": true
+        },
+        {
+          "res_id": "T27",
+          "aa": "T",
+          "pos": 27,
+          "min_dist_angstrom": 3.1,
+          "is_contact": true
+        },
+        {
+          "res_id": "N32",
+          "aa": "N",
+          "pos": 32,
+          "min_dist_angstrom": 12.49,
+          "is_contact": false
+        },
+        {
+          "res_id": "V41",
+          "aa": "V",
+          "pos": 41,
+          "min_dist_angstrom": 14.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "H51",
+          "aa": "H",
+          "pos": 51,
+          "min_dist_angstrom": 16.24,
+          "is_contact": false
+        },
+        {
+          "res_id": "N96",
+          "aa": "N",
+          "pos": 96,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "R173",
+          "aa": "R",
+          "pos": 173,
+          "min_dist_angstrom": 15.01,
+          "is_contact": false
+        },
+        {
+          "res_id": "K176",
+          "aa": "K",
+          "pos": 176,
+          "min_dist_angstrom": 18.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q177",
+          "aa": "Q",
+          "pos": 177,
+          "min_dist_angstrom": 14.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "T182",
+          "aa": "T",
+          "pos": 182,
+          "min_dist_angstrom": 17.22,
+          "is_contact": false
+        },
+        {
+          "res_id": "D184",
+          "aa": "D",
+          "pos": 184,
+          "min_dist_angstrom": 22.36,
+          "is_contact": false
+        },
+        {
+          "res_id": "H246",
+          "aa": "H",
+          "pos": 246,
+          "min_dist_angstrom": 2.64,
+          "is_contact": true
+        },
+        {
+          "res_id": "V283",
+          "aa": "V",
+          "pos": 283,
+          "min_dist_angstrom": 3.11,
+          "is_contact": true
+        },
+        {
+          "res_id": "K291",
+          "aa": "K",
+          "pos": 291,
+          "min_dist_angstrom": 2.38,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q294",
+          "aa": "Q",
+          "pos": 294,
+          "min_dist_angstrom": 2.97,
+          "is_contact": true
+        },
+        {
+          "res_id": "D307",
+          "aa": "D",
+          "pos": 307,
+          "min_dist_angstrom": 3.0,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n040",
+      "pdb_id": "9N3Y",
+      "chain_id": "B",
+      "release_date": "2026-08-05",
+      "resolution": 3.0,
+      "title": "Type IV-A1 CRISPR effector complex bound to dsDNA and CasDinG - loaded state",
+      "stratum": "RNA",
+      "na_sequence": "GUGAACGGUGGAGCAACACCUGAAGGAAGGCUUGAUGAGCGUGUUCCCCGCAUACGCGGGG",
+      "na_length": 61,
+      "length": 219,
+      "sequence": "VNLKVTIDLSNPMMEPGDLLHLDALLGALRVSRARAEHGDAINPRDYHYDLPLERYQAPSGDWVFKASAFKLKRQLPNQMWMQTGRLSIVEAARHRQSGYLQLRAGKPNPAGGPFKTSIYHRPIVQAELTAFCVGDQQGIEALLSECRQIGGKRGVGFGQVAGFKVEPVAETDCPWSWRALPADADPRLVTSEHARCIAAIRGPYWDRTLHVEALAPTP",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "L25",
+          "aa": "L",
+          "pos": 25,
+          "min_dist_angstrom": 3.14,
+          "is_contact": true
+        },
+        {
+          "res_id": "H38",
+          "aa": "H",
+          "pos": 38,
+          "min_dist_angstrom": 14.11,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y56",
+          "aa": "Y",
+          "pos": 56,
+          "min_dist_angstrom": 14.31,
+          "is_contact": false
+        },
+        {
+          "res_id": "S60",
+          "aa": "S",
+          "pos": 60,
+          "min_dist_angstrom": 17.85,
+          "is_contact": false
+        },
+        {
+          "res_id": "L76",
+          "aa": "L",
+          "pos": 76,
+          "min_dist_angstrom": 18.99,
+          "is_contact": false
+        },
+        {
+          "res_id": "T84",
+          "aa": "T",
+          "pos": 84,
+          "min_dist_angstrom": 2.54,
+          "is_contact": true
+        },
+        {
+          "res_id": "R86",
+          "aa": "R",
+          "pos": 86,
+          "min_dist_angstrom": 2.65,
+          "is_contact": true
+        },
+        {
+          "res_id": "S88",
+          "aa": "S",
+          "pos": 88,
+          "min_dist_angstrom": 3.23,
+          "is_contact": true
+        },
+        {
+          "res_id": "G99",
+          "aa": "G",
+          "pos": 99,
+          "min_dist_angstrom": 17.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y120",
+          "aa": "Y",
+          "pos": 120,
+          "min_dist_angstrom": 2.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "G151",
+          "aa": "G",
+          "pos": 151,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "T172",
+          "aa": "T",
+          "pos": 172,
+          "min_dist_angstrom": 24.7,
+          "is_contact": false
+        },
+        {
+          "res_id": "W176",
+          "aa": "W",
+          "pos": 176,
+          "min_dist_angstrom": 14.03,
+          "is_contact": false
+        },
+        {
+          "res_id": "R188",
+          "aa": "R",
+          "pos": 188,
+          "min_dist_angstrom": 19.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "W206",
+          "aa": "W",
+          "pos": 206,
+          "min_dist_angstrom": 2.59,
+          "is_contact": true
+        },
+        {
+          "res_id": "H211",
+          "aa": "H",
+          "pos": 211,
+          "min_dist_angstrom": 3.1,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n041",
+      "pdb_id": "9N3Z",
+      "chain_id": "C",
+      "release_date": "2026-08-05",
+      "resolution": 3.04,
+      "title": "Type IV-A1 CRISPR effector complex bound to dsDNA and CasDinG - locked state",
+      "stratum": "RNA",
+      "na_sequence": "GUGAACGGUGGAGCAACACCUGAAGGAAGGCUUGAUGAGCGUGUUCCCCGCAUACGCGGGG",
+      "na_length": 61,
+      "length": 329,
+      "sequence": "MQIEVTVRNITPIFSAAPGSNYITIDGTINPPPGVSRFPLVRTRMMYVAADVGDGVIKSVPLQIVPGNTMRSLLRRTMLKHVIEPALVEKGNKLSIGAYATAYSGNATGNPDGVPSSFDEIATMRAHPFIGLFGGGPRMLEGRLMVDSLYPIHTNAERILGAGYENEMMSGPITQVVWARRMDPILNLGSSEDVEVINGGAVAANGWIQDLLANSKAAASKKKNGRGLKAFNAHEVVIPGLKWVWRISLDRPTDAQVGLVLLALNKMTNERIAGGHSKDYGRFVIDGVSLNGEQVWSQSGITGGEQYFDAVAEAIDGLSSKEFEQFAQS",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "G53",
+          "aa": "G",
+          "pos": 53,
+          "min_dist_angstrom": 29.94,
+          "is_contact": false
+        },
+        {
+          "res_id": "N68",
+          "aa": "N",
+          "pos": 68,
+          "min_dist_angstrom": 2.78,
+          "is_contact": true
+        },
+        {
+          "res_id": "T69",
+          "aa": "T",
+          "pos": 69,
+          "min_dist_angstrom": 2.69,
+          "is_contact": true
+        },
+        {
+          "res_id": "S72",
+          "aa": "S",
+          "pos": 72,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "M139",
+          "aa": "M",
+          "pos": 139,
+          "min_dist_angstrom": 2.45,
+          "is_contact": true
+        },
+        {
+          "res_id": "G142",
+          "aa": "G",
+          "pos": 142,
+          "min_dist_angstrom": 2.68,
+          "is_contact": true
+        },
+        {
+          "res_id": "H153",
+          "aa": "H",
+          "pos": 153,
+          "min_dist_angstrom": 19.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "R158",
+          "aa": "R",
+          "pos": 158,
+          "min_dist_angstrom": 18.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "A162",
+          "aa": "A",
+          "pos": 162,
+          "min_dist_angstrom": 23.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "N166",
+          "aa": "N",
+          "pos": 166,
+          "min_dist_angstrom": 26.61,
+          "is_contact": false
+        },
+        {
+          "res_id": "M168",
+          "aa": "M",
+          "pos": 168,
+          "min_dist_angstrom": 24.43,
+          "is_contact": false
+        },
+        {
+          "res_id": "A179",
+          "aa": "A",
+          "pos": 179,
+          "min_dist_angstrom": 3.07,
+          "is_contact": true
+        },
+        {
+          "res_id": "R180",
+          "aa": "R",
+          "pos": 180,
+          "min_dist_angstrom": 2.58,
+          "is_contact": true
+        },
+        {
+          "res_id": "H276",
+          "aa": "H",
+          "pos": 276,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "S299",
+          "aa": "S",
+          "pos": 299,
+          "min_dist_angstrom": 24.77,
+          "is_contact": false
+        },
+        {
+          "res_id": "T302",
+          "aa": "T",
+          "pos": 302,
+          "min_dist_angstrom": 26.69,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n042",
+      "pdb_id": "22ET",
+      "chain_id": "A",
+      "release_date": "2026-07-29",
+      "resolution": 2.69,
+      "title": "Cryo-EM structure of Retron Ec78 complex (cis)",
+      "stratum": "RNA",
+      "na_sequence": "AGUCGGGUGAUUAGCCAGACUCUAACUUAUUGAACGUA",
+      "na_length": 38,
+      "length": 310,
+      "sequence": "MSVISSIATSLNQSELEVRAYLSDASGKYKVYRIPKRTTGFRIIAQPAKALKEYQRTFLQLYRFPIHECAMAYQKGKSIRDNALAHAHNRYLLKTDLEDFFNSITPDIFWRCVELSSVDVQLFLPEDRRYVDQILFWKPTKRSTRLVLSVGAPSSPIISNFCLYEFDKLIHEICRSLDIVYTRYADDLTFSCNVRDVLGSIPSMIETLLNKLFKKKLRLNRGKTIFSSMAHNRHVTGVTLNNEGKISLGRERKRFIKHLINQYRYGLIDESDKAYLVGLLAFANHIEPEFIIRMNNKYSTETMERLRRHL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "S2",
+          "aa": "S",
+          "pos": 2,
+          "min_dist_angstrom": 22.54,
+          "is_contact": false
+        },
+        {
+          "res_id": "G27",
+          "aa": "G",
+          "pos": 27,
+          "min_dist_angstrom": 15.52,
+          "is_contact": false
+        },
+        {
+          "res_id": "R42",
+          "aa": "R",
+          "pos": 42,
+          "min_dist_angstrom": 2.27,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q74",
+          "aa": "Q",
+          "pos": 74,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "G76",
+          "aa": "G",
+          "pos": 76,
+          "min_dist_angstrom": 2.3,
+          "is_contact": true
+        },
+        {
+          "res_id": "R111",
+          "aa": "R",
+          "pos": 111,
+          "min_dist_angstrom": 23.41,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q121",
+          "aa": "Q",
+          "pos": 121,
+          "min_dist_angstrom": 24.15,
+          "is_contact": false
+        },
+        {
+          "res_id": "F123",
+          "aa": "F",
+          "pos": 123,
+          "min_dist_angstrom": 17.5,
+          "is_contact": false
+        },
+        {
+          "res_id": "T144",
+          "aa": "T",
+          "pos": 144,
+          "min_dist_angstrom": 21.79,
+          "is_contact": false
+        },
+        {
+          "res_id": "H171",
+          "aa": "H",
+          "pos": 171,
+          "min_dist_angstrom": 18.13,
+          "is_contact": false
+        },
+        {
+          "res_id": "N210",
+          "aa": "N",
+          "pos": 210,
+          "min_dist_angstrom": 22.26,
+          "is_contact": false
+        },
+        {
+          "res_id": "F226",
+          "aa": "F",
+          "pos": 226,
+          "min_dist_angstrom": 2.65,
+          "is_contact": true
+        },
+        {
+          "res_id": "S228",
+          "aa": "S",
+          "pos": 228,
+          "min_dist_angstrom": 2.55,
+          "is_contact": true
+        },
+        {
+          "res_id": "N232",
+          "aa": "N",
+          "pos": 232,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "H234",
+          "aa": "H",
+          "pos": 234,
+          "min_dist_angstrom": 2.36,
+          "is_contact": true
+        },
+        {
+          "res_id": "T239",
+          "aa": "T",
+          "pos": 239,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n043",
+      "pdb_id": "10FC",
+      "chain_id": "A",
+      "release_date": "2026-07-22",
+      "resolution": 2.72,
+      "title": "E. coli TGT covalent intermediate with 2 tRNAs",
+      "stratum": "RNA",
+      "na_sequence": "GGUGGGGUUCCCGAGCGGCCAAAGGGAGCAGACUUAAAUCUGCCGUCACAGACUUCGAAGGUUCGAAUCCUUCCCCCACCACCA",
+      "na_length": 84,
+      "length": 375,
+      "sequence": "KGKFELDTTDGRARRGRLVFDRGVVETPCFMPVGTYGTVKGMTPEEVEATGAQIILGNTFHLWLRPGQEIMKLHGDLHDFMQWKGPILTDSGGFQVFSLGDIRKITEQGVHFRNPINGDPIFLDPEKSMEIQYDLGSDIVMIFDECTPYPADWDYAKRSMEMSLRWAKRSRERFDSLGNKNALFGIIQGSVYEDLRDISVKGLVDIGFDGYAVGGLAVGEPKADMHRILEHVCPQIPADKPRYLMGVGKPEDLVEGVRRGIDMFDCVMPTRNARNGHLFVTDGVVKIRNAKYKSDTGPLDPECDCYTCRNYSRAYLHHLDRCNEILGARLNTIHNLRYYQRLMAGLRKAIEEGKLESFVTDFYQRQGREVPPLNV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "D7",
+          "aa": "D",
+          "pos": 7,
+          "min_dist_angstrom": 25.87,
+          "is_contact": false
+        },
+        {
+          "res_id": "T9",
+          "aa": "T",
+          "pos": 9,
+          "min_dist_angstrom": 23.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "R17",
+          "aa": "R",
+          "pos": 17,
+          "min_dist_angstrom": 22.84,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y36",
+          "aa": "Y",
+          "pos": 36,
+          "min_dist_angstrom": 3.02,
+          "is_contact": true
+        },
+        {
+          "res_id": "N58",
+          "aa": "N",
+          "pos": 58,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "I116",
+          "aa": "I",
+          "pos": 116,
+          "min_dist_angstrom": 2.62,
+          "is_contact": true
+        },
+        {
+          "res_id": "I198",
+          "aa": "I",
+          "pos": 198,
+          "min_dist_angstrom": 22.58,
+          "is_contact": false
+        },
+        {
+          "res_id": "K201",
+          "aa": "K",
+          "pos": 201,
+          "min_dist_angstrom": 23.4,
+          "is_contact": false
+        },
+        {
+          "res_id": "A217",
+          "aa": "A",
+          "pos": 217,
+          "min_dist_angstrom": 2.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "A238",
+          "aa": "A",
+          "pos": 238,
+          "min_dist_angstrom": 23.71,
+          "is_contact": false
+        },
+        {
+          "res_id": "K249",
+          "aa": "K",
+          "pos": 249,
+          "min_dist_angstrom": 2.95,
+          "is_contact": true
+        },
+        {
+          "res_id": "D252",
+          "aa": "D",
+          "pos": 252,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "T270",
+          "aa": "T",
+          "pos": 270,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y306",
+          "aa": "Y",
+          "pos": 306,
+          "min_dist_angstrom": 16.93,
+          "is_contact": false
+        },
+        {
+          "res_id": "N310",
+          "aa": "N",
+          "pos": 310,
+          "min_dist_angstrom": 20.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "R321",
+          "aa": "R",
+          "pos": 321,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n044",
+      "pdb_id": "9Z7Q",
+      "chain_id": "B",
+      "release_date": "2026-07-15",
+      "resolution": 3.0,
+      "title": "Cryo-EM Structure of the Type III-Bv CRISPR Complex from Dissulfurispira thermophila bound to a crRNA",
+      "stratum": "RNA",
+      "na_sequence": "ACUGAAACGUCUGGAAGUUUGCAGCUGGAUACGACACA",
+      "na_length": 38,
+      "length": 360,
+      "sequence": "MKRITINALDVLFLRDGKPFTMGSDTWGSGISLPYPSMIYGVLRSLYFSHNISMLKHAAPIDELNHNDPTRNLKIKGIYLKRASDLLFPVPMDCVVLKNSRDEKLIPLMPVKAQCISNCKTSAVLRPEKGEQIESAEDGWIDKAAMEEYLNGIYENMSYSKLSDFVLSEAKIGIARNNKTHIAEDSMLYRVGMKRLKDTTIVVDIDGLEIPDAGIIKIGGEGRPASFKAIDIDETSILQPAINSNKIEKIKLYIATPAIFKKGWLPQTIDDRDLEGEINGIGLKLITAAIGRPLYVGGFDIKKGPKPMKRAVPAGSVYYFEIHGQYSNEQIINALHDKAISDREQDRQQGFGIAYVGKWE",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 3,
+      "candidates": [
+        {
+          "res_id": "D16",
+          "aa": "D",
+          "pos": 16,
+          "min_dist_angstrom": 2.75,
+          "is_contact": true
+        },
+        {
+          "res_id": "S37",
+          "aa": "S",
+          "pos": 37,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "D102",
+          "aa": "D",
+          "pos": 102,
+          "min_dist_angstrom": 33.67,
+          "is_contact": false
+        },
+        {
+          "res_id": "R126",
+          "aa": "R",
+          "pos": 126,
+          "min_dist_angstrom": 34.78,
+          "is_contact": false
+        },
+        {
+          "res_id": "K129",
+          "aa": "K",
+          "pos": 129,
+          "min_dist_angstrom": 40.55,
+          "is_contact": false
+        },
+        {
+          "res_id": "G130",
+          "aa": "G",
+          "pos": 130,
+          "min_dist_angstrom": 41.64,
+          "is_contact": false
+        },
+        {
+          "res_id": "I174",
+          "aa": "I",
+          "pos": 174,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "R176",
+          "aa": "R",
+          "pos": 176,
+          "min_dist_angstrom": 2.9,
+          "is_contact": true
+        },
+        {
+          "res_id": "H181",
+          "aa": "H",
+          "pos": 181,
+          "min_dist_angstrom": 2.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "G220",
+          "aa": "G",
+          "pos": 220,
+          "min_dist_angstrom": 2.72,
+          "is_contact": true
+        },
+        {
+          "res_id": "I242",
+          "aa": "I",
+          "pos": 242,
+          "min_dist_angstrom": 37.47,
+          "is_contact": false
+        },
+        {
+          "res_id": "S244",
+          "aa": "S",
+          "pos": 244,
+          "min_dist_angstrom": 40.88,
+          "is_contact": false
+        },
+        {
+          "res_id": "F299",
+          "aa": "F",
+          "pos": 299,
+          "min_dist_angstrom": 3.04,
+          "is_contact": true
+        },
+        {
+          "res_id": "K306",
+          "aa": "K",
+          "pos": 306,
+          "min_dist_angstrom": 2.94,
+          "is_contact": true
+        },
+        {
+          "res_id": "F320",
+          "aa": "F",
+          "pos": 320,
+          "min_dist_angstrom": 25.93,
+          "is_contact": false
+        },
+        {
+          "res_id": "H323",
+          "aa": "H",
+          "pos": 323,
+          "min_dist_angstrom": 35.26,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n045",
+      "pdb_id": "9Z7V",
+      "chain_id": "C",
+      "release_date": "2026-07-15",
+      "resolution": 3.0,
+      "title": "Cryo-EM Structure of the Type III-Bv CRISPR Complex from Dissulfurispira thermophila bound to target RNA with complementary PFS",
+      "stratum": "RNA",
+      "na_sequence": "ACUGAAACGUCGACGAGAACGAACUGAGUAAAGUUAGA",
+      "na_length": 38,
+      "length": 315,
+      "sequence": "MFKKARPFFIICETPLHCGSGNDIGNVDLPIQRERHTDFPKIEASSLKGGIREAFEEADKDIKVGSLTINISDKSTISLAFGPEQGSDHAGALGFTDARILLFPVKSMKGVFAWVTCPQVLERFKSDLNLCGVNLGFEMPQANTAPKDCSLFINGNKIVLEEYTFEIARDRDESGNCTSLANWLSENLFLANSGIQFWKEKIKKDIVVISDDEFRDFVTLSTEVITRTKINNETGTVQSGALFTEEYLPTDTVLYSLALTTPVFKEKDEEKGIFKQDSANEEDMVMEFFTTGLPEIIQLGGNATIGKGIARVKIL",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 1,
+      "candidates": [
+        {
+          "res_id": "S45",
+          "aa": "S",
+          "pos": 45,
+          "min_dist_angstrom": 3.21,
+          "is_contact": true
+        },
+        {
+          "res_id": "R52",
+          "aa": "R",
+          "pos": 52,
+          "min_dist_angstrom": 2.91,
+          "is_contact": true
+        },
+        {
+          "res_id": "E53",
+          "aa": "E",
+          "pos": 53,
+          "min_dist_angstrom": 3.16,
+          "is_contact": true
+        },
+        {
+          "res_id": "P83",
+          "aa": "P",
+          "pos": 83,
+          "min_dist_angstrom": 2.86,
+          "is_contact": true
+        },
+        {
+          "res_id": "G86",
+          "aa": "G",
+          "pos": 86,
+          "min_dist_angstrom": 2.82,
+          "is_contact": true
+        },
+        {
+          "res_id": "P146",
+          "aa": "P",
+          "pos": 146,
+          "min_dist_angstrom": 34.31,
+          "is_contact": false
+        },
+        {
+          "res_id": "N156",
+          "aa": "N",
+          "pos": 156,
+          "min_dist_angstrom": 36.32,
+          "is_contact": false
+        },
+        {
+          "res_id": "I167",
+          "aa": "I",
+          "pos": 167,
+          "min_dist_angstrom": 34.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "R171",
+          "aa": "R",
+          "pos": 171,
+          "min_dist_angstrom": 43.99,
+          "is_contact": false
+        },
+        {
+          "res_id": "E173",
+          "aa": "E",
+          "pos": 173,
+          "min_dist_angstrom": 40.42,
+          "is_contact": false
+        },
+        {
+          "res_id": "S174",
+          "aa": "S",
+          "pos": 174,
+          "min_dist_angstrom": 40.88,
+          "is_contact": false
+        },
+        {
+          "res_id": "G175",
+          "aa": "G",
+          "pos": 175,
+          "min_dist_angstrom": 38.39,
+          "is_contact": false
+        },
+        {
+          "res_id": "T178",
+          "aa": "T",
+          "pos": 178,
+          "min_dist_angstrom": 34.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "T228",
+          "aa": "T",
+          "pos": 228,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "I230",
+          "aa": "I",
+          "pos": 230,
+          "min_dist_angstrom": 3.03,
+          "is_contact": true
+        },
+        {
+          "res_id": "N302",
+          "aa": "N",
+          "pos": 302,
+          "min_dist_angstrom": 3.3,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n046",
+      "pdb_id": "9Z7X",
+      "chain_id": "F",
+      "release_date": "2026-07-15",
+      "resolution": 2.9,
+      "title": "Cryo-EM Structure of the Type III-Bv CRISPR Complex from Dissulfurispira thermophila bound to target RNA with non-complementary PFS",
+      "stratum": "RNA",
+      "na_sequence": "ACUGAAACGUCGACGAGAACGAACUGAGUAAAGUUAGA",
+      "na_length": 38,
+      "length": 134,
+      "sequence": "NNLTIQKSIERQRAAFAYKCAEAGKSITKSKEYKAYVKNIPMLIKTNGIGATFAFVKAKSEADVDKSGYAYKLIYEQTTEWLKQEPKGLIYEKLNNTDMVKALVELDSDKYRAVTNEVLALFVWLKRFAEGLIE",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "N1",
+          "aa": "N",
+          "pos": 1,
+          "min_dist_angstrom": 34.24,
+          "is_contact": false
+        },
+        {
+          "res_id": "E32",
+          "aa": "E",
+          "pos": 32,
+          "min_dist_angstrom": 3.99,
+          "is_contact": true
+        },
+        {
+          "res_id": "A35",
+          "aa": "A",
+          "pos": 35,
+          "min_dist_angstrom": 3.76,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y36",
+          "aa": "Y",
+          "pos": 36,
+          "min_dist_angstrom": 3.2,
+          "is_contact": true
+        },
+        {
+          "res_id": "K38",
+          "aa": "K",
+          "pos": 38,
+          "min_dist_angstrom": 3.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "N39",
+          "aa": "N",
+          "pos": 39,
+          "min_dist_angstrom": 3.59,
+          "is_contact": true
+        },
+        {
+          "res_id": "M42",
+          "aa": "M",
+          "pos": 42,
+          "min_dist_angstrom": 4.12,
+          "is_contact": true
+        },
+        {
+          "res_id": "E85",
+          "aa": "E",
+          "pos": 85,
+          "min_dist_angstrom": 23.41,
+          "is_contact": false
+        },
+        {
+          "res_id": "K87",
+          "aa": "K",
+          "pos": 87,
+          "min_dist_angstrom": 27.99,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y91",
+          "aa": "Y",
+          "pos": 91,
+          "min_dist_angstrom": 29.99,
+          "is_contact": false
+        },
+        {
+          "res_id": "E92",
+          "aa": "E",
+          "pos": 92,
+          "min_dist_angstrom": 30.98,
+          "is_contact": false
+        },
+        {
+          "res_id": "K93",
+          "aa": "K",
+          "pos": 93,
+          "min_dist_angstrom": 27.76,
+          "is_contact": false
+        },
+        {
+          "res_id": "M99",
+          "aa": "M",
+          "pos": 99,
+          "min_dist_angstrom": 18.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "A102",
+          "aa": "A",
+          "pos": 102,
+          "min_dist_angstrom": 21.82,
+          "is_contact": false
+        },
+        {
+          "res_id": "K126",
+          "aa": "K",
+          "pos": 126,
+          "min_dist_angstrom": 3.39,
+          "is_contact": true
+        },
+        {
+          "res_id": "E130",
+          "aa": "E",
+          "pos": 130,
+          "min_dist_angstrom": 3.36,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n047",
+      "pdb_id": "23OR",
+      "chain_id": "A",
+      "release_date": "2026-07-08",
+      "resolution": 3.11,
+      "title": "Cryo-EM structure of the Retron-Eco8-SSB complex",
+      "stratum": "RNA",
+      "na_sequence": "AGAAGCUGAGGAGUCCAGUUACUGGAUAAGGUGUUCGCCAUCUCUAGCCUCAGUAAAAACUAG",
+      "na_length": 63,
+      "length": 367,
+      "sequence": "KMILVDKVFYEKILSVESFKENIITQSAIPKISNKEVRLISSGSKIFYAINNTSPHSHVQLRLNRFFLSHIPLNSAAKAFVRGGSYLKYLEPHIYGSSYCRLDISSFFNNISFDDVKQSLSPYIKDEYLIGTEQKLIDAILNSVGYESPIRKDKGMIIPMGFRTSPAISNIVFRKMDLLIQDFCAKKGVIYSRYADDMLFSNPRESKLLMSDYFIDEISSLLSIMGFNINQSKYISREKEISINGYVIENKGGNGSIGTIRLSKSKLNTVLKVTHALAQNIPYKNICNKYIKVRLKEKNIKYESKKDEFEKKYYRDQLINYLGGYRSYLISLVKFHSEYKCVNSDFIIQINGILNDIQNHIQKIKKN",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "K7",
+          "aa": "K",
+          "pos": 7,
+          "min_dist_angstrom": 24.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "N22",
+          "aa": "N",
+          "pos": 22,
+          "min_dist_angstrom": 24.34,
+          "is_contact": false
+        },
+        {
+          "res_id": "I24",
+          "aa": "I",
+          "pos": 24,
+          "min_dist_angstrom": 29.25,
+          "is_contact": false
+        },
+        {
+          "res_id": "S27",
+          "aa": "S",
+          "pos": 27,
+          "min_dist_angstrom": 27.66,
+          "is_contact": false
+        },
+        {
+          "res_id": "I40",
+          "aa": "I",
+          "pos": 40,
+          "min_dist_angstrom": 3.24,
+          "is_contact": true
+        },
+        {
+          "res_id": "F47",
+          "aa": "F",
+          "pos": 47,
+          "min_dist_angstrom": 2.93,
+          "is_contact": true
+        },
+        {
+          "res_id": "G84",
+          "aa": "G",
+          "pos": 84,
+          "min_dist_angstrom": 2.91,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y128",
+          "aa": "Y",
+          "pos": 128,
+          "min_dist_angstrom": 29.29,
+          "is_contact": false
+        },
+        {
+          "res_id": "G131",
+          "aa": "G",
+          "pos": 131,
+          "min_dist_angstrom": 31.62,
+          "is_contact": false
+        },
+        {
+          "res_id": "R174",
+          "aa": "R",
+          "pos": 174,
+          "min_dist_angstrom": 15.66,
+          "is_contact": false
+        },
+        {
+          "res_id": "F183",
+          "aa": "F",
+          "pos": 183,
+          "min_dist_angstrom": 21.27,
+          "is_contact": false
+        },
+        {
+          "res_id": "N230",
+          "aa": "N",
+          "pos": 230,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "R261",
+          "aa": "R",
+          "pos": 261,
+          "min_dist_angstrom": 2.87,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y290",
+          "aa": "Y",
+          "pos": 290,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "K296",
+          "aa": "K",
+          "pos": 296,
+          "min_dist_angstrom": 2.78,
+          "is_contact": true
+        },
+        {
+          "res_id": "S327",
+          "aa": "S",
+          "pos": 327,
+          "min_dist_angstrom": 2.63,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n048",
+      "pdb_id": "9RV1",
+      "chain_id": "H",
+      "release_date": "2026-06-24",
+      "resolution": 2.62,
+      "title": "Cryo-EM structure of the human UAP56-RNA - SAC3D1-PCID2-SEM1 complex",
+      "stratum": "RNA",
+      "na_sequence": "UUUUUU",
+      "na_length": 6,
+      "length": 378,
+      "sequence": "LLDYESYVSIHSSGFRDFLLKPELLRAIVDCGFEHPSEVQHECIPQAILGMDVLCQAKSGMGKTAVFVLATLQQLEPVTGQVSVLVMCHTRELAFQISKEYERFSKYMPNVKVAVFFGGLSIKKDEEVLKKNCPHIVVGTPGRILALARNKSLNLKHIKHFILDECDKMLEQLDMRRDVQEIFRMTPHEKQVMMFSATLSKEIRPVCRKFMQDPMEIFVTLHGLQQYYVKLKDNEKNRKLFDLLDVLEFNQVVIFVKSVQRCIALAQLLVEQNFPAIAIHRGMPQEERLSRYQQFKDFQRRILVATNLFGRGMDIERVNIAFNYDMPEDSDTYLHRVARAGRFGTKGLAITFVSDENDAKILNDVQDRFEVNISELPD",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "E5",
+          "aa": "E",
+          "pos": 5,
+          "min_dist_angstrom": 65.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "V8",
+          "aa": "V",
+          "pos": 8,
+          "min_dist_angstrom": 34.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "H11",
+          "aa": "H",
+          "pos": 11,
+          "min_dist_angstrom": 37.93,
+          "is_contact": false
+        },
+        {
+          "res_id": "G14",
+          "aa": "G",
+          "pos": 14,
+          "min_dist_angstrom": 34.35,
+          "is_contact": false
+        },
+        {
+          "res_id": "R16",
+          "aa": "R",
+          "pos": 16,
+          "min_dist_angstrom": 34.9,
+          "is_contact": false
+        },
+        {
+          "res_id": "Q46",
+          "aa": "Q",
+          "pos": 46,
+          "min_dist_angstrom": 28.08,
+          "is_contact": false
+        },
+        {
+          "res_id": "H89",
+          "aa": "H",
+          "pos": 89,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        },
+        {
+          "res_id": "R91",
+          "aa": "R",
+          "pos": 91,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "N110",
+          "aa": "N",
+          "pos": 110,
+          "min_dist_angstrom": 24.71,
+          "is_contact": false
+        },
+        {
+          "res_id": "T140",
+          "aa": "T",
+          "pos": 140,
+          "min_dist_angstrom": 2.84,
+          "is_contact": true
+        },
+        {
+          "res_id": "G142",
+          "aa": "G",
+          "pos": 142,
+          "min_dist_angstrom": 2.88,
+          "is_contact": true
+        },
+        {
+          "res_id": "Q172",
+          "aa": "Q",
+          "pos": 172,
+          "min_dist_angstrom": 2.98,
+          "is_contact": true
+        },
+        {
+          "res_id": "V259",
+          "aa": "V",
+          "pos": 259,
+          "min_dist_angstrom": 3.05,
+          "is_contact": true
+        },
+        {
+          "res_id": "N307",
+          "aa": "N",
+          "pos": 307,
+          "min_dist_angstrom": 3.22,
+          "is_contact": true
+        },
+        {
+          "res_id": "E328",
+          "aa": "E",
+          "pos": 328,
+          "min_dist_angstrom": 3.19,
+          "is_contact": true
+        },
+        {
+          "res_id": "T345",
+          "aa": "T",
+          "pos": 345,
+          "min_dist_angstrom": 24.74,
+          "is_contact": false
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n049",
+      "pdb_id": "13FN",
+      "chain_id": "B",
+      "release_date": "2026-06-17",
+      "resolution": 3.2,
+      "title": "Thermotoga maritima threonylcarbamoyl transfer complex (TsaB2D) in complex with Escherichia coli tRNA(THR)",
+      "stratum": "RNA",
+      "na_sequence": "GCCGAUAUAGCUCAGGGUAGAGCAGCGCAUUCGUAUGCGAAGGUCGUAGGUUCGACUCCUAUUAUCGGCA",
+      "na_length": 70,
+      "length": 206,
+      "sequence": "ASNVLALDTSQRIRIGLRKGEDLFEISYTGEKKHAEILPVVVKKLLDELDLKVKDLDVVGVGIGPGGLTGLRVGIATVVGLVSPYDIPVAPLNSFEMTAKSCPADGVVLVARRARKGYHYCAVYLKDKGLNPLKEPSVVSDEELEEITKEFSPKIVLKDDLLISPAVLVEESERLFREKKTIHYYEIEPLYLQKSIAELNWEKKKR",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "A1",
+          "aa": "A",
+          "pos": 1,
+          "min_dist_angstrom": 30.91,
+          "is_contact": false
+        },
+        {
+          "res_id": "N3",
+          "aa": "N",
+          "pos": 3,
+          "min_dist_angstrom": 27.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "K19",
+          "aa": "K",
+          "pos": 19,
+          "min_dist_angstrom": 30.08,
+          "is_contact": false
+        },
+        {
+          "res_id": "L51",
+          "aa": "L",
+          "pos": 51,
+          "min_dist_angstrom": 26.97,
+          "is_contact": false
+        },
+        {
+          "res_id": "L68",
+          "aa": "L",
+          "pos": 68,
+          "min_dist_angstrom": 3.25,
+          "is_contact": true
+        },
+        {
+          "res_id": "T69",
+          "aa": "T",
+          "pos": 69,
+          "min_dist_angstrom": 2.69,
+          "is_contact": true
+        },
+        {
+          "res_id": "R72",
+          "aa": "R",
+          "pos": 72,
+          "min_dist_angstrom": 3.18,
+          "is_contact": true
+        },
+        {
+          "res_id": "Y85",
+          "aa": "Y",
+          "pos": 85,
+          "min_dist_angstrom": 26.95,
+          "is_contact": false
+        },
+        {
+          "res_id": "I87",
+          "aa": "I",
+          "pos": 87,
+          "min_dist_angstrom": 25.82,
+          "is_contact": false
+        },
+        {
+          "res_id": "Y120",
+          "aa": "Y",
+          "pos": 120,
+          "min_dist_angstrom": 3.66,
+          "is_contact": true
+        },
+        {
+          "res_id": "R177",
+          "aa": "R",
+          "pos": 177,
+          "min_dist_angstrom": 30.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "T181",
+          "aa": "T",
+          "pos": 181,
+          "min_dist_angstrom": 25.96,
+          "is_contact": false
+        },
+        {
+          "res_id": "I196",
+          "aa": "I",
+          "pos": 196,
+          "min_dist_angstrom": 3.49,
+          "is_contact": true
+        },
+        {
+          "res_id": "A197",
+          "aa": "A",
+          "pos": 197,
+          "min_dist_angstrom": 3.48,
+          "is_contact": true
+        },
+        {
+          "res_id": "N200",
+          "aa": "N",
+          "pos": 200,
+          "min_dist_angstrom": 3.34,
+          "is_contact": true
+        },
+        {
+          "res_id": "K204",
+          "aa": "K",
+          "pos": 204,
+          "min_dist_angstrom": 2.85,
+          "is_contact": true
+        }
+      ]
+    },
+    {
+      "target_id": "t12_n050",
+      "pdb_id": "13FO",
+      "chain_id": "D",
+      "release_date": "2026-06-17",
+      "resolution": 3.2,
+      "title": "Thermotoga maritima threonylcarbamoyl transfer complex (TsaB2D) in complex with Thermotoga maritima tRNA(LYS)",
+      "stratum": "RNA",
+      "na_sequence": "GGGCCGUUAGCUCAACAGGUAGAGCACCUGAUUCUUAAUCAGGGGGUUGCAGGUUCGAGUCCUGCACGGCCCA",
+      "na_length": 73,
+      "length": 327,
+      "sequence": "MRVLGIETSCDETAVAVLDDGKNVVVNFTVSQIEVHQKFGGVVPEVAARHHLKNLPILLKKAFEKVPPETVDVVAATYGPGLIGALLVGLSAAKGLAISLEKPFVGVNHVEAHVQAVFLANPDLKPPLVVLMVSGGHTQLMKVDEDYSMEVLGETLDDSAGEAFDKVARLLGLGYPGGPVIDRVAKKGDPEKYSFPRPMLDDDSYNFSFAGLKTSVLYFLQREKGYKVEDVAASFQKAVVDILVEKTFRLARNLGIRKIAFVGGVAANSMLREEVRKRAERWNYEVFFPPLELCTDNALMVAKAGYEKAKRGMFSPLSLNADPNLNV",
+      "n_candidates": 16,
+      "n_pos_charge_pairs": 2,
+      "candidates": [
+        {
+          "res_id": "R2",
+          "aa": "R",
+          "pos": 2,
+          "min_dist_angstrom": 25.11,
+          "is_contact": false
+        },
+        {
+          "res_id": "F39",
+          "aa": "F",
+          "pos": 39,
+          "min_dist_angstrom": 3.11,
+          "is_contact": true
+        },
+        {
+          "res_id": "V42",
+          "aa": "V",
+          "pos": 42,
+          "min_dist_angstrom": 2.79,
+          "is_contact": true
+        },
+        {
+          "res_id": "F63",
+          "aa": "F",
+          "pos": 63,
+          "min_dist_angstrom": 23.75,
+          "is_contact": false
+        },
+        {
+          "res_id": "V66",
+          "aa": "V",
+          "pos": 66,
+          "min_dist_angstrom": 26.22,
+          "is_contact": false
+        },
+        {
+          "res_id": "P67",
+          "aa": "P",
+          "pos": 67,
+          "min_dist_angstrom": 28.81,
+          "is_contact": false
+        },
+        {
+          "res_id": "E69",
+          "aa": "E",
+          "pos": 69,
+          "min_dist_angstrom": 30.91,
+          "is_contact": false
+        },
+        {
+          "res_id": "T70",
+          "aa": "T",
+          "pos": 70,
+          "min_dist_angstrom": 29.14,
+          "is_contact": false
+        },
+        {
+          "res_id": "D123",
+          "aa": "D",
+          "pos": 123,
+          "min_dist_angstrom": 27.8,
+          "is_contact": false
+        },
+        {
+          "res_id": "K125",
+          "aa": "K",
+          "pos": 125,
+          "min_dist_angstrom": 26.86,
+          "is_contact": false
+        },
+        {
+          "res_id": "D158",
+          "aa": "D",
+          "pos": 158,
+          "min_dist_angstrom": 2.92,
+          "is_contact": true
+        },
+        {
+          "res_id": "E162",
+          "aa": "E",
+          "pos": 162,
+          "min_dist_angstrom": 2.71,
+          "is_contact": true
+        },
+        {
+          "res_id": "K166",
+          "aa": "K",
+          "pos": 166,
+          "min_dist_angstrom": 2.96,
+          "is_contact": true
+        },
+        {
+          "res_id": "R169",
+          "aa": "R",
+          "pos": 169,
+          "min_dist_angstrom": 2.76,
+          "is_contact": true
+        },
+        {
+          "res_id": "P198",
+          "aa": "P",
+          "pos": 198,
+          "min_dist_angstrom": 2.77,
+          "is_contact": true
+        },
+        {
+          "res_id": "T214",
+          "aa": "T",
+          "pos": 214,
+          "min_dist_angstrom": 2.83,
+          "is_contact": true
+        }
+      ]
+    }
+  ]
+}
